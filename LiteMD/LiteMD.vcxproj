@@ -90,6 +90,7 @@
   <ItemGroup>
     <ClCompile Include="mdEditor.cpp" />
     <ClCompile Include="mdScreen.cpp" />
+    <ClCompile Include="OrientalPushButton.cpp" />
     <QtRcc Include="LiteMD.qrc" />
     <QtUic Include="LiteMD.ui" />
     <QtMoc Include="LiteMD.h" />
@@ -99,6 +100,7 @@
   <ItemGroup>
     <QtMoc Include="mdEditor.h" />
     <QtMoc Include="mdScreen.h" />
+    <QtMoc Include="OrientalPushButton.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

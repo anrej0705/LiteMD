@@ -21,6 +21,15 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
+    <Filter Include="Интерфейс">
+      <UniqueIdentifier>{22f49d28-f839-478d-bfc6-dd26e3b6d341}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Интерфейс\Хидеры">
+      <UniqueIdentifier>{1bc00614-8712-43f2-aa65-4a0bad2faf7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Интерфейс\Реализации">
+      <UniqueIdentifier>{f40eee28-174b-4d3b-80db-f5e444e4312d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="LiteMD.qrc">
@@ -46,6 +55,9 @@
     <ClCompile Include="mdScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="OrientalPushButton.cpp">
+      <Filter>Интерфейс\Реализации</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -63,6 +75,9 @@
     </QtMoc>
     <QtMoc Include="mdScreen.h">
       <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="OrientalPushButton.h">
+      <Filter>Интерфейс\Хидеры</Filter>
     </QtMoc>
   </ItemGroup>
 </Project>
