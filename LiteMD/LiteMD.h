@@ -11,6 +11,7 @@ class LiteMD : public QMainWindow
 	private:
 		Ui::LiteMDClass ui;
 		QMenu* mHelp;
+		QMenu* mFile;
 		mdEditor* mde;
 		mdScreen* mds;
 	public:
@@ -18,4 +19,6 @@ class LiteMD : public QMainWindow
 		~LiteMD();
 	private slots:
 		void slotAbout();
+	public slots:
+		void slotTitleChanged(QString&);
 };

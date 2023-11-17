@@ -20,6 +20,11 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	QWidget* scrollDock = new QWidget;
 	QWidget* mainWgt = new QWidget;
 	QAction* actAbout = new QAction("&About",0);
+	QAction* actOpen = new QAction("&Open...");
+	QAction* actSave = new QAction("&Save");
+	QAction* actSaveAs = new QAction("S&ave As...");
+	QAction* actQuit = new QAction("&Quit");
+	mFile = new QMenu("&File");
 	mHelp = new QMenu("&Help");
 	//-------------------------
 	
@@ -44,15 +49,31 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//--------------------------------------
 
 	//Блок настроек меню
+	mFile->addAction(actOpen);
+	mFile->addAction(actSave);
+	mFile->addAction(actSaveAs);
+	mFile->addSeparator();
+	mFile->addAction(actQuit);
 	mHelp->addAction(actAbout);
+	menuBar()->addMenu(mFile);
 	menuBar()->addMenu(mHelp);
 	//------------------
 
 	//Блок сигнально-слотовых связей
 	if (!connect(mde, SIGNAL(textEdited(const QString&)), mds, SLOT(slotSetText(const QString&))))
 		QErrorMessage::qtHandler(); //Соединяем сигнал от редактора к слоту изменения текста
+	if (!connect(mde, SIGNAL(titleChanged(QString&)), this, SLOT(slotTitleChanged(QString&))))
+		QErrorMessage::qtHandler();	//Соединяем сигнал открытия файла со слотом изменения заголовка под файл
 	if (!connect(actAbout, SIGNAL(triggered()), this, SLOT(slotAbout())))
 		QErrorMessage::qtHandler();	//Соединяем сигнал со слотом вызова окна о программе
+	if (!connect(actOpen, SIGNAL(triggered()), mde, SLOT(slotOpen())))
+		QErrorMessage::qtHandler();	//Соединяем сигнал со слотом открытия нового файла
+	if (!connect(actSave, SIGNAL(triggered()), mde, SLOT(slotSave())))
+		QErrorMessage::qtHandler();	//Соединяем сигнал со слотом сохранения файла
+	if (!connect(actSaveAs, SIGNAL(triggered()), mde, SLOT(slotSaveAs())))
+		QErrorMessage::qtHandler();	//Соединяем сигнал со слотом набора имени для сохранения
+	if (!connect(actQuit, SIGNAL(triggered()), qApp, SLOT(quit())))
+		QErrorMessage::qtHandler();	//Соединяем сигнал выхода из приложения
 	//------------------------------
 
 	//Рабочий долгосрочный костыль. Создаем пустой виджет и помещаем все в него
@@ -64,7 +85,11 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 }
 void LiteMD::slotAbout()
 {
-	QMessageBox::about(this, "LiteMD", "Ver. rc-20231117 build 47\nBy Anrej0705\nSee me at Github:\ngithub.com/anrej0705");
+	QMessageBox::about(this, "LiteMD", "Ver. rc-20231117 build 54\nBy Anrej0705\nSee me at Github:\ngithub.com/anrej0705");
+}
+void LiteMD::slotTitleChanged(QString& title)
+{
+	setWindowTitle(title);
 }
 
 LiteMD::~LiteMD()

@@ -39,6 +39,7 @@
     <QtInstall>Qt 5.14.2</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
+    <QtDeploy>true</QtDeploy>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
     <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
@@ -61,6 +62,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <PostBuildEvent>
       <Command>C:\git\IncrementBuild-x64.exe configuration "C:\git\LiteMD\LiteMD\ver.ini" binary "$(TargetPath)" string "ConfigurationName" "$(ConfigurationName)" </Command>
+      <Message>Изменение номер билда</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PostBuildEvent>
+      <Command>C:\git\IncrementBuild-x64.exe configuration "C:\git\LiteMD\LiteMD\ver.ini" binary "$(TargetPath)" string "ConfigurationName" "$(ConfigurationName)" </Command>
+      <Message>Изменение номера билда</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
