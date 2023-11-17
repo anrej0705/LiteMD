@@ -30,6 +30,8 @@ void mdEditor::slotOpen()
 }
 void mdEditor::slotSave()
 {
+	QByteArray utf8out;
+	utf8out.append(toPlainText().toUtf8());
 	if (mdFileName.isEmpty())
 	{
 		slotSaveAs();
@@ -38,7 +40,9 @@ void mdEditor::slotSave()
 	QFile saveObject(mdFileName);
 	if (saveObject.open(QIODevice::WriteOnly))
 	{
-		QTextStream(&saveObject) << toPlainText().toUtf8();
+		QTextStream out(&saveObject);
+		out.setCodec("UTF-8");
+		out << toPlainText();
 		saveObject.close();
 		emit titleChanged(mdFileName);
 	}
