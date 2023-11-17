@@ -38,7 +38,7 @@ void mdEditor::slotSave()
 	QFile saveObject(mdFileName);
 	if (saveObject.open(QIODevice::WriteOnly))
 	{
-		QTextStream(&saveObject) << toPlainText();
+		QTextStream(&saveObject) << toPlainText().toUtf8();
 		saveObject.close();
 		emit titleChanged(mdFileName);
 	}
