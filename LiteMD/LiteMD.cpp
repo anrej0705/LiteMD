@@ -89,11 +89,11 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	setCentralWidget(mainWgt);
 
 	//Устанавливаем заголовок окна
-	setWindowTitle("LiteMD rc-20231117");
+	setWindowTitle("LiteMD alpha 0.0.1 build 73");
 }
 void LiteMD::slotAbout()
 {
-	QMessageBox::about(this, "LiteMD", "Ver. rc-20231117 build 54\nBy Anrej0705\nSee me at Github:\ngithub.com/anrej0705");
+	QMessageBox::about(this, "LiteMD", "Ver. alpha 0.0.1 build 73\nBy Anrej0705\nSee me at Github:\ngithub.com/anrej0705\n\nThis app is free for use,modify\nand reupload\n\nI hope u like my app :D");
 }
 void LiteMD::slotTitleChanged(QString& title)
 {
