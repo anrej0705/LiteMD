@@ -1,5 +1,8 @@
 #include <QtWidgets>
 #include "mdEditor.h"
+
+#define MAX_FILESIZE 8192
+
 mdEditor::mdEditor(QWidget* mdWgt) : QTextEdit(mdWgt)
 {
 	//Соединяем базовый сигнал со слотом который будет формировать сигнал высылки текста
@@ -20,6 +23,12 @@ void mdEditor::slotOpen()
 	if (filename.isEmpty())
 		return;
 	QFile fileObject(filename);
+	//Если размер больше 32 килобайт то файл не откроется
+	if (fileObject.size() > MAX_FILESIZE)
+	{
+		QMessageBox::warning(this,"Oversize detected", "Cannot open file because size of this is over 32768 bytes");
+		return;
+	}
 	if (fileObject.open(QIODevice::ReadOnly))
 	{
 		QTextStream mdStream(&fileObject);
