@@ -15,6 +15,7 @@ void mdEditor::slotTextChanged()
 }
 void mdEditor::slotOpen()
 {
+	//Вызываем диалоговое окно открытия
 	QString filename = QFileDialog::getOpenFileName(0, "Open Text/Markdown", "", "*.md ;; *.txt");
 	if (filename.isEmpty())
 		return;
@@ -33,6 +34,7 @@ void mdEditor::slotSave()
 {
 	QByteArray utf8out;
 	utf8out.append(toPlainText().toUtf8());
+	//Если файл ещё ни разу не сохранялся то переходим в слот "Сохранить как"
 	if (mdFileName.isEmpty())
 	{
 		slotSaveAs();
@@ -50,6 +52,7 @@ void mdEditor::slotSave()
 }
 void mdEditor::slotSaveAs()
 {
+	//Вызываем диалоговое окно сохранения
 	QString mdSave = QFileDialog::getSaveFileName(0, "Save Text/Markdown", "Readme", "*.md ;; *.txt");
 	if (!mdSave.isEmpty())
 	{
