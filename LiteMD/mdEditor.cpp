@@ -15,7 +15,7 @@ void mdEditor::slotTextChanged()
 }
 void mdEditor::slotOpen()
 {
-	QString filename = QFileDialog::getOpenFileName(0, "Open Markdown", "", "*.md ;; *.txt");
+	QString filename = QFileDialog::getOpenFileName(0, "Open Text/Markdown", "", "*.md ;; *.txt");
 	if (filename.isEmpty())
 		return;
 	QFile fileObject(filename);
@@ -50,7 +50,7 @@ void mdEditor::slotSave()
 }
 void mdEditor::slotSaveAs()
 {
-	QString mdSave = QFileDialog::getSaveFileName(0, "Save Markdown", "Readme", "*.md ;; *.txt");
+	QString mdSave = QFileDialog::getSaveFileName(0, "Save Text/Markdown", "Readme", "*.md ;; *.txt");
 	if (!mdSave.isEmpty())
 	{
 		mdFileName = mdSave;
