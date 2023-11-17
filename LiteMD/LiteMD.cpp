@@ -4,7 +4,7 @@
 
 LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 {
-	ui.setupUi(this); //Всегда должно быть наверху!
+	//ui.setupUi(this); //Всегда должно быть наверху! UPD - пока отключено
 
 	//Инициализация окон редактора и рендера текста
 	mde = new mdEditor;
@@ -17,6 +17,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//Блок элементов интерфейса
 	OrientablePushButton* btnDown = new OrientablePushButton("--->",this);
 	OrientablePushButton* btnUp = new OrientablePushButton("--->", this);
+	QGroupBox* editorWindow = new QGroupBox("Editor");
+	QGroupBox* viewerWindow = new QGroupBox("Viewer");
 	QWidget* scrollDock = new QWidget;
 	QWidget* mainWgt = new QWidget;
 	QAction* actAbout = new QAction("&About",0);
@@ -29,6 +31,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//-------------------------
 	
 	//Блок менеджеров размещения кнопок
+	QVBoxLayout* editorLay = new QVBoxLayout;
+	QVBoxLayout* viewerLay = new QVBoxLayout;
 	QVBoxLayout* scrollDockLay = new QVBoxLayout;
 	QHBoxLayout* mainWindowHorizontalSetup = new QHBoxLayout;
 	//---------------------------------
@@ -43,9 +47,13 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	scrollDockLay->addWidget(btnDown);
 	scrollDockLay->addSpacing(100);
 	scrollDock->setLayout(scrollDockLay);
-	mainWindowHorizontalSetup->addWidget(mde);
+	editorLay->addWidget(mde);
+	viewerLay->addWidget(mds);
+	editorWindow->setLayout(editorLay);
+	viewerWindow->setLayout(viewerLay);
+	mainWindowHorizontalSetup->addWidget(editorWindow);
 	mainWindowHorizontalSetup->addWidget(scrollDock);
-	mainWindowHorizontalSetup->addWidget(mds);
+	mainWindowHorizontalSetup->addWidget(viewerWindow);
 	//--------------------------------------
 
 	//Блок настроек меню

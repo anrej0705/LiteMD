@@ -3,9 +3,8 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-
-    LiteMD w;
-    w.show();
-    return a.exec();
+    QApplication mdApp(argc, argv);
+    LiteMD sdiEditor;
+	sdiEditor.show();
+    return mdApp.exec();
 }
