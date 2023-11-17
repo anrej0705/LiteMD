@@ -22,6 +22,7 @@ void mdEditor::slotOpen()
 	if (fileObject.open(QIODevice::ReadOnly))
 	{
 		QTextStream mdStream(&fileObject);
+		mdStream.setCodec("UTF-8");
 		setPlainText(mdStream.readAll());
 		fileObject.close();
 		mdFileName = filename;
