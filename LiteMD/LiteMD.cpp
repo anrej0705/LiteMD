@@ -2,6 +2,9 @@
 #include "OrientalPushButton.h"
 #include <QtWidgets>
 
+//Номер билда, пока задаётся вручную
+#define buildNumber 84
+
 LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 {
 	//ui.setupUi(this); //Всегда должно быть наверху! UPD - пока отключено
@@ -89,11 +92,14 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	setCentralWidget(mainWgt);
 
 	//Устанавливаем заголовок окна
-	setWindowTitle("LiteMD alpha 0.0.1 build 73");
+	setWindowTitle("LiteMD alpha 0.0.1 build 84");
+	
+	//Показываем сообщение готовности к работе
+	statusBar()->showMessage("Ready", 3000);
 }
 void LiteMD::slotAbout()
 {
-	QMessageBox::about(this, "LiteMD", "Ver. alpha 0.0.1 build 73\nBy Anrej0705\nSee me at Github:\ngithub.com/anrej0705\n\nThis app is free for use,modify\nand reupload\n\nI hope u like my app :D");
+	QMessageBox::about(this, "LiteMD", "Ver. alpha 0.0.1 build 84\nBy Anrej0705\nSee me at Github:\ngithub.com/anrej0705\n\nThis app is free for use,modify\nand reupload\n\nI hope u like my app :D");
 }
 void LiteMD::slotTitleChanged(QString& title)
 {
