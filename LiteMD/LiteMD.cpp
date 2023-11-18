@@ -85,6 +85,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler();	//Соединяем сигнал со слотом набора имени для сохранения
 	if (!connect(actQuit, SIGNAL(triggered()), qApp, SLOT(quit())))
 		QErrorMessage::qtHandler();	//Соединяем сигнал выхода из приложения
+	if (!connect(mde, SIGNAL(hyperlinkDetected(int)), mds, SLOT(slotSetHyperlink(int))))
+		QErrorMessage::qtHandler();	//Соединяем сигнал обнаружения гиперссылки
 	//------------------------------
 
 	//Рабочий долгосрочный костыль. Создаем пустой виджет и помещаем все в него
@@ -92,14 +94,14 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	setCentralWidget(mainWgt);
 
 	//Устанавливаем заголовок окна
-	setWindowTitle("LiteMD alpha 0.0.1 build 84");
+	setWindowTitle("LiteMD alpha 0.0.1 build " + QString::number(buildNumber));
 	
 	//Показываем сообщение готовности к работе
 	statusBar()->showMessage("Ready", 3000);
 }
 void LiteMD::slotAbout()
 {
-	QMessageBox::about(this, "LiteMD", "Ver. alpha 0.0.1 build 84\nBy Anrej0705\nSee me at Github:\ngithub.com/anrej0705\n\nThis app is free for use,modify\nand reupload\n\nI hope u like my app :D");
+	QMessageBox::about(this, "LiteMD", "Ver. alpha 0.0.1 build " + QString::number(buildNumber) + "\nBy Anrej0705\nSee me at Github:\ngithub.com/anrej0705\n\nThis app is free for use,modify\nand reupload\n\nI hope u like my app :D");
 }
 void LiteMD::slotTitleChanged(QString& title)
 {

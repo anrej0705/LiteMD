@@ -1,10 +1,11 @@
 #include <QtWidgets>
 #include "mdEditor.h"
 
-#define MAX_FILESIZE 8192
+#define MAX_FILESIZE 65536
 
 mdEditor::mdEditor(QWidget* mdWgt) : QTextEdit(mdWgt)
 {
+	hyperlink = new QRegExp("(?:https?|http?|ftp)://\\S+");
 	//Соединяем базовый сигнал со слотом который будет формировать сигнал высылки текста
 	if (!connect(this, SIGNAL(textChanged()), this, SLOT(slotTextChanged())))
 		QErrorMessage::qtHandler();
@@ -12,9 +13,16 @@ mdEditor::mdEditor(QWidget* mdWgt) : QTextEdit(mdWgt)
 //Слот генерирующий сигнал с текущим текстом в виджете
 void mdEditor::slotTextChanged()
 {
+	int regDetect = 0;
 	//Создаем контейнер, помещаем содержимое и высылаем
 	QString textToShow = QString(this->toPlainText());
 	emit textEdited(textToShow);
+	while((regDetect = hyperlink->indexIn(textToShow, regDetect)) != -1)
+	{
+		//qDebug() << "Found " << QString::number(regDetect);
+		emit hyperlinkDetected(regDetect);
+		regDetect += hyperlink->matchedLength();
+	}
 }
 void mdEditor::slotOpen()
 {
@@ -23,10 +31,10 @@ void mdEditor::slotOpen()
 	if (filename.isEmpty())
 		return;
 	QFile fileObject(filename);
-	//Если размер больше 32 килобайт то файл не откроется
+	//Если размер больше 64 килобайт то файл не откроется
 	if (fileObject.size() > MAX_FILESIZE)
 	{
-		QMessageBox::warning(this,"Oversize detected", "Cannot open file because size of this is over 32768 bytes");
+		QMessageBox::warning(this,"Oversize detected", "Cannot open file because size of this is over " + QString::number(MAX_FILESIZE) + " bytes");
 		return;
 	}
 	if (fileObject.open(QIODevice::ReadOnly))
