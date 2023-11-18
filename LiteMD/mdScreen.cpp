@@ -21,8 +21,8 @@ void mdScreen::slotSetHyperlink(int start)
 	std::string ref(mdInput.toStdString());
 	//std::string plaintxt(ref.substr(0, start));
 	//this->setText(QString::fromStdString(plaintxt));
-	ref.insert(start, 1, '!');
-	for (uint16_t index = start;index < ref.size();++index)
+	//ref.insert(start, 1, '!');
+	for (uint16_t index = start+1;index < ref.size();++index)
 	{
 		if (ref[index] == ' ')
 		{
@@ -33,6 +33,7 @@ void mdScreen::slotSetHyperlink(int start)
 			size = index - start+1;
 	}
 	ref.insert(size+start, 1, '!');
-	//qDebug() << "Detect regular expression at " << QString::number(start) << " pos and " << QString::number(size+1) << " size. Substr = " << QString::fromStdString(ref.substr(start,size+1));
-	//this->setText(QString::fromStdString(ref));
+	qDebug() << "Detect regular expression at " << QString::number(start) << " pos and " << QString::number(size+1) << " size. Substr = " << QString::fromStdString(ref.substr(start,size+1));
+	this->setText(QString::fromStdString(ref));
+	mdInput = QString::fromStdString(ref);
 }

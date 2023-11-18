@@ -13,8 +13,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mde = new mdEditor;
 	mds = new mdScreen;
 	//Пока костыли, позже сниму
-	mde->setFixedSize(320, 480);
-	mds->setFixedSize(320, 480);
+	mde->setFixedSize(800, 600);
+	mds->setFixedSize(800, 600);
 	//---------------------------------------------
 
 	//Блок элементов интерфейса
