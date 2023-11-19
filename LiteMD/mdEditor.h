@@ -11,7 +11,8 @@ class mdEditor : public QTextEdit
 	signals:
 		void textEdited(const QString&);	//Отправляется при изменении текста
 		void titleChanged(const QString&);	//Отправлятся при открытии/сохранении файла
-		void hyperlinkDetected(int);		//Отправляется при обнаружении конструкции http://* и аналогов
+		void hyperlinkDetected(int,int);	//Отправляется при обнаружении конструкции http://* и аналогов
+		void hyperlinkRemoved(int);
 	private slots:
 		void slotTextChanged();	//Принимает сигнал textChanged() от базового виджета QTextEdited
 	public slots:

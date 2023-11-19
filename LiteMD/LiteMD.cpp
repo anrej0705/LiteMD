@@ -13,8 +13,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mde = new mdEditor;
 	mds = new mdScreen;
 	//Пока костыли, позже сниму
-	mde->setFixedSize(800, 600);
-	mds->setFixedSize(800, 600);
+	mde->setFixedSize(400, 600);
+	mds->setFixedSize(400, 600);
 	//---------------------------------------------
 
 	//Блок элементов интерфейса
@@ -85,7 +85,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler();	//Соединяем сигнал со слотом набора имени для сохранения
 	if (!connect(actQuit, SIGNAL(triggered()), qApp, SLOT(quit())))
 		QErrorMessage::qtHandler();	//Соединяем сигнал выхода из приложения
-	if (!connect(mde, SIGNAL(hyperlinkDetected(int)), mds, SLOT(slotSetHyperlink(int))))
+	if (!connect(mde, SIGNAL(hyperlinkDetected(int,int)), mds, SLOT(slotSetHyperlink(int,int))))
 		QErrorMessage::qtHandler();	//Соединяем сигнал обнаружения гиперссылки
 	//------------------------------
 

@@ -5,7 +5,6 @@
 
 mdEditor::mdEditor(QWidget* mdWgt) : QTextEdit(mdWgt)
 {
-	hyperlink = new QRegExp("(?:https?|http?|ftp)://\\S+");
 	//Соединяем базовый сигнал со слотом который будет формировать сигнал высылки текста
 	if (!connect(this, SIGNAL(textChanged()), this, SLOT(slotTextChanged())))
 		QErrorMessage::qtHandler();
@@ -13,16 +12,10 @@ mdEditor::mdEditor(QWidget* mdWgt) : QTextEdit(mdWgt)
 //Слот генерирующий сигнал с текущим текстом в виджете
 void mdEditor::slotTextChanged()
 {
-	int regDetect = 0;
+	int searchIndex = 0;
 	//Создаем контейнер, помещаем содержимое и высылаем
 	QString textToShow = QString(this->toPlainText());
 	emit textEdited(textToShow);
-	while((regDetect = hyperlink->indexIn(textToShow, regDetect)) != -1)
-	{
-		//qDebug() << "Found " << QString::number(regDetect);
-		emit hyperlinkDetected(regDetect);
-		regDetect += hyperlink->matchedLength();
-	}
 }
 void mdEditor::slotOpen()
 {

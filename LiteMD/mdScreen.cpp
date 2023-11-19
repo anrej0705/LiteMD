@@ -12,28 +12,18 @@ mdScreen::mdScreen(QWidget* scrWgt) : QLabel(scrWgt)
 //Простой слот - принимает сигнал и изменяет виджет
 void mdScreen::slotSetText(const QString& str)
 {
-	mdInput = str;
-	this->setText(str);
+	mdInput = str.toStdString();
+	mdFormatted = QString::fromStdString(mdInput);
+	this->setText(mdFormatted);
 }
-void mdScreen::slotSetHyperlink(int start)
+void mdScreen::slotSetHyperlink(int start,int length)
 {
-	int size = 0;
-	std::string ref(mdInput.toStdString());
-	//std::string plaintxt(ref.substr(0, start));
-	//this->setText(QString::fromStdString(plaintxt));
-	//ref.insert(start, 1, '!');
-	for (uint16_t index = start+1;index < ref.size();++index)
-	{
-		if (ref[index] == ' ')
-		{
-			size = index - start;
-			break;
-		}
-		else if (index == ref.size()-1)
-			size = index - start+1;
-	}
-	ref.insert(size+start, 1, '!');
-	qDebug() << "Detect regular expression at " << QString::number(start) << " pos and " << QString::number(size+1) << " size. Substr = " << QString::fromStdString(ref.substr(start,size+1));
-	this->setText(QString::fromStdString(ref));
-	mdInput = QString::fromStdString(ref);
+
+	//std::string leftPart = mdInput.substr(0, start);
+	//std::string rigthPart = mdInput.substr(length, mdInput.size());
+	//std::string url = mdInput.substr(start, length-start);
+	//url = leftPart + "<a href=\"" + url + "\">" + url + "" + rigthPart;
+	//mdInput = url;
+	//mdFormatted = QString::fromStdString(mdInput);
+	//this->setText(mdFormatted);
 }
