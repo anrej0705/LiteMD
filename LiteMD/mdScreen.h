@@ -7,8 +7,8 @@ class mdScreen : public QLabel
 	Q_OBJECT
 	private:
 		int lengShift;
-		std::regex* regexHyperlink;
-		std::string mdInput;
+		std::wregex* regexHyperlink;
+		std::wstring mdInput;
 		QString mdFormatted;
 	public:
 		mdScreen(QWidget* scrWgt = 0);

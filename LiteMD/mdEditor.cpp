@@ -15,7 +15,7 @@ void mdEditor::slotTextChanged()
 {
 	int searchIndex = 0;
 	//Создаем контейнер, помещаем содержимое и высылаем
-	QString textToShow = QString(this->toPlainText().toUtf8());
+	QString textToShow = QString(this->toPlainText());
 	emit textEdited(textToShow);
 }
 void mdEditor::slotOpen()
