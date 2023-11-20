@@ -3,7 +3,7 @@
 #include <QtWidgets>
 
 //Номер билда, пока задаётся вручную
-#define buildNumber 312
+#define buildNumber 356
 
 LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 {
@@ -100,14 +100,16 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	setCentralWidget(mainWgt);
 
 	//Устанавливаем заголовок окна
-	setWindowTitle("LiteMD alpha 0.1.1 build " + QString::number(buildNumber));
+	setWindowTitle("LiteMD alpha 0.1.2 build " + QString::number(buildNumber));
 	
+	setWindowIcon(QIcon("icon.ico"));
+
 	//Показываем сообщение готовности к работе
 	statusBar()->showMessage("Ready", 3000);
 }
 void LiteMD::slotAbout()
 {
-	QMessageBox::about(this, "LiteMD", "Ver. alpha 0.1.1 build " + QString::number(buildNumber) + "\nBy Anrej0705\nSee me at Github:\ngithub.com/anrej0705\n\nThis app is free for use,modify\nand reupload\n\nI hope u like my app :D");
+	QMessageBox::about(this, "LiteMD", "Ver. alpha 0.1.2 build " + QString::number(buildNumber) + "\nBy Anrej0705\nSee me at Github:\ngithub.com/anrej0705\n\nThis app is free for use,modify\nand reupload\n\nI hope u like my app :D");
 }
 void LiteMD::slotTitleChanged(QString& title)
 {
