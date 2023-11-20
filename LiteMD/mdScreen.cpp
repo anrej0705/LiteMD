@@ -13,7 +13,7 @@ struct visualTags
 mdScreen::mdScreen(QWidget* scrWgt) : QLabel(scrWgt)
 {
 	lengShift = 0;
-	regexHyperlink = new std::regex("[<]{1,1}\\S{1,}[>]{1,1}");
+	regexHyperlink = new std::regex("[<]{1,1}\\S{1,}[>]{1,1}", std::regex::collate);
 	setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	setTextInteractionFlags(Qt::TextBrowserInteraction);
 	setOpenExternalLinks(1);
@@ -31,6 +31,12 @@ void mdScreen::slotSetText(const QString& str)
 	std::string test;
 
 	lengShift = 0;
+
+	int i = 0;
+	QRegExp rx("[<]{1,1}\\S{1,}[>]{1,1}");
+	rx.setPatternSyntax(QRegExp::Wildcard);
+	i = rx.indexIn(mdFormatted);
+	i = rx.indexIn(mdFormatted);
 
 	for (std::sregex_iterator i = beg; i != end;++i)
 	{

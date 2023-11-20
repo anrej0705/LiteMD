@@ -5,6 +5,7 @@
 
 mdEditor::mdEditor(QWidget* mdWgt) : QTextEdit(mdWgt)
 {
+	setAcceptRichText(0);
 	//Соединяем базовый сигнал со слотом который будет формировать сигнал высылки текста
 	if (!connect(this, SIGNAL(textChanged()), this, SLOT(slotTextChanged())))
 		QErrorMessage::qtHandler();
@@ -14,7 +15,7 @@ void mdEditor::slotTextChanged()
 {
 	int searchIndex = 0;
 	//Создаем контейнер, помещаем содержимое и высылаем
-	QString textToShow = QString(this->toPlainText());
+	QString textToShow = QString(this->toPlainText().toUtf8());
 	emit textEdited(textToShow);
 }
 void mdEditor::slotOpen()

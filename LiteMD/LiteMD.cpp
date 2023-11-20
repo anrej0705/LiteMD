@@ -14,10 +14,11 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mds = new mdScreen;
 	//Пока костыли, позже сниму
 	mde->setFixedSize(400, 600);
-	mds->setFixedSize(400, 600);
+	//mds->setFixedSize(400, 600);
 	//---------------------------------------------
 
 	//Блок элементов интерфейса
+	QScrollArea* mdsArea = new QScrollArea;
 	OrientablePushButton* btnDown = new OrientablePushButton("--->",this);
 	OrientablePushButton* btnUp = new OrientablePushButton("--->", this);
 	QGroupBox* editorWindow = new QGroupBox("Editor");
@@ -41,6 +42,11 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//---------------------------------
 
 	//Блок конфигурации элементов интерфейса
+	mdsArea->setWidgetResizable(1);
+	mdsArea->setFixedSize(400, 600);
+	mdsArea->setWidget(mds);
+	mds->setFixedWidth(400-2);
+	mds->setWordWrap(1);
 	btnUp->setOrientation(OrientablePushButton::VerticalBottomTop);
 	btnDown->setOrientation(OrientablePushButton::VerticalTopBottom);
 	btnUp->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
@@ -53,7 +59,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	scrollDockLay->addSpacing(100);
 	scrollDock->setLayout(scrollDockLay);
 	editorLay->addWidget(mde);
-	viewerLay->addWidget(mds);
+	viewerLay->addWidget(mdsArea);
 	editorWindow->setLayout(editorLay);
 	viewerWindow->setLayout(viewerLay);
 	mainWindowHorizontalSetup->addWidget(editorWindow);
