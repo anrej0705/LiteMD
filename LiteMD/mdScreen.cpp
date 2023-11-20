@@ -43,13 +43,14 @@ void mdScreen::slotSetText(const QString& str)
 		//Вытаскиваем из текста чистую ссылку
 		buffer = std::string(mdFormatted.toStdString()).substr(i->position() + lengShift + vType.tag_href_open.size() + 1,i->length()-2);
 		//Прикрепляем закрывающий тег
-		mdFormatted.insert(i->position() + buffer.size() + vType.tag_href_open.size(), QString::fromStdString(vType.tag_href_close));
+		mdFormatted.insert(i->position() + buffer.size() + vType.tag_href_open.size() + lengShift + 1, QString::fromStdString(vType.tag_href_close));
 		test = mdFormatted.toStdString();
 		//Прикрепляем подпись ссылки
-		mdFormatted.append(QString::fromStdString(buffer));
+		mdFormatted.insert(i->position() + buffer.size() + vType.tag_href_open.size() + vType.tag_href_close.size() + lengShift + 2,QString::fromStdString(buffer));
 		test = mdFormatted.toStdString();
 		//Прикрепляем закрывающий тег
-		mdFormatted.append(QString::fromStdString(vType.tag_href_end));
+		mdFormatted.insert(i->position() + buffer.size() + vType.tag_href_open.size() + vType.tag_href_close.size() + buffer.size() + lengShift + 2, QString::fromStdString(vType.tag_href_end));
+		//mdFormatted.append(QString::fromStdString(vType.tag_href_end));
 		test = mdFormatted.toStdString();
 		//Вычисляем смещение открывающий тег + закрывающая часть тега + вставленное текстовое представление ссылки+ закрывающий тег
 		lengShift += vType.tag_href_open.size() + vType.tag_href_close.size() + buffer.size() + vType.tag_href_end.size();
