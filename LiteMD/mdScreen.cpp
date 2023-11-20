@@ -12,11 +12,24 @@ struct visualTags
 
 mdScreen::mdScreen(QWidget* scrWgt) : QLabel(scrWgt)
 {
+	setTextFormat(Qt::RichText);
 	lengShift = 0;
 	regexHyperlink = new std::wregex(L"[<]{1,1}\\S{1,}[>]{1,1}", std::wregex::collate);
 	setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	setTextInteractionFlags(Qt::TextBrowserInteraction);
 	setOpenExternalLinks(1);
+}
+//Обработка переноса строк(подстановка <BR> вместо \n
+void processCRLF(QString &str)
+{
+	for (int i = 0;i < str.size();++i)
+	{
+		if (str[i] == '\n')
+		{
+			str.replace(i, 1, "<BR>");
+			processCRLF(str);
+		}
+	}
 }
 //Простой слот - принимает сигнал и изменяет виджет
 void mdScreen::slotSetText(const QString& str)
@@ -24,6 +37,7 @@ void mdScreen::slotSetText(const QString& str)
 	mdInput = str.toStdWString();
 	mdFormatted = QString::fromStdWString(mdInput);
 
+	//Обрабатываем и вставляем ссылки
 	//Ищем ссылки с помощью регулярного выражения
 	std::wsregex_iterator beg{mdInput.cbegin(),mdInput.cend(),*regexHyperlink};
 	std::wsregex_iterator end{};
@@ -52,6 +66,8 @@ void mdScreen::slotSetText(const QString& str)
 		lengShift += vType.tag_href_open.size() + vType.tag_href_close.size() + buffer.size() + vType.tag_href_end.size();
 		debugPeek = mdFormatted.toStdWString();
 	}
+	
+	processCRLF(mdFormatted);
 
 	this->setText(mdFormatted);
 }
