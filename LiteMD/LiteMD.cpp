@@ -13,7 +13,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mde = new mdEditor;
 	mds = new mdScreen;
 	//Пока костыли, позже сниму
-	mde->setFixedSize(400, 600);
+	//mde->setFixedSize(400, 600);
 	//mds->setFixedSize(400, 600);
 	//---------------------------------------------
 
@@ -43,7 +43,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 
 	//Блок конфигурации элементов интерфейса
 	mdsArea->setWidgetResizable(1);
-	mdsArea->setFixedSize(400, 600);
+	//mdsArea->setFixedSize(400, 600);
 	mdsArea->setWidget(mds);
 	mds->setFixedWidth(400-2);
 	mds->setWordWrap(1);
@@ -65,6 +65,10 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mainWindowHorizontalSetup->addWidget(editorWindow);
 	mainWindowHorizontalSetup->addWidget(scrollDock);
 	mainWindowHorizontalSetup->addWidget(viewerWindow);
+	mde->resize(editorLay->sizeHint());
+	mde->setMinimumWidth(320);
+	mds->setMinimumWidth(320);
+	mdsArea->resize(viewerWindow->sizeHint());
 	//--------------------------------------
 
 	//Блок настроек меню
