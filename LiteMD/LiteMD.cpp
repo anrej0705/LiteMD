@@ -28,8 +28,12 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	QAction* actSaveAs = new QAction("S&ave As...");
 	QAction* actQuit = new QAction("&Quit");
 	mFile = new QMenu("&File");
+	mSettings = new QMenu("&Settings");
 	mHelp = new QMenu("&Help");
 	//-------------------------
+
+	//Отключено пока не будут добавлены пункты
+	mSettings->setEnabled(0);
 	
 	//Блок менеджеров размещения кнопок
 	QVBoxLayout* editorLay = new QVBoxLayout;
@@ -74,6 +78,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mFile->addAction(actQuit);
 	mHelp->addAction(actAbout);
 	menuBar()->addMenu(mFile);
+	menuBar()->addMenu(mSettings);
 	menuBar()->addMenu(mHelp);
 	//------------------
 

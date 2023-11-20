@@ -12,6 +12,7 @@ class LiteMD : public QMainWindow
 		Ui::LiteMDClass ui;
 		QMenu* mHelp;
 		QMenu* mFile;
+		QMenu* mSettings;
 		mdEditor* mde;
 		mdScreen* mds;
 	public:
