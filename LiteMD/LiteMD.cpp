@@ -12,9 +12,6 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//Инициализация окон редактора и рендера текста
 	mde = new mdEditor;
 	mds = new mdScreen;
-	//Пока костыли, позже сниму
-	//mde->setFixedSize(400, 600);
-	//mds->setFixedSize(400, 600);
 	//---------------------------------------------
 
 	//Блок элементов интерфейса
@@ -43,7 +40,6 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 
 	//Блок конфигурации элементов интерфейса
 	mdsArea->setWidgetResizable(1);
-	//mdsArea->setFixedSize(400, 600);
 	mdsArea->setWidget(mds);
 	mds->setFixedWidth(400-2);
 	mds->setWordWrap(1);
@@ -106,6 +102,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//Устанавливаем заголовок окна
 	setWindowTitle("LiteMD alpha 0.1.2 build " + QString::number(buildNumber));
 	
+	//Устанавливаем иконку приложения
 	setWindowIcon(QIcon("icon.ico"));
 
 	//Показываем сообщение готовности к работе
