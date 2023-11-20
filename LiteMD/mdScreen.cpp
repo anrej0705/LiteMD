@@ -14,10 +14,7 @@ mdScreen::mdScreen(QWidget* scrWgt) : QLabel(scrWgt)
 {
 	lengShift = 0;
 	regexHyperlink = new std::regex("[<]{1,1}\\S{1,}[>]{1,1}");
-	QString link = "http://www.google.com";
 	setAlignment(Qt::AlignLeft | Qt::AlignTop);
-	//setText("test");
-	setText("<a href=\"" + link + "\">"+ link + "</a> that no link");
 	setTextInteractionFlags(Qt::TextBrowserInteraction);
 	setOpenExternalLinks(1);
 }
@@ -50,7 +47,6 @@ void mdScreen::slotSetText(const QString& str)
 		test = mdFormatted.toStdString();
 		//Прикрепляем закрывающий тег
 		mdFormatted.insert(i->position() + buffer.size() + vType.tag_href_open.size() + vType.tag_href_close.size() + buffer.size() + lengShift + 2, QString::fromStdString(vType.tag_href_end));
-		//mdFormatted.append(QString::fromStdString(vType.tag_href_end));
 		test = mdFormatted.toStdString();
 		//Вычисляем смещение открывающий тег + закрывающая часть тега + вставленное текстовое представление ссылки+ закрывающий тег
 		lengShift += vType.tag_href_open.size() + vType.tag_href_close.size() + buffer.size() + vType.tag_href_end.size();
