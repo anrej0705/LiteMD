@@ -45,6 +45,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	btnDown->setOrientation(OrientablePushButton::VerticalTopBottom);
 	btnUp->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
 	btnDown->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
+	btnUp->setEnabled(0);	//Пока что отключаем до реализации механики кнопки
+	btnDown->setEnabled(0);	//Пока что отключаем до реализации механики кнопки
 	scrollDockLay->addSpacing(100);
 	scrollDockLay->addWidget(btnUp);
 	scrollDockLay->addWidget(btnDown);
@@ -85,8 +87,6 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler();	//Соединяем сигнал со слотом набора имени для сохранения
 	if (!connect(actQuit, SIGNAL(triggered()), qApp, SLOT(quit())))
 		QErrorMessage::qtHandler();	//Соединяем сигнал выхода из приложения
-	if (!connect(mde, SIGNAL(hyperlinkDetected(int,int)), mds, SLOT(slotSetHyperlink(int,int))))
-		QErrorMessage::qtHandler();	//Соединяем сигнал обнаружения гиперссылки
 	//------------------------------
 
 	//Рабочий долгосрочный костыль. Создаем пустой виджет и помещаем все в него
