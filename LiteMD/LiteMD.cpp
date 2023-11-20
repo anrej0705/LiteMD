@@ -97,6 +97,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler();	//Соединяем сигнал со слотом набора имени для сохранения
 	if (!connect(actQuit, SIGNAL(triggered()), qApp, SLOT(quit())))
 		QErrorMessage::qtHandler();	//Соединяем сигнал выхода из приложения
+	if (!connect(mde, SIGNAL(statusString(QString)), this, SLOT(slot_mbar_send_string(QString))))
+		QErrorMessage::qtHandler();
 	//------------------------------
 
 	//Рабочий долгосрочный костыль. Создаем пустой виджет и помещаем все в него
@@ -104,7 +106,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	setCentralWidget(mainWgt);
 
 	//Устанавливаем заголовок окна
-	setWindowTitle("LiteMD alpha 0.1.3 build " + QString::number(buildNumber));
+	setWindowTitle("LiteMD alpha 0.1.3 build " + QString::number(buildNumber) + "[MAX FILE SIZE 65K]");
 	
 	//Устанавливаем иконку приложения
 	setWindowIcon(QIcon("icon.ico"));
@@ -119,6 +121,10 @@ void LiteMD::slotAbout()
 void LiteMD::slotTitleChanged(QString& title)
 {
 	setWindowTitle(title);
+}
+void LiteMD::slot_mbar_send_string(const QString& str)
+{
+	statusBar()->showMessage(str, 4000);
 }
 
 LiteMD::~LiteMD()

@@ -39,6 +39,7 @@ void mdEditor::slotOpen()
 		fileObject.close();
 		mdFileName = filename;
 		emit titleChanged(mdFileName);
+		emit statusString("Opened " + mdFileName);
 	}
 }
 void mdEditor::slotSave()
@@ -69,5 +70,6 @@ void mdEditor::slotSaveAs()
 	{
 		mdFileName = mdSave;
 		slotSave();
+		emit statusString("Saved " + mdSave);
 	}
 }

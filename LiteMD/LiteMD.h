@@ -20,6 +20,7 @@ class LiteMD : public QMainWindow
 		~LiteMD();
 	private slots:
 		void slotAbout();
+		void slot_mbar_send_string(const QString&);
 	public slots:
 		void slotTitleChanged(QString&);
 };
