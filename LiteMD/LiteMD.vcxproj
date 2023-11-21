@@ -103,24 +103,36 @@
       <Command>C:\git\IncrementBuild-x64.exe configuration "C:\git\LiteMD\LiteMD\ver.ini" binary "$(TargetPath)" string "ConfigurationName" "$(ConfigurationName)" </Command>
       <Message>Изменение номер билда</Message>
     </PostBuildEvent>
+    <QtTranslation>
+      <BuildAction>lupdate</BuildAction>
+    </QtTranslation>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <PostBuildEvent>
       <Command>C:\git\IncrementBuild-x64.exe configuration "C:\git\LiteMD\LiteMD\ver.ini" binary "$(TargetPath)" string "ConfigurationName" "$(ConfigurationName)" </Command>
       <Message>Изменение номер билда</Message>
     </PostBuildEvent>
+    <QtTranslation>
+      <BuildAction>lupdate</BuildAction>
+    </QtTranslation>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <PostBuildEvent>
       <Command>C:\git\IncrementBuild-x64.exe configuration "C:\git\LiteMD\LiteMD\ver.ini" binary "$(TargetPath)" string "ConfigurationName" "$(ConfigurationName)" </Command>
       <Message>Изменение номера билда</Message>
     </PostBuildEvent>
+    <QtTranslation>
+      <BuildAction>lupdate_lrelease</BuildAction>
+    </QtTranslation>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <PostBuildEvent>
       <Command>C:\git\IncrementBuild-x64.exe configuration "C:\git\LiteMD\LiteMD\ver.ini" binary "$(TargetPath)" string "ConfigurationName" "$(ConfigurationName)" </Command>
       <Message>Изменение номера билда</Message>
     </PostBuildEvent>
+    <QtTranslation>
+      <BuildAction>lupdate_lrelease</BuildAction>
+    </QtTranslation>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
@@ -198,6 +210,7 @@
   <ItemGroup>
     <QtTranslation Include="LiteMD_en.ts" />
     <QtTranslation Include="LiteMD_ru.ts" />
+    <QtTranslation Include="LiteMD_ru_UA.ts" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

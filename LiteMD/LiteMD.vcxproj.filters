@@ -101,5 +101,8 @@
     <QtTranslation Include="LiteMD_ru.ts">
       <Filter>Translation Files</Filter>
     </QtTranslation>
+    <QtTranslation Include="LiteMD_ru_UA.ts">
+      <Filter>Translation Files</Filter>
+    </QtTranslation>
   </ItemGroup>
 </Project>
