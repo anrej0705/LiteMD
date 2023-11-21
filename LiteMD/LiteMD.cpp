@@ -68,7 +68,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mainWindowHorizontalSetup->addWidget(viewerWindow);
 	mde->resize(editorLay->sizeHint());
 	mde->setMinimumWidth(320);
-	mds->setMinimumWidth(320);
+	mdsArea->setMinimumWidth(320);
 	mdsArea->resize(viewerWindow->sizeHint());
 	//--------------------------------------
 
