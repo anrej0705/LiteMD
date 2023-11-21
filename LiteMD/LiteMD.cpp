@@ -18,18 +18,18 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	QScrollArea* mdsArea = new QScrollArea;
 	OrientablePushButton* btnDown = new OrientablePushButton("--->",this);
 	OrientablePushButton* btnUp = new OrientablePushButton("--->", this);
-	QGroupBox* editorWindow = new QGroupBox("Editor");
-	QGroupBox* viewerWindow = new QGroupBox("Viewer");
+	QGroupBox* editorWindow = new QGroupBox(tr("Editor"));
+	QGroupBox* viewerWindow = new QGroupBox(tr("Viewer"));
 	QWidget* scrollDock = new QWidget;
 	QWidget* mainWgt = new QWidget;
-	QAction* actAbout = new QAction("&About",0);
-	QAction* actOpen = new QAction("&Open...");
-	QAction* actSave = new QAction("&Save");
-	QAction* actSaveAs = new QAction("S&ave As...");
-	QAction* actQuit = new QAction("&Quit");
-	mFile = new QMenu("&File");
-	mSettings = new QMenu("&Settings");
-	mHelp = new QMenu("&Help");
+	QAction* actAbout = new QAction(tr("&About"),0);
+	QAction* actOpen = new QAction(tr("&Open..."));
+	QAction* actSave = new QAction(tr("&Save"));
+	QAction* actSaveAs = new QAction(tr("S&ave As..."));
+	QAction* actQuit = new QAction(tr("&Quit"));
+	mFile = new QMenu(tr("&File"));
+	mSettings = new QMenu(tr("&Settings"));
+	mHelp = new QMenu(tr("&Help"));
 	//-------------------------
 
 	//Отключено пока не будут добавлены пункты
@@ -106,17 +106,17 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	setCentralWidget(mainWgt);
 
 	//Устанавливаем заголовок окна
-	setWindowTitle("LiteMD alpha 0.1.3 build " + QString::number(buildNumber) + "[MAX FILE SIZE 65K]");
+	setWindowTitle(tr("LiteMD alpha 0.1.3 build ") + QString::number(buildNumber) + tr("[MAX FILE SIZE 65K]"));
 	
 	//Устанавливаем иконку приложения
 	setWindowIcon(QIcon("icon.ico"));
 
 	//Показываем сообщение готовности к работе
-	statusBar()->showMessage("Ready", 3000);
+	statusBar()->showMessage(tr("Ready"), 3000);
 }
 void LiteMD::slotAbout()
 {
-	QMessageBox::about(this, "LiteMD", "Ver. alpha 0.1.3 build " + QString::number(buildNumber) + "\nBy Anrej0705\nSee me at Github:\ngithub.com/anrej0705\n\nThis app is free for use,modify\nand reupload\n\nI hope u like my app :D");
+	QMessageBox::about(this, "LiteMD", tr("Ver. alpha 0.1.3 build ") + QString::number(buildNumber) + tr("\nBy anrej0705\nSee me at Github:\ngithub.com/anrej0705\n\nThis app is free for use,modify\nand reupload\n\nI hope u like my app :D"));
 }
 void LiteMD::slotTitleChanged(QString& title)
 {

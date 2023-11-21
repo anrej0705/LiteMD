@@ -21,14 +21,14 @@ void mdEditor::slotTextChanged()
 void mdEditor::slotOpen()
 {
 	//Вызываем диалоговое окно открытия
-	QString filename = QFileDialog::getOpenFileName(0, "Open Text/Markdown", "", "*.md ;; *.txt");
+	QString filename = QFileDialog::getOpenFileName(0, tr("Open Text/Markdown"), "", tr("*.md ;; *.txt"));
 	if (filename.isEmpty())
 		return;
 	QFile fileObject(filename);
 	//Если размер больше 64 килобайт то файл не откроется
 	if (fileObject.size() > MAX_FILESIZE)
 	{
-		QMessageBox::warning(this,"Oversize detected", "Cannot open file because size of this is over " + QString::number(MAX_FILESIZE) + " bytes");
+		QMessageBox::warning(this,tr("Oversize detected"), tr("Cannot open file because size of this is over ") + QString::number(MAX_FILESIZE) + tr(" bytes"));
 		return;
 	}
 	if (fileObject.open(QIODevice::ReadOnly))
@@ -39,7 +39,7 @@ void mdEditor::slotOpen()
 		fileObject.close();
 		mdFileName = filename;
 		emit titleChanged(mdFileName);
-		emit statusString("Opened " + mdFileName);
+		emit statusString(tr("Opened ") + mdFileName);
 	}
 }
 void mdEditor::slotSave()
@@ -65,11 +65,11 @@ void mdEditor::slotSave()
 void mdEditor::slotSaveAs()
 {
 	//Вызываем диалоговое окно сохранения
-	QString mdSave = QFileDialog::getSaveFileName(0, "Save Text/Markdown", "Readme", "*.md ;; *.txt");
+	QString mdSave = QFileDialog::getSaveFileName(0, tr("Save Text/Markdown"), "Readme", tr("*.md ;; *.txt"));
 	if (!mdSave.isEmpty())
 	{
 		mdFileName = mdSave;
 		slotSave();
-		emit statusString("Saved " + mdSave);
+		emit statusString(tr("Saved ") + mdSave);
 	}
 }
