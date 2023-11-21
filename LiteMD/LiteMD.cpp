@@ -113,7 +113,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	setCentralWidget(mainWgt);
 
 	//Устанавливаем заголовок окна
-	setWindowTitle(tr("LiteMD alpha 0.1.3 build ") + QString::number(buildNumber) + tr("[MAX FILE SIZE 65K]"));
+	setWindowTitle(tr("LiteMD alpha 0.0.0 build ") + QString::number(buildNumber) + tr("[MAX FILE SIZE 65K]"));
 	
 	//Устанавливаем иконку приложения
 	setWindowIcon(QIcon("icon.ico"));
@@ -123,7 +123,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 }
 void LiteMD::slotAbout()
 {
-	QMessageBox::about(this, "LiteMD", tr("Ver. alpha 0.1.3 build ") + QString::number(buildNumber) + tr("\nBy anrej0705\nSee me at Github:\ngithub.com/anrej0705\n\nThis app is free for use,modify\nand reupload\n\nI hope u like my app :D"));
+	QMessageBox::about(this, "LiteMD", tr("Ver. alpha 0.0.0 build ") + QString::number(buildNumber) + tr("\nBy anrej0705\nSee me at Github:\ngithub.com/anrej0705\n\nThis app is free for use,modify\nand reupload\n\nI hope u like my app :D"));
 }
 void LiteMD::slotTitleChanged(QString& title)
 {

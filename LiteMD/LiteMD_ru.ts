@@ -64,7 +64,7 @@
     </message>
     <message>
         <source>LiteMD alpha 0.1.3 build </source>
-        <translation>LiteMD alpha 0.1.4 сборка </translation>
+        <translation type="vanished">LiteMD alpha 0.1.4 сборка </translation>
     </message>
     <message>
         <source>[MAX FILE SIZE 65K]</source>
@@ -76,7 +76,7 @@
     </message>
     <message>
         <source>Ver. alpha 0.1.3 build </source>
-        <translation>Ver. alpha 0.1.4 сборка </translation>
+        <translation type="vanished">Ver. alpha 0.1.4 сборка </translation>
     </message>
     <message>
         <source>
@@ -115,6 +115,14 @@ github.com/anrej0705
     <message>
         <source>Ver. alpha 0.1.4 build </source>
         <translation type="obsolete">Ver. alpha 0.1.3 сборка  {0.1.4 ?}</translation>
+    </message>
+    <message>
+        <source>LiteMD alpha 0.0.0 build </source>
+        <translation type="unfinished">LiteMD alpha 0.1.4 сборка </translation>
+    </message>
+    <message>
+        <source>Ver. alpha 0.0.0 build </source>
+        <translation>Ver. alpha 0.1.4 сборка </translation>
     </message>
 </context>
 <context>
