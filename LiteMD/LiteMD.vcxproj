@@ -209,11 +209,8 @@
     <QtMoc Include="ui_primitives\OrientalPushButton.h" />
     <QtMoc Include="modules\Downloader.h" />
     <QtMoc Include="modules\GuiDownloader.h" />
-    <ClInclude Include="resource1.h" />
-    <ClInclude Include="resource2.h" />
     <QtMoc Include="mdEditor.h" />
     <QtMoc Include="mdScreen.h" />
-    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="ress\appicon.ico" />
@@ -229,6 +226,9 @@
     <QtTranslation Include="loc\LiteMD_en.ts" />
     <QtTranslation Include="loc\LiteMD_ru.ts" />
     <QtTranslation Include="loc\LiteMD_ru_UA.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ress\resource1.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
