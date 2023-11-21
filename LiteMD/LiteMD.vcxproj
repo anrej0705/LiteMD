@@ -106,6 +106,9 @@
     <QtTranslation>
       <BuildAction>lupdate</BuildAction>
     </QtTranslation>
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <PostBuildEvent>
@@ -115,6 +118,9 @@
     <QtTranslation>
       <BuildAction>lupdate</BuildAction>
     </QtTranslation>
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <PostBuildEvent>
@@ -124,6 +130,9 @@
     <QtTranslation>
       <BuildAction>lupdate_lrelease</BuildAction>
     </QtTranslation>
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <PostBuildEvent>
@@ -133,6 +142,9 @@
     <QtTranslation>
       <BuildAction>lupdate_lrelease</BuildAction>
     </QtTranslation>
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
@@ -183,38 +195,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Downloader.cpp" />
-    <ClCompile Include="GuiDownloader.cpp" />
     <ClCompile Include="mdEditor.cpp" />
     <ClCompile Include="mdScreen.cpp" />
-    <ClCompile Include="OrientalPushButton.cpp" />
-    <QtRcc Include="LiteMD.qrc" />
+    <ClCompile Include="modules\Downloader.cpp" />
+    <ClCompile Include="modules\GuiDownloader.cpp" />
+    <ClCompile Include="ui_primitives\OrientalPushButton.cpp" />
     <QtUic Include="LiteMD.ui" />
     <QtMoc Include="LiteMD.h" />
     <ClCompile Include="LiteMD.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Downloader.h" />
-    <QtMoc Include="GuiDownloader.h" />
+    <QtMoc Include="ui_primitives\OrientalPushButton.h" />
+    <QtMoc Include="modules\Downloader.h" />
+    <QtMoc Include="modules\GuiDownloader.h" />
     <ClInclude Include="resource1.h" />
     <ClInclude Include="resource2.h" />
     <QtMoc Include="mdEditor.h" />
     <QtMoc Include="mdScreen.h" />
-    <QtMoc Include="OrientalPushButton.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="buildInfo.rc" />
-    <ResourceCompile Include="icon.rc" />
+    <Image Include="ress\appicon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="appicon.ico" />
+    <ResourceCompile Include="ress\buildInfo.rc" />
+    <ResourceCompile Include="ress\icon.rc" />
   </ItemGroup>
   <ItemGroup>
-    <QtTranslation Include="LiteMD_en.ts" />
-    <QtTranslation Include="LiteMD_ru.ts" />
-    <QtTranslation Include="LiteMD_ru_UA.ts" />
+    <QtRcc Include="ress\LiteMD.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtTranslation Include="loc\LiteMD_en.ts" />
+    <QtTranslation Include="loc\LiteMD_ru.ts" />
+    <QtTranslation Include="loc\LiteMD_ru_UA.ts" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

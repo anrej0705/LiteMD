@@ -1,84 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en">
+<TS version="2.1" language="en_US">
 <context>
     <name>DownloaderGui</name>
     <message>
+        <location filename="modules/GuiDownloader.cpp" line="95"/>
         <source>Error</source>
-        <translation>Error</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="modules/GuiDownloader.cpp" line="95"/>
         <source>An error while download is occured</source>
-        <translation>An error while download is occured</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This module was added experimentally. In the future it will undergo changes or disappear</source>
-        <translation>This module was added experimentally. In the future it will undergo changes or disappear</translation>
-    </message>
-    <message>
+        <location filename="modules/GuiDownloader.cpp" line="102"/>
         <source>And he won&apos;t live long...</source>
-        <translation>And he won&apos;t live long...</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="modules/GuiDownloader.cpp" line="102"/>
+        <source>This module was added experimentally. In the future it will undergo changes or disappear</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>LiteMD</name>
     <message>
+        <location filename="LiteMD.cpp" line="22"/>
         <source>Editor</source>
-        <translation>Editor</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="23"/>
         <source>Viewer</source>
-        <translation>Viewer</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="26"/>
         <source>&amp;About</source>
-        <translation>&amp;About</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="27"/>
         <source>&amp;Open...</source>
-        <translation>&amp;Open...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="28"/>
         <source>&amp;Save</source>
-        <translation>&amp;Save</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="29"/>
         <source>S&amp;ave As...</source>
-        <translation>S&amp;ave As...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="30"/>
         <source>&amp;Quit</source>
-        <translation>&amp;Quit</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;File</source>
-        <translation>&amp;File</translation>
+        <location filename="LiteMD.cpp" line="31"/>
+        <source>&amp;HTTP Downloader module</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="32"/>
         <source>&amp;Settings</source>
-        <translation>&amp;Settings</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="34"/>
+        <source>&amp;File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="LiteMD.cpp" line="35"/>
+        <source>&amp;Service</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="LiteMD.cpp" line="36"/>
         <source>&amp;Help</source>
-        <translation>&amp;Help</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>LiteMD alpha 0.1.3 build </source>
-        <translation type="vanished">LiteMD alpha 0.1.4 build </translation>
+        <location filename="LiteMD.cpp" line="116"/>
+        <source>LiteMD alpha 0.0.0 build </source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="116"/>
         <source>[MAX FILE SIZE 65K]</source>
-        <translation>[MAX FILE SIZE 65K]</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="122"/>
         <source>Ready</source>
-        <translation>Ready</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ver. alpha 0.1.3 build </source>
-        <translation type="vanished">Ver. alpha 0.1.4 build </translation>
+        <location filename="LiteMD.cpp" line="126"/>
+        <source>Ver. alpha 0.0.0 build </source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="126"/>
         <source>
 By anrej0705
 See me at Github:
@@ -88,82 +117,59 @@ This app is free for use,modify
 and reupload
 
 I hope u like my app :D</source>
-        <translation>
-By anrej0705
-See me at Github:
-github.com/anrej0705
-
-This app is free for use,modify
-and reupload
-
-I hope u like my app :D</translation>
-    </message>
-    <message>
-        <source>&amp;Service</source>
-        <translation>&amp;Service</translation>
-    </message>
-    <message>
-        <source>&amp;HTTP Downloader module</source>
-        <translation>&amp;HTTP Downloader module(*)</translation>
-    </message>
-    <message>
-        <source>LiteMD alpha 0.1.4 build </source>
-        <translation type="obsolete">LiteMD alpha 0.1.3 build  {0.1.4 ?}</translation>
-    </message>
-    <message>
-        <source>Ver. alpha 0.1.4 build </source>
-        <translation type="obsolete">Ver. alpha 0.1.3 build  {0.1.4 ?}</translation>
-    </message>
-    <message>
-        <source>LiteMD alpha 0.0.0 build </source>
-        <translation>LiteMD alpha 0.1.4 build </translation>
-    </message>
-    <message>
-        <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.1.4 build </translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>LiteMDClass</name>
     <message>
+        <location filename="LiteMD.ui" line="16"/>
         <source>LiteMD</source>
-        <translation>LiteMD</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>mdEditor</name>
     <message>
+        <location filename="mdEditor.cpp" line="24"/>
         <source>Open Text/Markdown</source>
-        <translation>Open Text/Markdown</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="mdEditor.cpp" line="24"/>
+        <location filename="mdEditor.cpp" line="68"/>
         <source>*.md ;; *.txt</source>
-        <translatorcomment>Не изменять ни в одной локали</translatorcomment>
-        <translation>*.md ;; *.txt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="mdEditor.cpp" line="31"/>
         <source>Oversize detected</source>
-        <translation>Oversize detected</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="mdEditor.cpp" line="31"/>
         <source>Cannot open file because size of this is over </source>
-        <translation>Cannot open file because size of this is over </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="mdEditor.cpp" line="31"/>
         <source> bytes</source>
-        <translation> bytes</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="mdEditor.cpp" line="42"/>
         <source>Opened </source>
-        <translation>Opened </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="mdEditor.cpp" line="68"/>
         <source>Save Text/Markdown</source>
-        <translation>Save Text/Markdown</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="mdEditor.cpp" line="73"/>
         <source>Saved </source>
-        <translation>Saved </translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

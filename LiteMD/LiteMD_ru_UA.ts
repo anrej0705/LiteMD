@@ -4,81 +4,110 @@
 <context>
     <name>DownloaderGui</name>
     <message>
+        <location filename="modules/GuiDownloader.cpp" line="95"/>
         <source>Error</source>
-        <translation>Вот зараза...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="modules/GuiDownloader.cpp" line="95"/>
         <source>An error while download is occured</source>
-        <translation>Произошла ошибка при загрузке</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This module was added experimentally. In the future it will undergo changes or disappear</source>
-        <translation>Данный модуль был добавлен экспериментально. В будущем он претерпит изменения либо исчезнет</translation>
-    </message>
-    <message>
+        <location filename="modules/GuiDownloader.cpp" line="102"/>
         <source>And he won&apos;t live long...</source>
-        <translation>И жить ему недолго...</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="modules/GuiDownloader.cpp" line="102"/>
+        <source>This module was added experimentally. In the future it will undergo changes or disappear</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>LiteMD</name>
     <message>
+        <location filename="LiteMD.cpp" line="22"/>
         <source>Editor</source>
-        <translation>Редактор</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="23"/>
         <source>Viewer</source>
-        <translation>Рендер</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="26"/>
         <source>&amp;About</source>
-        <translation>&amp;О программе</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="27"/>
         <source>&amp;Open...</source>
-        <translation>&amp;Открыть...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="28"/>
         <source>&amp;Save</source>
-        <translation>&amp;Сохранить</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="29"/>
         <source>S&amp;ave As...</source>
-        <translation>С&amp;охранить как...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="30"/>
         <source>&amp;Quit</source>
-        <translation>&amp;Выход</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;File</source>
-        <translation>&amp;Файл</translation>
+        <location filename="LiteMD.cpp" line="31"/>
+        <source>&amp;HTTP Downloader module</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="32"/>
         <source>&amp;Settings</source>
-        <translation>&amp;Настройки</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="34"/>
+        <source>&amp;File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="LiteMD.cpp" line="35"/>
+        <source>&amp;Service</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="LiteMD.cpp" line="36"/>
         <source>&amp;Help</source>
-        <translation>&amp;Помощь</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>LiteMD alpha 0.1.3 build </source>
-        <translation type="vanished">LiteMD alpha 0.1.4 сборка </translation>
+        <location filename="LiteMD.cpp" line="116"/>
+        <source>LiteMD alpha 0.0.0 build </source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="116"/>
         <source>[MAX FILE SIZE 65K]</source>
-        <translation>[МАКС РАЗМЕР ФАЙЛА 65K]</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="122"/>
         <source>Ready</source>
-        <translation>Готов</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ver. alpha 0.1.3 build </source>
-        <translation type="vanished">Ver. alpha 0.1.4 сборка </translation>
+        <location filename="LiteMD.cpp" line="126"/>
+        <source>Ver. alpha 0.0.0 build </source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="LiteMD.cpp" line="126"/>
         <source>
 By anrej0705
 See me at Github:
@@ -88,83 +117,59 @@ This app is free for use,modify
 and reupload
 
 I hope u like my app :D</source>
-        <translation>
-Автор: anrej0705
-Ищи меня на Github:
-github.com/anrej0705
-
-Это приложение свободно для
-использования, модифицикации и
-распространения
-
-Надеюсь вам понравится моя
-прога :D</translation>
-    </message>
-    <message>
-        <source>&amp;Service</source>
-        <translation>&amp;Сервис</translation>
-    </message>
-    <message>
-        <source>&amp;HTTP Downloader module</source>
-        <translation>&amp;HTTP модуль загрузки(*)</translation>
-    </message>
-    <message>
-        <source>LiteMD alpha 0.1.4 build </source>
-        <translation type="obsolete">LiteMD alpha 0.1.3 сборка  {0.1.4 ?}</translation>
-    </message>
-    <message>
-        <source>Ver. alpha 0.1.4 build </source>
-        <translation type="obsolete">Ver. alpha 0.1.3 сборка  {0.1.4 ?}</translation>
-    </message>
-    <message>
-        <source>LiteMD alpha 0.0.0 build </source>
-        <translation>LiteMD alpha 0.1.4 сборка </translation>
-    </message>
-    <message>
-        <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.1.4 сборка </translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>LiteMDClass</name>
     <message>
+        <location filename="LiteMD.ui" line="16"/>
         <source>LiteMD</source>
-        <translation>LiteMD</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>mdEditor</name>
     <message>
+        <location filename="mdEditor.cpp" line="24"/>
         <source>Open Text/Markdown</source>
-        <translation>Открыть Text/Markdown</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="mdEditor.cpp" line="24"/>
+        <location filename="mdEditor.cpp" line="68"/>
         <source>*.md ;; *.txt</source>
-        <translation>*.md ;; *.txt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="mdEditor.cpp" line="31"/>
         <source>Oversize detected</source>
-        <translation>Превышение размера</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="mdEditor.cpp" line="31"/>
         <source>Cannot open file because size of this is over </source>
-        <translation>Данный файл нельзя открыть так как его размер больше </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="mdEditor.cpp" line="31"/>
         <source> bytes</source>
-        <translation> байт</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="mdEditor.cpp" line="42"/>
         <source>Opened </source>
-        <translation>Открыто </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="mdEditor.cpp" line="68"/>
         <source>Save Text/Markdown</source>
-        <translation>Сохранить Text/Markdown</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="mdEditor.cpp" line="73"/>
         <source>Saved </source>
-        <translation>Сохранено </translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
