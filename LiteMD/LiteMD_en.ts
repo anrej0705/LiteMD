@@ -2,6 +2,25 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en">
 <context>
+    <name>DownloaderGui</name>
+    <message>
+        <source>Error</source>
+        <translation>Error</translation>
+    </message>
+    <message>
+        <source>An error while download is occured</source>
+        <translation>An error while download is occured</translation>
+    </message>
+    <message>
+        <source>This module was added experimentally. In the future it will undergo changes or disappear</source>
+        <translation>This module was added experimentally. In the future it will undergo changes or disappear</translation>
+    </message>
+    <message>
+        <source>And he won&apos;t live long...</source>
+        <translation>And he won&apos;t live long...</translation>
+    </message>
+</context>
+<context>
     <name>LiteMD</name>
     <message>
         <source>Editor</source>
@@ -78,6 +97,14 @@ This app is free for use,modify
 and reupload
 
 I hope u like my app :D</translation>
+    </message>
+    <message>
+        <source>&amp;Service</source>
+        <translation>&amp;Service</translation>
+    </message>
+    <message>
+        <source>&amp;HTTP Downloader module</source>
+        <translation>&amp;HTTP Downloader module(*)</translation>
     </message>
 </context>
 <context>

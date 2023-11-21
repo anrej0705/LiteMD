@@ -50,24 +50,24 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>Qt 5.14.2</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;network;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
     <QMakeCodeLines>win32:RC_ICONS += icon.ico;$(QMakeCodeLines)</QMakeCodeLines>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="QtSettings">
     <QtInstall>Qt 5.14.2_x86</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;network;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>Qt 5.14.2</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;network;gui;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
     <QtDeploy>true</QtDeploy>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="QtSettings">
     <QtInstall>Qt 5.14.2_x86</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;network;gui;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
     <QtDeploy>true</QtDeploy>
   </PropertyGroup>
@@ -183,6 +183,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Downloader.cpp" />
+    <ClCompile Include="GuiDownloader.cpp" />
     <ClCompile Include="mdEditor.cpp" />
     <ClCompile Include="mdScreen.cpp" />
     <ClCompile Include="OrientalPushButton.cpp" />
@@ -193,6 +195,8 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="Downloader.h" />
+    <QtMoc Include="GuiDownloader.h" />
     <ClInclude Include="resource1.h" />
     <ClInclude Include="resource2.h" />
     <QtMoc Include="mdEditor.h" />

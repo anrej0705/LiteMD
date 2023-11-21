@@ -4,6 +4,7 @@
 #include "ui_LiteMD.h"
 #include "mdEditor.h"
 #include "mdScreen.h"
+#include "GuiDownloader.h"
 
 class LiteMD : public QMainWindow
 {
@@ -15,6 +16,7 @@ class LiteMD : public QMainWindow
 		QMenu* mSettings;
 		mdEditor* mde;
 		mdScreen* mds;
+		DownloaderGui* dwModule;
 	public:
 		LiteMD(QWidget *parent = nullptr);
 		~LiteMD();

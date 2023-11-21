@@ -2,6 +2,25 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="ru_UA">
 <context>
+    <name>DownloaderGui</name>
+    <message>
+        <source>Error</source>
+        <translation>Вот зараза...</translation>
+    </message>
+    <message>
+        <source>An error while download is occured</source>
+        <translation>Произошла ошибка при загрузке</translation>
+    </message>
+    <message>
+        <source>This module was added experimentally. In the future it will undergo changes or disappear</source>
+        <translation>Данный модуль был добавлен экспериментально. В будущем он претерпит изменения либо исчезнет</translation>
+    </message>
+    <message>
+        <source>And he won&apos;t live long...</source>
+        <translation>И жить ему недолго...</translation>
+    </message>
+</context>
+<context>
     <name>LiteMD</name>
     <message>
         <source>Editor</source>
@@ -80,6 +99,14 @@ github.com/anrej0705
 
 Надеюсь вам понравится моя
 прога :D</translation>
+    </message>
+    <message>
+        <source>&amp;Service</source>
+        <translation>&amp;Сервис</translation>
+    </message>
+    <message>
+        <source>&amp;HTTP Downloader module</source>
+        <translation>&amp;HTTP модуль загрузки(*)</translation>
     </message>
 </context>
 <context>

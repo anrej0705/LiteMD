@@ -1,5 +1,6 @@
 #include "LiteMD.h"
 #include "OrientalPushButton.h"
+#include "GuiDownloader.h"
 #include <QtWidgets>
 
 //Номер билда, пока задаётся вручную
@@ -27,13 +28,13 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	QAction* actSave = new QAction(tr("&Save"));
 	QAction* actSaveAs = new QAction(tr("S&ave As..."));
 	QAction* actQuit = new QAction(tr("&Quit"));
+	QAction* actDownloader = new QAction(tr("&HTTP Downloader module"));
+	QAction* actSet = new QAction(tr("&Settings"));
+	dwModule = new DownloaderGui;
 	mFile = new QMenu(tr("&File"));
-	mSettings = new QMenu(tr("&Settings"));
+	mSettings = new QMenu(tr("&Service"));
 	mHelp = new QMenu(tr("&Help"));
 	//-------------------------
-
-	//Отключено пока не будут добавлены пункты
-	mSettings->setEnabled(0);
 	
 	//Блок менеджеров размещения кнопок
 	QVBoxLayout* editorLay = new QVBoxLayout;
@@ -43,6 +44,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//---------------------------------
 
 	//Блок конфигурации элементов интерфейса
+	actSet->setEnabled(0); //Пока что отключен до реализации
 	mdsArea->setWidgetResizable(1);
 	mdsArea->setWidget(mds);
 	mds->setWordWrap(1);
@@ -76,6 +78,9 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mFile->addAction(actSaveAs);
 	mFile->addSeparator();
 	mFile->addAction(actQuit);
+	mSettings->addAction(actDownloader);
+	mSettings->addSeparator();
+	mSettings->addAction(actSet);
 	mHelp->addAction(actAbout);
 	menuBar()->addMenu(mFile);
 	menuBar()->addMenu(mSettings);
@@ -98,7 +103,9 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	if (!connect(actQuit, SIGNAL(triggered()), qApp, SLOT(quit())))
 		QErrorMessage::qtHandler();	//Соединяем сигнал выхода из приложения
 	if (!connect(mde, SIGNAL(statusString(QString)), this, SLOT(slot_mbar_send_string(QString))))
-		QErrorMessage::qtHandler();
+		QErrorMessage::qtHandler();	//Соединяем сигнал изменения строки состояния
+	if (!connect(actDownloader, SIGNAL(triggered()), dwModule, SLOT(slotShow())))
+		QErrorMessage::qtHandler(); //Соединяем сигнал срабатывания кнопки на метод отображения
 	//------------------------------
 
 	//Рабочий долгосрочный костыль. Создаем пустой виджет и помещаем все в него

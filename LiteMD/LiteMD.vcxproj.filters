@@ -58,6 +58,12 @@
     <ClCompile Include="OrientalPushButton.cpp">
       <Filter>Интерфейс\Реализации</Filter>
     </ClCompile>
+    <ClCompile Include="Downloader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiDownloader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -87,6 +93,12 @@
     </QtMoc>
     <QtMoc Include="OrientalPushButton.h">
       <Filter>Интерфейс\Хидеры</Filter>
+    </QtMoc>
+    <QtMoc Include="Downloader.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="GuiDownloader.h">
+      <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
