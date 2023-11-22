@@ -100,7 +100,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//Блок сигнально-слотовых связей
 	if (!connect(mde, SIGNAL(textEdited(const QString&)), mds, SLOT(slotSetText(const QString&))))
 		QErrorMessage::qtHandler(); //Соединяем сигнал от редактора к слоту изменения текста
-	if (!connect(mde, SIGNAL(titleChanged(QString&)), this, SLOT(slotTitleChanged(QString&))))
+	if (!connect(mde, SIGNAL(titleChanged(const QString&)), this, SLOT(slotTitleChanged(const QString&))))
 		QErrorMessage::qtHandler();	//Соединяем сигнал открытия файла со слотом изменения заголовка под файл
 	if (!connect(actAbout, SIGNAL(triggered()), this, SLOT(slotAbout())))
 		QErrorMessage::qtHandler();	//Соединяем сигнал со слотом вызова окна о программе
@@ -126,6 +126,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 
 	//Устанавливаем заголовок окна
 	setWindowTitle(tr("LiteMD alpha 0.0.0 build ") + QString::number(buildNumber) + tr("[MAX FILE SIZE 65K]"));
+	defTitle = windowTitle();
 	
 	//Устанавливаем иконку приложения
 	setWindowIcon(QIcon("icon.ico"));
@@ -142,9 +143,12 @@ void LiteMD::slotAbout()
 		+ tr("Repo on Github: " ) + "<A HREF=\"https://github.com/anrej0705/LiteMD\">https://github.com/anrej0705/LiteMD</A><BR>" 
 		+ tr("Releases: ") + "<A HREF=\"https://github.com/anrej0705/LiteMD/releases\">https://github.com/anrej0705/LiteMD/releases</A>");
 }
-void LiteMD::slotTitleChanged(QString& title)
+void LiteMD::slotTitleChanged(const QString& title)
 {
-	setWindowTitle(title);
+	QString newTitle = defTitle + " [";
+	newTitle.append(title);
+	newTitle.append("]");
+	setWindowTitle(newTitle);
 }
 void LiteMD::slot_mbar_send_string(const QString& str)
 {

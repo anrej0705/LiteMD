@@ -17,6 +17,7 @@ class LiteMD : public QMainWindow
 		mdEditor* mde;
 		mdScreen* mds;
 		DownloaderGui* dwModule;
+		QString defTitle;
 	public:
 		LiteMD(QWidget *parent = nullptr);
 		~LiteMD();
@@ -24,5 +25,5 @@ class LiteMD : public QMainWindow
 		void slotAbout();
 		void slot_mbar_send_string(const QString&);
 	public slots:
-		void slotTitleChanged(QString&);
+		void slotTitleChanged(const QString&);
 };
