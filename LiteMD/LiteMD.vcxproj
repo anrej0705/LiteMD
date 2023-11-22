@@ -228,6 +228,7 @@
     <QtTranslation Include="loc\LiteMD_ru_UA.ts" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ress\resource.h" />
     <ClInclude Include="ress\resource1.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
