@@ -142,6 +142,10 @@ I hope u like my app :D</translation>
         <source>HTTP &amp;Downloader module</source>
         <translation>HTTP &amp;Downloader module</translation>
     </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished">&amp;New document</translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>

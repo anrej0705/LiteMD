@@ -144,6 +144,10 @@ github.com/anrej0705
         <source>HTTP &amp;Downloader module</source>
         <translation>HTTP &amp;модуль загрузки(*)</translation>
     </message>
+    <message>
+        <source>&amp;New</source>
+        <translation>&amp;Новый документ</translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>

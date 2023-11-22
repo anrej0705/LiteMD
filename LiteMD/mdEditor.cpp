@@ -73,3 +73,7 @@ void mdEditor::slotSaveAs()
 		emit statusString(tr("Saved ") + mdSave);
 	}
 }
+void mdEditor::slotNew()
+{
+	this->setText("");
+}

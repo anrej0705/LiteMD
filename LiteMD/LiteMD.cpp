@@ -30,6 +30,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	QAction* actQuit = new QAction(tr("&Quit"));
 	QAction* actDownloader = new QAction(tr("HTTP &Downloader module"));
 	QAction* actSet = new QAction(tr("&Settings"));
+	QAction* actNew = new QAction(tr("&New"));
 	dwModule = new DownloaderGui;
 	mFile = new QMenu(tr("&File"));
 	mSettings = new QMenu(tr("&Service"));
@@ -50,6 +51,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	actSaveAs->setShortcut(Qt::ALT | Qt::Key_S);
 	actQuit->setShortcut(Qt::CTRL | Qt::Key_Q);
 	actSet->setShortcut(Qt::CTRL | Qt::Key_S);
+	actNew->setShortcut(Qt::CTRL | Qt::Key_N);
 	actSet->setEnabled(0); //Пока что отключен до реализации
 	mdsArea->setWidgetResizable(1);
 	mdsArea->setWidget(mds);
@@ -79,6 +81,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//--------------------------------------
 
 	//Блок настроек меню
+	mFile->addAction(actNew);
+	mFile->addSeparator();
 	mFile->addAction(actOpen);
 	mFile->addAction(actSave);
 	mFile->addAction(actSaveAs);
@@ -112,6 +116,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler();	//Соединяем сигнал изменения строки состояния
 	if (!connect(actDownloader, SIGNAL(triggered()), dwModule, SLOT(slotShow())))
 		QErrorMessage::qtHandler(); //Соединяем сигнал срабатывания кнопки на метод отображения
+	if(!connect(actNew,SIGNAL(triggered()),mde,SLOT(slotNew())))
+		QErrorMessage::qtHandler();	//Команда создания нового документа
 	//------------------------------
 
 	//Рабочий долгосрочный костыль. Создаем пустой виджет и помещаем все в него
