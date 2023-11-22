@@ -88,7 +88,7 @@ This app is free for use,modify
 and reupload
 
 I hope u like my app :D</source>
-        <translation>
+        <translation type="vanished">
 Автор: anrej0705
 Ищи меня на Github:
 github.com/anrej0705
@@ -106,7 +106,7 @@ github.com/anrej0705
     </message>
     <message>
         <source>&amp;HTTP Downloader module</source>
-        <translation>&amp;HTTP модуль загрузки(*)</translation>
+        <translation type="vanished">&amp;HTTP модуль загрузки(*)</translation>
     </message>
     <message>
         <source>LiteMD alpha 0.1.4 build </source>
@@ -118,11 +118,31 @@ github.com/anrej0705
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation type="unfinished">LiteMD alpha 0.1.4 сборка </translation>
+        <translation>[В РАЗРАБОТКЕ]LiteMD alpha 0.1.5 сборка </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.1.4 сборка </translation>
+        <translation>Ver. alpha 0.1.5 сборка </translation>
+    </message>
+    <message>
+        <source>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</source>
+        <translation>&lt;BR&gt;By anrej0705&lt;BR&gt;Ищи меня на Github:</translation>
+    </message>
+    <message>
+        <source>This app is free for use,modify and reupload&lt;BR&gt;</source>
+        <translation>Это приложение свободно для использования, модифицикации и распространения</translation>
+    </message>
+    <message>
+        <source>Repo on Github: </source>
+        <translation>Репозитории на GitHub: </translation>
+    </message>
+    <message>
+        <source>Releases: </source>
+        <translation>Релизы: </translation>
+    </message>
+    <message>
+        <source>HTTP &amp;Downloader module</source>
+        <translation>HTTP &amp;модуль загрузки(*)</translation>
     </message>
 </context>
 <context>

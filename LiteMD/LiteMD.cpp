@@ -28,7 +28,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	QAction* actSave = new QAction(tr("&Save"));
 	QAction* actSaveAs = new QAction(tr("S&ave As..."));
 	QAction* actQuit = new QAction(tr("&Quit"));
-	QAction* actDownloader = new QAction(tr("&HTTP Downloader module"));
+	QAction* actDownloader = new QAction(tr("HTTP &Downloader module"));
 	QAction* actSet = new QAction(tr("&Settings"));
 	dwModule = new DownloaderGui;
 	mFile = new QMenu(tr("&File"));
@@ -123,7 +123,12 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 }
 void LiteMD::slotAbout()
 {
-	QMessageBox::about(this, "LiteMD", tr("Ver. alpha 0.0.0 build ") + QString::number(buildNumber) + tr("\nBy anrej0705\nSee me at Github:\ngithub.com/anrej0705\n\nThis app is free for use,modify\nand reupload\n\nI hope u like my app :D"));
+	QMessageBox::about(this, "LiteMD", tr("Ver. alpha 0.0.0 build ") + QString::number(buildNumber) 
+		+ tr("<BR>By anrej0705<BR>See me at Github:") + "<BR><A HREF=\"github.com/anrej0705\">github.com/anrej0705</A><BR><BR>" 
+		+ tr("This app is free for use,modify and reupload<BR>") 
+		+ "<BR>" + "<BR>Qt 5.14.2<BR>" + "<BR>" 
+		+ tr("Repo on Github: " ) + "<A HREF=\"https://github.com/anrej0705/LiteMD\">https://github.com/anrej0705/LiteMD</A><BR>" 
+		+ tr("Releases: ") + "<A HREF=\"https://github.com/anrej0705/LiteMD/releases\">https://github.com/anrej0705/LiteMD/releases</A>");
 }
 void LiteMD::slotTitleChanged(QString& title)
 {

@@ -80,6 +80,9 @@
     <Image Include="ress\appicon.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ress\buildInfo.rc">

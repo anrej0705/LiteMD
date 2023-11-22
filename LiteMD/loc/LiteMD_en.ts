@@ -88,7 +88,7 @@ This app is free for use,modify
 and reupload
 
 I hope u like my app :D</source>
-        <translation>
+        <translation type="vanished">
 By anrej0705
 See me at Github:
 github.com/anrej0705
@@ -104,7 +104,7 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>&amp;HTTP Downloader module</source>
-        <translation>&amp;HTTP Downloader module(*)</translation>
+        <translation type="vanished">&amp;HTTP Downloader module(*)</translation>
     </message>
     <message>
         <source>LiteMD alpha 0.1.4 build </source>
@@ -116,11 +116,31 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation>LiteMD alpha 0.1.4 build </translation>
+        <translation>[WORK IN PROGRESS]LiteMD alpha 0.1.5 build </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.1.4 build </translation>
+        <translation>Ver. alpha 0.1.5 build </translation>
+    </message>
+    <message>
+        <source>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</source>
+        <translation>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</translation>
+    </message>
+    <message>
+        <source>This app is free for use,modify and reupload&lt;BR&gt;</source>
+        <translation>This app is free for use,modify and reupload&lt;BR&gt;</translation>
+    </message>
+    <message>
+        <source>Repo on Github: </source>
+        <translation>Repo on Github: </translation>
+    </message>
+    <message>
+        <source>Releases: </source>
+        <translation>Releases: </translation>
+    </message>
+    <message>
+        <source>HTTP &amp;Downloader module</source>
+        <translation>HTTP &amp;Downloader module</translation>
     </message>
 </context>
 <context>
