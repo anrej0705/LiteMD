@@ -44,6 +44,12 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//---------------------------------
 
 	//Блок конфигурации элементов интерфейса
+	actAbout->setShortcut(Qt::CTRL | Qt::Key_A);
+	actOpen->setShortcut(Qt::CTRL | Qt::Key_O);
+	actSave->setShortcut(Qt::CTRL | Qt::Key_S);
+	actSaveAs->setShortcut(Qt::ALT | Qt::Key_S);
+	actQuit->setShortcut(Qt::CTRL | Qt::Key_Q);
+	actSet->setShortcut(Qt::CTRL | Qt::Key_S);
 	actSet->setEnabled(0); //Пока что отключен до реализации
 	mdsArea->setWidgetResizable(1);
 	mdsArea->setWidget(mds);
