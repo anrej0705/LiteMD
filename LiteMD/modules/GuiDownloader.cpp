@@ -5,6 +5,7 @@
 //Базовый конструктор
 DownloaderGui::DownloaderGui(QWidget* dwgt) : QWidget(dwgt)
 {
+	//Устанавливаем заголовок окна модуля
 	setWindowTitle(tr("HTTP Download module GUI(Deprecated)"));
 	//Инициализируем объекты управления
 	dw = new Downloader(this);
@@ -86,6 +87,8 @@ void DownloaderGui::showPic(const QString& strFileName)
 	plbl->setPixmap(pix);
 	//Замораживаем изменение размера
 	plbl->setFixedSize(pix.size());
+	//Устанавливаем заголовок окна
+	plbl->setWindowTitle(tr("View"));
 	//Показываем на экран
 	plbl->show();
 }

@@ -19,6 +19,10 @@
         <source>And he won&apos;t live long...</source>
         <translation>И жить ему недолго...</translation>
     </message>
+    <message>
+        <source>HTTP Download module GUI(Deprecated)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LiteMD</name>
@@ -154,6 +158,29 @@ github.com/anrej0705
     <message>
         <source>LiteMD</source>
         <translation>LiteMD</translation>
+    </message>
+</context>
+<context>
+    <name>appSettings</name>
+    <message>
+        <source>LiteMD Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Work in progress, come later))</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Basic</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
