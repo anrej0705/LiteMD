@@ -38,6 +38,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mSettings = new QMenu(tr("&Service"));
 	mHelp = new QMenu(tr("&Help"));
 	workProgressCap = new QLabel("work in progress");
+	mdlSet = new appSettings;
+	mdlSet->show();
 	//-------------------------
 	
 	//Блок менеджеров размещения кнопок

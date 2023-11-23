@@ -1,10 +1,10 @@
 #pragma once
-
 #include <QtWidgets>
 #include "ui_LiteMD.h"
 #include "mdEditor.h"
 #include "mdScreen.h"
 #include "GuiDownloader.h"
+#include "appSettings.h"
 
 class LiteMD : public QMainWindow
 {
@@ -20,6 +20,7 @@ class LiteMD : public QMainWindow
 		DownloaderGui* dwModule;
 		QString defTitle;
 		QLabel* workProgressCap;
+		appSettings* mdlSet;
 	public:
 		void closeEvent(QCloseEvent*);
 		LiteMD(QWidget *parent = nullptr);

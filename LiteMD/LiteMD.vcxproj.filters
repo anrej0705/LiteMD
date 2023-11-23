@@ -27,6 +27,9 @@
     <Filter Include="Модули">
       <UniqueIdentifier>{c26e543b-e811-4d7e-9425-509c494ef94d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Интерфейс\Окна">
+      <UniqueIdentifier>{6de02703-3a75-4dd1-a34d-78f1e599531f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="LiteMD.ui">
@@ -43,12 +46,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="mdEditor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="mdScreen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="modules\Downloader.cpp">
       <Filter>Модули</Filter>
     </ClCompile>
@@ -58,17 +55,20 @@
     <ClCompile Include="ui_primitives\OrientalPushButton.cpp">
       <Filter>Интерфейс</Filter>
     </ClCompile>
-    <ClCompile Include="dialogBoxes.cpp">
+    <ClCompile Include="window_widgets\mdEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="window_widgets\mdScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_primitives\dialogBoxes.cpp">
       <Filter>Интерфейс</Filter>
+    </ClCompile>
+    <ClCompile Include="window_widgets\appSettings.cpp">
+      <Filter>Интерфейс\Окна</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="mdEditor.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="mdScreen.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="modules\Downloader.h">
       <Filter>Модули</Filter>
     </QtMoc>
@@ -77,6 +77,12 @@
     </QtMoc>
     <QtMoc Include="ui_primitives\OrientalPushButton.h">
       <Filter>Интерфейс</Filter>
+    </QtMoc>
+    <QtMoc Include="window_widgets\mdEditor.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="window_widgets\mdScreen.h">
+      <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -118,8 +124,11 @@
     <ClInclude Include="ress\resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="dialogBoxes.h">
+    <ClInclude Include="ui_primitives\dialogBoxes.h">
       <Filter>Интерфейс</Filter>
+    </ClInclude>
+    <ClInclude Include="window_widgets\appSettings.h">
+      <Filter>Интерфейс\Окна</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
