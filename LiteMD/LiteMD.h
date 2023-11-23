@@ -11,6 +11,7 @@ class LiteMD : public QMainWindow
     Q_OBJECT
 	private:
 		Ui::LiteMDClass ui;
+		QDockWidget* quick_access_dock;
 		QMenu* mHelp;
 		QMenu* mFile;
 		QMenu* mSettings;
@@ -18,9 +19,13 @@ class LiteMD : public QMainWindow
 		mdScreen* mds;
 		DownloaderGui* dwModule;
 		QString defTitle;
+		QLabel* workProgressCap;
 	public:
+		void closeEvent(QCloseEvent*);
 		LiteMD(QWidget *parent = nullptr);
 		~LiteMD();
+	signals:
+		void saveFile();
 	private slots:
 		void slotAbout();
 		void slot_mbar_send_string(const QString&);

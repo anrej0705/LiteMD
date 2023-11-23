@@ -1,6 +1,7 @@
 #include "LiteMD.h"
 #include "OrientalPushButton.h"
 #include "GuiDownloader.h"
+#include "dialogBoxes.h"
 #include <QtWidgets>
 
 //Номер билда, пока задаётся вручную
@@ -31,10 +32,12 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	QAction* actDownloader = new QAction(tr("HTTP &Downloader module"));
 	QAction* actSet = new QAction(tr("&Settings"));
 	QAction* actNew = new QAction(tr("&New"));
+	quick_access_dock = new QDockWidget(this);
 	dwModule = new DownloaderGui;
 	mFile = new QMenu(tr("&File"));
 	mSettings = new QMenu(tr("&Service"));
 	mHelp = new QMenu(tr("&Help"));
+	workProgressCap = new QLabel("work in progress");
 	//-------------------------
 	
 	//Блок менеджеров размещения кнопок
@@ -45,6 +48,11 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//---------------------------------
 
 	//Блок конфигурации элементов интерфейса
+	quick_access_dock->setFeatures(QDockWidget::NoDockWidgetFeatures);
+	quick_access_dock->setTitleBarWidget(new QWidget());
+	quick_access_dock->setFixedHeight(32);
+	quick_access_dock->setWidget(workProgressCap);
+	this->addDockWidget(Qt::TopDockWidgetArea, quick_access_dock);
 	actAbout->setShortcut(Qt::CTRL | Qt::Key_A);
 	actOpen->setShortcut(Qt::CTRL | Qt::Key_O);
 	actSave->setShortcut(Qt::CTRL | Qt::Key_S);
@@ -119,9 +127,11 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	if (!connect(actNew, SIGNAL(triggered()), mde, SLOT(slotNew())))
 		QErrorMessage::qtHandler();	//Команда создания нового документа
 	if (!connect(mde, SIGNAL(changeTitle()), this, SLOT(slotFileEdited())))
-		QErrorMessage::qtHandler();
+		QErrorMessage::qtHandler();	//Вешаем звездочку в начале заголовка если документ изменялс
 	if (!connect(mde, SIGNAL(resetTitle()), this, SLOT(slotTitleReset())))
-		QErrorMessage::qtHandler();
+		QErrorMessage::qtHandler();	//Сбрасываем заголовок при создании нового файла
+	if (!connect(this, SIGNAL(saveFile()), mde, SLOT(slotSaveAs())))
+		QErrorMessage::qtHandler();	//Спрашиваем сохранить ли перед закрытием
 	//------------------------------
 
 	//Рабочий долгосрочный костыль. Создаем пустой виджет и помещаем все в него
@@ -167,6 +177,17 @@ void LiteMD::slotFileEdited()
 	QString title = windowTitle();
 	title.insert(0, '*');
 	setWindowTitle(title);
+}
+void LiteMD::closeEvent(QCloseEvent* ce)
+{
+	bool save_accept = confirmSave();
+	if(!save_accept)
+		ce->accept();
+	else if (save_accept)
+	{
+		emit saveFile();
+		ce->accept();
+	}
 }
 LiteMD::~LiteMD()
 {}

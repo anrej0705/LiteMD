@@ -58,6 +58,9 @@
     <ClCompile Include="ui_primitives\OrientalPushButton.cpp">
       <Filter>Интерфейс</Filter>
     </ClCompile>
+    <ClCompile Include="dialogBoxes.cpp">
+      <Filter>Интерфейс</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mdEditor.h">
@@ -114,6 +117,9 @@
     </ClInclude>
     <ClInclude Include="ress\resource.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dialogBoxes.h">
+      <Filter>Интерфейс</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

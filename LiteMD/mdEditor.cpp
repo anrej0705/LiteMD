@@ -1,5 +1,6 @@
 #include <QtWidgets>
 #include "mdEditor.h"
+#include "dialogBoxes.h"
 
 #define MAX_FILESIZE 65536
 
@@ -26,6 +27,13 @@ void mdEditor::slotTextChanged()
 }
 void mdEditor::slotOpen()
 {
+	bool save_accept = 0;
+	if (titleUpdated)
+	{
+		save_accept = confirmSave();
+		if (save_accept)
+			slotSave();
+	}
 	//Вызываем диалоговое окно открытия
 	QString filename = QFileDialog::getOpenFileName(0, tr("Open Text/Markdown"), "", tr("*.md ;; *.txt"));
 	if (filename.isEmpty())
@@ -83,6 +91,13 @@ void mdEditor::slotSaveAs()
 }
 void mdEditor::slotNew()
 {
+	bool save_accept = 0;
+	if (titleUpdated)
+	{
+		save_accept = confirmSave();
+		if (save_accept)
+			slotSave();
+	}
 	this->setText("");
 	titleUpdated = 0;
 	emit resetTitle();
