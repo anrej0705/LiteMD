@@ -215,6 +215,7 @@
   <ItemGroup>
     <Image Include="icon.ico" />
     <Image Include="ress\appicon.ico" />
+    <Image Include="ress\work_progress_cap.png" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ress\buildInfo.rc" />

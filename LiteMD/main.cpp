@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 	if (!mdApp.installTranslator(&lmd_lgn))
 		QErrorMessage::qtHandler();
 	LiteMD sdiEditor;
-	sdiEditor.resize(960, 576);
+	sdiEditor.resize(1280, 800);
 	sdiEditor.show();
     return mdApp.exec();
 }

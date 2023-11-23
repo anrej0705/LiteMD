@@ -39,7 +39,6 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mHelp = new QMenu(tr("&Help"));
 	workProgressCap = new QLabel("work in progress");
 	mdlSet = new appSettings;
-	mdlSet->show();
 	//-------------------------
 	
 	//Блок менеджеров размещения кнопок
@@ -62,7 +61,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	actQuit->setShortcut(Qt::CTRL | Qt::Key_Q);
 	actSet->setShortcut(Qt::CTRL | Qt::Key_S);
 	actNew->setShortcut(Qt::CTRL | Qt::Key_N);
-	actSet->setEnabled(0); //Пока что отключен до реализации
+	//actSet->setEnabled(0); //Пока что отключен до реализации
 	mdsArea->setWidgetResizable(1);
 	mdsArea->setWidget(mds);
 	mds->setWordWrap(1);
@@ -134,6 +133,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler();	//Сбрасываем заголовок при создании нового файла
 	if (!connect(this, SIGNAL(saveFile()), mde, SLOT(slotSaveAs())))
 		QErrorMessage::qtHandler();	//Спрашиваем сохранить ли перед закрытием
+	if (!connect(actSet, SIGNAL(triggered()), mdlSet, SLOT(show())))
+		QErrorMessage::qtHandler();	//Открытие окна настроек
 	//------------------------------
 
 	//Рабочий долгосрочный костыль. Создаем пустой виджет и помещаем все в него
