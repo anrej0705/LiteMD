@@ -5,6 +5,7 @@
 
 mdEditor::mdEditor(QWidget* mdWgt) : QTextEdit(mdWgt)
 {
+	titleUpdated = 0;
 	setAcceptRichText(0);
 	//Соединяем базовый сигнал со слотом который будет формировать сигнал высылки текста
 	if (!connect(this, SIGNAL(textChanged()), this, SLOT(slotTextChanged())))
@@ -16,6 +17,11 @@ void mdEditor::slotTextChanged()
 	int searchIndex = 0;
 	//Создаем контейнер, помещаем содержимое и высылаем
 	QString textToShow = QString(this->toPlainText());
+	if (!titleUpdated)
+	{
+		emit changeTitle();
+		titleUpdated = !titleUpdated;
+	}
 	emit textEdited(textToShow);
 }
 void mdEditor::slotOpen()
@@ -41,6 +47,7 @@ void mdEditor::slotOpen()
 		emit titleChanged(mdFileName);
 		emit statusString(tr("Opened ") + mdFileName);
 	}
+	titleUpdated = 0;
 }
 void mdEditor::slotSave()
 {
@@ -72,8 +79,11 @@ void mdEditor::slotSaveAs()
 		slotSave();
 		emit statusString(tr("Saved ") + mdSave);
 	}
+	titleUpdated = 0;
 }
 void mdEditor::slotNew()
 {
 	this->setText("");
+	titleUpdated = 0;
+	emit resetTitle();
 }

@@ -6,6 +6,7 @@ class mdEditor : public QTextEdit
 	private:
 		QString mdFileName;
 		QRegExp* hyperlink;
+		bool titleUpdated;
 	public:
 		mdEditor(QWidget* mdWgt = 0);
 	signals:
@@ -14,6 +15,8 @@ class mdEditor : public QTextEdit
 		void hyperlinkDetected(int,int);	//Отправляется при обнаружении конструкции http://* и аналогов
 		void hyperlinkRemoved(int);
 		void statusString(const QString&);	//Сигнал для отправки в строку состояния
+		void changeTitle(void);				//Сигнал изменения заголовка
+		void resetTitle(void);				//Сброс заголовка
 	private slots:
 		void slotTextChanged();	//Принимает сигнал textChanged() от базового виджета QTextEdited
 	public slots:

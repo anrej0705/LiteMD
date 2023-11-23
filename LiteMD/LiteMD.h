@@ -26,4 +26,6 @@ class LiteMD : public QMainWindow
 		void slot_mbar_send_string(const QString&);
 	public slots:
 		void slotTitleChanged(const QString&);
+		void slotFileEdited();
+		void slotTitleReset();
 };

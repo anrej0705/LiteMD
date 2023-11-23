@@ -116,8 +116,12 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler();	//Соединяем сигнал изменения строки состояния
 	if (!connect(actDownloader, SIGNAL(triggered()), dwModule, SLOT(slotShow())))
 		QErrorMessage::qtHandler(); //Соединяем сигнал срабатывания кнопки на метод отображения
-	if(!connect(actNew,SIGNAL(triggered()),mde,SLOT(slotNew())))
+	if (!connect(actNew, SIGNAL(triggered()), mde, SLOT(slotNew())))
 		QErrorMessage::qtHandler();	//Команда создания нового документа
+	if (!connect(mde, SIGNAL(changeTitle()), this, SLOT(slotFileEdited())))
+		QErrorMessage::qtHandler();
+	if (!connect(mde, SIGNAL(resetTitle()), this, SLOT(slotTitleReset())))
+		QErrorMessage::qtHandler();
 	//------------------------------
 
 	//Рабочий долгосрочный костыль. Создаем пустой виджет и помещаем все в него
@@ -145,14 +149,24 @@ void LiteMD::slotAbout()
 }
 void LiteMD::slotTitleChanged(const QString& title)
 {
-	QString newTitle = defTitle + " [";
-	newTitle.append(title);
-	newTitle.append("]");
-	setWindowTitle(newTitle);
+	std::string newTitle = defTitle.toStdString();
+	std::string fileFullPath = title.toStdString();
+	newTitle.append(" [" + fileFullPath.substr(fileFullPath.rfind('/') + 1, fileFullPath.size() - fileFullPath.rfind('/')) + "]");
+	setWindowTitle(QString::fromStdString(newTitle));
+}
+void LiteMD::slotTitleReset()
+{
+	setWindowTitle(defTitle);
 }
 void LiteMD::slot_mbar_send_string(const QString& str)
 {
 	statusBar()->showMessage(str, 4000);
+}
+void LiteMD::slotFileEdited()
+{
+	QString title = windowTitle();
+	title.insert(0, '*');
+	setWindowTitle(title);
 }
 
 LiteMD::~LiteMD()
