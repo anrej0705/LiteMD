@@ -5,6 +5,7 @@
 //Базовый конструктор
 DownloaderGui::DownloaderGui(QWidget* dwgt) : QWidget(dwgt)
 {
+	setWindowTitle(tr("HTTP Download module GUI(Deprecated)"));
 	//Инициализируем объекты управления
 	dw = new Downloader(this);
 	//Инициализируем графическую оболочку

@@ -3,10 +3,10 @@
 appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 {
 	setModal(1);
-	setWindowTitle("LiteMD Settings");
+	setWindowTitle(tr("LiteMD Settings"));
 	settingsLister = new QTabWidget(this);
-	btnOk = new QPushButton("&Ok");
-	btnCancel = new QPushButton("&Cancel");
+	btnOk = new QPushButton(tr("&Ok"));
+	btnCancel = new QPushButton(tr("&Cancel"));
 	controlBtnLay = new QHBoxLayout;
 	dialogWindow = new QVBoxLayout;
 	controlBtnLay->addWidget(btnOk);
@@ -19,7 +19,7 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	if (!connect(btnCancel, SIGNAL(clicked()), this, SLOT(hide())))
 		QErrorMessage::qtHandler();
 
-	workprogress = new QLabel("<H1>Work in progress, come later))</H1>");
+	workprogress = new QLabel("<H1>"+tr("Work in progress, come later))")+"</H1>");
 	QPixmap workprg_cap("ress\\work_progress_cap.png");
 	QLabel* pxmap = new QLabel;
 	QWidget* capTab = new QWidget;
@@ -33,6 +33,6 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	vLay->addWidget(workprogress);
 	vLay->addSpacing(95);
 
-	settingsLister->addTab(capTab, "Basic");
+	settingsLister->addTab(capTab, tr("Basic"));
 	setFixedSize(800, 600);
 }
