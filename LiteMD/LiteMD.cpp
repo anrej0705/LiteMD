@@ -168,6 +168,5 @@ void LiteMD::slotFileEdited()
 	title.insert(0, '*');
 	setWindowTitle(title);
 }
-
 LiteMD::~LiteMD()
 {}
