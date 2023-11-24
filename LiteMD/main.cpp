@@ -10,17 +10,17 @@ int main(int argc, char *argv[])
 	QString localeName = QLocale::system().name();
 	if (localeName == "en_US")
 	{
-		if (!lmd_lgn.load("loc\\LiteMD_en.qm", "."))
+		if (!lmd_lgn.load("loc/LiteMD_en.qm", "."))
 			QErrorMessage::qtHandler();
 	}
 	else if (localeName == "ru_RU")
 	{
-		if (!lmd_lgn.load("loc\\LiteMD_ru.qm", "."))
+		if (!lmd_lgn.load("loc/LiteMD_ru.qm", "."))
 			QErrorMessage::qtHandler();
 	}
 	else if (localeName == "ru_UA")
 	{
-		if (!lmd_lgn.load("loc\\LiteMD_ru_UA.qm", "."))
+		if (!lmd_lgn.load("loc/LiteMD_ru_UA.qm", "."))
 			QErrorMessage::qtHandler();
 	}
 	if (!mdApp.installTranslator(&lmd_lgn))

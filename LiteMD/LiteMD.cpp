@@ -5,7 +5,7 @@
 #include <QtWidgets>
 
 //Номер билда, пока задаётся вручную
-#define buildNumber 775
+#define buildNumber 782
 
 LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 {
