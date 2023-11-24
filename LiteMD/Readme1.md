@@ -1,1 +1,0 @@
-gsd<12<PREPROCESS>aw<sdaf><https://www.google.com> тест <хуйня> тест ещё одной <хуеты, которая не срабатывает как ссылка> скобки в случайном порядке: <<S<>DF>F><G.<><G><<<>>H>D<RFg скобки в случайном порядке два: >>E>WF[anrej0705 at GitHub](https://github.com/anrej0705)<>F<G><<внутри нормальная ссылка ><http://rw6ase.ru>#>,.3<POSTPROCESS>.g,.s
