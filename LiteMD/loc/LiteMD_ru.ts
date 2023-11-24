@@ -5,7 +5,7 @@
     <name>DownloaderGui</name>
     <message>
         <source>Error</source>
-        <translation>Вот зараза...</translation>
+        <translation>Вот зараза</translation>
     </message>
     <message>
         <source>An error while download is occured</source>
@@ -21,11 +21,11 @@
     </message>
     <message>
         <source>HTTP Download module GUI(Deprecated)</source>
-        <translation type="unfinished"></translation>
+        <translation>Модуль загрузки по HTTP(Устаревший)</translation>
     </message>
     <message>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>Просмотр изображения</translation>
     </message>
 </context>
 <context>
@@ -168,34 +168,34 @@ github.com/anrej0705
     <name>QObject</name>
     <message>
         <source>File not saved</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл не сохранён</translation>
     </message>
     <message>
         <source>You dont save changes in file, which is opened currently. Save?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы не сохранили изменения в файле, который сейчасо открыт. Сохранить?</translation>
     </message>
 </context>
 <context>
     <name>appSettings</name>
     <message>
         <source>LiteMD Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>LiteMD настройки</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ок</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Отмена</translation>
     </message>
     <message>
         <source>Work in progress, come later))</source>
-        <translation type="unfinished"></translation>
+        <translation>Скоро здесь кое что появится, приходи позже))</translation>
     </message>
     <message>
         <source>Basic</source>
-        <translation type="unfinished"></translation>
+        <translation>Основные</translation>
     </message>
 </context>
 <context>

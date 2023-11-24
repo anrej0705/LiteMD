@@ -21,11 +21,11 @@
     </message>
     <message>
         <source>HTTP Download module GUI(Deprecated)</source>
-        <translation type="unfinished"></translation>
+        <translation>HTTP Download module GUI(Deprecated)</translation>
     </message>
     <message>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>View</translation>
     </message>
 </context>
 <context>
@@ -152,7 +152,7 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;New document</translation>
+        <translation>&amp;New document</translation>
     </message>
 </context>
 <context>
@@ -166,34 +166,34 @@ I hope u like my app :D</translation>
     <name>QObject</name>
     <message>
         <source>File not saved</source>
-        <translation type="unfinished"></translation>
+        <translation>File not saved</translation>
     </message>
     <message>
         <source>You dont save changes in file, which is opened currently. Save?</source>
-        <translation type="unfinished"></translation>
+        <translation>You dont save changes in file, which is opened currently. Save?</translation>
     </message>
 </context>
 <context>
     <name>appSettings</name>
     <message>
         <source>LiteMD Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>LiteMD Settings</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ok</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cancel</translation>
     </message>
     <message>
         <source>Work in progress, come later))</source>
-        <translation type="unfinished"></translation>
+        <translation>Work in progress, come later))</translation>
     </message>
     <message>
         <source>Basic</source>
-        <translation type="unfinished"></translation>
+        <translation>Basic</translation>
     </message>
 </context>
 <context>
