@@ -9,6 +9,9 @@ DownloaderGui::DownloaderGui(QWidget* dwgt) : QWidget(dwgt)
 	setWindowTitle(tr("HTTP Download module GUI(Deprecated)"));
 	//Инициализируем объекты управления
 	dw = new Downloader(this);
+	//Создаем объект
+	plbl = new QLabel;
+	plbl->hide();
 	//Инициализируем графическую оболочку
 	dwPb = new QProgressBar;
 	dwEt = new QLineEdit;
@@ -84,8 +87,6 @@ void DownloaderGui::showPic(const QString& strFileName)
 	QPixmap pix(strFileName);
 	//Настраиваем его уменьшив размер в 2 раза по обеим сторонам. Используем флаги сглажинивая и игнорирования соотн.сторон
 	pix = pix.scaled(pix.size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-	//Создаем объект
-	plbl = new QLabel;
 	//Помещаем картинку
 	plbl->setPixmap(pix);
 	//Замораживаем изменение размера
@@ -110,6 +111,6 @@ void DownloaderGui::slotShow()
 }
 void DownloaderGui::closeEvent(QCloseEvent* ce)
 {
-	plbl->close();
+	ce->isAccepted();
 	ce->accept();
 }
