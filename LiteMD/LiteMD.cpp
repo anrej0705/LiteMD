@@ -186,15 +186,17 @@ void LiteMD::slotFileEdited()
 void LiteMD::closeEvent(QCloseEvent* ce)
 {
 	bool save_accept = confirmSave();
-	if(!save_accept)
+	if (!save_accept)
+	{
+		dwModule->close();
 		ce->accept();
+	}
 	else if (save_accept)
 	{
 		emit saveFile();
+		dwModule->~DownloaderGui();
 		ce->accept();
 	}
 }
 LiteMD::~LiteMD()
-{
-	
-}
+{}

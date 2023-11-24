@@ -25,6 +25,7 @@ int main(int argc, char *argv[])
 	}
 	if (!mdApp.installTranslator(&lmd_lgn))
 		QErrorMessage::qtHandler();
+	QApplication::setQuitOnLastWindowClosed(1);
 	LiteMD sdiEditor;
 	sdiEditor.resize(1280, 800);
 	sdiEditor.show();

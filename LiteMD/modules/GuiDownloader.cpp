@@ -84,8 +84,8 @@ void DownloaderGui::showPic(const QString& strFileName)
 	QPixmap pix(strFileName);
 	//Настраиваем его уменьшив размер в 2 раза по обеим сторонам. Используем флаги сглажинивая и игнорирования соотн.сторон
 	pix = pix.scaled(pix.size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-	//Создаем виджет напдиси
-	QLabel* plbl = new QLabel;
+	//Создаем объект
+	plbl = new QLabel;
 	//Помещаем картинку
 	plbl->setPixmap(pix);
 	//Замораживаем изменение размера
@@ -107,4 +107,9 @@ void DownloaderGui::slotShow()
 	this->resize(800, 80);
 	this->show();
 	QMessageBox::information(0, tr("And he won't live long..."), tr("This module was added experimentally. In the future it will undergo changes or disappear"));
+}
+void DownloaderGui::closeEvent(QCloseEvent* ce)
+{
+	plbl->close();
+	ce->accept();
 }

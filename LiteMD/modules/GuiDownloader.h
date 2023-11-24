@@ -17,11 +17,15 @@ class DownloaderGui : public QWidget
 		QPushButton* dwPt;
 		//Метод для показа загруженной картинки
 		void showPic(const QString&);
+		//Создаем виджет напдиси
+		QLabel* plbl;
 	public:
 		//Базовый конструктор
 		DownloaderGui(QWidget* dwgt = 0);
 		//Базовый деструктор
 		~DownloaderGui();
+		//Событие закрытия окна
+		void closeEvent(QCloseEvent*);
 	private slots:
 		//Слот инициации загрузки
 		void slotGo();
