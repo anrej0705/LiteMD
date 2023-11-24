@@ -20,6 +20,8 @@ class DownloaderGui : public QWidget
 	public:
 		//Базовый конструктор
 		DownloaderGui(QWidget* dwgt = 0);
+		//Базовый деструктор
+		~DownloaderGui();
 	private slots:
 		//Слот инициации загрузки
 		void slotGo();

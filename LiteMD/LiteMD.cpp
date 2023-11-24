@@ -49,6 +49,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//---------------------------------
 
 	//Блок конфигурации элементов интерфейса
+	dwModule->setAttribute(Qt::WA_DeleteOnClose);
 	quick_access_dock->setFeatures(QDockWidget::NoDockWidgetFeatures);
 	quick_access_dock->setTitleBarWidget(new QWidget());
 	quick_access_dock->setFixedHeight(32);
@@ -61,7 +62,6 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	actQuit->setShortcut(Qt::CTRL | Qt::Key_Q);
 	actSet->setShortcut(Qt::CTRL | Qt::Key_S);
 	actNew->setShortcut(Qt::CTRL | Qt::Key_N);
-	//actSet->setEnabled(0); //Пока что отключен до реализации
 	mdsArea->setWidgetResizable(1);
 	mdsArea->setWidget(mds);
 	mds->setWordWrap(1);
@@ -195,4 +195,6 @@ void LiteMD::closeEvent(QCloseEvent* ce)
 	}
 }
 LiteMD::~LiteMD()
-{}
+{
+	
+}

@@ -35,6 +35,9 @@ DownloaderGui::DownloaderGui(QWidget* dwgt) : QWidget(dwgt)
 	//Устанавливаем наш слой
 	setLayout(gLay);
 }
+//Базовый деструктор
+DownloaderGui::~DownloaderGui()
+{}
 //Слот инициатора загрузки
 void DownloaderGui::slotGo()
 {

@@ -8,6 +8,7 @@ class mdScreen : public QLabel
 	private:
 		int lengShift;
 		std::wregex* regexHyperlink;
+		std::wregex* advRegexHyperlink;
 		std::wstring mdInput;
 		QString mdFormatted;
 		std::wstring hyperlinkParser(std::wstring&);

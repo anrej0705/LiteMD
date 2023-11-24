@@ -19,7 +19,9 @@ mdScreen::mdScreen(QWidget* scrWgt) : QLabel(scrWgt)
 	setTextFormat(Qt::RichText);
 	lengShift = 0;
 	regexHyperlink = new std::wregex(L"[<]{1,1}(http|https|ftp)(://)\\S{1,}[>]{1,1}", std::wregex::collate);
-	//regexHyperlink = new std::wregex(L"[<]{1,1}\\S{1,}[>]{1,1}", std::wregex::collate);
+	advRegexHyperlink = new std::wregex(L"(\\[(.*?)\\])(\\(\\S{1,})\\)", std::wregex::collate);
+	//advRegexHyperlink = new std::wregex(L"\\[(.*?)\\]\\(.*?\\)", std::wregex::collate);
+	//advRegexHyperlink = new std::wregex(L"\\[(.*?)\\]\\((.*?)\\)", std::wregex::collate);
 	setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	setTextInteractionFlags(Qt::TextBrowserInteraction);
 	setOpenExternalLinks(1);
@@ -118,6 +120,46 @@ void mdScreen::slotSetText(const QString& str)
 	}
 	
 	processCRLF(mdFormatted);
+	lengShift = 0;
+	buffer = L"";
+	mdInput = mdFormatted.toStdWString();
+
+	int indexIn = 0;
+	int index = 0;
+	int range = 0;
+	int urname_length = 0;
+	std::wstring bufferLink=L"";
+	std::wstring bufferName=L"";
+	for (int i = 0;i < mdInput.size();++i)
+	{
+		index = mdInput.find('[', index);
+		range = mdInput.find(']', index);
+		if (index == -1 || range == -1)
+			break;
+		buffer = mdInput.substr(index, range - index+1);
+		bufferName = buffer;
+		indexIn = index;
+		index = range;
+		if (index!=mdInput.size()-1)
+			if(mdInput.at(index + 1) == '(')
+			{
+				range = mdInput.find(')', index + 1);
+				buffer = mdInput.substr(index + 1, range - index);
+				bufferLink = buffer;
+				buffer = L"";
+				buffer.append(bufferLink);
+				buffer.append(bufferName);
+				urname_length = buffer.size();
+				buffer.replace(0, 1, L"<");
+				lengShift += 4;
+				buffer.insert(1, std::wstring(vType.tag_href_open.begin(),vType.tag_href_open.end()));
+				buffer.insert(buffer.find(')'), std::wstring(vType.tag_href_close.begin(), vType.tag_href_close.end()));
+				buffer.replace(buffer.find(')'), 2, L">");
+				buffer.replace(buffer.find(']'), 1, std::wstring(vType.tag_href_end.begin(), vType.tag_href_end.end()));
+				mdInput.replace(indexIn, urname_length, buffer);
+				mdFormatted = QString::fromStdWString(mdInput);
+			}
+	}
 
 	this->setText(mdFormatted);
 }
