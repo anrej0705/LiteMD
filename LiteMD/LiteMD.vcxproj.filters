@@ -30,6 +30,9 @@
     <Filter Include="Интерфейс\Окна">
       <UniqueIdentifier>{6de02703-3a75-4dd1-a34d-78f1e599531f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="String processing">
+      <UniqueIdentifier>{ad2912a0-ef3b-4849-8164-79953f4ac377}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="LiteMD.ui">
@@ -61,11 +64,17 @@
     <ClCompile Include="window_widgets\mdScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="window_widgets\appSettings.cpp">
+      <Filter>Интерфейс\Окна</Filter>
+    </ClCompile>
     <ClCompile Include="ui_primitives\dialogBoxes.cpp">
       <Filter>Интерфейс</Filter>
     </ClCompile>
-    <ClCompile Include="window_widgets\appSettings.cpp">
-      <Filter>Интерфейс\Окна</Filter>
+    <ClCompile Include="string_processing\syntax_preprocessor.cpp">
+      <Filter>String processing</Filter>
+    </ClCompile>
+    <ClCompile Include="string_processing\syntax_postprocessor.cpp">
+      <Filter>String processing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +92,9 @@
     </QtMoc>
     <QtMoc Include="window_widgets\mdScreen.h">
       <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="window_widgets\appSettings.h">
+      <Filter>Интерфейс\Окна</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -130,8 +142,11 @@
     <ClInclude Include="ui_primitives\dialogBoxes.h">
       <Filter>Интерфейс</Filter>
     </ClInclude>
-    <ClInclude Include="window_widgets\appSettings.h">
-      <Filter>Интерфейс\Окна</Filter>
+    <ClInclude Include="string_processing\syntax_preprocessor.h">
+      <Filter>String processing</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\syntax_postprocessor.h">
+      <Filter>String processing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

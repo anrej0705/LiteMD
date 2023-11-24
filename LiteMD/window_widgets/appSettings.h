@@ -2,6 +2,7 @@
 #include <QtWidgets>
 class appSettings : public QDialog
 {
+	Q_OBJECT
 	private:
 		QTabWidget* settingsLister;
 		QLabel* workprogress;

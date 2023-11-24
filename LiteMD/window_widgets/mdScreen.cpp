@@ -1,5 +1,7 @@
 #include <QtWidgets>
 #include "mdScreen.h"
+#include "syntax_preprocessor.h"
+#include "syntax_postprocessor.h"
 #include <string>
 #include <regex>
 
@@ -8,34 +10,80 @@ struct visualTags
 	std::string tag_href_open = "a href=\"";
 	std::string tag_href_close = "\"";
 	std::string tag_href_end = "</a>";
+	std::string left_angl_bracket_replacer = "&#60";
+	std::string right_angl_bracket_replacer = "&#62";
 }vType;
 
 mdScreen::mdScreen(QWidget* scrWgt) : QLabel(scrWgt)
 {
 	setTextFormat(Qt::RichText);
 	lengShift = 0;
-	regexHyperlink = new std::wregex(L"[<]{1,1}\\S{1,}[>]{1,1}", std::wregex::collate);
+	regexHyperlink = new std::wregex(L"[<]{1,1}(http|https|ftp)(://)\\S{1,}[>]{1,1}", std::wregex::collate);
+	//regexHyperlink = new std::wregex(L"[<]{1,1}\\S{1,}[>]{1,1}", std::wregex::collate);
 	setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	setTextInteractionFlags(Qt::TextBrowserInteraction);
 	setOpenExternalLinks(1);
 }
-//Обработка переноса строк(подстановка <BR> вместо \n
-void processCRLF(QString &str)
+
+//Парсер <url> по регексу
+std::wstring mdScreen::hyperlinkParser(std::wstring& str)
 {
-	for (int i = 0;i < str.size();++i)
+	int index = 0;
+	int range = 0;
+	std::wstring buffer = str;
+
+	std::list<std::wstring> garbage;
+	std::list<std::wstring> xpressions;
+
+	for (std::wsregex_iterator it = std::wsregex_iterator(str.cbegin(), str.cend(), *regexHyperlink);it != std::wsregex_iterator();++it)
 	{
-		if (str[i] == '\n')
+		range = it->position();
+		buffer = str.substr(index, range - index);
+		preprocessTrianlgeBrackets(buffer);
+		garbage.push_back(buffer);
+		for (int i = range;i < str.size();++i)
 		{
-			str.replace(i, 1, "<BR>");
-			processCRLF(str);
+			if (mdInput.at(i) == '>')
+			{
+				index = i + 1;
+				break;
+			}
 		}
+		buffer = str.substr(range, index - range);
+		xpressions.push_back(buffer);
 	}
+	if (index < mdInput.size())
+	{
+		buffer = mdInput.substr(index, mdInput.size() - index);
+		preprocessTrianlgeBrackets(buffer);
+		garbage.push_back(buffer);
+	}
+	buffer = std::wstring(L"");
+	for (;;)
+	{
+		if (garbage.size() != 0)
+		{
+			buffer += garbage.front();
+			garbage.pop_front();
+		}
+		if (xpressions.size() != 0)
+		{
+			buffer += xpressions.front();
+			xpressions.pop_front();
+		}
+		if (garbage.size() == 0 && xpressions.size() == 0)
+			break;
+	}
+	return buffer;
 }
+
 //Простой слот - принимает сигнал и изменяет виджет
 void mdScreen::slotSetText(const QString& str)
 {
 	mdInput = str.toStdWString();
 	mdFormatted = QString::fromStdWString(mdInput);
+
+	mdInput = hyperlinkParser(mdInput);
 
 	//Обрабатываем и вставляем ссылки
 	//Ищем ссылки с помощью регулярного выражения
@@ -45,6 +93,7 @@ void mdScreen::slotSetText(const QString& str)
 	std::wstring debugPeek;
 
 	lengShift = 0;
+	mdFormatted = QString::fromStdWString(mdInput);
 
 	for (std::wsregex_iterator i = beg; i != end;++i)
 	{
@@ -65,6 +114,7 @@ void mdScreen::slotSetText(const QString& str)
 		//Вычисляем смещение открывающий тег + закрывающая часть тега + вставленное текстовое представление ссылки+ закрывающий тег
 		lengShift += vType.tag_href_open.size() + vType.tag_href_close.size() + buffer.size() + vType.tag_href_end.size();
 		debugPeek = mdFormatted.toStdWString();
+		//qApp->processEvents();	Работает нестабильно
 	}
 	
 	processCRLF(mdFormatted);

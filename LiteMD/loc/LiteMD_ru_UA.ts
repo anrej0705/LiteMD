@@ -23,6 +23,10 @@
         <source>HTTP Download module GUI(Deprecated)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>View</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LiteMD</name>
@@ -158,6 +162,17 @@ github.com/anrej0705
     <message>
         <source>LiteMD</source>
         <translation>LiteMD</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>File not saved</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You dont save changes in file, which is opened currently. Save?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

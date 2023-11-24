@@ -107,7 +107,7 @@
       <BuildAction>lupdate</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -119,7 +119,7 @@
       <BuildAction>lupdate</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -131,7 +131,7 @@
       <BuildAction>lupdate_lrelease</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -143,7 +143,7 @@
       <BuildAction>lupdate_lrelease</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -197,7 +197,18 @@
   <ItemGroup>
     <ClCompile Include="modules\Downloader.cpp" />
     <ClCompile Include="modules\GuiDownloader.cpp" />
-    <ClCompile Include="ui_primitives\dialogBoxes.cpp" />
+    <ClCompile Include="string_processing\syntax_postprocessor.cpp" />
+    <ClCompile Include="string_processing\syntax_preprocessor.cpp" />
+    <ClCompile Include="ui_primitives\dialogBoxes.cpp">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).moc</QtMocFileName>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).moc</QtMocFileName>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
+    </ClCompile>
     <ClCompile Include="ui_primitives\OrientalPushButton.cpp" />
     <ClCompile Include="window_widgets\appSettings.cpp" />
     <ClCompile Include="window_widgets\mdEditor.cpp" />
@@ -232,8 +243,10 @@
   <ItemGroup>
     <ClInclude Include="ress\resource.h" />
     <ClInclude Include="ress\resource1.h" />
+    <ClInclude Include="string_processing\syntax_postprocessor.h" />
+    <ClInclude Include="string_processing\syntax_preprocessor.h" />
     <ClInclude Include="ui_primitives\dialogBoxes.h" />
-    <ClInclude Include="window_widgets\appSettings.h" />
+    <QtMoc Include="window_widgets\appSettings.h" />
     <QtMoc Include="window_widgets\mdScreen.h" />
     <QtMoc Include="window_widgets\mdEditor.h" />
   </ItemGroup>

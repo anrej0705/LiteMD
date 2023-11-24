@@ -10,6 +10,7 @@ class mdScreen : public QLabel
 		std::wregex* regexHyperlink;
 		std::wstring mdInput;
 		QString mdFormatted;
+		std::wstring hyperlinkParser(std::wstring&);
 	public:
 		mdScreen(QWidget* scrWgt = 0);
 	public slots:
