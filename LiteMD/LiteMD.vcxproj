@@ -250,6 +250,9 @@
     <QtMoc Include="window_widgets\mdScreen.h" />
     <QtMoc Include="window_widgets\mdEditor.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Readme.md" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
     <Import Project="$(QtMsBuild)\qt.targets" />
