@@ -16,6 +16,7 @@ DownloaderGui::DownloaderGui(QWidget* dwgt) : QWidget(dwgt)
 	dw = new Downloader(this);
 	//Создаем объект
 	plbl = new QLabel;
+	plbl->setWindowIcon(QIcon("icon.ico"));
 	plbl->hide();
 	//Инициализируем графическую оболочку
 	dwPb = new QProgressBar;
@@ -47,9 +48,14 @@ DownloaderGui::DownloaderGui(QWidget* dwgt) : QWidget(dwgt)
 DownloaderGui::~DownloaderGui()
 {
 	if (appClose)
+	{
+		plbl->close();
 		close();
+	}
 	else
+	{
 		hide();
+	}
 }
 //Слот инициатора загрузки
 void DownloaderGui::slotGo()
@@ -125,5 +131,13 @@ void DownloaderGui::slotShow()
 }
 void DownloaderGui::closeEvent(QCloseEvent* ce)
 {
-	hide();
+	if (appClose)
+	{
+		plbl->close();
+		ce->accept();
+	}
+	else
+	{
+		hide();
+	}
 }

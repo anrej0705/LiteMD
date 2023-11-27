@@ -14,9 +14,6 @@ extern "C"
 LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 {
 	//ui.setupUi(this); //Всегда должно быть наверху! UPD - пока отключено
-	fileOpenedState = 0;
-	fileChangedState = 0;
-	appTitleUpdated = 0;
 
 	//Инициализация окон редактора и рендера текста
 	mde = new mdEditor;
