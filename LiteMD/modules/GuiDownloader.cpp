@@ -95,6 +95,7 @@ void DownloaderGui::slotDone(const QUrl& url, const QByteArray& ba)
 			//Отображаем картинку
 			showPic(strFileName);
 	}
+	dwPb->setValue(0);
 }
 //Метод выводящий на экран картинку
 void DownloaderGui::showPic(const QString& strFileName)
