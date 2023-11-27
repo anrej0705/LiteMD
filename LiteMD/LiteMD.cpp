@@ -134,7 +134,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler();	//Вешаем звездочку в начале заголовка если документ изменялс
 	if (!connect(mde, SIGNAL(resetTitle()), this, SLOT(slotTitleReset())))
 		QErrorMessage::qtHandler();	//Сбрасываем заголовок при создании нового файла
-	if (!connect(this, SIGNAL(saveFile()), mde, SLOT(slotSaveAs())))
+	if (!connect(this, SIGNAL(saveFile()), mde, SLOT(slotSave())))
 		QErrorMessage::qtHandler();	//Спрашиваем сохранить ли перед закрытием
 	if (!connect(actSet, SIGNAL(triggered()), mdlSet, SLOT(show())))
 		QErrorMessage::qtHandler();	//Открытие окна настроек
