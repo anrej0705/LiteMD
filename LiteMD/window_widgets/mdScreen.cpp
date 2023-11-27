@@ -144,6 +144,8 @@ void mdScreen::slotSetText(const QString& str)
 			if(mdInput.at(index + 1) == '(')
 			{
 				range = mdInput.find(')', index + 1);
+				if (range == -1)
+					break;
 				buffer = mdInput.substr(index + 1, range - index);
 				bufferLink = buffer;
 				buffer = L"";
