@@ -210,7 +210,7 @@
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
     </ClCompile>
     <ClCompile Include="ui_primitives\OrientalPushButton.cpp" />
-    <ClCompile Include="utls\globalFlags.cpp" />
+    <ClCompile Include="utls\globalFlags.c" />
     <ClCompile Include="window_widgets\appSettings.cpp" />
     <ClCompile Include="window_widgets\mdEditor.cpp" />
     <ClCompile Include="window_widgets\mdScreen.cpp" />

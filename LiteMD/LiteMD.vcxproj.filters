@@ -79,7 +79,7 @@
     <ClCompile Include="string_processing\syntax_postprocessor.cpp">
       <Filter>String processing</Filter>
     </ClCompile>
-    <ClCompile Include="utls\globalFlags.cpp">
+    <ClCompile Include="utls\globalFlags.c">
       <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>

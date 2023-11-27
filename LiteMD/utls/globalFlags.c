@@ -1,4 +1,5 @@
 #include "globalFlags.h"
+#include <stdbool.h>
 
 bool fileOpenedState=0;
 bool fileChangedState=0;

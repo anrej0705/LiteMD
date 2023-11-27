@@ -3,7 +3,10 @@
 #include "GuiDownloader.h"
 #include "dialogBoxes.h"
 #include <QtWidgets>
-#include "globalFlags.h"
+extern "C"
+{
+	#include "globalFlags.h"
+}
 
 //Номер билда, пока задаётся вручную
 #define buildNumber 782

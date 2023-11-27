@@ -2,7 +2,10 @@
 #include <qurl.h>
 #include "Downloader.h"
 #include "GuiDownloader.h"
-#include "globalFlags.h"
+extern "C"
+{
+	#include "globalFlags.h"
+}
 //Базовый конструктор
 DownloaderGui::DownloaderGui(QWidget* dwgt) : QWidget(dwgt)
 {

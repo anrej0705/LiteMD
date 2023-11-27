@@ -1,7 +1,10 @@
 #include <QtWidgets>
 #include "mdEditor.h"
 #include "dialogBoxes.h"
-#include "globalFlags.h"
+extern "C"
+{
+	#include "globalFlags.h"
+}
 
 #define MAX_FILESIZE 65536
 
