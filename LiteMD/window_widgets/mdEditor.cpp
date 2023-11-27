@@ -26,9 +26,19 @@ void mdEditor::slotTextChanged()
 	if (!fileChangedState)
 		fileChangedState = 1;
 	emit textEdited(textToShow);
+	if (this->toPlainText() == "")
+	{
+		fileChangedState = 0;
+		emit resetTitle();
+	}
 }
 void mdEditor::slotOpen()
 {
+	if (this->toPlainText() == "")
+	{
+		fileChangedState = 0;
+		return;
+	}
 	bool save_accept = 0;
 	if (appTitleUpdated)
 	{
@@ -62,6 +72,11 @@ void mdEditor::slotOpen()
 }
 void mdEditor::slotSave()
 {
+	if (this->toPlainText() == "")
+	{
+		fileChangedState = 0;
+		return;
+	}
 	QByteArray utf8out;
 	utf8out.append(toPlainText().toUtf8());
 	//Если файл ещё ни разу не сохранялся то переходим в слот "Сохранить как"
@@ -85,6 +100,11 @@ void mdEditor::slotSave()
 }
 void mdEditor::slotSaveAs()
 {
+	if (this->toPlainText() == "")
+	{
+		fileChangedState = 0;
+		return;
+	}
 	//Вызываем диалоговое окно сохранения
 	QString mdSave = QFileDialog::getSaveFileName(0, tr("Save Text/Markdown"), "Readme", tr("*.md ;; *.txt"));
 	if (!mdSave.isEmpty())
@@ -97,6 +117,11 @@ void mdEditor::slotSaveAs()
 }
 void mdEditor::slotNew()
 {
+	if (this->toPlainText() == "")
+	{
+		fileChangedState = 0;
+		return;
+	}
 	bool save_accept = 0;
 	if (appTitleUpdated)
 	{
