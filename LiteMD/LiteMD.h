@@ -29,6 +29,7 @@ class LiteMD : public QMainWindow
 		void saveFile();
 	private slots:
 		void slotAbout();
+		void httpModuleShow();
 		void slot_mbar_send_string(const QString&);
 	public slots:
 		void slotTitleChanged(const QString&);

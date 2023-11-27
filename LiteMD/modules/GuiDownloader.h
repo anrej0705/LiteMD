@@ -19,6 +19,7 @@ class DownloaderGui : public QWidget
 		void showPic(const QString&);
 		//Создаем виджет напдиси
 		QLabel* plbl;
+		bool warned;
 	public:
 		//Базовый конструктор
 		DownloaderGui(QWidget* dwgt = 0);
@@ -35,6 +36,7 @@ class DownloaderGui : public QWidget
 		void slotDownloadProgress(qint64, qint64);
 		//Слот показывающий что загрузка завершена
 		void slotDone(const QUrl&, const QByteArray&);
+	public slots:
 		//Слот, отображающий окно
 		void slotShow();
 };

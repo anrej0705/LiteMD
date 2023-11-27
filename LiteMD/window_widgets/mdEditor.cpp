@@ -1,12 +1,12 @@
 #include <QtWidgets>
 #include "mdEditor.h"
 #include "dialogBoxes.h"
+#include "globalFlags.h"
 
 #define MAX_FILESIZE 65536
 
 mdEditor::mdEditor(QWidget* mdWgt) : QTextEdit(mdWgt)
 {
-	titleUpdated = 0;
 	setAcceptRichText(0);
 	//Соединяем базовый сигнал со слотом который будет формировать сигнал высылки текста
 	if (!connect(this, SIGNAL(textChanged()), this, SLOT(slotTextChanged())))
@@ -18,17 +18,16 @@ void mdEditor::slotTextChanged()
 	int searchIndex = 0;
 	//Создаем контейнер, помещаем содержимое и высылаем
 	QString textToShow = QString(this->toPlainText());
-	if (!titleUpdated)
-	{
+	if (!appTitleUpdated)
 		emit changeTitle();
-		titleUpdated = !titleUpdated;
-	}
+	if (!fileChangedState)
+		fileChangedState = 1;
 	emit textEdited(textToShow);
 }
 void mdEditor::slotOpen()
 {
 	bool save_accept = 0;
-	if (titleUpdated)
+	if (appTitleUpdated)
 	{
 		save_accept = confirmSave();
 		if (save_accept)
@@ -55,7 +54,8 @@ void mdEditor::slotOpen()
 		emit titleChanged(mdFileName);
 		emit statusString(tr("Opened ") + mdFileName);
 	}
-	titleUpdated = 0;
+	fileChangedState = 0;
+	appTitleUpdated = 0;
 }
 void mdEditor::slotSave()
 {
@@ -65,6 +65,7 @@ void mdEditor::slotSave()
 	if (mdFileName.isEmpty())
 	{
 		slotSaveAs();
+		appTitleUpdated = 0;
 		return;
 	}
 	QFile saveObject(mdFileName);
@@ -74,8 +75,10 @@ void mdEditor::slotSave()
 		out.setCodec("UTF-8");
 		out << toPlainText();
 		saveObject.close();
+		fileChangedState = 0;
 		emit titleChanged(mdFileName);
 	}
+	appTitleUpdated = 0;
 }
 void mdEditor::slotSaveAs()
 {
@@ -87,18 +90,18 @@ void mdEditor::slotSaveAs()
 		slotSave();
 		emit statusString(tr("Saved ") + mdSave);
 	}
-	titleUpdated = 0;
+	appTitleUpdated = 0;
 }
 void mdEditor::slotNew()
 {
 	bool save_accept = 0;
-	if (titleUpdated)
+	if (appTitleUpdated)
 	{
 		save_accept = confirmSave();
 		if (save_accept)
 			slotSave();
 	}
 	this->setText("");
-	titleUpdated = 0;
+	appTitleUpdated = 0;
 	emit resetTitle();
 }

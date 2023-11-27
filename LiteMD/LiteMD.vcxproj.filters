@@ -33,6 +33,9 @@
     <Filter Include="String processing">
       <UniqueIdentifier>{ad2912a0-ef3b-4849-8164-79953f4ac377}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{a30fbaed-059a-49cd-9881-99ef8ad3c88a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="LiteMD.ui">
@@ -75,6 +78,9 @@
     </ClCompile>
     <ClCompile Include="string_processing\syntax_postprocessor.cpp">
       <Filter>String processing</Filter>
+    </ClCompile>
+    <ClCompile Include="utls\globalFlags.cpp">
+      <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -147,6 +153,9 @@
     </ClInclude>
     <ClInclude Include="string_processing\syntax_postprocessor.h">
       <Filter>String processing</Filter>
+    </ClInclude>
+    <ClInclude Include="utls\globalFlags.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

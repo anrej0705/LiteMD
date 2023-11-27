@@ -6,7 +6,6 @@ class mdEditor : public QTextEdit
 	private:
 		QString mdFileName;
 		QRegExp* hyperlink;
-		bool titleUpdated;
 	public:
 		mdEditor(QWidget* mdWgt = 0);
 	signals:

@@ -2,9 +2,11 @@
 #include <qurl.h>
 #include "Downloader.h"
 #include "GuiDownloader.h"
+#include "globalFlags.h"
 //Базовый конструктор
 DownloaderGui::DownloaderGui(QWidget* dwgt) : QWidget(dwgt)
 {
+	warned = 0;
 	//Устанавливаем заголовок окна модуля
 	setWindowTitle(tr("HTTP Download module GUI(Deprecated)"));
 	//Инициализируем объекты управления
@@ -40,7 +42,12 @@ DownloaderGui::DownloaderGui(QWidget* dwgt) : QWidget(dwgt)
 }
 //Базовый деструктор
 DownloaderGui::~DownloaderGui()
-{}
+{
+	if (appClose)
+		close();
+	else
+		hide();
+}
 //Слот инициатора загрузки
 void DownloaderGui::slotGo()
 {
@@ -85,7 +92,7 @@ void DownloaderGui::showPic(const QString& strFileName)
 {
 	//Создаем объект картинки
 	QPixmap pix(strFileName);
-	//Настраиваем его уменьшив размер в 2 раза по обеим сторонам. Используем флаги сглажинивая и игнорирования соотн.сторон
+	//Настраиваем его уменьшив размер в 2(1) раза по обеим сторонам. Используем флаги сглажинивая и игнорирования соотн.сторон
 	pix = pix.scaled(pix.size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 	//Помещаем картинку
 	plbl->setPixmap(pix);
@@ -107,10 +114,13 @@ void DownloaderGui::slotShow()
 	this->move(190, 80);
 	this->resize(800, 80);
 	this->show();
-	QMessageBox::information(0, tr("And he won't live long..."), tr("This module was added experimentally. In the future it will undergo changes or disappear"));
+	if (!httpDerpWarned)
+	{
+		QMessageBox::information(0, tr("And he won't live long..."), tr("This module was added experimentally. In the future it will undergo changes or disappear"));
+		httpDerpWarned = 1;
+	}
 }
 void DownloaderGui::closeEvent(QCloseEvent* ce)
 {
-	ce->isAccepted();
-	ce->accept();
+	hide();
 }

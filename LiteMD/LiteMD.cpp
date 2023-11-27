@@ -3,6 +3,7 @@
 #include "GuiDownloader.h"
 #include "dialogBoxes.h"
 #include <QtWidgets>
+#include "globalFlags.h"
 
 //Номер билда, пока задаётся вручную
 #define buildNumber 782
@@ -10,6 +11,9 @@
 LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 {
 	//ui.setupUi(this); //Всегда должно быть наверху! UPD - пока отключено
+	fileOpenedState = 0;
+	fileChangedState = 0;
+	appTitleUpdated = 0;
 
 	//Инициализация окон редактора и рендера текста
 	mde = new mdEditor;
@@ -18,7 +22,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 
 	//Блок элементов интерфейса
 	QScrollArea* mdsArea = new QScrollArea;
-	OrientablePushButton* btnDown = new OrientablePushButton("--->",this);
+	OrientablePushButton* btnDown = new OrientablePushButton("--->", this);
 	OrientablePushButton* btnUp = new OrientablePushButton("--->", this);
 	QGroupBox* editorWindow = new QGroupBox(tr("Editor"));
 	QGroupBox* viewerWindow = new QGroupBox(tr("Viewer"));
@@ -49,7 +53,6 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//---------------------------------
 
 	//Блок конфигурации элементов интерфейса
-	dwModule->setAttribute(Qt::WA_DeleteOnClose);
 	quick_access_dock->setFeatures(QDockWidget::NoDockWidgetFeatures);
 	quick_access_dock->setTitleBarWidget(new QWidget());
 	quick_access_dock->setFixedHeight(32);
@@ -60,7 +63,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	actSave->setShortcut(Qt::CTRL | Qt::Key_S);
 	actSaveAs->setShortcut(Qt::ALT | Qt::Key_S);
 	actQuit->setShortcut(Qt::CTRL | Qt::Key_Q);
-	actSet->setShortcut(Qt::CTRL | Qt::Key_S);
+	actSet->setShortcut(Qt::CTRL | Qt::Key_H);
 	actNew->setShortcut(Qt::CTRL | Qt::Key_N);
 	mdsArea->setWidgetResizable(1);
 	mdsArea->setWidget(mds);
@@ -123,7 +126,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler();	//Соединяем сигнал выхода из приложения
 	if (!connect(mde, SIGNAL(statusString(QString)), this, SLOT(slot_mbar_send_string(QString))))
 		QErrorMessage::qtHandler();	//Соединяем сигнал изменения строки состояния
-	if (!connect(actDownloader, SIGNAL(triggered()), dwModule, SLOT(slotShow())))
+	if (!connect(actDownloader, SIGNAL(triggered()), this, SLOT(httpModuleShow())))
 		QErrorMessage::qtHandler(); //Соединяем сигнал срабатывания кнопки на метод отображения
 	if (!connect(actNew, SIGNAL(triggered()), mde, SLOT(slotNew())))
 		QErrorMessage::qtHandler();	//Команда создания нового документа
@@ -179,24 +182,49 @@ void LiteMD::slot_mbar_send_string(const QString& str)
 }
 void LiteMD::slotFileEdited()
 {
-	QString title = windowTitle();
-	title.insert(0, '*');
-	setWindowTitle(title);
+	if (!appTitleUpdated)
+	{
+		QString title = windowTitle();
+		title.insert(0, '*');
+		setWindowTitle(title);
+		appTitleUpdated = 1;
+	}
 }
 void LiteMD::closeEvent(QCloseEvent* ce)
 {
-	bool save_accept = confirmSave();
-	if (!save_accept)
+	if (fileChangedState)
 	{
-		dwModule->close();
-		ce->accept();
+		if (!confirmSave())
+		{
+			appClose = 1;
+			dwModule->close();
+			ce->accept();
+		}
+		else
+		{
+			appClose = 1;
+			emit saveFile();
+			dwModule->close();
+			ce->accept();
+		}
 	}
-	else if (save_accept)
+	appClose = 1;
+	dwModule->close();
+}
+void LiteMD::httpModuleShow()
+{
+	if(dynamic_cast<DownloaderGui*>(dwModule))
 	{
-		emit saveFile();
-		dwModule->~DownloaderGui();
-		ce->accept();
+		dwModule->slotShow();
+		return;
 	}
+	/*if (qobject_cast<DownloaderGui*>(dwModule))
+	{
+		dwModule->slotShow();
+		return;
+	}*/
+	dwModule = new DownloaderGui;
+	dwModule->slotShow();
 }
 LiteMD::~LiteMD()
 {}
