@@ -34,11 +34,6 @@ void mdEditor::slotTextChanged()
 }
 void mdEditor::slotOpen()
 {
-	if (this->toPlainText() == "")
-	{
-		fileChangedState = 0;
-		return;
-	}
 	bool save_accept = 0;
 	if (appTitleUpdated)
 	{
@@ -117,13 +112,8 @@ void mdEditor::slotSaveAs()
 }
 void mdEditor::slotNew()
 {
-	if (this->toPlainText() == "")
-	{
-		fileChangedState = 0;
-		return;
-	}
 	bool save_accept = 0;
-	if (appTitleUpdated)
+	if (appTitleUpdated&&this->toPlainText()!="")
 	{
 		save_accept = confirmSave();
 		if (save_accept)
