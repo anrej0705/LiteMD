@@ -23,7 +23,7 @@ DownloaderGui::DownloaderGui(QWidget* dwgt) : QWidget(dwgt)
 	dwEt = new QLineEdit;
 	dwPt = new QPushButton("&Go");
 	//Создаем строку и записываем ссылку-пример(12.11.2023 не работает)
-	QString strDownloadLink = "http://i122.fastpic.org/thumb/2023/1120/b5/_e3bc95b508c698aeaa35e205a2b8abb5.jpeg";
+	QString strDownloadLink = "https://i122.fastpic.org/thumb/2023/1127/35/_d9628b5877c863ff532cc98daa37b735.jpeg";
 	//Копируем строку в поле ввода
 	dwEt->setText(strDownloadLink);
 	//Соединяем сигнал кнопки со слотом инициатора загрузки

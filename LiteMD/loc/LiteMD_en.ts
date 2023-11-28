@@ -124,11 +124,11 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation>[WORK IN PROGRESS]LiteMD alpha 0.1.5 build </translation>
+        <translation>[WORK IN PROGRESS]LiteMD alpha 0.1.6 build </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.1.5 build </translation>
+        <translation>Ver. alpha 0.1.6 build </translation>
     </message>
     <message>
         <source>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</source>
