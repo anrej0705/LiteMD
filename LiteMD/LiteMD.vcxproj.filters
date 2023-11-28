@@ -36,6 +36,9 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{a30fbaed-059a-49cd-9881-99ef8ad3c88a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Документация">
+      <UniqueIdentifier>{e53ec79e-b5c4-45ea-8b52-a957effde680}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="LiteMD.ui">

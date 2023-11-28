@@ -5,7 +5,7 @@ class mdEditor : public QTextEdit
 	Q_OBJECT
 	private:
 		QString mdFileName;
-		QRegExp* hyperlink;
+		QFile mdObject;
 	public:
 		mdEditor(QWidget* mdWgt = 0);
 	signals:

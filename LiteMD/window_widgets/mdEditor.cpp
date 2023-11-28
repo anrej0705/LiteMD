@@ -42,23 +42,23 @@ void mdEditor::slotOpen()
 			slotSave();
 	}
 	//Вызываем диалоговое окно открытия
-	QString filename = QFileDialog::getOpenFileName(0, tr("Open Text/Markdown"), "", tr("*.md ;; *.txt"));
-	if (filename.isEmpty())
+	mdFileName = QFileDialog::getOpenFileName(0, tr("Open Text/Markdown"), "", tr("*.md ;; *.txt"));
+	if (mdFileName.isEmpty())
 		return;
-	QFile fileObject(filename);
+	mdObject.setFileName(mdFileName);
 	//Если размер больше 64 килобайт то файл не откроется
-	if (fileObject.size() > MAX_FILESIZE)
+	if (mdObject.size() > MAX_FILESIZE)
 	{
 		QMessageBox::warning(this,tr("Oversize detected"), tr("Cannot open file because size of this is over ") + QString::number(MAX_FILESIZE) + tr(" bytes"));
 		return;
 	}
-	if (fileObject.open(QIODevice::ReadOnly))
+	if (mdObject.open(QIODevice::ReadOnly))
 	{
-		QTextStream mdStream(&fileObject);
+		QTextStream mdStream(&mdObject);
 		mdStream.setCodec("UTF-8");
 		setPlainText(mdStream.readAll());
-		fileObject.close();
-		mdFileName = filename;
+		mdObject.close();
+		//mdFileName = filename;
 		emit titleChanged(mdFileName);
 		emit statusString(tr("Opened ") + mdFileName);
 	}
@@ -81,13 +81,13 @@ void mdEditor::slotSave()
 		appTitleUpdated = 0;
 		return;
 	}
-	QFile saveObject(mdFileName);
-	if (saveObject.open(QIODevice::WriteOnly))
+	mdObject.setFileName(mdFileName);
+	if (mdObject.open(QIODevice::WriteOnly))
 	{
-		QTextStream out(&saveObject);
+		QTextStream out(&mdObject);
 		out.setCodec("UTF-8");
 		out << toPlainText();
-		saveObject.close();
+		mdObject.close();
 		fileChangedState = 0;
 		emit titleChanged(mdFileName);
 	}
@@ -101,12 +101,12 @@ void mdEditor::slotSaveAs()
 		return;
 	}
 	//Вызываем диалоговое окно сохранения
-	QString mdSave = QFileDialog::getSaveFileName(0, tr("Save Text/Markdown"), "Readme", tr("*.md ;; *.txt"));
-	if (!mdSave.isEmpty())
+	mdFileName = QFileDialog::getSaveFileName(0, tr("Save Text/Markdown"), "Readme", tr("*.md ;; *.txt"));
+	if (!mdFileName.isEmpty())
 	{
-		mdFileName = mdSave;
+		//mdFileName = mdSave;
 		slotSave();
-		emit statusString(tr("Saved ") + mdSave);
+		emit statusString(tr("Saved ") + mdFileName);
 	}
 	appTitleUpdated = 0;
 }
@@ -119,6 +119,12 @@ void mdEditor::slotNew()
 		if (save_accept)
 			slotSave();
 	}
+	fileOpenedState = 0;
+	fileChangedState = 0;
+	appTitleUpdated = 0;
+	if (mdObject.isOpen())
+		mdObject.close();
+	mdFileName = "";
 	this->setText("");
 	appTitleUpdated = 0;
 	emit resetTitle();
