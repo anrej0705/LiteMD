@@ -21,30 +21,33 @@ void mdEditor::slotTextChanged()
 	int searchIndex = 0;
 	//Создаем контейнер, помещаем содержимое и высылаем
 	QString textToShow = QString(this->toPlainText());
+	//Если заголовок окна не содержит флага "*" то выставляем
 	if (!appTitleUpdated)
 		emit changeTitle();
+	//Поднимаем флаг сигнализации о изменениий файла
 	if (!fileChangedState)
 		fileChangedState = 1;
+	//Пересылаем текст в массив отрисовки
 	emit textEdited(textToShow);
+	//Если пользователь всё стёр то снимаем флаг
 	if (this->toPlainText() == "")
 	{
 		fileChangedState = 0;
 		emit resetTitle();
 	}
 }
+//Открытие файла
 void mdEditor::slotOpen()
 {
-	bool save_accept = 0;
+	//Если файл был изменём(проверяем по флагу "*") то предлагаем сохранить
 	if (appTitleUpdated)
-	{
-		save_accept = confirmSave();
-		if (save_accept)
+		if (confirmSave())
 			slotSave();
-	}
 	//Вызываем диалоговое окно открытия
 	mdFileName = QFileDialog::getOpenFileName(0, tr("Open Text/Markdown"), "", tr("*.md ;; *.txt"));
 	if (mdFileName.isEmpty())
 		return;
+	//Присваиваем имя файла к обработчику который будет открывать его
 	mdObject.setFileName(mdFileName);
 	//Если размер больше 64 килобайт то файл не откроется
 	if (mdObject.size() > MAX_FILESIZE)
@@ -52,26 +55,34 @@ void mdEditor::slotOpen()
 		QMessageBox::warning(this,tr("Oversize detected"), tr("Cannot open file because size of this is over ") + QString::number(MAX_FILESIZE) + tr(" bytes"));
 		return;
 	}
+	//Если удалось то открыть то начинаем чтение
 	if (mdObject.open(QIODevice::ReadOnly))
 	{
+		//Читаем в поток
 		QTextStream mdStream(&mdObject);
 		mdStream.setCodec("UTF-8");
+		//Читаем из потока в поле редактирования(дальше сигнал отсылает содержимое в поле рендера)
 		setPlainText(mdStream.readAll());
+		//Закрываем файл и освобождаем его дескриптор
 		mdObject.close();
-		//mdFileName = filename;
+		//Отправляем сигналы
 		emit titleChanged(mdFileName);
 		emit statusString(tr("Opened ") + mdFileName);
 	}
+	//Сбрасываем флаги
 	fileChangedState = 0;
 	appTitleUpdated = 0;
 }
+//Сохранение файла
 void mdEditor::slotSave()
 {
+	//Если пользователь ничего не ввёл то отменяем процесс и сбрасываем флаги
 	if (this->toPlainText() == "")
 	{
 		fileChangedState = 0;
 		return;
 	}
+	//Создаем поток для вывода и добавляем туда текст преобразованный в юникод
 	QByteArray utf8out;
 	utf8out.append(toPlainText().toUtf8());
 	//Если файл ещё ни разу не сохранялся то переходим в слот "Сохранить как"
@@ -81,20 +92,27 @@ void mdEditor::slotSave()
 		appTitleUpdated = 0;
 		return;
 	}
+	//Присваиваем хандлеру имя файла
 	mdObject.setFileName(mdFileName);
+	//Если удалось открыть файл на запись то выполняем
 	if (mdObject.open(QIODevice::WriteOnly))
 	{
+		//Присваиваем выходному потоку указатель на хандлер и задаем юникод и затем сохраняем
 		QTextStream out(&mdObject);
 		out.setCodec("UTF-8");
 		out << toPlainText();
+		//Закрываем файл, сбрасываем файл и отсылаем сигнал
 		mdObject.close();
 		fileChangedState = 0;
 		emit titleChanged(mdFileName);
 	}
+	//Сбрасываем флаг даже если не удалось записать
 	appTitleUpdated = 0;
 }
+//Сохранить как
 void mdEditor::slotSaveAs()
 {
+	//Если пусто то выходим
 	if (this->toPlainText() == "")
 	{
 		fileChangedState = 0;
@@ -108,24 +126,29 @@ void mdEditor::slotSaveAs()
 		slotSave();
 		emit statusString(tr("Saved ") + mdFileName);
 	}
+	//Сбрасываем флаг в любом случае
 	appTitleUpdated = 0;
 }
+//Новый документ
 void mdEditor::slotNew()
 {
-	bool save_accept = 0;
+	//Если пустой текст то скипаем
 	if (appTitleUpdated&&this->toPlainText()!="")
 	{
-		save_accept = confirmSave();
-		if (save_accept)
+		//Иначе сохраняем
+		if (confirmSave())
 			slotSave();
 	}
+	//Сбрасываем флаги в любом случае
 	fileOpenedState = 0;
 	fileChangedState = 0;
 	appTitleUpdated = 0;
+	//Если что-то открыто то закрываем
 	if (mdObject.isOpen())
 		mdObject.close();
+	//Сбрасываем имя файла
 	mdFileName = "";
+	//Сбрасываем содержимое поля ввода и заголовок
 	this->setText("");
-	appTitleUpdated = 0;
 	emit resetTitle();
 }

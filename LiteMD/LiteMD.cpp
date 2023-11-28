@@ -156,6 +156,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//Показываем сообщение готовности к работе
 	statusBar()->showMessage(tr("Ready"), 3000);
 }
+//О программе
 void LiteMD::slotAbout()
 {
 	QMessageBox::about(this, "LiteMD", tr("Ver. alpha 0.0.0 build ") + QString::number(buildNumber) 
@@ -165,21 +166,27 @@ void LiteMD::slotAbout()
 		+ tr("Repo on Github: " ) + "<A HREF=\"https://github.com/anrej0705/LiteMD\">https://github.com/anrej0705/LiteMD</A><BR>" 
 		+ tr("Releases: ") + "<A HREF=\"https://github.com/anrej0705/LiteMD/releases\">https://github.com/anrej0705/LiteMD/releases</A>");
 }
+//Слот редактирования заголовка(добавления файла к концу)
 void LiteMD::slotTitleChanged(const QString& title)
 {
+	//Контейнеры для помещения элементов заголовка
 	std::string newTitle = defTitle.toStdString();
 	std::string fileFullPath = title.toStdString();
+	//Формируем заголовок из контейнеров и устанавливаем в приложение
 	newTitle.append(" [" + fileFullPath.substr(fileFullPath.rfind('/') + 1, fileFullPath.size() - fileFullPath.rfind('/')) + "]");
 	setWindowTitle(QString::fromStdString(newTitle));
 }
+//Сброс заголовка
 void LiteMD::slotTitleReset()
 {
 	setWindowTitle(defTitle);
 }
+//Слот показа состояния на панели снизу
 void LiteMD::slot_mbar_send_string(const QString& str)
 {
 	statusBar()->showMessage(str, 4000);
 }
+//Слот установки флага редактирования флага
 void LiteMD::slotFileEdited()
 {
 	if (!appTitleUpdated)
@@ -190,39 +197,42 @@ void LiteMD::slotFileEdited()
 		appTitleUpdated = 1;
 	}
 }
+//Перехватчик события закрытия
 void LiteMD::closeEvent(QCloseEvent* ce)
 {
+	//Если файл редактировался то спрашиваем нужно ли сохранить
 	if (fileChangedState)
 	{
 		if (!confirmSave())
 		{
+			//Если пользователь не захотел сохранять то просто закрываемся
 			appClose = 1;
 			dwModule->close();
 			ce->accept();
 		}
 		else
 		{
+			//Если пользователь захотел сохранить то закрывамся после сохранения
 			appClose = 1;
 			emit saveFile();
 			dwModule->close();
 			ce->accept();
 		}
 	}
+	//Выставляем флаг закрытия и закрываем модуль если он открыт
 	appClose = 1;
 	dwModule->close();
 }
+//Вызов модуля загрузки
 void LiteMD::httpModuleShow()
 {
+	//Если по указателю есть то что нам надо то показываем
 	if(dynamic_cast<DownloaderGui*>(dwModule))
 	{
 		dwModule->slotShow();
 		return;
 	}
-	/*if (qobject_cast<DownloaderGui*>(dwModule))
-	{
-		dwModule->slotShow();
-		return;
-	}*/
+	//Иначе создаем объект и показываем
 	dwModule = new DownloaderGui;
 	dwModule->slotShow();
 }

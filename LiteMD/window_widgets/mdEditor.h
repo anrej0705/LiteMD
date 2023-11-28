@@ -4,6 +4,7 @@ class mdEditor : public QTextEdit
 {
 	Q_OBJECT
 	private:
+		//Контейнер имени файла и хандлер
 		QString mdFileName;
 		QFile mdObject;
 	public:
@@ -12,7 +13,7 @@ class mdEditor : public QTextEdit
 		void textEdited(const QString&);	//Отправляется при изменении текста
 		void titleChanged(const QString&);	//Отправлятся при открытии/сохранении файла
 		void hyperlinkDetected(int,int);	//Отправляется при обнаружении конструкции http://* и аналогов
-		void hyperlinkRemoved(int);
+		void hyperlinkRemoved(int);			//Отправляется если пользователь стёр конструкцию
 		void statusString(const QString&);	//Сигнал для отправки в строку состояния
 		void changeTitle(void);				//Сигнал изменения заголовка
 		void resetTitle(void);				//Сброс заголовка
