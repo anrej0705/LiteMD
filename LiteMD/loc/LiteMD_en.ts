@@ -193,10 +193,14 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>Basic</source>
-        <translation type="vanished">Basic</translation>
+        <translation>Basic</translation>
     </message>
     <message>
         <source>Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

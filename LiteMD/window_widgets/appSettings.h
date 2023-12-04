@@ -6,6 +6,7 @@ class appSettings : public QDialog
 	private:
 		QWidget* basicSettings;	//Основные настройки
 		QWidget* parserSettings;	//Настройки обработки текста
+
 		QTabWidget* settingsLister;	//Менеджер вкладок
 		QLabel* workprogress;	//Заглушка
 		QPushButton* btnOk;		//Кнопка подтверждения

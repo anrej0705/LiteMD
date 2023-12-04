@@ -6,6 +6,9 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	setModal(1);
 	setWindowTitle(tr("LiteMD Settings"));
 
+	//Предварительная настройка вкладок
+	configureBasicSettingsTab();
+
 	//Инициализируем указатели
 	settingsLister = new QTabWidget(this);
 	btnOk = new QPushButton(tr("&Ok"));
@@ -44,12 +47,9 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	vLay->addSpacing(95);
 
 	//Задаем название вкладки
+	settingsLister->addTab(basicSettings, tr("Basic"));
 	settingsLister->addTab(capTab, tr("Cap"));
 
 	//Задаем фиксированный размер
 	setFixedSize(800, 600);
-}
-void appSettings::configureBasicSettingsTab()
-{
-
 }

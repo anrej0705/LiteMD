@@ -39,6 +39,9 @@
     <Filter Include="Документация">
       <UniqueIdentifier>{e53ec79e-b5c4-45ea-8b52-a957effde680}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Интерфейс\Окна\Вкладки">
+      <UniqueIdentifier>{2ee28039-f1c2-46c8-a410-2c650dcda18d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="LiteMD.ui">
@@ -84,6 +87,9 @@
     </ClCompile>
     <ClCompile Include="utls\globalFlags.c">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="settings_tabs\tab_basic.cpp">
+      <Filter>Интерфейс\Окна\Вкладки</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +165,9 @@
     </ClInclude>
     <ClInclude Include="utls\globalFlags.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="settings_tabs\tab_basic.h">
+      <Filter>Интерфейс\Окна\Вкладки</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
