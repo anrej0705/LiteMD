@@ -12,6 +12,7 @@ class appSettings : public QDialog
 		QPushButton* btnCancel;	//Кнопка отмены
 		QHBoxLayout* controlBtnLay;	//Менеджеры размещения кнопок снизу
 		QVBoxLayout* dialogWindow;	//Менеджер общего размещения элементов
+		void configureBasicSettingsTab();
 	public:
 		appSettings(QWidget* aWgt = 0);
 };

@@ -44,8 +44,12 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	vLay->addSpacing(95);
 
 	//Задаем название вкладки
-	settingsLister->addTab(capTab, tr("Basic"));
+	settingsLister->addTab(capTab, tr("Cap"));
 
 	//Задаем фиксированный размер
 	setFixedSize(800, 600);
+}
+void appSettings::configureBasicSettingsTab()
+{
+
 }

@@ -108,6 +108,7 @@
     </QtTranslation>
     <ClCompile>
       <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -120,6 +121,7 @@
     </QtTranslation>
     <ClCompile>
       <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -132,6 +134,7 @@
     </QtTranslation>
     <ClCompile>
       <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -144,6 +147,7 @@
     </QtTranslation>
     <ClCompile>
       <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">

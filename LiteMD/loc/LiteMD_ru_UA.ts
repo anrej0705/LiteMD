@@ -195,7 +195,11 @@ github.com/anrej0705
     </message>
     <message>
         <source>Basic</source>
-        <translation>Основные</translation>
+        <translation type="vanished">Основные</translation>
+    </message>
+    <message>
+        <source>Cap</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
