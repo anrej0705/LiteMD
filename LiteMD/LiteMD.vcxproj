@@ -104,7 +104,7 @@
       <Message>Изменение номера билда</Message>
     </PostBuildEvent>
     <QtTranslation>
-      <BuildAction>lupdate</BuildAction>
+      <BuildAction>false</BuildAction>
     </QtTranslation>
     <ClCompile>
       <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\settings_tabs;C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
@@ -117,7 +117,7 @@
       <Message>Изменение номера билда</Message>
     </PostBuildEvent>
     <QtTranslation>
-      <BuildAction>lupdate</BuildAction>
+      <BuildAction>false</BuildAction>
     </QtTranslation>
     <ClCompile>
       <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\settings_tabs;C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
