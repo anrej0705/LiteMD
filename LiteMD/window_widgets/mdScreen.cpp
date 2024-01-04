@@ -34,7 +34,7 @@ mdScreen::mdScreen(QWidget* scrWgt) : QLabel(scrWgt)
 std::wstring mdScreen::hyperlinkParser(std::wstring& str)
 {
 	//Создаем переменные для хранения точки входа и длины регулярки
-	int index = 0;
+	size_t index = 0;
 	int range = 0;
 	std::wstring buffer = str;
 
@@ -54,7 +54,7 @@ std::wstring mdScreen::hyperlinkParser(std::wstring& str)
 		//Сохраняем мусор в контейнер
 		garbage.push_back(buffer);
 		//Ищем закрывающую скобку
-		for (int i = range;i < str.size();++i)
+		for (size_t i = range;i < str.size();++i)
 		{
 			if (mdInput.at(i) == '>')
 			{
@@ -153,8 +153,8 @@ void mdScreen::slotSetText(const QString& str)
 
 	//Обработка альтернативных ссылок
 	int indexIn = 0;
-	int index = 0;
-	int range = 0;
+	size_t index = 0;
+	size_t range = 0;
 	int urname_length = 0;
 	std::wstring bufferLink=L"";
 	std::wstring bufferName=L"";
