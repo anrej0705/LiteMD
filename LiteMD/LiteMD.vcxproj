@@ -239,9 +239,6 @@
     <ResourceCompile Include="ress\icon.rc" />
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="ress\LiteMD.qrc" />
-  </ItemGroup>
-  <ItemGroup>
     <QtTranslation Include="loc\LiteMD_en.ts" />
     <QtTranslation Include="loc\LiteMD_ru.ts" />
     <QtTranslation Include="loc\LiteMD_ru_UA.ts" />

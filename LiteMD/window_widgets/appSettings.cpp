@@ -30,6 +30,8 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 		QErrorMessage::qtHandler();
 	if (!connect(btnCancel, SIGNAL(clicked()), this, SLOT(hide())))
 		QErrorMessage::qtHandler();
+	if (!connect(langList, SIGNAL(currentIndexChanged(int)), this, SLOT(slot_lang_selected(int))))
+		QErrorMessage::qtHandler();
 
 	//Ставим заглушку
 	workprogress = new QLabel("<H1>"+tr("Work in progress, come later))")+"</H1>");

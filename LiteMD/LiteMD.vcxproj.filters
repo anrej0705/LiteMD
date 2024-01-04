@@ -132,11 +132,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="ress\LiteMD.qrc">
-      <Filter>Resource Files</Filter>
-    </QtRcc>
-  </ItemGroup>
-  <ItemGroup>
     <QtTranslation Include="loc\LiteMD_en.ts">
       <Filter>Translation Files</Filter>
     </QtTranslation>
