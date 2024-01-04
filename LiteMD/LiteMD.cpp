@@ -200,6 +200,7 @@ void LiteMD::slotFileEdited()
 //Перехватчик события закрытия
 void LiteMD::closeEvent(QCloseEvent* ce)
 {
+	//1
 	//Если файл редактировался то спрашиваем нужно ли сохранить
 	if (fileChangedState)
 	{
