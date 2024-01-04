@@ -9,4 +9,6 @@ extern bool appTitleUpdated;
 extern bool appClose;
 //Deprecated
 extern bool httpDerpWarned;
+
+#define UI_UPDATE_EVENT 1033
 #endif

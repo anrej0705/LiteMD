@@ -1,4 +1,5 @@
 #include "appSettings.h"
+#include "ui_update_event.h"
 #include <QtWidgets>
 appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 {
@@ -8,8 +9,6 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 
 	//Предварительная настройка вкладок
 	configureBasicSettingsTab();
-
-	engine = new QQmlEngine;
 
 	//Инициализируем указатели
 	settingsLister = new QTabWidget(this);
@@ -77,5 +76,7 @@ void appSettings::slot_apply_settings()
 	if (!QCoreApplication::installTranslator(&lmd_lng))
 		QErrorMessage::qtHandler();
 	qApp->installTranslator(&lmd_lng);
-	btnCancel->setText(tr("&Cancel"));
+	//btnCancel->setText(tr("&Cancel"));
+	
+	update_ui();
 }

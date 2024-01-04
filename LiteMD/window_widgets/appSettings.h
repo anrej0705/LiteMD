@@ -1,7 +1,6 @@
 #pragma once
 #include <QtWidgets>
 #include <map>
-#include <qqmlengine.h>
 class appSettings : public QDialog
 {
 	Q_OBJECT
@@ -12,8 +11,6 @@ class appSettings : public QDialog
 
 		std::map<uint8_t, QString>* loc_map;	//Список локалей
 
-		QQmlEngine* engine;
-
 		QTranslator lmd_lng;
 
 		QTabWidget* settingsLister;	//Менеджер вкладок
@@ -23,9 +20,14 @@ class appSettings : public QDialog
 		QPushButton* btnApply;	//Кнопка применить изменения
 		QHBoxLayout* controlBtnLay;	//Менеджеры размещения кнопок снизу
 		QVBoxLayout* dialogWindow;	//Менеджер общего размещения элементов
+
+		//Вкладка "Основные"
+		QLabel* langlistHint;
+
 		void configureBasicSettingsTab();
 	public:
 		appSettings(QWidget* aWgt = 0);
+		void update_ui();
 	public slots:
 		void slot_lang_selected(int);
 		void slot_apply_settings();

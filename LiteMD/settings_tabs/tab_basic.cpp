@@ -1,5 +1,4 @@
 #include "appSettings.h"
-#include "tab_basic.h"
 
 //Конвертер имени языка - имя_языка(код_языка)
 QString localeNameConverter(QString lang_string_name, QString file_loc_name);
@@ -17,7 +16,7 @@ void appSettings::configureBasicSettingsTab()
 	//Инициализируем список для хранения языков
 	langList = new QComboBox;
 
-	QLabel langlistHint("Language:");
+	langlistHint = new QLabel(tr("Language:"));
 	//langlistHint.setBuddy(langList);
 
 	//Создаем контейнер пути и прописываем туда путь до файлов локализации

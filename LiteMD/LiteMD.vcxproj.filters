@@ -94,6 +94,9 @@
     <ClCompile Include="settings_tabs\tab_basic.cpp">
       <Filter>Интерфейс\Окна\Вкладки</Filter>
     </ClCompile>
+    <ClCompile Include="dyn_tr_manager\appSettings_ui.cpp">
+      <Filter>Модули\Динамический перевод</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">
@@ -164,8 +167,8 @@
     <ClInclude Include="utls\globalFlags.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="settings_tabs\tab_basic.h">
-      <Filter>Интерфейс\Окна\Вкладки</Filter>
+    <ClInclude Include="dyn_tr_manager\ui_update_event.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
