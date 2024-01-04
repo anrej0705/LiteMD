@@ -82,7 +82,7 @@ void mdEditor::slotOpen(QString fileName)
 	//Сбрасываем флаги
 	fileChangedState = 0;
 	appTitleUpdated = 0;
-	//Сохраняем файл в списке недавних
+	// Добавление файла в список последних.
 	LastFileManager lastFileManager("settings\\last_files");
 	lastFileManager.addFile(mdFileName.toStdString());
 	lastFileManager.save();
@@ -122,6 +122,10 @@ void mdEditor::slotSave()
 	}
 	//Сбрасываем флаг даже если не удалось записать
 	appTitleUpdated = 0;
+	// Добавление файла в список последних.
+	LastFileManager lastFileManager("settings\\last_files");
+	lastFileManager.addFile(mdFileName.toStdString());
+	lastFileManager.save();
 }
 //Сохранить как
 void mdEditor::slotSaveAs()
@@ -142,6 +146,10 @@ void mdEditor::slotSaveAs()
 	}
 	//Сбрасываем флаг в любом случае
 	appTitleUpdated = 0;
+	// Добавление файла в список последних.
+	LastFileManager lastFileManager("settings\\last_files");
+	lastFileManager.addFile(mdFileName.toStdString());
+	lastFileManager.save();
 }
 //Новый документ
 void mdEditor::slotNew()
