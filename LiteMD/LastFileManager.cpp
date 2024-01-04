@@ -4,16 +4,22 @@
 #include <fstream>
 #include <iterator>
 
-// Конструктор без параметров.
-LastFileManager::LastFileManager() : LastFileManager("settings\\last_files")
+// Конструктор по умолчанию.
+LastFileManager::LastFileManager()
+	: LastFileManager(3)
 {
 }
 
-// Конструктор с указанием пути к списку последних открытых файлов.
-LastFileManager::LastFileManager(std::string path)
+// Конструктор с указанием размера списка.
+LastFileManager::LastFileManager(int numberOfRecords) 
+	: LastFileManager("settings\\last_files", numberOfRecords)
 {
-	path_ = path;
+}
 
+// Конструктор с указанием пути и размера списка последних открытых файлов.
+LastFileManager::LastFileManager(std::string path, int numberOfRecords)
+	: path_{path}, numberOfRecords_{ numberOfRecords }
+{
 	std::ifstream file(path);
 
 	if (file.is_open() == false)
