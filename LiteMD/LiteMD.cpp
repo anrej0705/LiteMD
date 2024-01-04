@@ -2,7 +2,9 @@
 #include "OrientalPushButton.h"
 #include "GuiDownloader.h"
 #include "dialogBoxes.h"
+#include "LastFileManager.h"
 #include <QtWidgets>
+#include <algorithm>
 extern "C"
 {
 	#include "globalFlags.h"
@@ -98,6 +100,9 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mFile->addAction(actOpen);
 	mFile->addAction(actSave);
 	mFile->addAction(actSaveAs);
+
+	initLastFileMenu();
+
 	mFile->addSeparator();
 	mFile->addAction(actQuit);
 	mSettings->addAction(actDownloader);
@@ -155,6 +160,37 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 
 	//Показываем сообщение готовности к работе
 	statusBar()->showMessage(tr("Ready"), 3000);
+}
+// Инициализирует список последних элементов.
+void LiteMD::initLastFileMenu()
+{
+	// Считать последние три строки.
+	LastFileManager lastFileManager("settings\\last_files");
+	const std::deque<std::string>& lastFilePaths = lastFileManager.getFiles();
+
+	if (lastFilePaths.empty() || lastFilePaths.front().empty())
+		return;
+
+	mFile->addSeparator();
+
+	std::for_each(
+		std::begin(lastFilePaths),
+		std::end(lastFilePaths),
+		[=] (std::string lastFilePath) {
+			QFileInfo fileInfo(lastFilePath.c_str());
+			QAction* openLastfile = new QAction(fileInfo.fileName());
+
+			openLastfile->setData(fileInfo.filePath());
+			mFile->addAction(openLastfile);
+
+			if (!connect(
+				openLastfile, 
+				&QAction::triggered,
+				mde,
+				[=] { mde->slotOpen(fileInfo.filePath()); }))
+				QErrorMessage::qtHandler();	//Соединяем сигнал со слотом вызова окна о программе
+		}
+	);
 }
 //О программе
 void LiteMD::slotAbout()

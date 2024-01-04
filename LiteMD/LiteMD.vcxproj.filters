@@ -91,6 +91,9 @@
     <ClCompile Include="settings_tabs\tab_basic.cpp">
       <Filter>Интерфейс\Окна\Вкладки</Filter>
     </ClCompile>
+    <ClCompile Include="LastFileManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">
@@ -168,6 +171,9 @@
     </ClInclude>
     <ClInclude Include="settings_tabs\tab_basic.h">
       <Filter>Интерфейс\Окна\Вкладки</Filter>
+    </ClInclude>
+    <ClInclude Include="LastFileManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

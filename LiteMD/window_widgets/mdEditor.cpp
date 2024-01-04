@@ -1,6 +1,8 @@
 #include <QtWidgets>
 #include "mdEditor.h"
 #include "dialogBoxes.h"
+#include "..\LastFileManager.h"
+
 extern "C"
 {
 	#include "globalFlags.h"
@@ -39,22 +41,30 @@ void mdEditor::slotTextChanged()
 //Открытие файла
 void mdEditor::slotOpen()
 {
-	//Если файл был изменём(проверяем по флагу "*") то предлагаем сохранить
-	if (appTitleUpdated)
-		if (confirmSave())
-			slotSave();
-	//Вызываем диалоговое окно открытия
-	mdFileName = QFileDialog::getOpenFileName(0, tr("Open Text/Markdown"), "", tr("*.md ;; *.txt"));
-	if (mdFileName.isEmpty())
+	// Вызываем диалоговое окно открытия.
+	QString fileName = QFileDialog::getOpenFileName(0, tr("Open Text/Markdown"), "", tr("*.md ;; *.txt"));
+
+	if (fileName.isEmpty())
 		return;
+
+	slotOpen(fileName);
+}
+//Открытие файла
+void mdEditor::slotOpen(QString fileName)
+{
+	// Если файл был изменём(проверяем по флагу "*") то предлагаем сохранить.
+	if (appTitleUpdated && confirmSave() == true)
+		slotSave();
+
 	//Присваиваем имя файла к обработчику который будет открывать его
-	mdObject.setFileName(mdFileName);
+	mdObject.setFileName(fileName);
 	//Если размер больше 64 килобайт то файл не откроется
 	if (mdObject.size() > maxfileSize)
 	{
 		QMessageBox::warning(this,tr("Oversize detected"), tr("Cannot open file because size of this is over ") + QString::number(maxfileSize) + tr(" bytes"));
 		return;
 	}
+	mdFileName = fileName;
 	//Если удалось то открыть то начинаем чтение
 	if (mdObject.open(QIODevice::ReadOnly))
 	{
@@ -72,6 +82,10 @@ void mdEditor::slotOpen()
 	//Сбрасываем флаги
 	fileChangedState = 0;
 	appTitleUpdated = 0;
+	//Сохраняем файл в списке недавних
+	LastFileManager lastFileManager("settings\\last_files");
+	lastFileManager.addFile(mdFileName.toStdString());
+	lastFileManager.save();
 }
 //Сохранение файла
 void mdEditor::slotSave()
