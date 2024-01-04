@@ -21,6 +21,7 @@ class mdEditor : public QTextEdit
 		void slotTextChanged();	//Принимает сигнал textChanged() от базового виджета QTextEdited
 	public slots:
 		void slotOpen();	//Вызывает диалоговое окно открытия нового файла
+		void slotOpen(QString);
 		void slotSave();	//Вызывает диалоговое окно выбора названия файла для сохранения
 		void slotSaveAs();	//Вызывает окно для набора названия файла для сохранения
 		void slotNew();		//Очищает поле ввода
