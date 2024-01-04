@@ -9,7 +9,7 @@ extern "C"
 }
 
 //Номер билда, пока задаётся вручную
-#define buildNumber 782
+constexpr auto buildNumber{ 782 };
 
 LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 {

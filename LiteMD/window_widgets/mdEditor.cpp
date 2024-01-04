@@ -6,7 +6,7 @@ extern "C"
 	#include "globalFlags.h"
 }
 
-#define MAX_FILESIZE 65536
+constexpr auto maxfileSize{ 65536 };
 
 mdEditor::mdEditor(QWidget* mdWgt) : QTextEdit(mdWgt)
 {
@@ -50,9 +50,9 @@ void mdEditor::slotOpen()
 	//Присваиваем имя файла к обработчику который будет открывать его
 	mdObject.setFileName(mdFileName);
 	//Если размер больше 64 килобайт то файл не откроется
-	if (mdObject.size() > MAX_FILESIZE)
+	if (mdObject.size() > maxfileSize)
 	{
-		QMessageBox::warning(this,tr("Oversize detected"), tr("Cannot open file because size of this is over ") + QString::number(MAX_FILESIZE) + tr(" bytes"));
+		QMessageBox::warning(this,tr("Oversize detected"), tr("Cannot open file because size of this is over ") + QString::number(maxfileSize) + tr(" bytes"));
 		return;
 	}
 	//Если удалось то открыть то начинаем чтение
