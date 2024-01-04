@@ -4,17 +4,17 @@
 #include <string>
 #include <deque>
 
-// Менеджер списка последних открытых файлов.
+// РњРµРЅРµРґР¶РµСЂ СЃРїРёСЃРєР° РїРѕСЃР»РµРґРЅРёС… РѕС‚РєСЂС‹С‚С‹С… С„Р°Р№Р»РѕРІ.
 class LastFileManager
 {
 private:
-	std::deque<std::string> lastFilePaths_; // Список последних открытых файлов.
-	std::string path_; // Путь к файлу настроек сохранения.
+	std::deque<std::string> lastFilePaths_; // РЎРїРёСЃРѕРє РїРѕСЃР»РµРґРЅРёС… РѕС‚РєСЂС‹С‚С‹С… С„Р°Р№Р»РѕРІ.
+	std::string path_; // РџСѓС‚СЊ Рє С„Р°Р№Р»Сѓ РЅР°СЃС‚СЂРѕРµРє СЃРѕС…СЂР°РЅРµРЅРёСЏ.
 public:
-	LastFileManager(std::string path); // Базовый конструктор.
-	void save() const; // Сохраняет список последних открытых файлов.
-	const std::deque<std::string>& getFiles() const { return lastFilePaths_; } // Возвращает список последних открытых файлов.
-	void addFile(std::string path); // Добавляет файл в список последних открытых файлов.
+	LastFileManager(std::string path); // Р‘Р°Р·РѕРІС‹Р№ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ.
+	void save() const; // РЎРѕС…СЂР°РЅСЏРµС‚ СЃРїРёСЃРѕРє РїРѕСЃР»РµРґРЅРёС… РѕС‚РєСЂС‹С‚С‹С… С„Р°Р№Р»РѕРІ.
+	const std::deque<std::string>& getFiles() const { return lastFilePaths_; } // Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃРїРёСЃРѕРє РїРѕСЃР»РµРґРЅРёС… РѕС‚РєСЂС‹С‚С‹С… С„Р°Р№Р»РѕРІ.
+	void addFile(std::string path); // Р”РѕР±Р°РІР»СЏРµС‚ С„Р°Р№Р» РІ СЃРїРёСЃРѕРє РїРѕСЃР»РµРґРЅРёС… РѕС‚РєСЂС‹С‚С‹С… С„Р°Р№Р»РѕРІ.
 };
 
 #endif // !LAST_FILE_MANAGER_H

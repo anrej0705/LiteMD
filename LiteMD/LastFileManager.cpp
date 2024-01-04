@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iterator>
 
-// Базовый конструктор.
+// Р‘Р°Р·РѕРІС‹Р№ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ.
 LastFileManager::LastFileManager(std::string path)
 {
 	path_ = path;
@@ -22,7 +22,7 @@ LastFileManager::LastFileManager(std::string path)
 	file.close();
 }
 
-// Добавляет файл в список последних открытых файлов.
+// Р”РѕР±Р°РІР»СЏРµС‚ С„Р°Р№Р» РІ СЃРїРёСЃРѕРє РїРѕСЃР»РµРґРЅРёС… РѕС‚РєСЂС‹С‚С‹С… С„Р°Р№Р»РѕРІ.
 void LastFileManager::addFile(std::string path)
 {
 	auto iterator = std::find(
@@ -30,18 +30,18 @@ void LastFileManager::addFile(std::string path)
 		std::end(lastFilePaths_),
 		path);
 
-	// Если этот файл уже есть - удалить.
+	// Р•СЃР»Рё СЌС‚РѕС‚ С„Р°Р№Р» СѓР¶Рµ РµСЃС‚СЊ - СѓРґР°Р»РёС‚СЊ.
 	if (iterator != lastFilePaths_.end())
 		lastFilePaths_.erase(iterator);
 
 	lastFilePaths_.push_front(path);
 
-	// Если количество файлов больше 3х - удалить последний элемент.
+	// Р•СЃР»Рё РєРѕР»РёС‡РµСЃС‚РІРѕ С„Р°Р№Р»РѕРІ Р±РѕР»СЊС€Рµ 3С… - СѓРґР°Р»РёС‚СЊ РїРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚.
 	if (lastFilePaths_.size() > 3)
 		lastFilePaths_.erase(lastFilePaths_.end());
 }
 
-// Сохраняет список последних открытых файлов.
+// РЎРѕС…СЂР°РЅСЏРµС‚ СЃРїРёСЃРѕРє РїРѕСЃР»РµРґРЅРёС… РѕС‚РєСЂС‹С‚С‹С… С„Р°Р№Р»РѕРІ.
 void LastFileManager::save() const
 {
 	std::ofstream file(path_, std::ios::trunc);
