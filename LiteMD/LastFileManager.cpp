@@ -4,7 +4,12 @@
 #include <fstream>
 #include <iterator>
 
-// Базовый конструктор.
+// Конструктор без параметров.
+LastFileManager::LastFileManager() : LastFileManager("settings\\last_files")
+{
+}
+
+// Конструктор с указанием пути к списку последних открытых файлов.
 LastFileManager::LastFileManager(std::string path)
 {
 	path_ = path;

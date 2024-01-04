@@ -165,7 +165,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 void LiteMD::initLastFileMenu()
 {
 	// Получение списка файлов.
-	LastFileManager lastFileManager("settings\\last_files");
+	LastFileManager lastFileManager;
 	const std::deque<std::string>& lastFilePaths = lastFileManager.getFiles();
 
 	// Если список пустой или первый элемент пустой - завершить работу.
