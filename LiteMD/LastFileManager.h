@@ -10,6 +10,7 @@ class LastFileManager
 private:
 	std::deque<std::string> lastFilePaths_; // Список последних открытых файлов.
 	std::string path_; // Путь к файлу настроек сохранения.
+	const int numberOfRecords_{ 3 };
 public:
 	LastFileManager(std::string path); // Базовый конструктор.
 	void save() const; // Сохраняет список последних открытых файлов.

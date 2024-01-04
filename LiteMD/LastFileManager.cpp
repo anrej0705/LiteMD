@@ -37,7 +37,7 @@ void LastFileManager::addFile(std::string path)
 	lastFilePaths_.push_front(path);
 
 	// Если количество файлов больше 3х - удалить последний элемент.
-	if (lastFilePaths_.size() > 3)
+	if (lastFilePaths_.size() > numberOfRecords_)
 		lastFilePaths_.erase(lastFilePaths_.end());
 }
 
