@@ -72,5 +72,8 @@ void appSettings::slot_lang_selected(int lIndx)
 	langIndx = lIndx;
 	auto it = loc_map->cbegin();
 	std::advance(it, lIndx);
-	QString lang_path = it->second;
+	QString lang_file = it->second;
+
+	if(!lmd_lng.load("loc/"+ lang_file, "."))
+		QErrorMessage::qtHandler();
 }

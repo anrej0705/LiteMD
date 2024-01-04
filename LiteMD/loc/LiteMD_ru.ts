@@ -126,11 +126,11 @@ github.com/anrej0705
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation>[В РАЗРАБОТКЕ]LiteMD alpha 0.1.6 сборка </translation>
+        <translation>[В РАЗРАБОТКЕ]LiteMD alpha 0.1.5 сборка </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.1.6 сборка </translation>
+        <translation>Ver. alpha 0.1.5 сборка </translation>
     </message>
     <message>
         <source>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</source>
@@ -196,14 +196,6 @@ github.com/anrej0705
     <message>
         <source>Basic</source>
         <translation>Основные</translation>
-    </message>
-    <message>
-        <source>Cap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Language</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

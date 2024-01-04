@@ -42,6 +42,9 @@
     <Filter Include="Интерфейс\Окна\Вкладки">
       <UniqueIdentifier>{2ee28039-f1c2-46c8-a410-2c650dcda18d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Модули\Динамический перевод">
+      <UniqueIdentifier>{1f78ec36-b6da-4ba8-888e-8885cdcaf7a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="LiteMD.ui">

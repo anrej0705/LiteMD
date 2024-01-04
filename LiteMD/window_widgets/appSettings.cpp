@@ -9,16 +9,28 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	//Предварительная настройка вкладок
 	configureBasicSettingsTab();
 
+	engine = new QQmlEngine;
+
 	//Инициализируем указатели
 	settingsLister = new QTabWidget(this);
 	btnOk = new QPushButton(tr("&Ok"));
 	btnCancel = new QPushButton(tr("&Cancel"));
+	btnApply = new QPushButton(tr("&Apply"));
 	controlBtnLay = new QHBoxLayout;
 	dialogWindow = new QVBoxLayout;
+
+	//Настройка компоновщиков
+	controlBtnLay->setAlignment(Qt::AlignRight);
+
+	//Настройка кнопок
+	btnOk->setFixedWidth(120);
+	btnCancel->setFixedWidth(120);
+	btnApply->setFixedWidth(120);
 
 	//Добавляем виджет кнопок и вкладок
 	controlBtnLay->addWidget(btnOk);
 	controlBtnLay->addWidget(btnCancel);
+	controlBtnLay->addWidget(btnApply);
 	dialogWindow->addWidget(settingsLister);
 	dialogWindow->addLayout(controlBtnLay);
 
@@ -32,6 +44,9 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 		QErrorMessage::qtHandler();
 	if (!connect(langList, SIGNAL(currentIndexChanged(int)), this, SLOT(slot_lang_selected(int))))
 		QErrorMessage::qtHandler();
+	if (!connect(btnApply, SIGNAL(clicked()), this, SLOT(slot_apply_settings())))
+		QErrorMessage::qtHandler();
+	
 
 	//Ставим заглушку
 	workprogress = new QLabel("<H1>"+tr("Work in progress, come later))")+"</H1>");
@@ -54,4 +69,13 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 
 	//Задаем фиксированный размер
 	setFixedSize(800, 600);
+}
+
+void appSettings::slot_apply_settings()
+{
+	//Устанавливаем локаль
+	if (!QCoreApplication::installTranslator(&lmd_lng))
+		QErrorMessage::qtHandler();
+	qApp->installTranslator(&lmd_lng);
+	btnCancel->setText(tr("&Cancel"));
 }

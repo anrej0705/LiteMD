@@ -50,13 +50,13 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>Qt 5.14.2</QtInstall>
-    <QtModules>core;network;gui;widgets</QtModules>
+    <QtModules>core;network;gui;widgets;qml</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
     <QMakeCodeLines>win32:RC_ICONS += icon.ico;$(QMakeCodeLines)</QMakeCodeLines>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="QtSettings">
     <QtInstall>Qt 5.14.2_x86</QtInstall>
-    <QtModules>core;network;gui;widgets</QtModules>
+    <QtModules>core;network;gui;widgets;qml</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
