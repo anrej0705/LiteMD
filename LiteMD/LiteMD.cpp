@@ -164,15 +164,17 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 // Инициализирует список последних элементов.
 void LiteMD::initLastFileMenu()
 {
-	// Считать последние три строки.
+	// Получение списка файлов.
 	LastFileManager lastFileManager("settings\\last_files");
 	const std::deque<std::string>& lastFilePaths = lastFileManager.getFiles();
 
+	// Если список пустой или первый элемент пустой - завершить работу.
 	if (lastFilePaths.empty() || lastFilePaths.front().empty())
 		return;
 
 	mFile->addSeparator();
 
+	// Добавление меню.
 	std::for_each(
 		std::begin(lastFilePaths),
 		std::end(lastFilePaths),
