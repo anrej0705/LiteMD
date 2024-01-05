@@ -10,8 +10,13 @@ void appSettings::configureRenderSettingsTab()
 	parseLinks = new QCheckBox;
 
 	//Отрубаем до реализации механики
+	//parseLinks->setCheckable(0);
 	parseLinks->setChecked(1);
-	parseLinks->setCheckable(0);
+	parseLinks->setDisabled(1);
+
+	//Устанавливаем высоту
+	parseLinksHint->setFixedHeight(20);
+	parseLinks->setFixedHeight(20);
 
 	//Инициализируем рамку
 	QGroupBox* render_box = new QGroupBox;

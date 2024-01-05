@@ -6,4 +6,5 @@ bool fileChangedState=0;
 bool appTitleUpdated=0;
 bool appClose = 0;
 //Deprecated
+bool allowHttpWarn = 1;
 bool httpDerpWarned = 0;

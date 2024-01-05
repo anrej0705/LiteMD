@@ -22,7 +22,8 @@ void appSettings::update_ui()
 	langListHint->setText(tr("Language:"));
 	settingsLister->setTabText(0, tr("Basic"));
 	settingsLister->setTabText(1, tr("Render"));
-	settingsLister->setTabText(2, tr("Cap"));
+	settingsLister->setTabText(2, tr("Downloader"));
+	settingsLister->setTabText(3, tr("Cap"));
 	parseLinksHint->setText(tr("Parse URL links"));
 	themeList->setItemText(0, tr("Will be added in future"));
 	saveSettings->setItemText(0, tr("Will be added in future"));

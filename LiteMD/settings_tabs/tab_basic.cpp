@@ -96,7 +96,7 @@ void appSettings::configureBasicSettingsTab()
 	themeList->setDisabled(1);
 	saveSettings->setDisabled(1);
 	saveFreq->setDisabled(1);
-	autoSave->setCheckable(0);
+	autoSave->setDisabled(1);
 
 	//Настраиваем высоту(подгон высоты текста к элементам управления)
 	langListHint->setFixedHeight(20);

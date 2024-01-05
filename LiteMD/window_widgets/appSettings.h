@@ -8,6 +8,7 @@ class appSettings : public QDialog
 	private:
 		QWidget* basicSettings;	//Основные настройки
 		QWidget* renderSettings;	//Настройки обработки текста
+		QWidget* downloaderSettings;//Настройка загрузчика по сети
 
 		std::map<uint8_t, QString>* loc_map;	//Список локалей
 
@@ -45,8 +46,16 @@ class appSettings : public QDialog
 		QCheckBox* parseLinks;	//Галка обработки ссылок
 		//-------------------------
 
+		//Вкладка "Загрузчик"
+		QLabel* allowWarningsHint;//
+		QCheckBox* allowWarnings;//
+
+		QLabel* allowCacheHint;	//
+		QCheckBox* allowCache;	//
+
 		void configureBasicSettingsTab();
 		void configureRenderSettingsTab();
+		void configureDownloaderSettingsTab();
 	protected:
 		bool eventFilter(QObject* pobj, QEvent* event);
 		void update_ui();
