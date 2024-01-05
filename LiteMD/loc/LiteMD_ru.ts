@@ -169,7 +169,7 @@ github.com/anrej0705
     <name>LiteMDClass</name>
     <message>
         <source>LiteMD</source>
-        <translation>LiteMD</translation>
+        <translation type="vanished">LiteMD</translation>
     </message>
 </context>
 <context>

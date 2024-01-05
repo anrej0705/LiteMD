@@ -167,7 +167,7 @@ I hope u like my app :D</translation>
     <name>LiteMDClass</name>
     <message>
         <source>LiteMD</source>
-        <translation>LiteMD</translation>
+        <translation type="vanished">LiteMD</translation>
     </message>
 </context>
 <context>
