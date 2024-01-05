@@ -25,12 +25,12 @@ class appSettings : public QDialog
 		//¬кладка "ќсновные"
 		QLabel* langlistHint;
 
-		ui_update_event* ui_event;
+		//ui_update_event* ui_event;
 
 		void configureBasicSettingsTab();
 	protected:
 		void eventFilter(QEvent* event);
-		void update_ui(ui_update_event* p_event);
+		void update_ui(/*ui_update_event* p_event*/);
 	public:
 		appSettings(QWidget* aWgt = 0);
 	public slots:
@@ -38,10 +38,10 @@ class appSettings : public QDialog
 		void slot_apply_settings();
 };
 
-class appSettings_filter : public QObject
+/*class appSettings_filter : public QObject
 {
 	protected:
 		virtual bool eventFilter(QObject*, QEvent*);
 	public:
 		appSettings_filter(QObject* podj = 0);
-};
+};*/

@@ -1,6 +1,7 @@
 #include "appSettings.h"
 #include "ui_update_event.h"
 #include "event_id_constructor.h"
+#include "global_definitions.h"
 #include "globalFlags.h"
 #include <QtWidgets>
 appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
@@ -20,10 +21,10 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	controlBtnLay = new QHBoxLayout;
 	dialogWindow = new QVBoxLayout;
 
-	ui_event = new ui_update_event;
+	//ui_event = new ui_update_event;
 
 	//QCoreApplication::instance()->installEventFilter(qApp);
-	qApp->installEventFilter(new appSettings_filter(this));
+	qApp->installEventFilter(new ui_event_filter(this));
 
 	//Настройка компоновщиков
 	controlBtnLay->setAlignment(Qt::AlignRight);
@@ -83,11 +84,11 @@ void appSettings::slot_apply_settings()
 	if (!QCoreApplication::installTranslator(&lmd_lng))
 		QErrorMessage::qtHandler();
 	qApp->installTranslator(&lmd_lng);
-	if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(33)))	//Постим событие изменения интерфейса
+	if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_UI_UPDATE_EVENT)))	//Постим событие изменения интерфейса
 		QErrorMessage::qtHandler();
 	//update_ui();
 }
-void appSettings::eventFilter(QEvent* event)
+/*void appSettings::eventFilter(QEvent* event)
 {
 	if (event->type() == static_cast<QEvent::Type>(QEvent::User + 33))
 	{
@@ -109,4 +110,4 @@ bool appSettings_filter::eventFilter(QObject* podj, QEvent* p_event)
 	}
 	//ui_event_filter(p_event);
 	return 0;
-}
+}*/

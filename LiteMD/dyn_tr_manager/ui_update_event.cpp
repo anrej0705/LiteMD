@@ -1,11 +1,11 @@
 #include "ui_update_event.h"
-
+#include "global_definitions.h"
 
 ui_event_filter::ui_event_filter(QObject* pobj) : QObject(pobj)
 {}
 bool ui_event_filter::eventFilter(QObject* podj, QEvent* p_event)
 {
-	if (p_event->type() == static_cast<QEvent::Type>(QEvent::User + 33))
+	if (p_event->type() == static_cast<QEvent::Type>(QEvent::User + APP_EVENT_UI_UPDATE_EVENT))	//1000+33=1033
 	{
 		ui_event_filter(p_event);
 		return 1;

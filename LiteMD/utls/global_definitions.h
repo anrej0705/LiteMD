@@ -17,13 +17,13 @@
 * | 40 |tab_basic.cpp       |
 */
 
-#define UI_UPDATE_EVENT						33
-#define LiteMD_UPDATE_EVENT					34
-#define mdEditor_UPDATE_EVENT				35
-#define mdScreen_UPDATE_EVENT				36
-#define GuiDownloader_UPDATE_EVENT			37
-#define dialogBoxes_UPDATE_EVENT			38
-#define appSettings_UPDATE_EVENT			39
-#define tab_basic_UPDATE_EVENT				40
+#define APP_EVENT_UI_UPDATE_EVENT						33
+#define APP_EVENT_LiteMD_UPDATE_EVENT					34
+#define APP_EVENT_mdEditor_UPDATE_EVENT					35
+#define APP_EVENT_mdScreen_UPDATE_EVENT					36
+#define APP_EVENT_GuiDownloader_UPDATE_EVENT			37
+#define APP_EVENT_dialogBoxes_UPDATE_EVENT				38
+#define APP_EVENT_appSettings_UPDATE_EVENT				39
+#define APP_EVENT_tab_basic_UPDATE_EVENT				40
 
 #endif
