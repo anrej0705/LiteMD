@@ -200,6 +200,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dyn_tr_manager\appSettings_ui.cpp" />
+    <ClCompile Include="dyn_tr_manager\GuiDownloader_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\LiteMD_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\ui_update_event.cpp" />
     <ClCompile Include="modules\Downloader.cpp" />

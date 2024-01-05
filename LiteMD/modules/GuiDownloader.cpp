@@ -21,7 +21,7 @@ DownloaderGui::DownloaderGui(QWidget* dwgt) : QWidget(dwgt)
 	//Инициализируем графическую оболочку
 	dwPb = new QProgressBar;
 	dwEt = new QLineEdit;
-	dwPt = new QPushButton("&Go");
+	dwPt = new QPushButton(tr("&Go"));
 	//Создаем строку и записываем ссылку-пример, 04.01.2023 работает
 	QString strDownloadLink = "http://i122.fastpic.org/thumb/2023/1127/35/_d9628b5877c863ff532cc98daa37b735.jpeg";
 	//Копируем строку в поле ввода

@@ -20,6 +20,9 @@ class DownloaderGui : public QWidget
 		//Создаем виджет напдиси
 		QLabel* plbl;
 		bool warned;
+	protected:
+		bool eventFilter(QObject* pobj, QEvent* event);
+		void update_ui();
 	public:
 		//Базовый конструктор
 		DownloaderGui(QWidget* dwgt = 0);
