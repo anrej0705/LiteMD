@@ -27,6 +27,10 @@
         <source>View</source>
         <translation>Просмотр изображения</translation>
     </message>
+    <message>
+        <source>&amp;Go</source>
+        <translation>&amp;Вперед</translation>
+    </message>
 </context>
 <context>
     <name>LiteMD</name>
@@ -156,6 +160,10 @@ github.com/anrej0705
         <source>&amp;New</source>
         <translation>&amp;Новый документ</translation>
     </message>
+    <message>
+        <source>work in progress</source>
+        <translation>В разработке</translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
@@ -196,6 +204,50 @@ github.com/anrej0705
     <message>
         <source>Basic</source>
         <translation>Основные</translation>
+    </message>
+    <message>
+        <source>&amp;Apply</source>
+        <translation>&amp;Применить</translation>
+    </message>
+    <message>
+        <source>Language:</source>
+        <translation>Язык:</translation>
+    </message>
+    <message>
+        <source>Cap</source>
+        <translation>Недоступно</translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation>Язык</translation>
+    </message>
+    <message>
+        <source>UI Theme</source>
+        <translation>UI Тема</translation>
+    </message>
+    <message>
+        <source>Settings save type</source>
+        <translation>Хранилище настроек</translation>
+    </message>
+    <message>
+        <source>Autosave</source>
+        <translation>Автосохранение</translation>
+    </message>
+    <message>
+        <source>Autosave frequency</source>
+        <translation>Частота автосохранения</translation>
+    </message>
+    <message>
+        <source>Will be added in future</source>
+        <translation>Будет добавлено в будущем</translation>
+    </message>
+    <message>
+        <source>Parse URL links</source>
+        <translation>Обрабатывать URL ссылки</translation>
+    </message>
+    <message>
+        <source>Render</source>
+        <translation>Рендер</translation>
     </message>
 </context>
 <context>
