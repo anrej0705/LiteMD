@@ -42,11 +42,11 @@
     <Filter Include="Интерфейс\Окна\Вкладки">
       <UniqueIdentifier>{2ee28039-f1c2-46c8-a410-2c650dcda18d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Модули\Динамический перевод">
+      <UniqueIdentifier>{1f78ec36-b6da-4ba8-888e-8885cdcaf7a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="LiteMD.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
     <QtMoc Include="LiteMD.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -91,6 +91,21 @@
     <ClCompile Include="settings_tabs\tab_basic.cpp">
       <Filter>Интерфейс\Окна\Вкладки</Filter>
     </ClCompile>
+    <ClCompile Include="dyn_tr_manager\appSettings_ui.cpp">
+      <Filter>Модули\Динамический перевод</Filter>
+    </ClCompile>
+    <ClCompile Include="dyn_tr_manager\ui_update_event.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="dyn_tr_manager\LiteMD_ui.cpp">
+      <Filter>Модули\Динамический перевод</Filter>
+    </ClCompile>
+    <ClCompile Include="dyn_tr_manager\GuiDownloader_ui.cpp">
+      <Filter>Модули\Динамический перевод</Filter>
+    </ClCompile>
+    <ClCompile Include="settings_tabs\tab_render.cpp">
+      <Filter>Интерфейс\Окна\Вкладки</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">
@@ -132,11 +147,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="ress\LiteMD.qrc">
-      <Filter>Resource Files</Filter>
-    </QtRcc>
-  </ItemGroup>
-  <ItemGroup>
     <QtTranslation Include="loc\LiteMD_en.ts">
       <Filter>Translation Files</Filter>
     </QtTranslation>
@@ -166,8 +176,14 @@
     <ClInclude Include="utls\globalFlags.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="settings_tabs\tab_basic.h">
-      <Filter>Интерфейс\Окна\Вкладки</Filter>
+    <ClInclude Include="dyn_tr_manager\ui_update_event.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utls\global_definitions.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utls\event_id_constructor.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

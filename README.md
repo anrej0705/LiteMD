@@ -1,5 +1,17 @@
 README.MD
 
+# LiteMD alpha 0.1.7
+
+![Qt](https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white)
+![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
+![MSVC](https://img.shields.io/badge/Visual_Studio-5C2D91?style=for-the-badge&logo=visual%20studio&logoColor=white)
+[![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+
+**| Qt 5.14.2 
+| C++17 
+| MSVC 2019 
+| GPL v2 license |**
+
 Этот файл был создан в LiteMD alpha 0.1.6 build 841
 Исходный код на [GitHub](https://github.com/anrej0705/LiteMD/tree/LiteMD_alpha782)
 Релизы: <https://github.com/anrej0705/LiteMD/releases>
@@ -31,6 +43,9 @@ Roadmap:
 - :x:0.2.1 - Уровни заголовков
 - :x:0.2.2 - Жирный, зачеркнутый, подчеркнутый текст и курсив
 - :x:0.2.3 - Раздел справки
+- :x:0.2.4 - Автосейв
+- :x:0.2.5 - Настройки автосейва
+- :x:0.2.6 - Настройки рендера(реализация механики)
 - :x:0.3.0 - **Списки и цитаты**
 - :x:0.3.1 - Списки
 - :x:0.3.2 - Цитирование текста

@@ -14,6 +14,8 @@ mdEditor::mdEditor(QWidget* mdWgt) : QTextEdit(mdWgt)
 	//Соединяем базовый сигнал со слотом который будет формировать сигнал высылки текста
 	if (!connect(this, SIGNAL(textChanged()), this, SLOT(slotTextChanged())))
 		QErrorMessage::qtHandler();
+
+	qApp->installEventFilter(new mdEditor_filter(this));
 }
 //Слот генерирующий сигнал с текущим текстом в виджете
 void mdEditor::slotTextChanged()
@@ -77,11 +79,11 @@ void mdEditor::slotOpen()
 void mdEditor::slotSave()
 {
 	//Если пользователь ничего не ввёл то отменяем процесс и сбрасываем флаги
-	if (this->toPlainText() == "")
+	/*if (this->toPlainText() == "")
 	{
 		fileChangedState = 0;
 		return;
-	}
+	}*/
 	//Создаем поток для вывода и добавляем туда текст преобразованный в юникод
 	QByteArray utf8out;
 	utf8out.append(toPlainText().toUtf8());
@@ -113,11 +115,11 @@ void mdEditor::slotSave()
 void mdEditor::slotSaveAs()
 {
 	//Если пусто то выходим
-	if (this->toPlainText() == "")
+	/*if (this->toPlainText() == "")
 	{
 		fileChangedState = 0;
 		return;
-	}
+	}*/
 	//Вызываем диалоговое окно сохранения
 	mdFileName = QFileDialog::getSaveFileName(0, tr("Save Text/Markdown"), "Readme", tr("*.md ;; *.txt"));
 	if (!mdFileName.isEmpty())
@@ -142,7 +144,6 @@ void mdEditor::slotNew()
 	//Сбрасываем флаги в любом случае
 	fileOpenedState = 0;
 	fileChangedState = 0;
-	appTitleUpdated = 0;
 	//Если что-то открыто то закрываем
 	if (mdObject.isOpen())
 		mdObject.close();
@@ -151,4 +152,18 @@ void mdEditor::slotNew()
 	//Сбрасываем содержимое поля ввода и заголовок
 	this->setText("");
 	emit resetTitle();
+	appTitleUpdated = 0;
+}
+
+mdEditor_filter::mdEditor_filter(QObject* pobj) : QObject(pobj)
+{}
+bool mdEditor_filter::eventFilter(QObject* podj, QEvent* p_event)
+{
+	if (p_event->type() == static_cast<QEvent::Type>(QEvent::User + 33))
+	{
+		event(p_event);
+		return 1;
+	}
+	//ui_event_filter(p_event);
+	return 0;
 }

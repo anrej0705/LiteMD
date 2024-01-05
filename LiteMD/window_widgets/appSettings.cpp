@@ -1,41 +1,69 @@
 #include "appSettings.h"
+#include "ui_update_event.h"
+#include "event_id_constructor.h"
+#include "global_definitions.h"
+#include "globalFlags.h"
 #include <QtWidgets>
 appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 {
-	//Окно настроек, будет переписано
+	//РћРєРЅРѕ РЅР°СЃС‚СЂРѕРµРє, Р±СѓРґРµС‚ РїРµСЂРµРїРёСЃР°РЅРѕ
 	setModal(1);
 	setWindowTitle(tr("LiteMD Settings"));
 
-	//Предварительная настройка вкладок
+	//РџСЂРµРґРІР°СЂРёС‚РµР»СЊРЅР°СЏ РЅР°СЃС‚СЂРѕР№РєР° РІРєР»Р°РґРѕРє
 	configureBasicSettingsTab();
+	configureRenderSettingsTab();
 
-	//Инициализируем указатели
+	//РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј СѓРєР°Р·Р°С‚РµР»Рё
 	settingsLister = new QTabWidget(this);
 	btnOk = new QPushButton(tr("&Ok"));
 	btnCancel = new QPushButton(tr("&Cancel"));
+	btnApply = new QPushButton(tr("&Apply"));
 	controlBtnLay = new QHBoxLayout;
 	dialogWindow = new QVBoxLayout;
 
-	//Добавляем виджет кнопок и вкладок
+	//ui_event = new ui_update_event;
+
+	//QCoreApplication::instance()->installEventFilter(qApp);
+	//qApp->installEventFilter(new appSettings_event_filter(APP_EVENT_appSettings_UPDATE_EVENT, this));
+	qApp->installEventFilter(this);
+
+	//РќР°СЃС‚СЂРѕР№РєР° РєРѕРјРїРѕРЅРѕРІС‰РёРєРѕРІ
+	controlBtnLay->setAlignment(Qt::AlignRight);
+
+	//РќР°СЃС‚СЂРѕР№РєР° РєРЅРѕРїРѕРє
+	btnOk->setFixedWidth(120);
+	btnCancel->setFixedWidth(120);
+	btnApply->setFixedWidth(120);
+
+	//Р”РѕР±Р°РІР»СЏРµРј РІРёРґР¶РµС‚ РєРЅРѕРїРѕРє Рё РІРєР»Р°РґРѕРє
 	controlBtnLay->addWidget(btnOk);
 	controlBtnLay->addWidget(btnCancel);
+	controlBtnLay->addWidget(btnApply);
 	dialogWindow->addWidget(settingsLister);
 	dialogWindow->addLayout(controlBtnLay);
 
-	//Устанавливаем менеджер как основной виджет
+	//РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РјРµРЅРµРґР¶РµСЂ РєР°Рє РѕСЃРЅРѕРІРЅРѕР№ РІРёРґР¶РµС‚
 	setLayout(dialogWindow);
 	
-	//Устанавливаем связи кнопок
+	//РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЃРІСЏР·Рё РєРЅРѕРїРѕРє
+	if (!connect(btnOk, SIGNAL(clicked()), this, SLOT(slot_apply_settings())))
+		QErrorMessage::qtHandler();
 	if (!connect(btnOk, SIGNAL(clicked()), this, SLOT(hide())))
 		QErrorMessage::qtHandler();
 	if (!connect(btnCancel, SIGNAL(clicked()), this, SLOT(hide())))
 		QErrorMessage::qtHandler();
+	if (!connect(langList, SIGNAL(currentIndexChanged(int)), this, SLOT(slot_lang_selected(int))))
+		QErrorMessage::qtHandler();
+	if (!connect(btnApply, SIGNAL(clicked()), this, SLOT(slot_apply_settings())))
+		QErrorMessage::qtHandler();
+	
 
-	//Ставим заглушку
+	//РЎС‚Р°РІРёРј Р·Р°РіР»СѓС€РєСѓ
 	workprogress = new QLabel("<H1>"+tr("Work in progress, come later))")+"</H1>");
 	QPixmap workprg_cap("ress\\work_progress_cap.png");
 	QLabel* pxmap = new QLabel;
-	QWidget* capTab = new QWidget;
+	capTab = new QWidget;
 	QVBoxLayout* vLay = new QVBoxLayout;
 	pxmap->setPixmap(workprg_cap);
 	capTab->setLayout(vLay);
@@ -46,10 +74,21 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	vLay->addWidget(workprogress);
 	vLay->addSpacing(95);
 
-	//Задаем название вкладки
+	//Р—Р°РґР°РµРј РЅР°Р·РІР°РЅРёРµ РІРєР»Р°РґРєРё
 	settingsLister->addTab(basicSettings, tr("Basic"));
+	settingsLister->addTab(renderSettings, tr("Render"));
 	settingsLister->addTab(capTab, tr("Cap"));
 
-	//Задаем фиксированный размер
+	//Р—Р°РґР°РµРј С„РёРєСЃРёСЂРѕРІР°РЅРЅС‹Р№ СЂР°Р·РјРµСЂ
 	setFixedSize(800, 600);
+}
+
+void appSettings::slot_apply_settings()
+{
+	//РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј Р»РѕРєР°Р»СЊ
+	if (!QCoreApplication::installTranslator(&lmd_lng))
+		QErrorMessage::qtHandler();
+	qApp->installTranslator(&lmd_lng);
+	if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_UI_UPDATE_EVENT)))	//РџРѕСЃС‚РёРј СЃРѕР±С‹С‚РёРµ РёР·РјРµРЅРµРЅРёСЏ РёРЅС‚РµСЂС„РµР№СЃР°
+		QErrorMessage::qtHandler();
 }

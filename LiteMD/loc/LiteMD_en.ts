@@ -27,6 +27,10 @@
         <source>View</source>
         <translation>View</translation>
     </message>
+    <message>
+        <source>&amp;Go</source>
+        <translation>&amp;Go</translation>
+    </message>
 </context>
 <context>
     <name>LiteMD</name>
@@ -124,11 +128,11 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation>[WORK IN PROGRESS]LiteMD alpha 0.1.6 build </translation>
+        <translation>[WORK IN PROGRESS]LiteMD alpha 0.1.5 build </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.1.6 build </translation>
+        <translation>Ver. alpha 0.1.5 build </translation>
     </message>
     <message>
         <source>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</source>
@@ -154,12 +158,16 @@ I hope u like my app :D</translation>
         <source>&amp;New</source>
         <translation>&amp;New document</translation>
     </message>
+    <message>
+        <source>work in progress</source>
+        <translation>work in progress</translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
     <message>
         <source>LiteMD</source>
-        <translation>LiteMD</translation>
+        <translation type="vanished">LiteMD</translation>
     </message>
 </context>
 <context>
@@ -196,12 +204,48 @@ I hope u like my app :D</translation>
         <translation>Basic</translation>
     </message>
     <message>
+        <source>&amp;Apply</source>
+        <translation>&amp;Apply</translation>
+    </message>
+    <message>
+        <source>Language:</source>
+        <translation>Language:</translation>
+    </message>
+    <message>
         <source>Cap</source>
-        <translation type="unfinished"></translation>
+        <translation>Cap</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Language</translation>
+    </message>
+    <message>
+        <source>UI Theme</source>
+        <translation>UI Theme</translation>
+    </message>
+    <message>
+        <source>Settings save type</source>
+        <translation>Settings save type</translation>
+    </message>
+    <message>
+        <source>Autosave</source>
+        <translation>Autosave</translation>
+    </message>
+    <message>
+        <source>Autosave frequency</source>
+        <translation>Autosave frequency</translation>
+    </message>
+    <message>
+        <source>Will be added in future</source>
+        <translation>Will be added in future</translation>
+    </message>
+    <message>
+        <source>Parse URL links</source>
+        <translation>Parse URL links</translation>
+    </message>
+    <message>
+        <source>Render</source>
+        <translation>Render</translation>
     </message>
 </context>
 <context>
