@@ -1,60 +1,60 @@
 #include "appSettings.h"
 #include "ui_update_event.h"
 
-//Конвертер имени языка - имя_языка(код_языка)
+//РљРѕРЅРІРµСЂС‚РµСЂ РёРјРµРЅРё СЏР·С‹РєР° - РёРјСЏ_СЏР·С‹РєР°(РєРѕРґ_СЏР·С‹РєР°)
 QString localeNameConverter(QString lang_string_name, QString file_loc_name);
 
-//Конфигурируем окно базовых настроек
+//РљРѕРЅС„РёРіСѓСЂРёСЂСѓРµРј РѕРєРЅРѕ Р±Р°Р·РѕРІС‹С… РЅР°СЃС‚СЂРѕРµРє
 void appSettings::configureBasicSettingsTab()
 {
-	//Инициализация подписей
+	//РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РїРѕРґРїРёСЃРµР№
 	langListHint = new QLabel(tr("Language"));
 	themeHint = new QLabel(tr("UI Theme"));
 	saveSettingsHint = new QLabel(tr("Settings save type"));
 	autoSaveHint = new QLabel(tr("Autosave"));
 	saveFreqHint = new QLabel(tr("Autosave frequency"));
 
-	//Инициализируем элементы взаимодействий
+	//РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј СЌР»РµРјРµРЅС‚С‹ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёР№
 	langList = new QComboBox;
 	themeList = new QComboBox;
 	saveSettings = new QComboBox;
 	autoSave = new QCheckBox;
 	saveFreq = new QComboBox;
 
-	//Инициализируем поле
+	//РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РІРєР»Р°РґРєСѓ
 	basicSettings = new QWidget;
 
-	//Инициализируем рамку
-	basic_box = new QGroupBox;
+	//РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј СЂР°РјРєСѓ
+	QGroupBox* basic_box = new QGroupBox;
 	basic_box->setAutoFillBackground(1);
 
-	//Инициализируем рамки для подписей и элементов интерактивного взаимодействия
+	//РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј СЂР°РјРєРё РґР»СЏ РїРѕРґРїРёСЃРµР№ Рё СЌР»РµРјРµРЅС‚РѕРІ РёРЅС‚РµСЂР°РєС‚РёРІРЅРѕРіРѕ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ
 	QGroupBox* lbl_box = new QGroupBox;
 	QGroupBox* interact_box = new QGroupBox;
 
-	//Менеджеры размещения
+	//РњРµРЅРµРґР¶РµСЂС‹ СЂР°Р·РјРµС‰РµРЅРёСЏ
 	QVBoxLayout* lbl_lay = new QVBoxLayout;
 	QVBoxLayout* interact_lay = new QVBoxLayout;
 
-	//Настраиваем порядок размещения элементов - сверху
+	//РќР°СЃС‚СЂР°РёРІР°РµРј РїРѕСЂСЏРґРѕРє СЂР°Р·РјРµС‰РµРЅРёСЏ СЌР»РµРјРµРЅС‚РѕРІ - СЃРІРµСЂС…Сѓ
 	lbl_lay->setAlignment(Qt::AlignTop);
 	interact_lay->setAlignment(Qt::AlignTop);
 
+	//Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅР°СЏ РєРѕРјРїРѕРЅРѕРІРєР°
 	QHBoxLayout* basic_box_lay = new QHBoxLayout;
 	QHBoxLayout* manager = new QHBoxLayout;
-	QVBoxLayout* elemManager = new QVBoxLayout;
 
-	//Создаем контейнер пути и прописываем туда путь до файлов локализации
+	//РЎРѕР·РґР°РµРј РєРѕРЅС‚РµР№РЅРµСЂ РїСѓС‚Рё Рё РїСЂРѕРїРёСЃС‹РІР°РµРј С‚СѓРґР° РїСѓС‚СЊ РґРѕ С„Р°Р№Р»РѕРІ Р»РѕРєР°Р»РёР·Р°С†РёРё
 	QString lang_path = QApplication::applicationDirPath();
 	lang_path.append("/loc");
 
-	//Указатель на текущую локаль
+	//РЈРєР°Р·Р°С‚РµР»СЊ РЅР° С‚РµРєСѓС‰СѓСЋ Р»РѕРєР°Р»СЊ
 	QString current_lang = QLocale::system().name();
 
-	//Объект для представления директории loc
+	//РћР±СЉРµРєС‚ РґР»СЏ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ РґРёСЂРµРєС‚РѕСЂРёРё loc
 	QDir lang_dir(lang_path);
 
-	//Список файлов локалей
+	//РЎРїРёСЃРѕРє С„Р°Р№Р»РѕРІ Р»РѕРєР°Р»РµР№
 	QStringList available_langs = lang_dir.entryList(QStringList("LiteMD_*.qm"));
 
 	loc_map = new std::map<uint8_t, QString>;
@@ -71,24 +71,24 @@ void appSettings::configureBasicSettingsTab()
 			langList->setCurrentIndex(locales);
 	}
 
-	//Конфигурируем дизайн кнопки и размещаем
+	//РљРѕРЅС„РёРіСѓСЂРёСЂСѓРµРј РґРёР·Р°Р№РЅ РєРЅРѕРїРєРё Рё СЂР°Р·РјРµС‰Р°РµРј
 	QHBoxLayout* langListManager = new QHBoxLayout;
 
-	//Добавляем элементы в левую половину(подсказки)
+	//Р”РѕР±Р°РІР»СЏРµРј СЌР»РµРјРµРЅС‚С‹ РІ Р»РµРІСѓСЋ РїРѕР»РѕРІРёРЅСѓ(РїРѕРґСЃРєР°Р·РєРё)
 	lbl_lay->addWidget(langListHint);
 	lbl_lay->addWidget(themeHint);
 	lbl_lay->addWidget(saveSettingsHint);
 	lbl_lay->addWidget(autoSaveHint);
 	lbl_lay->addWidget(saveFreqHint);
 
-	//Добавляем элементы в правую половину(взаимодействие)
+	//Р”РѕР±Р°РІР»СЏРµРј СЌР»РµРјРµРЅС‚С‹ РІ РїСЂР°РІСѓСЋ РїРѕР»РѕРІРёРЅСѓ(РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёРµ)
 	interact_lay->addWidget(langList);
 	interact_lay->addWidget(themeList);
 	interact_lay->addWidget(saveSettings);
 	interact_lay->addWidget(autoSave);
 	interact_lay->addWidget(saveFreq);
 
-	//Отключаем элементы, механика которых не реализована
+	//РћС‚РєР»СЋС‡Р°РµРј СЌР»РµРјРµРЅС‚С‹, РјРµС…Р°РЅРёРєР° РєРѕС‚РѕСЂС‹С… РЅРµ СЂРµР°Р»РёР·РѕРІР°РЅР°
 	themeList->addItem(tr("Will be added in future"));
 	saveSettings->addItem(tr("Will be added in future"));
 	saveFreq->addItem(tr("Will be added in future"));
@@ -98,7 +98,7 @@ void appSettings::configureBasicSettingsTab()
 	saveFreq->setDisabled(1);
 	autoSave->setCheckable(0);
 
-	//Настраиваем высоту(подгон высоты текста к элементам управления)
+	//РќР°СЃС‚СЂР°РёРІР°РµРј РІС‹СЃРѕС‚Сѓ(РїРѕРґРіРѕРЅ РІС‹СЃРѕС‚С‹ С‚РµРєСЃС‚Р° Рє СЌР»РµРјРµРЅС‚Р°Рј СѓРїСЂР°РІР»РµРЅРёСЏ)
 	langListHint->setFixedHeight(20);
 	themeHint->setFixedHeight(20);
 	saveSettingsHint->setFixedHeight(20);
@@ -111,20 +111,20 @@ void appSettings::configureBasicSettingsTab()
 	autoSave->setFixedHeight(20);
 	saveFreq->setFixedHeight(20);
 
-	//Привязываем менеджеры компоновки к виджетам
+	//РџСЂРёРІСЏР·С‹РІР°РµРј РјРµРЅРµРґР¶РµСЂС‹ РєРѕРјРїРѕРЅРѕРІРєРё Рє РІРёРґР¶РµС‚Р°Рј
 	lbl_box->setLayout(lbl_lay);
 	interact_box->setLayout(interact_lay);
 
-	//Задаем ширину блока
+	//Р—Р°РґР°РµРј С€РёСЂРёРЅСѓ Р±Р»РѕРєР°
 	lbl_box->setFixedWidth(300);
 	interact_box->setFixedWidth(300);
 
-	//Компонуем виджеты с подсказками и элемантами взаимодействия
+	//РљРѕРјРїРѕРЅСѓРµРј РІРёРґР¶РµС‚С‹ СЃ РїРѕРґСЃРєР°Р·РєР°РјРё Рё СЌР»РµРјР°РЅС‚Р°РјРё РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ
 	//basic_box_lay->setAlignment(Qt::AlignLeft);
 	basic_box_lay->addWidget(lbl_box);
 	basic_box_lay->addWidget(interact_box);
 
-	//Прикрепляем скомпонованные элементы
+	//РџСЂРёРєСЂРµРїР»СЏРµРј СЃРєРѕРјРїРѕРЅРѕРІР°РЅРЅС‹Рµ СЌР»РµРјРµРЅС‚С‹
 	basic_box->setLayout(basic_box_lay);
 	manager->addWidget(basic_box);
 
@@ -132,8 +132,8 @@ void appSettings::configureBasicSettingsTab()
 }
 QString localeNameConverter(QString lang_string_name, QString file_loc_name)
 {
-	//Создаем буфер в который прилепляем последовательно название языка в системе Qt, скобки и код языка
-	//И возвращаем результат
+	//РЎРѕР·РґР°РµРј Р±СѓС„РµСЂ РІ РєРѕС‚РѕСЂС‹Р№ РїСЂРёР»РµРїР»СЏРµРј РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕ РЅР°Р·РІР°РЅРёРµ СЏР·С‹РєР° РІ СЃРёСЃС‚РµРјРµ Qt, СЃРєРѕР±РєРё Рё РєРѕРґ СЏР·С‹РєР°
+	//Р РІРѕР·РІСЂР°С‰Р°РµРј СЂРµР·СѓР»СЊС‚Р°С‚
 	QString output = QObject::tr(lang_string_name.toLocal8Bit()) + "(" + file_loc_name + ")";
 	return output;
 }

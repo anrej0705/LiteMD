@@ -6,42 +6,47 @@ class appSettings : public QDialog
 {
 	Q_OBJECT
 	private:
-		QWidget* basicSettings;	//Основные настройки
-		QWidget* parserSettings;	//Настройки обработки текста
+		QWidget* basicSettings;	//РћСЃРЅРѕРІРЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё
+		QWidget* renderSettings;	//РќР°СЃС‚СЂРѕР№РєРё РѕР±СЂР°Р±РѕС‚РєРё С‚РµРєСЃС‚Р°
 
-		std::map<uint8_t, QString>* loc_map;	//Список локалей
+		std::map<uint8_t, QString>* loc_map;	//РЎРїРёСЃРѕРє Р»РѕРєР°Р»РµР№
 
-		QGroupBox* basic_box;
+		QWidget* capTab;	//Р—Р°РіР»СѓС€РєР°
 
 		QTranslator lmd_lng;
 
-		QTabWidget* settingsLister;	//Менеджер вкладок
-		QLabel* workprogress;	//Заглушка
-		QPushButton* btnOk;		//Кнопка подтверждения
-		QPushButton* btnCancel;	//Кнопка отмены
-		QPushButton* btnApply;	//Кнопка применить изменения
-		QHBoxLayout* controlBtnLay;	//Менеджеры размещения кнопок снизу
-		QVBoxLayout* dialogWindow;	//Менеджер общего размещения элементов
+		QTabWidget* settingsLister;	//РњРµРЅРµРґР¶РµСЂ РІРєР»Р°РґРѕРє
+		QLabel* workprogress;	//Р—Р°РіР»СѓС€РєР°
+		QPushButton* btnOk;		//РљРЅРѕРїРєР° РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ
+		QPushButton* btnCancel;	//РљРЅРѕРїРєР° РѕС‚РјРµРЅС‹
+		QPushButton* btnApply;	//РљРЅРѕРїРєР° РїСЂРёРјРµРЅРёС‚СЊ РёР·РјРµРЅРµРЅРёСЏ
+		QHBoxLayout* controlBtnLay;	//РњРµРЅРµРґР¶РµСЂС‹ СЂР°Р·РјРµС‰РµРЅРёСЏ РєРЅРѕРїРѕРє СЃРЅРёР·Сѓ
+		QVBoxLayout* dialogWindow;	//РњРµРЅРµРґР¶РµСЂ РѕР±С‰РµРіРѕ СЂР°Р·РјРµС‰РµРЅРёСЏ СЌР»РµРјРµРЅС‚РѕРІ
 
-		//Вкладка "Основные"
-		QLabel* langListHint;	//Описание выпадающего списка для смены языка
-		QComboBox* langList;	//Выпадающий список для смены языка
+		//Р’РєР»Р°РґРєР° "РћСЃРЅРѕРІРЅС‹Рµ"
+		QLabel* langListHint;	//РћРїРёСЃР°РЅРёРµ РІС‹РїР°РґР°СЋС‰РµРіРѕ СЃРїРёСЃРєР° РґР»СЏ СЃРјРµРЅС‹ СЏР·С‹РєР°
+		QComboBox* langList;	//Р’С‹РїР°РґР°СЋС‰РёР№ СЃРїРёСЃРѕРє РґР»СЏ СЃРјРµРЅС‹ СЏР·С‹РєР°
 
-		QLabel* themeHint;		//Описание выпадающего списка для смены темы
-		QComboBox* themeList;	//Выпадающий список для смены темы
+		QLabel* themeHint;		//РћРїРёСЃР°РЅРёРµ РІС‹РїР°РґР°СЋС‰РµРіРѕ СЃРїРёСЃРєР° РґР»СЏ СЃРјРµРЅС‹ С‚РµРјС‹
+		QComboBox* themeList;	//Р’С‹РїР°РґР°СЋС‰РёР№ СЃРїРёСЃРѕРє РґР»СЏ СЃРјРµРЅС‹ С‚РµРјС‹
 
-		QLabel* saveSettingsHint;//Описание выпадающего списка для выбора способа сохранения настроек
-		QComboBox* saveSettings;//Выпадающий список для сохранения настроек
+		QLabel* saveSettingsHint;//РћРїРёСЃР°РЅРёРµ РІС‹РїР°РґР°СЋС‰РµРіРѕ СЃРїРёСЃРєР° РґР»СЏ РІС‹Р±РѕСЂР° СЃРїРѕСЃРѕР±Р° СЃРѕС…СЂР°РЅРµРЅРёСЏ РЅР°СЃС‚СЂРѕРµРє
+		QComboBox* saveSettings;//Р’С‹РїР°РґР°СЋС‰РёР№ СЃРїРёСЃРѕРє РґР»СЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ РЅР°СЃС‚СЂРѕРµРє
 
-		QLabel* saveFreqHint;	//Описание выпадающего списка для выбора частоты автосейва
-		QComboBox* saveFreq;	//Выпадающий список выбора частоты сохранения
+		QLabel* saveFreqHint;	//РћРїРёСЃР°РЅРёРµ РІС‹РїР°РґР°СЋС‰РµРіРѕ СЃРїРёСЃРєР° РґР»СЏ РІС‹Р±РѕСЂР° С‡Р°СЃС‚РѕС‚С‹ Р°РІС‚РѕСЃРµР№РІР°
+		QComboBox* saveFreq;	//Р’С‹РїР°РґР°СЋС‰РёР№ СЃРїРёСЃРѕРє РІС‹Р±РѕСЂР° С‡Р°СЃС‚РѕС‚С‹ СЃРѕС…СЂР°РЅРµРЅРёСЏ
 
-		QLabel* autoSaveHint;	//Описание для галки автосейва
-		QCheckBox* autoSave;	//Галка для выбора автосейва
+		QLabel* autoSaveHint;	//РћРїРёСЃР°РЅРёРµ РґР»СЏ РіР°Р»РєРё Р°РІС‚РѕСЃРµР№РІР°
+		QCheckBox* autoSave;	//Р“Р°Р»РєР° РґР»СЏ РІС‹Р±РѕСЂР° Р°РІС‚РѕСЃРµР№РІР°
+		//-------------------------
 
-		//ui_update_event* ui_event;
+		//Р’РєР»Р°РґРєР° "Р РµРЅРґРµСЂ"
+		QLabel* parseLinksHint;	//РћРїРёСЃР°РЅРёРµ РіР°Р»РєРё РѕР±СЂР°Р±РѕС‚РєРё СЃСЃС‹Р»РѕРє
+		QCheckBox* parseLinks;	//Р“Р°Р»РєР° РѕР±СЂР°Р±РѕС‚РєРё СЃСЃС‹Р»РѕРє
+		//-------------------------
 
 		void configureBasicSettingsTab();
+		void configureRenderSettingsTab();
 	protected:
 		bool eventFilter(QObject* pobj, QEvent* event);
 		void update_ui();

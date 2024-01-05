@@ -206,6 +206,7 @@
     <ClCompile Include="modules\Downloader.cpp" />
     <ClCompile Include="modules\GuiDownloader.cpp" />
     <ClCompile Include="settings_tabs\tab_basic.cpp" />
+    <ClCompile Include="settings_tabs\tab_render.cpp" />
     <ClCompile Include="string_processing\syntax_postprocessor.cpp" />
     <ClCompile Include="string_processing\syntax_preprocessor.cpp" />
     <ClCompile Include="ui_primitives\dialogBoxes.cpp">
