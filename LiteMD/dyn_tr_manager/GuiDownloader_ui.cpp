@@ -16,5 +16,4 @@ void DownloaderGui::update_ui()
 	setWindowTitle(tr("HTTP Download module GUI(Deprecated)"));
 	dwPt->setText(tr("&Go"));
 	plbl->setWindowTitle(tr("View"));
-
 }
