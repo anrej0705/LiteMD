@@ -18,12 +18,14 @@ DownloaderGui::DownloaderGui(QWidget* dwgt) : QWidget(dwgt)
 	plbl = new QLabel;
 	plbl->setWindowIcon(QIcon("icon.ico"));
 	plbl->hide();
+	//Устанавливаем фильтр на отлов события смены языка
+	qApp->installEventFilter(this);
 	//Инициализируем графическую оболочку
 	dwPb = new QProgressBar;
 	dwEt = new QLineEdit;
-	dwPt = new QPushButton("&Go");
-	//Создаем строку и записываем ссылку-пример(12.11.2023 не работает)
-	QString strDownloadLink = "https://i122.fastpic.org/thumb/2023/1127/35/_d9628b5877c863ff532cc98daa37b735.jpeg";
+	dwPt = new QPushButton(tr("&Go"));
+	//Создаем строку и записываем ссылку-пример, 04.01.2023 работает
+	QString strDownloadLink = "http://i122.fastpic.org/thumb/2023/1127/35/_d9628b5877c863ff532cc98daa37b735.jpeg";
 	//Копируем строку в поле ввода
 	dwEt->setText(strDownloadLink);
 	//Соединяем сигнал кнопки со слотом инициатора загрузки
