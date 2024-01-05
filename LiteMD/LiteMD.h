@@ -6,49 +6,49 @@
 #include "GuiDownloader.h"
 #include "appSettings.h"
 
-//Номер билда, пока задаётся вручную
-#define buildNumber 782
+//ГЌГ®Г¬ГҐГ° ГЎГЁГ«Г¤Г , ГЇГ®ГЄГ  Г§Г Г¤Г ВёГІГ±Гї ГўГ°ГіГ·Г­ГіГѕ
+#define buildNumber 1006
 
 class LiteMD : public QMainWindow
 {
     Q_OBJECT
 	private:
-		Ui::LiteMDClass ui;				//Не используется
-		QDockWidget* quick_access_dock;	//Док для кнопок
-		QMenu* mHelp;					//Меню помощи
-		QMenu* mFile;					//Меню файла
-		QMenu* mSettings;				//Меню настроек
-		mdEditor* mde;					//Редактор
-		mdScreen* mds;					//Рендер текста
-		DownloaderGui* dwModule;		//Модуль загрузчика
-		QString defTitle;				//Контейнер дефолтного заголовка
-		QLabel* workProgressCap;		//Затычка на недоделанные элементы
-		appSettings* mdlSet;			//Диалог настроек приложения
-		QGroupBox* editorWindow;		//Окно редактора
-		QGroupBox* viewerWindow;		//Окно рендера
-		QAction* actAbout;				//Пункт меню о программе
-		QAction* actOpen;				//Пункт меню открыть
-		QAction* actSave;				//Пункт меню сохранить
-		QAction* actSaveAs;				//Пункт меню сохранить как
-		QAction* actQuit;				//Пункт меню выход
-		QAction* actDownloader;			//Пункт вызова загрузчика
-		QAction* actSet;				//Пункт вызова настроек
-		QAction* actNew;				//Пункт создрания нового документа
+		Ui::LiteMDClass ui;				//ГЌГҐ ГЁГ±ГЇГ®Г«ГјГ§ГіГҐГІГ±Гї
+		QDockWidget* quick_access_dock;	//Г„Г®ГЄ Г¤Г«Гї ГЄГ­Г®ГЇГ®ГЄ
+		QMenu* mHelp;					//ГЊГҐГ­Гѕ ГЇГ®Г¬Г®Г№ГЁ
+		QMenu* mFile;					//ГЊГҐГ­Гѕ ГґГ Г©Г«Г 
+		QMenu* mSettings;				//ГЊГҐГ­Гѕ Г­Г Г±ГІГ°Г®ГҐГЄ
+		mdEditor* mde;					//ГђГҐГ¤Г ГЄГІГ®Г°
+		mdScreen* mds;					//ГђГҐГ­Г¤ГҐГ° ГІГҐГЄГ±ГІГ 
+		DownloaderGui* dwModule;		//ГЊГ®Г¤ГіГ«Гј Г§Г ГЈГ°ГіГ§Г·ГЁГЄГ 
+		QString defTitle;				//ГЉГ®Г­ГІГҐГ©Г­ГҐГ° Г¤ГҐГґГ®Г«ГІГ­Г®ГЈГ® Г§Г ГЈГ®Г«Г®ГўГЄГ 
+		QLabel* workProgressCap;		//Г‡Г ГІГ»Г·ГЄГ  Г­Г  Г­ГҐГ¤Г®Г¤ГҐГ«Г Г­Г­Г»ГҐ ГЅГ«ГҐГ¬ГҐГ­ГІГ»
+		appSettings* mdlSet;			//Г„ГЁГ Г«Г®ГЈ Г­Г Г±ГІГ°Г®ГҐГЄ ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГї
+		QGroupBox* editorWindow;		//ГЋГЄГ­Г® Г°ГҐГ¤Г ГЄГІГ®Г°Г 
+		QGroupBox* viewerWindow;		//ГЋГЄГ­Г® Г°ГҐГ­Г¤ГҐГ°Г 
+		QAction* actAbout;				//ГЏГіГ­ГЄГІ Г¬ГҐГ­Гѕ Г® ГЇГ°Г®ГЈГ°Г Г¬Г¬ГҐ
+		QAction* actOpen;				//ГЏГіГ­ГЄГІ Г¬ГҐГ­Гѕ Г®ГІГЄГ°Г»ГІГј
+		QAction* actSave;				//ГЏГіГ­ГЄГІ Г¬ГҐГ­Гѕ Г±Г®ГµГ°Г Г­ГЁГІГј
+		QAction* actSaveAs;				//ГЏГіГ­ГЄГІ Г¬ГҐГ­Гѕ Г±Г®ГµГ°Г Г­ГЁГІГј ГЄГ ГЄ
+		QAction* actQuit;				//ГЏГіГ­ГЄГІ Г¬ГҐГ­Гѕ ГўГ»ГµГ®Г¤
+		QAction* actDownloader;			//ГЏГіГ­ГЄГІ ГўГ»Г§Г®ГўГ  Г§Г ГЈГ°ГіГ§Г·ГЁГЄГ 
+		QAction* actSet;				//ГЏГіГ­ГЄГІ ГўГ»Г§Г®ГўГ  Г­Г Г±ГІГ°Г®ГҐГЄ
+		QAction* actNew;				//ГЏГіГ­ГЄГІ Г±Г®Г§Г¤Г°Г Г­ГЁГї Г­Г®ГўГ®ГЈГ® Г¤Г®ГЄГіГ¬ГҐГ­ГІГ 
 	protected:
 		bool eventFilter(QObject* pobj, QEvent* event);
 		void update_ui();
 	public:
-		void closeEvent(QCloseEvent*);		//Перехватчик закрытия приложения
-		LiteMD(QWidget *parent = nullptr);	//Базовый конструкор
+		void closeEvent(QCloseEvent*);		//ГЏГҐГ°ГҐГµГўГ ГІГ·ГЁГЄ Г§Г ГЄГ°Г»ГІГЁГї ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГї
+		LiteMD(QWidget *parent = nullptr);	//ГЃГ Г§Г®ГўГ»Г© ГЄГ®Г­Г±ГІГ°ГіГЄГ®Г°
 		~LiteMD();
 	signals:
-		void saveFile();	//Сохранение файла
+		void saveFile();	//Г‘Г®ГµГ°Г Г­ГҐГ­ГЁГҐ ГґГ Г©Г«Г 
 	private slots:
-		void slotAbout();	//Слот для вызова окна о программе
-		void httpModuleShow();	//Сигнал для вызова модуля загрузчика
-		void slot_mbar_send_string(const QString&);	//Слот для смены заголовка
+		void slotAbout();	//Г‘Г«Г®ГІ Г¤Г«Гї ГўГ»Г§Г®ГўГ  Г®ГЄГ­Г  Г® ГЇГ°Г®ГЈГ°Г Г¬Г¬ГҐ
+		void httpModuleShow();	//Г‘ГЁГЈГ­Г Г« Г¤Г«Гї ГўГ»Г§Г®ГўГ  Г¬Г®Г¤ГіГ«Гї Г§Г ГЈГ°ГіГ§Г·ГЁГЄГ 
+		void slot_mbar_send_string(const QString&);	//Г‘Г«Г®ГІ Г¤Г«Гї Г±Г¬ГҐГ­Г» Г§Г ГЈГ®Г«Г®ГўГЄГ 
 	public slots:
-		void slotTitleChanged(const QString&);	//Слот для изменения заголовка
-		void slotFileEdited();	//Слот для установки флага "*"
-		void slotTitleReset();	//Слот для сброса заголовка к дефолтному
+		void slotTitleChanged(const QString&);	//Г‘Г«Г®ГІ Г¤Г«Гї ГЁГ§Г¬ГҐГ­ГҐГ­ГЁГї Г§Г ГЈГ®Г«Г®ГўГЄГ 
+		void slotFileEdited();	//Г‘Г«Г®ГІ Г¤Г«Гї ГіГ±ГІГ Г­Г®ГўГЄГЁ ГґГ«Г ГЈГ  "*"
+		void slotTitleReset();	//Г‘Г«Г®ГІ Г¤Г«Гї Г±ГЎГ°Г®Г±Г  Г§Г ГЈГ®Г«Г®ГўГЄГ  ГЄ Г¤ГҐГґГ®Г«ГІГ­Г®Г¬Гі
 };
