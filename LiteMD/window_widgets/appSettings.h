@@ -47,11 +47,11 @@ class appSettings : public QDialog
 		//-------------------------
 
 		//Вкладка "Загрузчик"
-		QLabel* allowWarningsHint;//
-		QCheckBox* allowWarnings;//
+		QLabel* allowWarningsHint;//Разрешить предупреждать об устаревшем функционале
+		QCheckBox* allowWarnings;//Флажок
 
-		QLabel* allowCacheHint;	//
-		QCheckBox* allowCache;	//
+		QLabel* allowCacheHint;	//Разрешить кеширование из интернета(папка cache по умолчанию)
+		QCheckBox* allowCache;	//Флажок
 
 		void configureBasicSettingsTab();
 		void configureRenderSettingsTab();
@@ -64,4 +64,5 @@ class appSettings : public QDialog
 	public slots:
 		void slot_lang_selected(int);
 		void slot_apply_settings();
+		void slot_switch_warn_allow(int);
 };

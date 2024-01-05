@@ -1,13 +1,33 @@
 #include "appSettings.h"
+#include "global_definitions.h"
+extern "C"
+{
+	#include "globalFlags.h"
+}
+
 void appSettings::configureDownloaderSettingsTab()
 {
 	downloaderSettings = new QWidget;
 
 	//Инициализируем метки
+	allowWarningsHint = new QLabel(tr("Show one-time deprecated warning"));
+	allowCacheHint = new QLabel(tr("Enable content caching"));
 
 	//Инициализируем элементы взаимодействия
+	allowWarnings = new QCheckBox;
+	allowCache = new QCheckBox;
 
 	//Отрубаем до реализации механики
+	allowCache->setChecked(0);
+	allowCache->setDisabled(1);
+
+	allowWarnings->setChecked(1);
+
+	//Задаем высоту
+	allowWarningsHint->setFixedHeight(SETTINGS_HEIGH);
+	allowCacheHint->setFixedHeight(SETTINGS_HEIGH);
+	allowWarnings->setFixedHeight(SETTINGS_HEIGH);
+	allowCache->setFixedHeight(SETTINGS_HEIGH);
 
 	//Инициализируем рамку
 	QGroupBox* downloader_box = new QGroupBox;
@@ -26,6 +46,11 @@ void appSettings::configureDownloaderSettingsTab()
 	QHBoxLayout* manager = new QHBoxLayout;
 
 	//Добавляем в компоновку
+	lbl_lay->addWidget(allowWarningsHint);
+	lbl_lay->addWidget(allowCacheHint);
+
+	interact_lay->addWidget(allowWarnings);
+	interact_lay->addWidget(allowCache);
 
 	//Настраиваем порядок размещения элементов - сверху
 	lbl_lay->setAlignment(Qt::AlignTop);

@@ -2,8 +2,11 @@
 #include "ui_update_event.h"
 #include "event_id_constructor.h"
 #include "global_definitions.h"
-#include "globalFlags.h"
 #include <QtWidgets>
+extern "C"
+{
+#include "globalFlags.h"
+}
 appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 {
 	//Окно настроек, будет переписано
@@ -58,6 +61,8 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 		QErrorMessage::qtHandler();
 	if (!connect(btnApply, SIGNAL(clicked()), this, SLOT(slot_apply_settings())))
 		QErrorMessage::qtHandler();
+	if (!connect(allowWarnings, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_warn_allow(int))))
+		QErrorMessage::qtHandler();
 	
 
 	//Ставим заглушку
@@ -94,3 +99,8 @@ void appSettings::slot_apply_settings()
 	if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_UI_UPDATE_EVENT)))	//Постим событие изменения интерфейса
 		QErrorMessage::qtHandler();
 }
+void appSettings::slot_switch_warn_allow(int state)
+{
+	allowHttpWarn = static_cast<bool>(state);
+}
+

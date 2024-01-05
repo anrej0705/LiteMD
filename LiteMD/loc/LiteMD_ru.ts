@@ -249,6 +249,18 @@ github.com/anrej0705
         <source>Render</source>
         <translation>Рендер</translation>
     </message>
+    <message>
+        <source>Downloader</source>
+        <translation>Загрузчик</translation>
+    </message>
+    <message>
+        <source>Show one-time deprecated warning</source>
+        <translation>Показывать одноразовое предупреждение</translation>
+    </message>
+    <message>
+        <source>Enable content caching</source>
+        <translation>Кешировать загруженный контент</translation>
+    </message>
 </context>
 <context>
     <name>mdEditor</name>

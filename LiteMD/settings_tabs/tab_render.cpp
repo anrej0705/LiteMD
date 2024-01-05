@@ -1,4 +1,10 @@
 #include "appSettings.h"
+#include "global_definitions.h"
+extern "C"
+{
+	#include "globalFlags.h"
+}
+
 void appSettings::configureRenderSettingsTab()
 {
 	renderSettings = new QWidget;
@@ -15,8 +21,8 @@ void appSettings::configureRenderSettingsTab()
 	parseLinks->setDisabled(1);
 
 	//Устанавливаем высоту
-	parseLinksHint->setFixedHeight(20);
-	parseLinks->setFixedHeight(20);
+	parseLinksHint->setFixedHeight(SETTINGS_HEIGH);
+	parseLinks->setFixedHeight(SETTINGS_HEIGH);
 
 	//Инициализируем рамку
 	QGroupBox* render_box = new QGroupBox;

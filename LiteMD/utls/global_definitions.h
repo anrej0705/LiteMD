@@ -20,6 +20,8 @@
 * | 40 |tab_basic.cpp       |
 */
 
+#define SETTINGS_HEIGH									20
+
 #define APP_EVENT_UI_UPDATE_EVENT						33
 #define APP_EVENT_LiteMD_UPDATE_EVENT					34
 #define APP_EVENT_mdEditor_UPDATE_EVENT					35

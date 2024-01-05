@@ -247,6 +247,18 @@ I hope u like my app :D</translation>
         <source>Render</source>
         <translation>Render</translation>
     </message>
+    <message>
+        <source>Downloader</source>
+        <translation>Downloader</translation>
+    </message>
+    <message>
+        <source>Show one-time deprecated warning</source>
+        <translation>Show one-time deprecated warning</translation>
+    </message>
+    <message>
+        <source>Enable content caching</source>
+        <translation>Enable content caching</translation>
+    </message>
 </context>
 <context>
     <name>mdEditor</name>
