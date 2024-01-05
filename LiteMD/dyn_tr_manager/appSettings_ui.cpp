@@ -21,5 +21,14 @@ void appSettings::update_ui()
 	workprogress->setText("<H1>" + tr("Work in progress, come later))") + "</H1>");
 	langListHint->setText(tr("Language:"));
 	settingsLister->setTabText(0, tr("Basic"));
-	settingsLister->setTabText(1, tr("Cap"));
+	settingsLister->setTabText(1, tr("Render"));
+	settingsLister->setTabText(2, tr("Cap"));
+	parseLinksHint->setText(tr("Parse URL links"));
+	themeList->setItemText(0, tr("Will be added in future"));
+	saveSettings->setItemText(0, tr("Will be added in future"));
+	saveFreq->setItemText(0, tr("Will be added in future"));
+	themeHint->setText(tr("UI Theme"));
+	saveSettingsHint->setText(tr("Settings save type"));
+	autoSaveHint->setText(tr("Autosave"));
+	saveFreqHint->setText(tr("Autosave frequency"));
 }

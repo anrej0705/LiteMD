@@ -18,6 +18,8 @@ DownloaderGui::DownloaderGui(QWidget* dwgt) : QWidget(dwgt)
 	plbl = new QLabel;
 	plbl->setWindowIcon(QIcon("icon.ico"));
 	plbl->hide();
+	//Устанавливаем фильтр на отлов события смены языка
+	qApp->installEventFilter(this);
 	//Инициализируем графическую оболочку
 	dwPb = new QProgressBar;
 	dwEt = new QLineEdit;

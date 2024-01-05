@@ -7,7 +7,7 @@
 #include "appSettings.h"
 
 //Номер билда, пока задаётся вручную
-#define buildNumber 782
+#define buildNumber 1006
 
 class LiteMD : public QMainWindow
 {
