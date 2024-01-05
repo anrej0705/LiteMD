@@ -24,7 +24,8 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	//ui_event = new ui_update_event;
 
 	//QCoreApplication::instance()->installEventFilter(qApp);
-	qApp->installEventFilter(new ui_event_filter(this));
+	//qApp->installEventFilter(new appSettings_event_filter(APP_EVENT_appSettings_UPDATE_EVENT, this));
+	qApp->installEventFilter(this);
 
 	//Настройка компоновщиков
 	controlBtnLay->setAlignment(Qt::AlignRight);

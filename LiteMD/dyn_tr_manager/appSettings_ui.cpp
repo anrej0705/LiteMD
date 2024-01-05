@@ -1,12 +1,19 @@
 #include "appSettings.h"
+#include "global_definitions.h"
 #include "ui_update_event.h"
-void appSettings::update_ui(/*QEvent* p_event*/)
+
+bool appSettings::eventFilter(QObject* pobj, QEvent* p_event)
 {
-	/*bool a = 0;
-	if (p_event->type() == static_cast<QEvent::Type>(QEvent::User + 33))
+	if (p_event->type() == static_cast<QEvent::Type>(QEvent::User + APP_EVENT_appSettings_UPDATE_EVENT))
 	{
-		a=1;
-	}*/
+		update_ui();
+		return 1;
+	}
+	return QWidget::eventFilter(pobj, p_event);
+}
+
+void appSettings::update_ui()
+{
 	setWindowTitle(tr("LiteMD Settings"));
 	btnOk->setText(tr("&Ok"));
 	btnCancel->setText(tr("&Cancel"));

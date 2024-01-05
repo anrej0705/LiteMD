@@ -46,7 +46,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mdlSet = new appSettings;
 	//-------------------------
 
-	//qApp->installEventFilter(new ui_event_filter(qApp));
+	qApp->installEventFilter(new ui_event_filter(qApp));
 	
 	//Блок менеджеров размещения кнопок
 	QVBoxLayout* editorLay = new QVBoxLayout;

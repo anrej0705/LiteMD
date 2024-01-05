@@ -29,19 +29,11 @@ class appSettings : public QDialog
 
 		void configureBasicSettingsTab();
 	protected:
-		void eventFilter(QEvent* event);
-		void update_ui(/*ui_update_event* p_event*/);
+		bool eventFilter(QObject* pobj, QEvent* event);
+		void update_ui();
 	public:
 		appSettings(QWidget* aWgt = 0);
 	public slots:
 		void slot_lang_selected(int);
 		void slot_apply_settings();
 };
-
-/*class appSettings_filter : public QObject
-{
-	protected:
-		virtual bool eventFilter(QObject*, QEvent*);
-	public:
-		appSettings_filter(QObject* podj = 0);
-};*/
