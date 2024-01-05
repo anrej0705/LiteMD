@@ -1,4 +1,5 @@
 #include "appSettings.h"
+#include "ui_update_event.h"
 
 //Конвертер имени языка - имя_языка(код_языка)
 QString localeNameConverter(QString lang_string_name, QString file_loc_name);

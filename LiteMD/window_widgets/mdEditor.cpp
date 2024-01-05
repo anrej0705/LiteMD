@@ -14,6 +14,8 @@ mdEditor::mdEditor(QWidget* mdWgt) : QTextEdit(mdWgt)
 	//Соединяем базовый сигнал со слотом который будет формировать сигнал высылки текста
 	if (!connect(this, SIGNAL(textChanged()), this, SLOT(slotTextChanged())))
 		QErrorMessage::qtHandler();
+
+	qApp->installEventFilter(new mdEditor_filter(this));
 }
 //Слот генерирующий сигнал с текущим текстом в виджете
 void mdEditor::slotTextChanged()
@@ -151,4 +153,17 @@ void mdEditor::slotNew()
 	//Сбрасываем содержимое поля ввода и заголовок
 	this->setText("");
 	emit resetTitle();
+}
+
+mdEditor_filter::mdEditor_filter(QObject* pobj) : QObject(pobj)
+{}
+bool mdEditor_filter::eventFilter(QObject* podj, QEvent* p_event)
+{
+	if (p_event->type() == static_cast<QEvent::Type>(QEvent::User + 33))
+	{
+		event(p_event);
+		return 1;
+	}
+	//ui_event_filter(p_event);
+	return 0;
 }

@@ -200,6 +200,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dyn_tr_manager\appSettings_ui.cpp" />
+    <ClCompile Include="dyn_tr_manager\ui_update_event.cpp" />
     <ClCompile Include="modules\Downloader.cpp" />
     <ClCompile Include="modules\GuiDownloader.cpp" />
     <ClCompile Include="settings_tabs\tab_basic.cpp" />
@@ -245,6 +246,7 @@
     <QtTranslation Include="loc\LiteMD_ru_UA.ts" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="dyn_tr_manager\event_id_constructor.h" />
     <ClInclude Include="dyn_tr_manager\ui_update_event.h" />
     <ClInclude Include="ress\resource.h" />
     <ClInclude Include="ress\resource1.h" />

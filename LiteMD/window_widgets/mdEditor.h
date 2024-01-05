@@ -25,3 +25,11 @@ class mdEditor : public QTextEdit
 		void slotSaveAs();	//Вызывает окно для набора названия файла для сохранения
 		void slotNew();		//Очищает поле ввода
 };
+
+class mdEditor_filter : public QObject
+{
+protected:
+	virtual bool eventFilter(QObject*, QEvent*);
+public:
+	mdEditor_filter(QObject* podj = 0);
+};

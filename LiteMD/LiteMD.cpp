@@ -1,4 +1,5 @@
 #include "LiteMD.h"
+#include "ui_update_event.h"
 #include "OrientalPushButton.h"
 #include "GuiDownloader.h"
 #include "dialogBoxes.h"
@@ -44,6 +45,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	workProgressCap = new QLabel("work in progress");
 	mdlSet = new appSettings;
 	//-------------------------
+
+	//qApp->installEventFilter(new ui_event_filter(qApp));
 	
 	//Блок менеджеров размещения кнопок
 	QVBoxLayout* editorLay = new QVBoxLayout;

@@ -97,6 +97,9 @@
     <ClCompile Include="dyn_tr_manager\appSettings_ui.cpp">
       <Filter>Модули\Динамический перевод</Filter>
     </ClCompile>
+    <ClCompile Include="dyn_tr_manager\ui_update_event.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">
@@ -168,6 +171,9 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="dyn_tr_manager\ui_update_event.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="dyn_tr_manager\event_id_constructor.h">
       <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>

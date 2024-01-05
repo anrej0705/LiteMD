@@ -1,6 +1,12 @@
 #include "appSettings.h"
-void appSettings::update_ui()
+#include "ui_update_event.h"
+void appSettings::update_ui(ui_update_event* p_event)
 {
+	bool a = 0;
+	if (p_event->type() == static_cast<QEvent::Type>(QEvent::User + 33))
+	{
+		a = 1;
+	}
 	setWindowTitle(tr("LiteMD Settings"));
 	btnOk->setText(tr("&Ok"));
 	btnCancel->setText(tr("&Cancel"));
