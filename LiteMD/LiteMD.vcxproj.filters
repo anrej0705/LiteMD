@@ -100,6 +100,9 @@
     <ClCompile Include="dyn_tr_manager\ui_update_event.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="dyn_tr_manager\LiteMD_ui.cpp">
+      <Filter>Модули\Динамический перевод</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">

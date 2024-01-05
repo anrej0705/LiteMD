@@ -6,6 +6,9 @@
 #include "GuiDownloader.h"
 #include "appSettings.h"
 
+//Номер билда, пока задаётся вручную
+#define buildNumber 782
+
 class LiteMD : public QMainWindow
 {
     Q_OBJECT
@@ -21,6 +24,19 @@ class LiteMD : public QMainWindow
 		QString defTitle;				//Контейнер дефолтного заголовка
 		QLabel* workProgressCap;		//Затычка на недоделанные элементы
 		appSettings* mdlSet;			//Диалог настроек приложения
+		QGroupBox* editorWindow;		//Окно редактора
+		QGroupBox* viewerWindow;		//Окно рендера
+		QAction* actAbout;				//Пункт меню о программе
+		QAction* actOpen;				//Пункт меню открыть
+		QAction* actSave;				//Пункт меню сохранить
+		QAction* actSaveAs;				//Пункт меню сохранить как
+		QAction* actQuit;				//Пункт меню выход
+		QAction* actDownloader;			//Пункт вызова загрузчика
+		QAction* actSet;				//Пункт вызова настроек
+		QAction* actNew;				//Пункт создрания нового документа
+	protected:
+		bool eventFilter(QObject* pobj, QEvent* event);
+		void update_ui();
 	public:
 		void closeEvent(QCloseEvent*);		//Перехватчик закрытия приложения
 		LiteMD(QWidget *parent = nullptr);	//Базовый конструкор

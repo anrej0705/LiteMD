@@ -9,9 +9,6 @@ extern "C"
 	#include "globalFlags.h"
 }
 
-//Номер билда, пока задаётся вручную
-#define buildNumber 782
-
 LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 {
 	//ui.setupUi(this); //Всегда должно быть наверху! UPD - пока отключено
@@ -25,24 +22,24 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	QScrollArea* mdsArea = new QScrollArea;
 	OrientablePushButton* btnDown = new OrientablePushButton("--->", this);
 	OrientablePushButton* btnUp = new OrientablePushButton("--->", this);
-	QGroupBox* editorWindow = new QGroupBox(tr("Editor"));
-	QGroupBox* viewerWindow = new QGroupBox(tr("Viewer"));
+	editorWindow = new QGroupBox(tr("Editor"));
+	viewerWindow = new QGroupBox(tr("Viewer"));
 	QWidget* scrollDock = new QWidget;
 	QWidget* mainWgt = new QWidget;
-	QAction* actAbout = new QAction(tr("&About"),0);
-	QAction* actOpen = new QAction(tr("&Open..."));
-	QAction* actSave = new QAction(tr("&Save"));
-	QAction* actSaveAs = new QAction(tr("S&ave As..."));
-	QAction* actQuit = new QAction(tr("&Quit"));
-	QAction* actDownloader = new QAction(tr("HTTP &Downloader module"));
-	QAction* actSet = new QAction(tr("&Settings"));
-	QAction* actNew = new QAction(tr("&New"));
+	actAbout = new QAction(tr("&About"),0);
+	actOpen = new QAction(tr("&Open..."));
+	actSave = new QAction(tr("&Save"));
+	actSaveAs = new QAction(tr("S&ave As..."));
+	actQuit = new QAction(tr("&Quit"));
+	actDownloader = new QAction(tr("HTTP &Downloader module"));
+	actSet = new QAction(tr("&Settings"));
+	actNew = new QAction(tr("&New"));
 	quick_access_dock = new QDockWidget(this);
 	dwModule = new DownloaderGui;
 	mFile = new QMenu(tr("&File"));
 	mSettings = new QMenu(tr("&Service"));
 	mHelp = new QMenu(tr("&Help"));
-	workProgressCap = new QLabel("work in progress");
+	workProgressCap = new QLabel(tr("work in progress"));
 	mdlSet = new appSettings;
 	//-------------------------
 
@@ -54,6 +51,9 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	QVBoxLayout* scrollDockLay = new QVBoxLayout;
 	QHBoxLayout* mainWindowHorizontalSetup = new QHBoxLayout;
 	//---------------------------------
+
+	//Установка обработчика события смены языка
+	qApp->installEventFilter(this);
 
 	//Блок конфигурации элементов интерфейса
 	quick_access_dock->setFeatures(QDockWidget::NoDockWidgetFeatures);

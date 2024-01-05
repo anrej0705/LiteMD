@@ -11,6 +11,8 @@ bool ui_event_filter::eventFilter(QObject* podj, QEvent* p_event)
 		ui_event_filter(p_event);
 		if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_appSettings_UPDATE_EVENT)))
 			QErrorMessage::qtHandler();
+		if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_LiteMD_UPDATE_EVENT)))
+			QErrorMessage::qtHandler();
 		return 1;
 	}
 	//ui_event_filter(p_event);

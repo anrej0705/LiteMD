@@ -107,7 +107,7 @@
       <BuildAction>false</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\dyn_tr_manager;C:\git\LiteMD\LiteMD\settings_tabs;C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\dyn_tr_manager;C:\git\LiteMD\LiteMD\settings_tabs;C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;C:\git\LiteMD\LiteMD;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -120,7 +120,7 @@
       <BuildAction>false</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\dyn_tr_manager;C:\git\LiteMD\LiteMD\settings_tabs;C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\dyn_tr_manager;C:\git\LiteMD\LiteMD\settings_tabs;C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;C:\git\LiteMD\LiteMD;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -133,7 +133,7 @@
       <BuildAction>lupdate_lrelease</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\dyn_tr_manager;C:\git\LiteMD\LiteMD\settings_tabs;C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\dyn_tr_manager;C:\git\LiteMD\LiteMD\settings_tabs;C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;C:\git\LiteMD\LiteMD;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -146,7 +146,7 @@
       <BuildAction>lupdate_lrelease</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\dyn_tr_manager;C:\git\LiteMD\LiteMD\settings_tabs;C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\dyn_tr_manager;C:\git\LiteMD\LiteMD\settings_tabs;C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;C:\git\LiteMD\LiteMD;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -200,6 +200,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dyn_tr_manager\appSettings_ui.cpp" />
+    <ClCompile Include="dyn_tr_manager\LiteMD_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\ui_update_event.cpp" />
     <ClCompile Include="modules\Downloader.cpp" />
     <ClCompile Include="modules\GuiDownloader.cpp" />
