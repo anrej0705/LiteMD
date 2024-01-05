@@ -10,7 +10,7 @@ void appSettings::configureRenderSettingsTab()
 	parseLinks = new QCheckBox;
 
 	//Отрубаем до реализации механики
-	parseLinks->setChecked(0);
+	parseLinks->setChecked(1);
 	parseLinks->setCheckable(0);
 
 	//Инициализируем рамку
