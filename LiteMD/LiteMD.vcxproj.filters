@@ -173,7 +173,10 @@
     <ClInclude Include="dyn_tr_manager\ui_update_event.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="dyn_tr_manager\event_id_constructor.h">
+    <ClInclude Include="utls\global_definitions.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utls\event_id_constructor.h">
       <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>

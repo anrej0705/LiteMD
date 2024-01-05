@@ -1,5 +1,6 @@
 #include "appSettings.h"
 #include "ui_update_event.h"
+#include "event_id_constructor.h"
 #include "globalFlags.h"
 #include <QtWidgets>
 appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
@@ -82,9 +83,7 @@ void appSettings::slot_apply_settings()
 	if (!QCoreApplication::installTranslator(&lmd_lng))
 		QErrorMessage::qtHandler();
 	qApp->installTranslator(&lmd_lng);
-	//btnCancel->setText(tr("&Cancel"));
-	//QApplication::postEvent(qApp, ui_event);
-	if (!QCoreApplication::sendEvent(qApp, ui_event))	//Постим событие изменения интерфейса
+	if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(33)))	//Постим событие изменения интерфейса
 		QErrorMessage::qtHandler();
 	//update_ui();
 }

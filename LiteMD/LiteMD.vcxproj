@@ -246,14 +246,15 @@
     <QtTranslation Include="loc\LiteMD_ru_UA.ts" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="dyn_tr_manager\event_id_constructor.h" />
     <ClInclude Include="dyn_tr_manager\ui_update_event.h" />
     <ClInclude Include="ress\resource.h" />
     <ClInclude Include="ress\resource1.h" />
     <ClInclude Include="string_processing\syntax_postprocessor.h" />
     <ClInclude Include="string_processing\syntax_preprocessor.h" />
     <ClInclude Include="ui_primitives\dialogBoxes.h" />
+    <ClInclude Include="utls\event_id_constructor.h" />
     <ClInclude Include="utls\globalFlags.h" />
+    <ClInclude Include="utls\global_definitions.h" />
     <QtMoc Include="window_widgets\appSettings.h" />
     <QtMoc Include="window_widgets\mdScreen.h" />
     <QtMoc Include="window_widgets\mdEditor.h" />
