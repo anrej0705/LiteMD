@@ -224,7 +224,6 @@
     <ClCompile Include="window_widgets\appSettings.cpp" />
     <ClCompile Include="window_widgets\mdEditor.cpp" />
     <ClCompile Include="window_widgets\mdScreen.cpp" />
-    <QtUic Include="LiteMD.ui" />
     <QtMoc Include="LiteMD.h" />
     <ClCompile Include="LiteMD.cpp" />
     <ClCompile Include="main.cpp" />
