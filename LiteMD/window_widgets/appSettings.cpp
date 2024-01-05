@@ -47,6 +47,8 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	setLayout(dialogWindow);
 	
 	//Устанавливаем связи кнопок
+	if (!connect(btnOk, SIGNAL(clicked()), this, SLOT(slot_apply_settings())))
+		QErrorMessage::qtHandler();
 	if (!connect(btnOk, SIGNAL(clicked()), this, SLOT(hide())))
 		QErrorMessage::qtHandler();
 	if (!connect(btnCancel, SIGNAL(clicked()), this, SLOT(hide())))
