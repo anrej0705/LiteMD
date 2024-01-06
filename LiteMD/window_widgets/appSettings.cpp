@@ -5,7 +5,7 @@
 #include <QtWidgets>
 extern "C"
 {
-#include "globalFlags.h"
+	#include "globalFlags.h"
 }
 appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 {

@@ -27,5 +27,5 @@ void LiteMD::update_ui()
 	mSettings->setTitle(tr("&Service"));
 	mHelp->setTitle(tr("&Help"));
 	workProgressCap->setText(tr("work in progress"));
-	setWindowTitle(tr("LiteMD alpha 0.0.0 build ") + QString::number(buildNumber) + tr("[MAX FILE SIZE 65K]"));
+	setWindowTitle(tr("LiteMD alpha 0.0.0 build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER)) + tr("[MAX FILE SIZE 65K]"));
 }

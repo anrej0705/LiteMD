@@ -7,6 +7,7 @@
 extern "C"
 {
 	#include "globalFlags.h"
+	#include "global_definitions.h"
 }
 
 LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
@@ -148,7 +149,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	setCentralWidget(mainWgt);
 
 	//Устанавливаем заголовок окна
-	setWindowTitle(tr("LiteMD alpha 0.0.0 build ") + QString::number(buildNumber) + tr("[MAX FILE SIZE 65K]"));
+	setWindowTitle(tr("LiteMD alpha 0.0.0 build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER)) + tr("[MAX FILE SIZE 65K]"));
 
 	//Кешируем имя окна для возможности восстановления исходного заголовка
 	defTitle = windowTitle();
@@ -162,7 +163,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 //О программе
 void LiteMD::slotAbout()
 {
-	QMessageBox::about(this, "LiteMD", tr("Ver. alpha 0.0.0 build ") + QString::number(buildNumber) 
+	QMessageBox::about(this, "LiteMD", tr("Ver. alpha 0.0.0 build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))
 		+ tr("<BR>By anrej0705<BR>See me at Github:") + "<BR><A HREF=\"github.com/anrej0705\">github.com/anrej0705</A><BR><BR>" 
 		+ tr("This app is free for use,modify and reupload<BR>") 
 		+ "<BR>" + "<BR>Qt 5.14.2<BR>" + "<BR>" 

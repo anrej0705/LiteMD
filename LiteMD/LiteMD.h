@@ -5,9 +5,13 @@
 #include "mdScreen.h"
 #include "GuiDownloader.h"
 #include "appSettings.h"
+extern "C"
+{
+	#include "globalFlags.h"
+	#include "global_definitions.h"
+}
 
 //Íîìåð áèëäà, ïîêà çàäà¸òñÿ âðó÷íóþ
-#define buildNumber 1006
 
 class LiteMD : public QMainWindow
 {
