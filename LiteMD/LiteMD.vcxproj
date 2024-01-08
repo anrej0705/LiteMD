@@ -237,6 +237,17 @@
   <ItemGroup>
     <Image Include="icon.ico" />
     <Image Include="ress\appicon.ico" />
+    <Image Include="ress\icon_about.png" />
+    <Image Include="ress\icon_help.png" />
+    <Image Include="ress\icon_http_downloader.png" />
+    <Image Include="ress\icon_new_document.png" />
+    <Image Include="ress\icon_open_document.png" />
+    <Image Include="ress\icon_place_url.png" />
+    <Image Include="ress\icon_place_url_alternate.png" />
+    <Image Include="ress\icon_save.png" />
+    <Image Include="ress\icon_save_as.png" />
+    <Image Include="ress\icon_settings.png" />
+    <Image Include="ress\icon_set_text_format.png" />
     <Image Include="ress\work_progress_cap.png" />
   </ItemGroup>
   <ItemGroup>
