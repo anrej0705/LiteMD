@@ -214,6 +214,10 @@ I hope u like my app :D</translation>
         <source>Te&amp;xt Format</source>
         <translation>Te&amp;xt Format</translation>
     </message>
+    <message>
+        <source>Make alt&amp;enate URL</source>
+        <translation>Make alt&amp;enate URL</translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>

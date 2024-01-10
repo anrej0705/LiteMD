@@ -57,6 +57,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	actSet = new QAction(QPixmap("ress/icon_settings.png"), tr("&Settings"));
 	actNew = new QAction(QPixmap("ress/icon_new_document.png"), tr("&New"));
 	actPlaceUrl = new QAction(QPixmap("ress/icon_place_url.png"), tr("Make &URL"));
+	actPlaceAltUrl = new QAction(QPixmap("ress/icon_place_url_alternate.png"), tr("Make alt&enate URL"));
 	actSetTextFormat = new QAction(QPixmap("ress/icon_set_text_format.png"), tr("Te&xt Format"));
 	actHelp = new QAction(QPixmap("ress/icon_help.png"), tr("&Help"));
 	//----------------
@@ -82,6 +83,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	quick_tb->addAction(actSaveAs);
 	quick_tb->addSeparator();
 	quick_tb->addAction(actPlaceUrl);
+	quick_tb->addAction(actPlaceAltUrl);
 	quick_tb->addAction(actSetTextFormat);
 	quick_tb->addSeparator();
 	quick_tb->addAction(actDownloader);
@@ -135,6 +137,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mFile->addSeparator();
 	mFile->addAction(actQuit);
 	mEdit->addAction(actPlaceUrl);
+	mEdit->addAction(actPlaceAltUrl);
 	mEdit->addAction(actSetTextFormat);
 	mSettings->addAction(actDownloader);
 	mSettings->addSeparator();

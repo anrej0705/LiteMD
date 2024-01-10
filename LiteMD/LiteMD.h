@@ -42,7 +42,8 @@ class LiteMD : public QMainWindow
 		QAction* actDownloader;			//Ïóíêò âûçîâà çàãðóç÷èêà
 		QAction* actSet;				//Ïóíêò âûçîâà íàñòðîåê
 		QAction* actNew;				//Ïóíêò ñîçäðàíèÿ íîâîãî äîêóìåíòà
-		QAction* actPlaceUrl;			//Преобразовать в ссылку
+		QAction* actPlaceUrl;			//Преобразовать в (ссылку)
+		QAction* actPlaceAltUrl;		//Преобразовать в [альтернативную](ссылку)
 		QAction* actSetTextFormat;		//Выбрать форматирование выделенного текста
 		QAction* actHelp;
 	protected:

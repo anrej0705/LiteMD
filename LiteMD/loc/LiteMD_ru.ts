@@ -216,6 +216,10 @@ github.com/anrej0705
         <source>Te&amp;xt Format</source>
         <translation>&amp;Форматирование</translation>
     </message>
+    <message>
+        <source>Make alt&amp;enate URL</source>
+        <translation>Преобразовать в альтернативный &amp;URL</translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>

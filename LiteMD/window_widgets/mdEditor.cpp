@@ -155,6 +155,16 @@ void mdEditor::slotNew()
 	appTitleUpdated = 0;
 }
 
+void mdEditor::convertToUrl()
+{
+
+}
+
+void mdEditor::convToAltUrl()
+{
+
+}
+
 mdEditor_filter::mdEditor_filter(QObject* pobj) : QObject(pobj)
 {}
 bool mdEditor_filter::eventFilter(QObject* podj, QEvent* p_event)
