@@ -28,7 +28,6 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	QWidget* scrollDock = new QWidget;
 	QWidget* mainWgt = new QWidget;
 	quick_tb = new QToolBar;
-	quick_access_dock = new QDockWidget(this);
 	dwModule = new DownloaderGui;
 	mFile = new QMenu(tr("&File"));
 	mEdit = new QMenu(tr("&Edit"));
@@ -71,10 +70,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//--------------------
 
 	//Блок конфигурации элементов интерфейса
-	quick_access_dock->setFeatures(QDockWidget::NoDockWidgetFeatures);
-	quick_access_dock->setTitleBarWidget(new QWidget());
-	quick_access_dock->setFixedHeight(32);
-	quick_access_dock->setWidget(quick_tb);
+	quick_tb->setMovable(0);	//В будущем будет переведено в настройки
 
 	//Добавляем кнопки в доки
 	quick_tb->addAction(actNew);
@@ -93,7 +89,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	quick_tb->addAction(actAbout);
 	//-----------------------
 
-	this->addDockWidget(Qt::TopDockWidgetArea, quick_access_dock);
+	this->addToolBar(Qt::TopToolBarArea, quick_tb);
 	actAbout->setShortcut(Qt::CTRL | Qt::Key_A);
 	actOpen->setShortcut(Qt::CTRL | Qt::Key_O);
 	actSave->setShortcut(Qt::CTRL | Qt::Key_S);

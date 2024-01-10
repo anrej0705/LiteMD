@@ -18,7 +18,6 @@ class LiteMD : public QMainWindow
     Q_OBJECT
 	private:
 		Ui::LiteMDClass ui;				//Íå èñïîëüçóåòñÿ
-		QDockWidget* quick_access_dock;	//Äîê äëÿ êíîïîê'
 		QToolBar* quick_tb;				//Тулбар для кнопок-ярлыков
 		QMenu* mHelp;					//Ìåíþ ïîìîùè
 		QMenu* mFile;					//Ìåíþ ôàéëà
