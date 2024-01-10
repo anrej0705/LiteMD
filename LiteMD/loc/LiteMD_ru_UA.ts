@@ -164,6 +164,46 @@ github.com/anrej0705
         <source>work in progress</source>
         <translation>В разработке</translation>
     </message>
+    <message>
+        <source>New document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save As...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>HTTP Downloader(deprecated)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>

@@ -27,6 +27,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	viewerWindow = new QGroupBox(tr("Viewer"));
 	QWidget* scrollDock = new QWidget;
 	QWidget* mainWgt = new QWidget;
+	quick_tb = new QToolBar;
 	actAbout = new QAction(tr("&About"),0);
 	actOpen = new QAction(tr("&Open..."));
 	actSave = new QAction(tr("&Save"));
@@ -60,7 +61,23 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	quick_access_dock->setFeatures(QDockWidget::NoDockWidgetFeatures);
 	quick_access_dock->setTitleBarWidget(new QWidget());
 	quick_access_dock->setFixedHeight(32);
-	quick_access_dock->setWidget(workProgressCap);
+	quick_access_dock->setWidget(quick_tb);
+
+	//Добавляем кнопки в доки
+	quick_tb->addAction(QPixmap("ress/icon_new_document.png"), tr("New document"));
+	quick_tb->addAction(QPixmap("ress/icon_open_document.png"), tr("Open..."));
+	quick_tb->addAction(QPixmap("ress/icon_save.png"), tr("Save"));
+	quick_tb->addAction(QPixmap("ress/icon_save_as.png"), tr("Save As..."));
+	quick_tb->addSeparator();
+	quick_tb->addAction(QPixmap("ress/icon_place_url.png"), tr("Make URL"));
+	quick_tb->addAction(QPixmap("ress/icon_set_text_format.png"), tr("Text Format"));
+	quick_tb->addSeparator();
+	quick_tb->addAction(QPixmap("ress/icon_http_downloader.png"), tr("HTTP Downloader(deprecated)"));
+	quick_tb->addAction(QPixmap("ress/icon_settings.png"), tr("Settings"));
+	quick_tb->addSeparator();
+	quick_tb->addAction(QPixmap("ress/icon_help.png"), tr("Help"));
+	quick_tb->addAction(QPixmap("ress/icon_about.png"), tr("About"));
+
 	this->addDockWidget(Qt::TopDockWidgetArea, quick_access_dock);
 	actAbout->setShortcut(Qt::CTRL | Qt::Key_A);
 	actOpen->setShortcut(Qt::CTRL | Qt::Key_O);
