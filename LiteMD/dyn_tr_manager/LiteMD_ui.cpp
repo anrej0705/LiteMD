@@ -35,6 +35,7 @@ void LiteMD::update_ui()
 	actSet->setText(tr("&Settings"));
 	actNew->setText(tr("&New"));
 	actPlaceUrl->setText(tr("Make &URL"));
+	actPlaceAltUrl->setText(tr("Make alt&enate URL"));
 	actSetTextFormat->setText(tr("Te&xt Format"));
 	actHelp->setText(tr("&Help"));
 	//------------------------
