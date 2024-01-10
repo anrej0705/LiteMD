@@ -166,43 +166,55 @@ github.com/anrej0705
     </message>
     <message>
         <source>New document</source>
-        <translation>Новый документ</translation>
+        <translation type="vanished">Новый документ</translation>
     </message>
     <message>
         <source>Open...</source>
-        <translation>Открыть...</translation>
+        <translation type="vanished">Открыть...</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Сохранить</translation>
+        <translation type="vanished">Сохранить</translation>
     </message>
     <message>
         <source>Save As...</source>
-        <translation>Сохранить как...</translation>
+        <translation type="vanished">Сохранить как...</translation>
     </message>
     <message>
         <source>Make URL</source>
-        <translation>Преобразовать в URL ссылку</translation>
+        <translation type="vanished">Преобразовать в URL ссылку</translation>
     </message>
     <message>
         <source>Text Format</source>
-        <translation>Форматирование</translation>
+        <translation type="vanished">Форматирование</translation>
     </message>
     <message>
         <source>HTTP Downloader(deprecated)</source>
-        <translation>HTTP Загрузчик(устаревший)</translation>
+        <translation type="vanished">HTTP Загрузчик(устаревший)</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation>Настройки</translation>
+        <translation type="vanished">Настройки</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation>Справка</translation>
+        <translation type="vanished">Справка</translation>
     </message>
     <message>
         <source>About</source>
-        <translation>О программе</translation>
+        <translation type="vanished">О программе</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Правка</translation>
+    </message>
+    <message>
+        <source>Make &amp;URL</source>
+        <translation>Преобразовать в &amp;URL</translation>
+    </message>
+    <message>
+        <source>Te&amp;xt Format</source>
+        <translation>&amp;Форматирование</translation>
     </message>
 </context>
 <context>

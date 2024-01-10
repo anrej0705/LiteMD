@@ -28,17 +28,10 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	QWidget* scrollDock = new QWidget;
 	QWidget* mainWgt = new QWidget;
 	quick_tb = new QToolBar;
-	actAbout = new QAction(tr("&About"),0);
-	actOpen = new QAction(tr("&Open..."));
-	actSave = new QAction(tr("&Save"));
-	actSaveAs = new QAction(tr("S&ave As..."));
-	actQuit = new QAction(tr("&Quit"));
-	actDownloader = new QAction(tr("HTTP &Downloader module"));
-	actSet = new QAction(tr("&Settings"));
-	actNew = new QAction(tr("&New"));
 	quick_access_dock = new QDockWidget(this);
 	dwModule = new DownloaderGui;
 	mFile = new QMenu(tr("&File"));
+	mEdit = new QMenu(tr("&Edit"));
 	mSettings = new QMenu(tr("&Service"));
 	mHelp = new QMenu(tr("&Help"));
 	workProgressCap = new QLabel(tr("work in progress"));
@@ -54,6 +47,20 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	QHBoxLayout* mainWindowHorizontalSetup = new QHBoxLayout;
 	//---------------------------------
 
+	//Настройка кнопок
+	actAbout = new QAction(QPixmap("ress/icon_about.png"), tr("&About"), 0);
+	actOpen = new QAction(QPixmap("ress/icon_open_document.png"), tr("&Open..."));
+	actSave = new QAction(QPixmap("ress/icon_save.png"), tr("&Save"));
+	actSaveAs = new QAction(QPixmap("ress/icon_save_as.png"), tr("S&ave As..."));
+	actQuit = new QAction(QPixmap("ress/icon_quit.png"), tr("&Quit"));
+	actDownloader = new QAction(QPixmap("ress/icon_http_downloader.png"), tr("HTTP &Downloader module"));
+	actSet = new QAction(QPixmap("ress/icon_settings.png"), tr("&Settings"));
+	actNew = new QAction(QPixmap("ress/icon_new_document.png"), tr("&New"));
+	actPlaceUrl = new QAction(QPixmap("ress/icon_place_url.png"), tr("Make &URL"));
+	actSetTextFormat = new QAction(QPixmap("ress/icon_set_text_format.png"), tr("Te&xt Format"));
+	actHelp = new QAction(QPixmap("ress/icon_help.png"), tr("&Help"));
+	//----------------
+	
 	//Установка обработчика события смены языка
 	qApp->installEventFilter(this);
 
@@ -64,19 +71,20 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	quick_access_dock->setWidget(quick_tb);
 
 	//Добавляем кнопки в доки
-	quick_tb->addAction(QPixmap("ress/icon_new_document.png"), tr("New document"));
-	quick_tb->addAction(QPixmap("ress/icon_open_document.png"), tr("Open..."));
-	quick_tb->addAction(QPixmap("ress/icon_save.png"), tr("Save"));
-	quick_tb->addAction(QPixmap("ress/icon_save_as.png"), tr("Save As..."));
+	quick_tb->addAction(actNew);
+	quick_tb->addAction(actOpen);
+	quick_tb->addAction(actSave);
+	quick_tb->addAction(actSaveAs);
 	quick_tb->addSeparator();
-	quick_tb->addAction(QPixmap("ress/icon_place_url.png"), tr("Make URL"));
-	quick_tb->addAction(QPixmap("ress/icon_set_text_format.png"), tr("Text Format"));
+	quick_tb->addAction(actPlaceUrl);
+	quick_tb->addAction(actSetTextFormat);
 	quick_tb->addSeparator();
-	quick_tb->addAction(QPixmap("ress/icon_http_downloader.png"), tr("HTTP Downloader(deprecated)"));
-	quick_tb->addAction(QPixmap("ress/icon_settings.png"), tr("Settings"));
+	quick_tb->addAction(actDownloader);
+	quick_tb->addAction(actSet);
 	quick_tb->addSeparator();
-	quick_tb->addAction(QPixmap("ress/icon_help.png"), tr("Help"));
-	quick_tb->addAction(QPixmap("ress/icon_about.png"), tr("About"));
+	quick_tb->addAction(actHelp);
+	quick_tb->addAction(actAbout);
+	//-----------------------
 
 	this->addDockWidget(Qt::TopDockWidgetArea, quick_access_dock);
 	actAbout->setShortcut(Qt::CTRL | Qt::Key_A);
@@ -121,11 +129,14 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mFile->addAction(actSaveAs);
 	mFile->addSeparator();
 	mFile->addAction(actQuit);
+	mEdit->addAction(actPlaceUrl);
+	mEdit->addAction(actSetTextFormat);
 	mSettings->addAction(actDownloader);
 	mSettings->addSeparator();
 	mSettings->addAction(actSet);
 	mHelp->addAction(actAbout);
 	menuBar()->addMenu(mFile);
+	menuBar()->addMenu(mEdit);
 	menuBar()->addMenu(mSettings);
 	menuBar()->addMenu(mHelp);
 	//------------------

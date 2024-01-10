@@ -164,43 +164,55 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>New document</source>
-        <translation>New document</translation>
+        <translation type="vanished">New document</translation>
     </message>
     <message>
         <source>Open...</source>
-        <translation>Open...</translation>
+        <translation type="vanished">Open...</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Save</translation>
+        <translation type="vanished">Save</translation>
     </message>
     <message>
         <source>Save As...</source>
-        <translation>Save As...</translation>
+        <translation type="vanished">Save As...</translation>
     </message>
     <message>
         <source>Make URL</source>
-        <translation>Make URL</translation>
+        <translation type="vanished">Make URL</translation>
     </message>
     <message>
         <source>Text Format</source>
-        <translation>Text Format</translation>
+        <translation type="vanished">Text Format</translation>
     </message>
     <message>
         <source>HTTP Downloader(deprecated)</source>
-        <translation>HTTP Downloader(deprecated)</translation>
+        <translation type="vanished">HTTP Downloader(deprecated)</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation>Settings</translation>
+        <translation type="vanished">Settings</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation>Help</translation>
+        <translation type="vanished">Help</translation>
     </message>
     <message>
         <source>About</source>
-        <translation>About</translation>
+        <translation type="vanished">About</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Edit</translation>
+    </message>
+    <message>
+        <source>Make &amp;URL</source>
+        <translation>Make &amp;URL</translation>
+    </message>
+    <message>
+        <source>Te&amp;xt Format</source>
+        <translation>Te&amp;xt Format</translation>
     </message>
 </context>
 <context>

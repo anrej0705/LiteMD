@@ -22,6 +22,7 @@ class LiteMD : public QMainWindow
 		QToolBar* quick_tb;				//Тулбар для кнопок-ярлыков
 		QMenu* mHelp;					//Ìåíþ ïîìîùè
 		QMenu* mFile;					//Ìåíþ ôàéëà
+		QMenu* mEdit;					//Меню "Правка"
 		QMenu* mSettings;				//Ìåíþ íàñòðîåê
 		mdEditor* mde;					//Ðåäàêòîð
 		mdScreen* mds;					//Ðåíäåð òåêñòà
@@ -31,6 +32,8 @@ class LiteMD : public QMainWindow
 		appSettings* mdlSet;			//Äèàëîã íàñòðîåê ïðèëîæåíèÿ
 		QGroupBox* editorWindow;		//Îêíî ðåäàêòîðà
 		QGroupBox* viewerWindow;		//Îêíî ðåíäåðà
+
+		//Действия всякие, в меню и в док
 		QAction* actAbout;				//Ïóíêò ìåíþ î ïðîãðàììå
 		QAction* actOpen;				//Ïóíêò ìåíþ îòêðûòü
 		QAction* actSave;				//Ïóíêò ìåíþ ñîõðàíèòü
@@ -39,6 +42,9 @@ class LiteMD : public QMainWindow
 		QAction* actDownloader;			//Ïóíêò âûçîâà çàãðóç÷èêà
 		QAction* actSet;				//Ïóíêò âûçîâà íàñòðîåê
 		QAction* actNew;				//Ïóíêò ñîçäðàíèÿ íîâîãî äîêóìåíòà
+		QAction* actPlaceUrl;			//Преобразовать в ссылку
+		QAction* actSetTextFormat;		//Выбрать форматирование выделенного текста
+		QAction* actHelp;
 	protected:
 		bool eventFilter(QObject* pobj, QEvent* event);
 		void update_ui();
