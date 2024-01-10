@@ -64,6 +64,11 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//Установка обработчика события смены языка
 	qApp->installEventFilter(this);
 
+	//Отключенные механики
+	actSetTextFormat->setDisabled(1);
+	actHelp->setDisabled(1);
+	//--------------------
+
 	//Блок конфигурации элементов интерфейса
 	quick_access_dock->setFeatures(QDockWidget::NoDockWidgetFeatures);
 	quick_access_dock->setTitleBarWidget(new QWidget());
@@ -134,6 +139,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mSettings->addAction(actDownloader);
 	mSettings->addSeparator();
 	mSettings->addAction(actSet);
+	mHelp->addAction(actHelp);
 	mHelp->addAction(actAbout);
 	menuBar()->addMenu(mFile);
 	menuBar()->addMenu(mEdit);
@@ -194,7 +200,7 @@ void LiteMD::slotAbout()
 	QMessageBox::about(this, "LiteMD", tr("Ver. alpha 0.0.0 build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))
 		+ tr("<BR>By anrej0705<BR>See me at Github:") + "<BR><A HREF=\"github.com/anrej0705\">github.com/anrej0705</A><BR><BR>" 
 		+ tr("This app is free for use,modify and reupload<BR>") 
-		+ "<BR>" + "<BR>Qt 5.14.2<BR>" + "<BR>" 
+		+ "<BR>" + "<BR>| Qt 5.14.2 | C++17 | C11 | Boost 1.84.00 |<BR>" + "<BR>" 
 		+ tr("Repo on Github: " ) + "<A HREF=\"https://github.com/anrej0705/LiteMD\">https://github.com/anrej0705/LiteMD</A><BR>" 
 		+ tr("Releases: ") + "<A HREF=\"https://github.com/anrej0705/LiteMD/releases\">https://github.com/anrej0705/LiteMD/releases</A>");
 }
