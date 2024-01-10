@@ -166,43 +166,43 @@ github.com/anrej0705
     </message>
     <message>
         <source>New document</source>
-        <translation type="unfinished"></translation>
+        <translation>New document</translation>
     </message>
     <message>
         <source>Open...</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть...</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить</translation>
     </message>
     <message>
         <source>Save As...</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить как...</translation>
     </message>
     <message>
         <source>Make URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Преобразовать в URL ссылку</translation>
     </message>
     <message>
         <source>Text Format</source>
-        <translation type="unfinished"></translation>
+        <translation>Форматирование</translation>
     </message>
     <message>
         <source>HTTP Downloader(deprecated)</source>
-        <translation type="unfinished"></translation>
+        <translation>HTTP Загрузчик(устаревший)</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Справка</translation>
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>О программе</translation>
     </message>
 </context>
 <context>

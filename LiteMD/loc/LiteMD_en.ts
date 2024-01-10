@@ -164,43 +164,43 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>New document</source>
-        <translation type="unfinished"></translation>
+        <translation>New document</translation>
     </message>
     <message>
         <source>Open...</source>
-        <translation type="unfinished"></translation>
+        <translation>Open...</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Save</translation>
     </message>
     <message>
         <source>Save As...</source>
-        <translation type="unfinished"></translation>
+        <translation>Save As...</translation>
     </message>
     <message>
         <source>Make URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Make URL</translation>
     </message>
     <message>
         <source>Text Format</source>
-        <translation type="unfinished"></translation>
+        <translation>Text Format</translation>
     </message>
     <message>
         <source>HTTP Downloader(deprecated)</source>
-        <translation type="unfinished"></translation>
+        <translation>HTTP Downloader(deprecated)</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Settings</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Help</translation>
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>About</translation>
     </message>
 </context>
 <context>
