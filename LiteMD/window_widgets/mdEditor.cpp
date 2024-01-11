@@ -35,6 +35,7 @@ void mdEditor::slotTextChanged()
 	if (this->toPlainText() == "")
 	{
 		fileChangedState = 0;
+		appTitleUpdated = 0;
 		emit resetTitle();
 	}
 }
