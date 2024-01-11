@@ -130,11 +130,11 @@ github.com/anrej0705
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation>[В РАЗРАБОТКЕ]LiteMD alpha 0.1.7 сборка </translation>
+        <translation>[В РАЗРАБОТКЕ]LiteMD alpha 0.1.8 сборка </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.1.7 сборка </translation>
+        <translation>Ver. alpha 0.1.8 сборка </translation>
     </message>
     <message>
         <source>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</source>
