@@ -1,6 +1,6 @@
 #pragma once
 #include <QtWidgets>
-#include "ui_LiteMD.h"
+//#include "ui_LiteMD.h"
 #include "mdEditor.h"
 #include "mdScreen.h"
 #include "GuiDownloader.h"
@@ -17,7 +17,7 @@ class LiteMD : public QMainWindow
 {
     Q_OBJECT
 	private:
-		Ui::LiteMDClass ui;				//Íå èñïîëüçóåòñÿ
+		//Ui::LiteMDClass ui;				//Íå èñïîëüçóåòñÿ
 		QToolBar* quick_tb;				//Тулбар для кнопок-ярлыков
 		QMenu* mHelp;					//Ìåíþ ïîìîùè
 		QMenu* mFile;					//Ìåíþ ôàéëà
