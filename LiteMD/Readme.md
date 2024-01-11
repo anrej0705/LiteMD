@@ -14,6 +14,7 @@ README.MD
 
 Этот файл был создан в LiteMD alpha 0.1.7 build 1006
 Исходный код на [GitHub](https://github.com/anrej0705/LiteMD/tree/LiteMD_alpha782)
+
 Релизы: <https://github.com/anrej0705/LiteMD/releases>
 
 [CONTRIBUTING/Рекомендации по созданию пул реквестов](https://github.com/anrej0705/LiteMD/blob/master/CONTRIBUTING.md)
