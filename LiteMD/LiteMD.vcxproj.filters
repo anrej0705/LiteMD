@@ -113,7 +113,13 @@
       <Filter>Интерфейс\Окна\Вкладки</Filter>
     </ClCompile>
     <ClCompile Include="frameChangelog.cpp">
-      <Filter>Интерфейс\Окна</Filter>
+      <Filter>Модули</Filter>
+    </ClCompile>
+    <ClCompile Include="utls\xmlReader.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utls\xmlWriter.cpp">
+      <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -231,7 +237,13 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="frameChangelog.h">
-      <Filter>Интерфейс\Окна</Filter>
+      <Filter>Модули</Filter>
+    </ClInclude>
+    <ClInclude Include="xmlWriter.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utls\xmlReader.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
