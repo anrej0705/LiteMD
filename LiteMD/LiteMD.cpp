@@ -17,6 +17,9 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mds = new mdScreen;
 	//---------------------------------------------
 
+	//Сбрасываем настройки до чтения файла
+	settingStruct.logReadState = 0;
+
 	//Блок элементов интерфейса
 	QScrollArea* mdsArea = new QScrollArea;
 	OrientablePushButton* btnDown = new OrientablePushButton("--->", this);
