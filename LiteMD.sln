@@ -1,28 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.34112.143
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.34301.259
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LiteMD", "LiteMD\LiteMD.vcxproj", "{DACC88FF-7485-4415-BBD6-6C6A06EDAF47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
-		Release|Win32 = Release|Win32
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DACC88FF-7485-4415-BBD6-6C6A06EDAF47}.Debug|Win32.ActiveCfg = Debug|Win32
-		{DACC88FF-7485-4415-BBD6-6C6A06EDAF47}.Debug|Win32.Build.0 = Debug|Win32
 		{DACC88FF-7485-4415-BBD6-6C6A06EDAF47}.Debug|x64.ActiveCfg = Debug|x64
 		{DACC88FF-7485-4415-BBD6-6C6A06EDAF47}.Debug|x64.Build.0 = Debug|x64
 		{DACC88FF-7485-4415-BBD6-6C6A06EDAF47}.Debug|x86.ActiveCfg = Debug|Win32
 		{DACC88FF-7485-4415-BBD6-6C6A06EDAF47}.Debug|x86.Build.0 = Debug|Win32
-		{DACC88FF-7485-4415-BBD6-6C6A06EDAF47}.Release|Win32.ActiveCfg = Release|Win32
-		{DACC88FF-7485-4415-BBD6-6C6A06EDAF47}.Release|Win32.Build.0 = Release|Win32
 		{DACC88FF-7485-4415-BBD6-6C6A06EDAF47}.Release|x64.ActiveCfg = Release|x64
 		{DACC88FF-7485-4415-BBD6-6C6A06EDAF47}.Release|x64.Build.0 = Release|x64
 		{DACC88FF-7485-4415-BBD6-6C6A06EDAF47}.Release|x86.ActiveCfg = Release|Win32
@@ -32,6 +26,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {F989AD04-E149-4ED1-B584-D4B958C29272}
+		SolutionGuid = {9FBCFC39-0709-4880-98EB-4BCC01B02FE2}
 	EndGlobalSection
 EndGlobal
