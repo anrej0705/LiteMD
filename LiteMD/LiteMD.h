@@ -11,36 +11,37 @@ extern "C"
 	#include "global_definitions.h"
 }
 
-//Íîìåð áèëäà, ïîêà çàäà¸òñÿ âðó÷íóþ
+//Номер билда, пока задаётся вручную
+//UPD patch 0.1.9 теперь вынесен в global_definitions.h
 
 class LiteMD : public QMainWindow
 {
     Q_OBJECT
 	private:
-		//Ui::LiteMDClass ui;				//Íå èñïîëüçóåòñÿ
+		//Ui::LiteMDClass ui;			//Не используется
 		QToolBar* quick_tb;				//Тулбар для кнопок-ярлыков
-		QMenu* mHelp;					//Ìåíþ ïîìîùè
-		QMenu* mFile;					//Ìåíþ ôàéëà
+		QMenu* mHelp;					//Меню помощи
+		QMenu* mFile;					//Меню файла
 		QMenu* mEdit;					//Меню "Правка"
-		QMenu* mSettings;				//Ìåíþ íàñòðîåê
-		mdEditor* mde;					//Ðåäàêòîð
-		mdScreen* mds;					//Ðåíäåð òåêñòà
-		DownloaderGui* dwModule;		//Ìîäóëü çàãðóç÷èêà
-		QString defTitle;				//Êîíòåéíåð äåôîëòíîãî çàãîëîâêà
-		QLabel* workProgressCap;		//Çàòû÷êà íà íåäîäåëàííûå ýëåìåíòû
-		appSettings* mdlSet;			//Äèàëîã íàñòðîåê ïðèëîæåíèÿ
-		QGroupBox* editorWindow;		//Îêíî ðåäàêòîðà
-		QGroupBox* viewerWindow;		//Îêíî ðåíäåðà
+		QMenu* mSettings;				//Меню настроек
+		mdEditor* mde;					//Редактор
+		mdScreen* mds;					//Рендер текста
+		DownloaderGui* dwModule;		//Модуль загрузчика
+		QString defTitle;				//Контейнер дефолтного заголовка
+		QLabel* workProgressCap;		//Затычка на недоделанные элементы
+		appSettings* mdlSet;			//Диалог настроек приложения
+		QGroupBox* editorWindow;		//Окно редактора
+		QGroupBox* viewerWindow;		//Окно рендера
 
 		//Действия всякие, в меню и в док
-		QAction* actAbout;				//Ïóíêò ìåíþ î ïðîãðàììå
-		QAction* actOpen;				//Ïóíêò ìåíþ îòêðûòü
-		QAction* actSave;				//Ïóíêò ìåíþ ñîõðàíèòü
-		QAction* actSaveAs;				//Ïóíêò ìåíþ ñîõðàíèòü êàê
-		QAction* actQuit;				//Ïóíêò ìåíþ âûõîä
-		QAction* actDownloader;			//Ïóíêò âûçîâà çàãðóç÷èêà
-		QAction* actSet;				//Ïóíêò âûçîâà íàñòðîåê
-		QAction* actNew;				//Ïóíêò ñîçäðàíèÿ íîâîãî äîêóìåíòà
+		QAction* actAbout;				//Пункт меню о программе
+		QAction* actOpen;				//Пункт меню открыть
+		QAction* actSave;				//Пункт меню сохранить
+		QAction* actSaveAs;				//Пункт меню сохранить как
+		QAction* actQuit;				//Пункт меню выход
+		QAction* actDownloader;			//Пункт вызова загрузчика
+		QAction* actSet;				//Пункт вызова настроек
+		QAction* actNew;				//Пункт создрания нового документа
 		QAction* actPlaceUrl;			//Преобразовать в (ссылку)
 		QAction* actPlaceAltUrl;		//Преобразовать в [альтернативную](ссылку)
 		QAction* actSetTextFormat;		//Выбрать форматирование выделенного текста
@@ -49,17 +50,17 @@ class LiteMD : public QMainWindow
 		bool eventFilter(QObject* pobj, QEvent* event);
 		void update_ui();
 	public:
-		void closeEvent(QCloseEvent*);		//Ïåðåõâàò÷èê çàêðûòèÿ ïðèëîæåíèÿ
-		LiteMD(QWidget *parent = nullptr);	//Áàçîâûé êîíñòðóêîð
+		void closeEvent(QCloseEvent*);		//Перехватчик закрытия приложения
+		LiteMD(QWidget *parent = nullptr);	//Базовый конструкор
 		~LiteMD();
 	signals:
-		void saveFile();	//Ñîõðàíåíèå ôàéëà
+		void saveFile();	//Сохранение файла
 	private slots:
-		void slotAbout();	//Ñëîò äëÿ âûçîâà îêíà î ïðîãðàììå
-		void httpModuleShow();	//Ñèãíàë äëÿ âûçîâà ìîäóëÿ çàãðóç÷èêà
-		void slot_mbar_send_string(const QString&);	//Ñëîò äëÿ ñìåíû çàãîëîâêà
+		void slotAbout();	//Слот для вызова окна о программе
+		void httpModuleShow();	//Сигнал для вызова модуля загрузчика
+		void slot_mbar_send_string(const QString&);	//Слот для смены заголовка
 	public slots:
-		void slotTitleChanged(const QString&);	//Ñëîò äëÿ èçìåíåíèÿ çàãîëîâêà
-		void slotFileEdited();	//Ñëîò äëÿ óñòàíîâêè ôëàãà "*"
-		void slotTitleReset();	//Ñëîò äëÿ ñáðîñà çàãîëîâêà ê äåôîëòíîìó
+		void slotTitleChanged(const QString&);	//Слот для изменения заголовка
+		void slotFileEdited();	//Слот для установки флага "*"
+		void slotTitleReset();	//Слот для сброса заголовка к дефолтному
 };
