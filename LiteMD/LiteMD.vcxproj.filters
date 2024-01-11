@@ -112,6 +112,9 @@
     <ClCompile Include="settings_tabs\tab_downloader.cpp">
       <Filter>Интерфейс\Окна\Вкладки</Filter>
     </ClCompile>
+    <ClCompile Include="frameChangelog.cpp">
+      <Filter>Интерфейс\Окна</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">
@@ -226,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="utls\event_id_constructor.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="frameChangelog.h">
+      <Filter>Интерфейс\Окна</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
