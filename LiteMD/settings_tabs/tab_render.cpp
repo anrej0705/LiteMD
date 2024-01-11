@@ -1,4 +1,10 @@
 #include "appSettings.h"
+#include "global_definitions.h"
+extern "C"
+{
+	#include "globalFlags.h"
+}
+
 void appSettings::configureRenderSettingsTab()
 {
 	renderSettings = new QWidget;
@@ -10,8 +16,13 @@ void appSettings::configureRenderSettingsTab()
 	parseLinks = new QCheckBox;
 
 	//Отрубаем до реализации механики
-	parseLinks->setChecked(0);
-	parseLinks->setCheckable(0);
+	//parseLinks->setCheckable(0);
+	parseLinks->setChecked(1);
+	parseLinks->setDisabled(1);
+
+	//Устанавливаем высоту
+	parseLinksHint->setFixedHeight(SETTINGS_HEIGH);
+	parseLinks->setFixedHeight(SETTINGS_HEIGH);
 
 	//Инициализируем рамку
 	QGroupBox* render_box = new QGroupBox;

@@ -128,11 +128,11 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation>[WORK IN PROGRESS]LiteMD alpha 0.1.7 build </translation>
+        <translation>[WORK IN PROGRESS]LiteMD alpha 0.1.8 build </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.1.7 build </translation>
+        <translation>Ver. alpha 0.1.8 build </translation>
     </message>
     <message>
         <source>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</source>
@@ -161,6 +161,62 @@ I hope u like my app :D</translation>
     <message>
         <source>work in progress</source>
         <translation>work in progress</translation>
+    </message>
+    <message>
+        <source>New document</source>
+        <translation type="vanished">New document</translation>
+    </message>
+    <message>
+        <source>Open...</source>
+        <translation type="vanished">Open...</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="vanished">Save</translation>
+    </message>
+    <message>
+        <source>Save As...</source>
+        <translation type="vanished">Save As...</translation>
+    </message>
+    <message>
+        <source>Make URL</source>
+        <translation type="vanished">Make URL</translation>
+    </message>
+    <message>
+        <source>Text Format</source>
+        <translation type="vanished">Text Format</translation>
+    </message>
+    <message>
+        <source>HTTP Downloader(deprecated)</source>
+        <translation type="vanished">HTTP Downloader(deprecated)</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="vanished">Settings</translation>
+    </message>
+    <message>
+        <source>Help</source>
+        <translation type="vanished">Help</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation type="vanished">About</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Edit</translation>
+    </message>
+    <message>
+        <source>Make &amp;URL</source>
+        <translation>Make &amp;URL</translation>
+    </message>
+    <message>
+        <source>Te&amp;xt Format</source>
+        <translation>Te&amp;xt Format</translation>
+    </message>
+    <message>
+        <source>Make alt&amp;enate URL</source>
+        <translation>Make alt&amp;enate URL</translation>
     </message>
 </context>
 <context>
@@ -247,6 +303,18 @@ I hope u like my app :D</translation>
         <source>Render</source>
         <translation>Render</translation>
     </message>
+    <message>
+        <source>Downloader</source>
+        <translation>Downloader</translation>
+    </message>
+    <message>
+        <source>Show one-time deprecated warning</source>
+        <translation>Show one-time deprecated warning</translation>
+    </message>
+    <message>
+        <source>Enable content caching</source>
+        <translation>Enable content caching</translation>
+    </message>
 </context>
 <context>
     <name>mdEditor</name>
@@ -282,6 +350,10 @@ I hope u like my app :D</translation>
     <message>
         <source>Saved </source>
         <translation>Saved </translation>
+    </message>
+    <message>
+        <source>[TYPE_NAME]</source>
+        <translation>[my_link]</translation>
     </message>
 </context>
 </TS>

@@ -126,7 +126,7 @@ void DownloaderGui::slotShow()
 	this->move(190, 80);
 	this->resize(800, 80);
 	this->show();
-	if (!httpDerpWarned)
+	if (!httpDerpWarned && allowHttpWarn)
 	{
 		QMessageBox::information(0, tr("And he won't live long..."), tr("This module was added experimentally. In the future it will undergo changes or disappear"));
 		httpDerpWarned = 1;

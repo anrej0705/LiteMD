@@ -1,5 +1,10 @@
 #include "appSettings.h"
 #include "ui_update_event.h"
+#include "global_definitions.h"
+extern "C"
+{
+	#include "globalFlags.h"
+}
 
 //Конвертер имени языка - имя_языка(код_языка)
 QString localeNameConverter(QString lang_string_name, QString file_loc_name);
@@ -96,20 +101,20 @@ void appSettings::configureBasicSettingsTab()
 	themeList->setDisabled(1);
 	saveSettings->setDisabled(1);
 	saveFreq->setDisabled(1);
-	autoSave->setCheckable(0);
+	autoSave->setDisabled(1);
 
 	//Настраиваем высоту(подгон высоты текста к элементам управления)
-	langListHint->setFixedHeight(20);
-	themeHint->setFixedHeight(20);
-	saveSettingsHint->setFixedHeight(20);
-	autoSaveHint->setFixedHeight(20);
-	saveFreqHint->setFixedHeight(20);
+	langListHint->setFixedHeight(SETTINGS_HEIGH);
+	themeHint->setFixedHeight(SETTINGS_HEIGH);
+	saveSettingsHint->setFixedHeight(SETTINGS_HEIGH);
+	autoSaveHint->setFixedHeight(SETTINGS_HEIGH);
+	saveFreqHint->setFixedHeight(SETTINGS_HEIGH);
 
-	langList->setFixedHeight(20);
-	themeList->setFixedHeight(20);
-	saveSettings->setFixedHeight(20);
-	autoSave->setFixedHeight(20);
-	saveFreq->setFixedHeight(20);
+	langList->setFixedHeight(SETTINGS_HEIGH);
+	themeList->setFixedHeight(SETTINGS_HEIGH);
+	saveSettings->setFixedHeight(SETTINGS_HEIGH);
+	autoSave->setFixedHeight(SETTINGS_HEIGH);
+	saveFreq->setFixedHeight(SETTINGS_HEIGH);
 
 	//Привязываем менеджеры компоновки к виджетам
 	lbl_box->setLayout(lbl_lay);

@@ -45,6 +45,9 @@
     <Filter Include="Модули\Динамический перевод">
       <UniqueIdentifier>{1f78ec36-b6da-4ba8-888e-8885cdcaf7a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Иконки док панели">
+      <UniqueIdentifier>{32ade865-8d36-46ba-9dbc-7217fc5cd2d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="LiteMD.h">
@@ -106,6 +109,9 @@
     <ClCompile Include="settings_tabs\tab_render.cpp">
       <Filter>Интерфейс\Окна\Вкладки</Filter>
     </ClCompile>
+    <ClCompile Include="settings_tabs\tab_downloader.cpp">
+      <Filter>Интерфейс\Окна\Вкладки</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">
@@ -136,6 +142,42 @@
     </Image>
     <Image Include="ress\work_progress_cap.png">
       <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="ress\icon_about.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_help.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_http_downloader.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_new_document.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_open_document.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_place_url.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_place_url_alternate.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_save.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_save_as.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_set_text_format.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_settings.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_quit.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>

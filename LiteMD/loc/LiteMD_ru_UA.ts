@@ -130,11 +130,11 @@ github.com/anrej0705
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation>[В РАЗРАБОТКЕ]LiteMD alpha 0.1.7 сборка </translation>
+        <translation>[В РАЗРАБОТКЕ]LiteMD alpha 0.1.8 сборка </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.1.7 сборка </translation>
+        <translation>Ver. alpha 0.1.8 сборка </translation>
     </message>
     <message>
         <source>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</source>
@@ -163,6 +163,62 @@ github.com/anrej0705
     <message>
         <source>work in progress</source>
         <translation>В разработке</translation>
+    </message>
+    <message>
+        <source>New document</source>
+        <translation type="vanished">New document</translation>
+    </message>
+    <message>
+        <source>Open...</source>
+        <translation type="vanished">Открыть...</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="vanished">Сохранить</translation>
+    </message>
+    <message>
+        <source>Save As...</source>
+        <translation type="vanished">Сохранить как...</translation>
+    </message>
+    <message>
+        <source>Make URL</source>
+        <translation type="vanished">Преобразовать в URL ссылку</translation>
+    </message>
+    <message>
+        <source>Text Format</source>
+        <translation type="vanished">Форматирование</translation>
+    </message>
+    <message>
+        <source>HTTP Downloader(deprecated)</source>
+        <translation type="vanished">HTTP Загрузчик(устаревший)</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="vanished">Настройки</translation>
+    </message>
+    <message>
+        <source>Help</source>
+        <translation type="vanished">Справка</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation type="vanished">О программе</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Правка</translation>
+    </message>
+    <message>
+        <source>Make &amp;URL</source>
+        <translation>Преобразовать в &amp;URL</translation>
+    </message>
+    <message>
+        <source>Te&amp;xt Format</source>
+        <translation>&amp;Форматирование</translation>
+    </message>
+    <message>
+        <source>Make alt&amp;enate URL</source>
+        <translation>Преобразовать в альтернативный &amp;URL</translation>
     </message>
 </context>
 <context>
@@ -249,6 +305,18 @@ github.com/anrej0705
         <source>Render</source>
         <translation>Рендер</translation>
     </message>
+    <message>
+        <source>Downloader</source>
+        <translation>Загрузчик</translation>
+    </message>
+    <message>
+        <source>Show one-time deprecated warning</source>
+        <translation>Показывать одноразовое предупреждение</translation>
+    </message>
+    <message>
+        <source>Enable content caching</source>
+        <translation>Кешировать загруженный контент</translation>
+    </message>
 </context>
 <context>
     <name>mdEditor</name>
@@ -283,6 +351,10 @@ github.com/anrej0705
     <message>
         <source>Saved </source>
         <translation>Сохранено </translation>
+    </message>
+    <message>
+        <source>[TYPE_NAME]</source>
+        <translation>[ссылка]</translation>
     </message>
 </context>
 </TS>

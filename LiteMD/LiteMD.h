@@ -5,18 +5,23 @@
 #include "mdScreen.h"
 #include "GuiDownloader.h"
 #include "appSettings.h"
+extern "C"
+{
+	#include "globalFlags.h"
+	#include "global_definitions.h"
+}
 
 //Íîìåð áèëäà, ïîêà çàäà¸òñÿ âðó÷íóþ
-#define buildNumber 1006
 
 class LiteMD : public QMainWindow
 {
     Q_OBJECT
 	private:
 		Ui::LiteMDClass ui;				//Íå èñïîëüçóåòñÿ
-		QDockWidget* quick_access_dock;	//Äîê äëÿ êíîïîê
+		QToolBar* quick_tb;				//Тулбар для кнопок-ярлыков
 		QMenu* mHelp;					//Ìåíþ ïîìîùè
 		QMenu* mFile;					//Ìåíþ ôàéëà
+		QMenu* mEdit;					//Меню "Правка"
 		QMenu* mSettings;				//Ìåíþ íàñòðîåê
 		mdEditor* mde;					//Ðåäàêòîð
 		mdScreen* mds;					//Ðåíäåð òåêñòà
@@ -26,6 +31,8 @@ class LiteMD : public QMainWindow
 		appSettings* mdlSet;			//Äèàëîã íàñòðîåê ïðèëîæåíèÿ
 		QGroupBox* editorWindow;		//Îêíî ðåäàêòîðà
 		QGroupBox* viewerWindow;		//Îêíî ðåíäåðà
+
+		//Действия всякие, в меню и в док
 		QAction* actAbout;				//Ïóíêò ìåíþ î ïðîãðàììå
 		QAction* actOpen;				//Ïóíêò ìåíþ îòêðûòü
 		QAction* actSave;				//Ïóíêò ìåíþ ñîõðàíèòü
@@ -34,6 +41,10 @@ class LiteMD : public QMainWindow
 		QAction* actDownloader;			//Ïóíêò âûçîâà çàãðóç÷èêà
 		QAction* actSet;				//Ïóíêò âûçîâà íàñòðîåê
 		QAction* actNew;				//Ïóíêò ñîçäðàíèÿ íîâîãî äîêóìåíòà
+		QAction* actPlaceUrl;			//Преобразовать в (ссылку)
+		QAction* actPlaceAltUrl;		//Преобразовать в [альтернативную](ссылку)
+		QAction* actSetTextFormat;		//Выбрать форматирование выделенного текста
+		QAction* actHelp;
 	protected:
 		bool eventFilter(QObject* pobj, QEvent* event);
 		void update_ui();
