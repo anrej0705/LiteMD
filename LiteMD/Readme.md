@@ -1,6 +1,6 @@
 README.MD
 
-# LiteMD alpha 0.1.7
+# LiteMD alpha 0.1.8
 
 ![Qt](https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white)
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
@@ -46,8 +46,8 @@ Roadmap:
 - :white_check_mark:0.1.5 - Прототип окна настроек
 - :white_check_mark:0.1.6 - Исправления
 - :white_check_mark:0.1.7 - Базовые настройки
-- :arrow_forward:0.1.8 - Иконки на кнопках меню и дока
-- :x:0.1.9 - Списки изменений от версии к версии
+- :white_check_mark:0.1.8 - Иконки на кнопках меню и дока
+- :arrow_forward:0.1.9 - Списки изменений от версии к версии
 - :x:0.2.0 - **Дополнительное форматирование текста и помощь**
 - :x:0.2.1 - Уровни заголовков
 - :x:0.2.2 - Жирный текст
