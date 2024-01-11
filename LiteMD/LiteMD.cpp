@@ -173,6 +173,10 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler();	//Спрашиваем сохранить ли перед закрытием
 	if (!connect(actSet, SIGNAL(triggered()), mdlSet, SLOT(show())))
 		QErrorMessage::qtHandler();	//Открытие окна настроек
+	if(!connect(actPlaceUrl, SIGNAL(triggered()), mde, SLOT(convertToUrl())))
+		QErrorMessage::qtHandler();	//Конвертация в (ссылку)
+	if (!connect(actPlaceAltUrl, SIGNAL(triggered()), mde, SLOT(convToAltUrl())))
+		QErrorMessage::qtHandler();	//Конвертация в [альтернативную](ссылку)
 	//------------------------------
 
 	//Рабочий долгосрочный костыль. Создаем пустой виджет и помещаем все в него

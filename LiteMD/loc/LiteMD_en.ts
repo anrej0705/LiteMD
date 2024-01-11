@@ -351,5 +351,9 @@ I hope u like my app :D</translation>
         <source>Saved </source>
         <translation>Saved </translation>
     </message>
+    <message>
+        <source>[TYPE_NAME]</source>
+        <translation>[my_link]</translation>
+    </message>
 </context>
 </TS>

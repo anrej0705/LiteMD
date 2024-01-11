@@ -155,14 +155,69 @@ void mdEditor::slotNew()
 	appTitleUpdated = 0;
 }
 
+//Получаем выделенный пользователем текст, преобразуем в <ссылку>
+//И возвращаем на место
 void mdEditor::convertToUrl()
 {
+	QString procBuf = this->textCursor().selectedText();
+	if (procBuf == "")
+		return;	//Если пользователь ничего не выделил - выходим
 
+	//Вставляем тег простой ссылки
+	procBuf.insert(0, "<");
+	procBuf.insert(procBuf.size(), ">");
+
+	//Заменяем выделенный текст ссылкой
+	this->textCursor().removeSelectedText();
+	this->textCursor().insertText(procBuf);
+	emit textChanged();
 }
 
+//Получаем выделенный пользователем текст, преобразуем в [альтернативную]<ссылку>
+//И возвращаем на место
 void mdEditor::convToAltUrl()
 {
+	QString procBuf = this->textCursor().selectedText();
+	if (procBuf == "")
+		return;	//Если пользователь ничего не выделил - выходим
 
+	//Хандлер курсора
+	QTextCursor tCursor = this->textCursor();
+
+	//Вставляем тег альтернативной ссылки
+	procBuf.insert(0, "(");
+	procBuf.insert(procBuf.size(), ")");
+
+	//Вставляем шаблон имени ссылки
+	procBuf.insert(0, tr("[TYPE_NAME]"));
+
+	//Получаем позицию конца шаблона
+	int bumpEnd = 0;
+
+	//Ищем закрывающую квадратную скобку
+	for (int index = 0; index < procBuf.size(); ++index)
+		if (procBuf.at(index) == "]")
+		{
+			bumpEnd = index;
+			break;
+		}
+
+	//Заменяем выделенный текст ссылкой
+	this->textCursor().removeSelectedText();
+	this->textCursor().insertText(procBuf);
+
+	//Получаем позицию курсора
+	int cursorPosition = this->textCursor().position() - procBuf.size();;
+
+	//Шлём сигнал что текст изменился
+	emit textChanged();
+
+	//Ставим указатель на позицию шаблона и затем на позицию конца шаблона
+	tCursor.setPosition(cursorPosition + 1);
+	tCursor.setPosition(cursorPosition + bumpEnd, QTextCursor::KeepAnchor);
+
+	//Отмечаем текст выделенным
+	this->setTextCursor(tCursor);
 }
 
 mdEditor_filter::mdEditor_filter(QObject* pobj) : QObject(pobj)

@@ -352,5 +352,9 @@ github.com/anrej0705
         <source>Saved </source>
         <translation>Сохранено </translation>
     </message>
+    <message>
+        <source>[TYPE_NAME]</source>
+        <translation>[ссылка]</translation>
+    </message>
 </context>
 </TS>
