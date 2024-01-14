@@ -248,5 +248,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Readme.md" />
+    <None Include="docs\Changelog.md">
+      <Filter>Документация</Filter>
+    </None>
+    <None Include="docs\Current_ver.md">
+      <Filter>Документация</Filter>
+    </None>
+    <None Include="docs\Manual.md">
+      <Filter>Документация</Filter>
+    </None>
   </ItemGroup>
 </Project>

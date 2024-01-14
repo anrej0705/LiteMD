@@ -281,6 +281,9 @@
     <QtMoc Include="window_widgets\mdEditor.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="docs\Changelog.md" />
+    <None Include="docs\Current_ver.md" />
+    <None Include="docs\Manual.md" />
     <None Include="Readme.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
