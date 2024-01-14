@@ -1,12 +1,14 @@
 #include <QtWidgets>
 #include "mdEditor.h"
 #include "dialogBoxes.h"
+#include "..\LastFileManager.h"
+
 extern "C"
 {
 	#include "globalFlags.h"
 }
 
-#define MAX_FILESIZE 65536
+constexpr auto maxfileSize{ 65536 };
 
 mdEditor::mdEditor(QWidget* mdWgt) : QTextEdit(mdWgt)
 {
@@ -42,22 +44,30 @@ void mdEditor::slotTextChanged()
 //Открытие файла
 void mdEditor::slotOpen()
 {
-	//Если файл был изменём(проверяем по флагу "*") то предлагаем сохранить
-	if (appTitleUpdated)
-		if (confirmSave())
-			slotSave();
-	//Вызываем диалоговое окно открытия
-	mdFileName = QFileDialog::getOpenFileName(0, tr("Open Text/Markdown"), "", tr("*.md ;; *.txt"));
-	if (mdFileName.isEmpty())
+	// Вызываем диалоговое окно открытия.
+	QString fileName = QFileDialog::getOpenFileName(0, tr("Open Text/Markdown"), "", tr("*.md ;; *.txt"));
+
+	if (fileName.isEmpty())
 		return;
+
+	slotOpen(fileName);
+}
+//Открытие файла
+void mdEditor::slotOpen(QString fileName)
+{
+	// Если файл был изменём(проверяем по флагу "*") то предлагаем сохранить.
+	if (appTitleUpdated && confirmSave() == true)
+		slotSave();
+
 	//Присваиваем имя файла к обработчику который будет открывать его
-	mdObject.setFileName(mdFileName);
+	mdObject.setFileName(fileName);
 	//Если размер больше 64 килобайт то файл не откроется
-	if (mdObject.size() > MAX_FILESIZE)
+	if (mdObject.size() > maxfileSize)
 	{
-		QMessageBox::warning(this,tr("Oversize detected"), tr("Cannot open file because size of this is over ") + QString::number(MAX_FILESIZE) + tr(" bytes"));
+		QMessageBox::warning(this,tr("Oversize detected"), tr("Cannot open file because size of this is over ") + QString::number(maxfileSize) + tr(" bytes"));
 		return;
 	}
+	mdFileName = fileName;
 	//Если удалось то открыть то начинаем чтение
 	if (mdObject.open(QIODevice::ReadOnly))
 	{
@@ -75,6 +85,10 @@ void mdEditor::slotOpen()
 	//Сбрасываем флаги
 	fileChangedState = 0;
 	appTitleUpdated = 0;
+	// Добавление файла в список последних.
+	LastFileManager lastFileManager;
+	lastFileManager.addFile(mdFileName.toStdString());
+	lastFileManager.save();
 }
 //Сохранение файла
 void mdEditor::slotSave()
@@ -111,6 +125,10 @@ void mdEditor::slotSave()
 	}
 	//Сбрасываем флаг даже если не удалось записать
 	appTitleUpdated = 0;
+	// Добавление файла в список последних.
+	LastFileManager lastFileManager;
+	lastFileManager.addFile(mdFileName.toStdString());
+	lastFileManager.save();
 }
 //Сохранить как
 void mdEditor::slotSaveAs()
@@ -131,6 +149,10 @@ void mdEditor::slotSaveAs()
 	}
 	//Сбрасываем флаг в любом случае
 	appTitleUpdated = 0;
+	// Добавление файла в список последних.
+	LastFileManager lastFileManager;
+	lastFileManager.addFile(mdFileName.toStdString());
+	lastFileManager.save();
 }
 //Новый документ
 void mdEditor::slotNew()

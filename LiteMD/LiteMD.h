@@ -63,4 +63,6 @@ class LiteMD : public QMainWindow
 		void slotTitleChanged(const QString&);	//Слот для изменения заголовка
 		void slotFileEdited();	//Слот для установки флага "*"
 		void slotTitleReset();	//Слот для сброса заголовка к дефолтному
+	private:
+		void initLastFileMenu();
 };
