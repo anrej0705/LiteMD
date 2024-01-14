@@ -42,14 +42,14 @@
     <Filter Include="Интерфейс\Окна\Вкладки">
       <UniqueIdentifier>{2ee28039-f1c2-46c8-a410-2c650dcda18d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Модули\Динамический перевод">
+      <UniqueIdentifier>{1f78ec36-b6da-4ba8-888e-8885cdcaf7a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Иконки док панели">
+      <UniqueIdentifier>{32ade865-8d36-46ba-9dbc-7217fc5cd2d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="LiteMD.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtMoc Include="LiteMD.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <ClCompile Include="LiteMD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -91,8 +91,26 @@
     <ClCompile Include="settings_tabs\tab_basic.cpp">
       <Filter>Интерфейс\Окна\Вкладки</Filter>
     </ClCompile>
-    <ClCompile Include="LastFileManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="dyn_tr_manager\appSettings_ui.cpp">
+      <Filter>Модули\Динамический перевод</Filter>
+    </ClCompile>
+    <ClCompile Include="dyn_tr_manager\ui_update_event.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="dyn_tr_manager\LiteMD_ui.cpp">
+      <Filter>Модули\Динамический перевод</Filter>
+    </ClCompile>
+    <ClCompile Include="dyn_tr_manager\GuiDownloader_ui.cpp">
+      <Filter>Модули\Динамический перевод</Filter>
+    </ClCompile>
+    <ClCompile Include="settings_tabs\tab_render.cpp">
+      <Filter>Интерфейс\Окна\Вкладки</Filter>
+    </ClCompile>
+    <ClCompile Include="settings_tabs\tab_downloader.cpp">
+      <Filter>Интерфейс\Окна\Вкладки</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\LastFileManager.cpp">
+      <Filter>Модули</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +132,9 @@
     <QtMoc Include="window_widgets\appSettings.h">
       <Filter>Интерфейс\Окна</Filter>
     </QtMoc>
+    <QtMoc Include="LiteMD.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <Image Include="ress\appicon.ico">
@@ -125,6 +146,42 @@
     <Image Include="ress\work_progress_cap.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="ress\icon_about.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_help.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_http_downloader.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_new_document.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_open_document.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_place_url.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_place_url_alternate.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_save.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_save_as.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_set_text_format.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_settings.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_quit.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ress\buildInfo.rc">
@@ -133,11 +190,6 @@
     <ResourceCompile Include="ress\icon.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <QtRcc Include="ress\LiteMD.qrc">
-      <Filter>Resource Files</Filter>
-    </QtRcc>
   </ItemGroup>
   <ItemGroup>
     <QtTranslation Include="loc\LiteMD_en.ts">
@@ -169,11 +221,17 @@
     <ClInclude Include="utls\globalFlags.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="settings_tabs\tab_basic.h">
-      <Filter>Интерфейс\Окна\Вкладки</Filter>
+    <ClInclude Include="dyn_tr_manager\ui_update_event.h">
+      <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="LastFileManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="utls\global_definitions.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utls\event_id_constructor.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\LastFileManager.h">
+      <Filter>Модули</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

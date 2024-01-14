@@ -1,40 +1,68 @@
 #pragma once
 #include <QtWidgets>
-#include "ui_LiteMD.h"
+//#include "ui_LiteMD.h"
 #include "mdEditor.h"
 #include "mdScreen.h"
 #include "GuiDownloader.h"
 #include "appSettings.h"
+extern "C"
+{
+	#include "globalFlags.h"
+	#include "global_definitions.h"
+}
+
+//РќРѕРјРµСЂ Р±РёР»РґР°, РїРѕРєР° Р·Р°РґР°С‘С‚СЃСЏ РІСЂСѓС‡РЅСѓСЋ
+//UPD patch 0.1.9 С‚РµРїРµСЂСЊ РІС‹РЅРµСЃРµРЅ РІ global_definitions.h
 
 class LiteMD : public QMainWindow
 {
     Q_OBJECT
 	private:
-		Ui::LiteMDClass ui;				//Не используется
-		QDockWidget* quick_access_dock;	//Док для кнопок
-		QMenu* mHelp;					//Меню помощи
-		QMenu* mFile;					//Меню файла
-		QMenu* mSettings;				//Меню настроек
-		mdEditor* mde;					//Редактор
-		mdScreen* mds;					//Рендер текста
-		DownloaderGui* dwModule;		//Модуль загрузчика
-		QString defTitle;				//Контейнер дефолтного заголовка
-		QLabel* workProgressCap;		//Затычка на недоделанные элементы
-		appSettings* mdlSet;			//Диалог настроек приложения
+		//Ui::LiteMDClass ui;			//РќРµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ
+		QToolBar* quick_tb;				//РўСѓР»Р±Р°СЂ РґР»СЏ РєРЅРѕРїРѕРє-СЏСЂР»С‹РєРѕРІ
+		QMenu* mHelp;					//РњРµРЅСЋ РїРѕРјРѕС‰Рё
+		QMenu* mFile;					//РњРµРЅСЋ С„Р°Р№Р»Р°
+		QMenu* mEdit;					//РњРµРЅСЋ "РџСЂР°РІРєР°"
+		QMenu* mSettings;				//РњРµРЅСЋ РЅР°СЃС‚СЂРѕРµРє
+		mdEditor* mde;					//Р РµРґР°РєС‚РѕСЂ
+		mdScreen* mds;					//Р РµРЅРґРµСЂ С‚РµРєСЃС‚Р°
+		DownloaderGui* dwModule;		//РњРѕРґСѓР»СЊ Р·Р°РіСЂСѓР·С‡РёРєР°
+		QString defTitle;				//РљРѕРЅС‚РµР№РЅРµСЂ РґРµС„РѕР»С‚РЅРѕРіРѕ Р·Р°РіРѕР»РѕРІРєР°
+		QLabel* workProgressCap;		//Р—Р°С‚С‹С‡РєР° РЅР° РЅРµРґРѕРґРµР»Р°РЅРЅС‹Рµ СЌР»РµРјРµРЅС‚С‹
+		appSettings* mdlSet;			//Р”РёР°Р»РѕРі РЅР°СЃС‚СЂРѕРµРє РїСЂРёР»РѕР¶РµРЅРёСЏ
+		QGroupBox* editorWindow;		//РћРєРЅРѕ СЂРµРґР°РєС‚РѕСЂР°
+		QGroupBox* viewerWindow;		//РћРєРЅРѕ СЂРµРЅРґРµСЂР°
+
+		//Р”РµР№СЃС‚РІРёСЏ РІСЃСЏРєРёРµ, РІ РјРµРЅСЋ Рё РІ РґРѕРє
+		QAction* actAbout;				//РџСѓРЅРєС‚ РјРµРЅСЋ Рѕ РїСЂРѕРіСЂР°РјРјРµ
+		QAction* actOpen;				//РџСѓРЅРєС‚ РјРµРЅСЋ РѕС‚РєСЂС‹С‚СЊ
+		QAction* actSave;				//РџСѓРЅРєС‚ РјРµРЅСЋ СЃРѕС…СЂР°РЅРёС‚СЊ
+		QAction* actSaveAs;				//РџСѓРЅРєС‚ РјРµРЅСЋ СЃРѕС…СЂР°РЅРёС‚СЊ РєР°Рє
+		QAction* actQuit;				//РџСѓРЅРєС‚ РјРµРЅСЋ РІС‹С…РѕРґ
+		QAction* actDownloader;			//РџСѓРЅРєС‚ РІС‹Р·РѕРІР° Р·Р°РіСЂСѓР·С‡РёРєР°
+		QAction* actSet;				//РџСѓРЅРєС‚ РІС‹Р·РѕРІР° РЅР°СЃС‚СЂРѕРµРє
+		QAction* actNew;				//РџСѓРЅРєС‚ СЃРѕР·РґСЂР°РЅРёСЏ РЅРѕРІРѕРіРѕ РґРѕРєСѓРјРµРЅС‚Р°
+		QAction* actPlaceUrl;			//РџСЂРµРѕР±СЂР°Р·РѕРІР°С‚СЊ РІ (СЃСЃС‹Р»РєСѓ)
+		QAction* actPlaceAltUrl;		//РџСЂРµРѕР±СЂР°Р·РѕРІР°С‚СЊ РІ [Р°Р»СЊС‚РµСЂРЅР°С‚РёРІРЅСѓСЋ](СЃСЃС‹Р»РєСѓ)
+		QAction* actSetTextFormat;		//Р’С‹Р±СЂР°С‚СЊ С„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРёРµ РІС‹РґРµР»РµРЅРЅРѕРіРѕ С‚РµРєСЃС‚Р°
+		QAction* actHelp;
+	protected:
+		bool eventFilter(QObject* pobj, QEvent* event);
+		void update_ui();
 	public:
-		void closeEvent(QCloseEvent*);		//Перехватчик закрытия приложения
-		LiteMD(QWidget *parent = nullptr);	//Базовый конструкор
+		void closeEvent(QCloseEvent*);		//РџРµСЂРµС…РІР°С‚С‡РёРє Р·Р°РєСЂС‹С‚РёСЏ РїСЂРёР»РѕР¶РµРЅРёСЏ
+		LiteMD(QWidget *parent = nullptr);	//Р‘Р°Р·РѕРІС‹Р№ РєРѕРЅСЃС‚СЂСѓРєРѕСЂ
 		~LiteMD();
 	signals:
-		void saveFile();	//Сохранение файла
+		void saveFile();	//РЎРѕС…СЂР°РЅРµРЅРёРµ С„Р°Р№Р»Р°
 	private slots:
-		void slotAbout();	//Слот для вызова окна о программе
-		void httpModuleShow();	//Сигнал для вызова модуля загрузчика
-		void slot_mbar_send_string(const QString&);	//Слот для смены заголовка
+		void slotAbout();	//РЎР»РѕС‚ РґР»СЏ РІС‹Р·РѕРІР° РѕРєРЅР° Рѕ РїСЂРѕРіСЂР°РјРјРµ
+		void httpModuleShow();	//РЎРёРіРЅР°Р» РґР»СЏ РІС‹Р·РѕРІР° РјРѕРґСѓР»СЏ Р·Р°РіСЂСѓР·С‡РёРєР°
+		void slot_mbar_send_string(const QString&);	//РЎР»РѕС‚ РґР»СЏ СЃРјРµРЅС‹ Р·Р°РіРѕР»РѕРІРєР°
 	public slots:
-		void slotTitleChanged(const QString&);	//Слот для изменения заголовка
-		void slotFileEdited();	//Слот для установки флага "*"
-		void slotTitleReset();	//Слот для сброса заголовка к дефолтному
+		void slotTitleChanged(const QString&);	//РЎР»РѕС‚ РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ Р·Р°РіРѕР»РѕРІРєР°
+		void slotFileEdited();	//РЎР»РѕС‚ РґР»СЏ СѓСЃС‚Р°РЅРѕРІРєРё С„Р»Р°РіР° "*"
+		void slotTitleReset();	//РЎР»РѕС‚ РґР»СЏ СЃР±СЂРѕСЃР° Р·Р°РіРѕР»РѕРІРєР° Рє РґРµС„РѕР»С‚РЅРѕРјСѓ
 	private:
 		void initLastFileMenu();
 };

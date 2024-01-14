@@ -16,6 +16,8 @@ mdEditor::mdEditor(QWidget* mdWgt) : QTextEdit(mdWgt)
 	//Соединяем базовый сигнал со слотом который будет формировать сигнал высылки текста
 	if (!connect(this, SIGNAL(textChanged()), this, SLOT(slotTextChanged())))
 		QErrorMessage::qtHandler();
+
+	qApp->installEventFilter(new mdEditor_filter(this));
 }
 //Слот генерирующий сигнал с текущим текстом в виджете
 void mdEditor::slotTextChanged()
@@ -35,6 +37,7 @@ void mdEditor::slotTextChanged()
 	if (this->toPlainText() == "")
 	{
 		fileChangedState = 0;
+		appTitleUpdated = 0;
 		emit resetTitle();
 	}
 }
@@ -91,11 +94,11 @@ void mdEditor::slotOpen(QString fileName)
 void mdEditor::slotSave()
 {
 	//Если пользователь ничего не ввёл то отменяем процесс и сбрасываем флаги
-	if (this->toPlainText() == "")
+	/*if (this->toPlainText() == "")
 	{
 		fileChangedState = 0;
 		return;
-	}
+	}*/
 	//Создаем поток для вывода и добавляем туда текст преобразованный в юникод
 	QByteArray utf8out;
 	utf8out.append(toPlainText().toUtf8());
@@ -131,11 +134,11 @@ void mdEditor::slotSave()
 void mdEditor::slotSaveAs()
 {
 	//Если пусто то выходим
-	if (this->toPlainText() == "")
+	/*if (this->toPlainText() == "")
 	{
 		fileChangedState = 0;
 		return;
-	}
+	}*/
 	//Вызываем диалоговое окно сохранения
 	mdFileName = QFileDialog::getSaveFileName(0, tr("Save Text/Markdown"), "Readme", tr("*.md ;; *.txt"));
 	if (!mdFileName.isEmpty())
@@ -164,7 +167,6 @@ void mdEditor::slotNew()
 	//Сбрасываем флаги в любом случае
 	fileOpenedState = 0;
 	fileChangedState = 0;
-	appTitleUpdated = 0;
 	//Если что-то открыто то закрываем
 	if (mdObject.isOpen())
 		mdObject.close();
@@ -173,4 +175,83 @@ void mdEditor::slotNew()
 	//Сбрасываем содержимое поля ввода и заголовок
 	this->setText("");
 	emit resetTitle();
+	appTitleUpdated = 0;
+}
+
+//Получаем выделенный пользователем текст, преобразуем в <ссылку>
+//И возвращаем на место
+void mdEditor::convertToUrl()
+{
+	QString procBuf = this->textCursor().selectedText();
+	if (procBuf == "")
+		return;	//Если пользователь ничего не выделил - выходим
+
+	//Вставляем тег простой ссылки
+	procBuf.insert(0, "<");
+	procBuf.insert(procBuf.size(), ">");
+
+	//Заменяем выделенный текст ссылкой
+	this->textCursor().removeSelectedText();
+	this->textCursor().insertText(procBuf);
+	emit textChanged();
+}
+
+//Получаем выделенный пользователем текст, преобразуем в [альтернативную]<ссылку>
+//И возвращаем на место
+void mdEditor::convToAltUrl()
+{
+	QString procBuf = this->textCursor().selectedText();
+	if (procBuf == "")
+		return;	//Если пользователь ничего не выделил - выходим
+
+	//Хандлер курсора
+	QTextCursor tCursor = this->textCursor();
+
+	//Вставляем тег альтернативной ссылки
+	procBuf.insert(0, "(");
+	procBuf.insert(procBuf.size(), ")");
+
+	//Вставляем шаблон имени ссылки
+	procBuf.insert(0, tr("[TYPE_NAME]"));
+
+	//Получаем позицию конца шаблона
+	int bumpEnd = 0;
+
+	//Ищем закрывающую квадратную скобку
+	for (int index = 0; index < procBuf.size(); ++index)
+		if (procBuf.at(index) == "]")
+		{
+			bumpEnd = index;
+			break;
+		}
+
+	//Заменяем выделенный текст ссылкой
+	this->textCursor().removeSelectedText();
+	this->textCursor().insertText(procBuf);
+
+	//Получаем позицию курсора
+	int cursorPosition = this->textCursor().position() - procBuf.size();;
+
+	//Шлём сигнал что текст изменился
+	emit textChanged();
+
+	//Ставим указатель на позицию шаблона и затем на позицию конца шаблона
+	tCursor.setPosition(cursorPosition + 1);
+	tCursor.setPosition(cursorPosition + bumpEnd, QTextCursor::KeepAnchor);
+
+	//Отмечаем текст выделенным
+	this->setTextCursor(tCursor);
+}
+
+mdEditor_filter::mdEditor_filter(QObject* pobj) : QObject(pobj)
+{}
+bool mdEditor_filter::eventFilter(QObject* podj, QEvent* p_event)
+{
+	if (p_event->type() == static_cast<QEvent::Type>(QEvent::User + 33))
+	{
+		event(p_event);
+		return 1;
+	}
+	//ui_event_filter(p_event);
+	return 0;
 }

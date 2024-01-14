@@ -8,5 +8,6 @@ extern bool fileChangedState;
 extern bool appTitleUpdated;
 extern bool appClose;
 //Deprecated
+extern bool allowHttpWarn;
 extern bool httpDerpWarned;
 #endif

@@ -6,6 +6,7 @@ class mdEditor : public QTextEdit
 	private:
 		//Контейнер имени файла и хандлер
 		QString mdFileName;
+		QString processText;	//Буфер текста для обработки
 		QFile mdObject;
 	public:
 		mdEditor(QWidget* mdWgt = 0);
@@ -25,4 +26,14 @@ class mdEditor : public QTextEdit
 		void slotSave();	//Вызывает диалоговое окно выбора названия файла для сохранения
 		void slotSaveAs();	//Вызывает окно для набора названия файла для сохранения
 		void slotNew();		//Очищает поле ввода
+		void convertToUrl();//Преобразует в <ссылку>
+		void convToAltUrl();//Преобразует в [альтернативную]<ссылку>
+};
+
+class mdEditor_filter : public QObject
+{
+	protected:
+		virtual bool eventFilter(QObject*, QEvent*);
+	public:
+		mdEditor_filter(QObject* podj = 0);
 };
