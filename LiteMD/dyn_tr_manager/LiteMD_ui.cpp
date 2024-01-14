@@ -1,4 +1,4 @@
-#include "LiteMD.h"
+#include "..\LiteMD.h"
 #include "global_definitions.h"
 
 bool LiteMD::eventFilter(QObject* pobj, QEvent* p_event)

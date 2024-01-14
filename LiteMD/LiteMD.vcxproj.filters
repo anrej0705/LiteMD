@@ -50,9 +50,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="LiteMD.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <ClCompile Include="LiteMD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -112,6 +109,9 @@
     <ClCompile Include="settings_tabs\tab_downloader.cpp">
       <Filter>Интерфейс\Окна\Вкладки</Filter>
     </ClCompile>
+    <ClCompile Include="modules\LastFileManager.cpp">
+      <Filter>Модули</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">
@@ -131,6 +131,9 @@
     </QtMoc>
     <QtMoc Include="window_widgets\appSettings.h">
       <Filter>Интерфейс\Окна</Filter>
+    </QtMoc>
+    <QtMoc Include="LiteMD.h">
+      <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -227,8 +230,12 @@
     <ClInclude Include="utls\event_id_constructor.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="modules\LastFileManager.h">
+      <Filter>Модули</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Readme.md" />
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>
