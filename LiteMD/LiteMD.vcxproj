@@ -108,7 +108,7 @@
       <BuildAction>false</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)dyn_tr_manager;$(ProjectDir)window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -134,7 +134,7 @@
       <BuildAction>lupdate_lrelease</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)dyn_tr_manager;$(ProjectDir)window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
