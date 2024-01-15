@@ -56,6 +56,9 @@
     <ClCompile Include="LiteMD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <QtMoc Include="modules\frameChangelog.h">
+      <Filter>Модули</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -111,6 +114,18 @@
     </ClCompile>
     <ClCompile Include="settings_tabs\tab_downloader.cpp">
       <Filter>Интерфейс\Окна\Вкладки</Filter>
+    </ClCompile>
+    <ClCompile Include="utls\xmlReader.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utls\xmlWriter.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\frameChangelog.cpp">
+      <Filter>Модули</Filter>
+    </ClCompile>
+    <ClCompile Include="dyn_tr_manager\frameChangelog_ui.cpp">
+      <Filter>Модули\Динамический перевод</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +194,9 @@
     <Image Include="ress\icon_quit.png">
       <Filter>Resource Files\Иконки док панели</Filter>
     </Image>
+    <Image Include="ress\icon_recent_files.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ress\buildInfo.rc">
@@ -227,8 +245,23 @@
     <ClInclude Include="utls\event_id_constructor.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="utls\xmlReader.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utls\xmlWriter.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Readme.md" />
+    <None Include="docs\Changelog.md">
+      <Filter>Документация</Filter>
+    </None>
+    <None Include="docs\Current_ver.md">
+      <Filter>Документация</Filter>
+    </None>
+    <None Include="docs\Manual.md">
+      <Filter>Документация</Filter>
+    </None>
   </ItemGroup>
 </Project>

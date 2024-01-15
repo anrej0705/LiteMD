@@ -128,11 +128,11 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation>[WORK IN PROGRESS]LiteMD alpha 0.1.8 build </translation>
+        <translation>[WORK IN PROGRESS]LiteMD alpha 0.1.9 build </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.1.8 build </translation>
+        <translation>Ver. alpha 0.1.9 build </translation>
     </message>
     <message>
         <source>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</source>
@@ -217,6 +217,10 @@ I hope u like my app :D</translation>
     <message>
         <source>Make alt&amp;enate URL</source>
         <translation>Make alt&amp;enate URL</translation>
+    </message>
+    <message>
+        <source>Sh&amp;ow changelog</source>
+        <translation>Sh&amp;ow changelog</translation>
     </message>
 </context>
 <context>
@@ -314,6 +318,17 @@ I hope u like my app :D</translation>
     <message>
         <source>Enable content caching</source>
         <translation>Enable content caching</translation>
+    </message>
+</context>
+<context>
+    <name>currentChangelog</name>
+    <message>
+        <source>New version changelog</source>
+        <translation>New version changelog</translation>
+    </message>
+    <message>
+        <source>Current_ver.md отсутствует</source>
+        <translation>Current_ver.md not found</translation>
     </message>
 </context>
 <context>

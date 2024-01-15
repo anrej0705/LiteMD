@@ -17,6 +17,9 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mds = new mdScreen;
 	//---------------------------------------------
 
+	//Инициализируем контейнер настроек
+	//newRecentFilesArray();
+
 	//Блок элементов интерфейса
 	QScrollArea* mdsArea = new QScrollArea;
 	OrientablePushButton* btnDown = new OrientablePushButton("--->", this);
@@ -33,6 +36,10 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mHelp = new QMenu(tr("&Help"));
 	workProgressCap = new QLabel(tr("work in progress"));
 	mdlSet = new appSettings;
+	xmlW = new xmlWriter;
+	xmlR = new xmlReader;
+	cLog = new currentChangelog;
+	showTim = new QTimer;
 	//-------------------------
 
 	qApp->installEventFilter(new ui_event_filter(qApp));
@@ -57,6 +64,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	actPlaceAltUrl = new QAction(QPixmap("ress/icon_place_url_alternate.png"), tr("Make alt&enate URL"));
 	actSetTextFormat = new QAction(QPixmap("ress/icon_set_text_format.png"), tr("Te&xt Format"));
 	actHelp = new QAction(QPixmap("ress/icon_help.png"), tr("&Help"));
+	actOpenChangelog = new QAction(QPixmap("ress/icon_show_changelog.png"), tr("Sh&ow changelog"));
 	//----------------
 	
 	//Установка обработчика события смены языка
@@ -69,6 +77,10 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 
 	//Блок конфигурации элементов интерфейса
 	quick_tb->setMovable(0);	//В будущем будет переведено в настройки
+	if (!xmlR->checkFileExisting())	//Проверяем существование файлов настроек
+		xmlW->writeConfig();	//Если нет - создаем по умолчанию
+	else
+		xmlR->readConfig();		//Если есть - читаем
 
 	//Добавляем кнопки в доки
 	quick_tb->addAction(actNew);
@@ -85,6 +97,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	quick_tb->addSeparator();
 	quick_tb->addAction(actHelp);
 	quick_tb->addAction(actAbout);
+	quick_tb->addAction(actOpenChangelog);
 	//-----------------------
 
 	this->addToolBar(Qt::TopToolBarArea, quick_tb);
@@ -138,6 +151,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mSettings->addAction(actSet);
 	mHelp->addAction(actHelp);
 	mHelp->addAction(actAbout);
+	mHelp->addAction(actOpenChangelog);
 	menuBar()->addMenu(mFile);
 	menuBar()->addMenu(mEdit);
 	menuBar()->addMenu(mSettings);
@@ -177,6 +191,10 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler();	//Конвертация в (ссылку)
 	if (!connect(actPlaceAltUrl, SIGNAL(triggered()), mde, SLOT(convToAltUrl())))
 		QErrorMessage::qtHandler();	//Конвертация в [альтернативную](ссылку)
+	if (!connect(showTim, SIGNAL(timeout()), cLog, SLOT(slotShowWindow())))
+		QErrorMessage::qtHandler();	//Таймер на вызов окна
+	if (!connect(actOpenChangelog, SIGNAL(triggered()), cLog, SLOT(slotShowWindow())))
+		QErrorMessage::qtHandler();	//Вызов окна ченжлога
 	//------------------------------
 
 	//Рабочий долгосрочный костыль. Создаем пустой виджет и помещаем все в него
@@ -191,6 +209,16 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	
 	//Устанавливаем иконку приложения
 	setWindowIcon(QIcon("icon.ico"));
+
+	//Если приложение запускается в первый раз или конфиг файл отсутствует то будем считать что это первый запуск
+	//И показываем юзеру текущий ченджлог используя наш рендер, перед показом даём задержку 1 сек чтобы окно успело
+	//Отрисоваться
+	if (!logReadState)
+	{
+		showTim->setInterval(203);
+		showTim->setSingleShot(1);
+		showTim->start();
+	}
 
 	//Показываем сообщение готовности к работе
 	statusBar()->showMessage(tr("Ready"), 3000);
@@ -277,4 +305,6 @@ void LiteMD::httpModuleShow()
 	dwModule->slotShow();
 }
 LiteMD::~LiteMD()
-{}
+{
+	//deleteOnExit();
+}

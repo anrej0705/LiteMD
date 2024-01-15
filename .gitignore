@@ -260,3 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 /LiteMD/_d9628b5877c863ff532cc98daa37b735.jpeg
+/LiteMD/config.xml
+/строки.xlsx

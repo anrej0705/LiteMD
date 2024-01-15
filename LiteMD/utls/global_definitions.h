@@ -3,11 +3,15 @@
 #define GLOBAL_DEFINITIONS_H_
 //Глобальные определения, в т.ч версии сборки и ИД событий
 
+//##[VERSION-9]
 //---------------------------------------------
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
-#define BUILD_NUMBER 1064
+#define BUILD_NUMBER 1225
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
 //---------------------------------------------
+
+//"Сигнатура" для настроек
+const char appSign[] = "__Shani_basic";
 
 /*
 * Таблица событий для обновления интерфейса
@@ -24,6 +28,7 @@
 * | 38 |dialogBoxes.cpp     |
 * | 39 |appSettings.cpp     |
 * | 40 |tab_basic.cpp       |
+* | 41 |frameChangelog.cpp  |
 */
 
 #define SETTINGS_HEIGH									20
@@ -37,6 +42,7 @@
 #define APP_EVENT_dialogBoxes_UPDATE_EVENT				38
 #define APP_EVENT_appSettings_UPDATE_EVENT				39
 #define APP_EVENT_tab_basic_UPDATE_EVENT				40
+#define APP_EVENT_frame_changelog_UPDATE_EVENT			41
 //--------------------------------------------------------
 
 #endif

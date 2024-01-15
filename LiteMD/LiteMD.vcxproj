@@ -50,24 +50,24 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>Qt 5.14.2</QtInstall>
-    <QtModules>core;network;gui;widgets</QtModules>
+    <QtModules>core;xml;network;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
     <QMakeCodeLines>win32:RC_ICONS += icon.ico;$(QMakeCodeLines)</QMakeCodeLines>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="QtSettings">
     <QtInstall>Qt 5.14.2_x86</QtInstall>
-    <QtModules>core;network;gui;widgets</QtModules>
+    <QtModules>core;xml;network;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>Qt 5.14.2</QtInstall>
-    <QtModules>core;network;gui;widgets</QtModules>
+    <QtModules>core;xml;network;gui;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
     <QtDeploy>true</QtDeploy>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="QtSettings">
     <QtInstall>Qt 5.14.2_x86</QtInstall>
-    <QtModules>core;network;gui;widgets</QtModules>
+    <QtModules>core;xml;network;gui;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
     <QtDeploy>true</QtDeploy>
   </PropertyGroup>
@@ -122,6 +122,9 @@
     <ClCompile>
       <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\dyn_tr_manager;C:\git\LiteMD\LiteMD\settings_tabs;C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;C:\git\LiteMD\LiteMD;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <OpenMPSupport>true</OpenMPSupport>
+      <EnableModules>false</EnableModules>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -200,10 +203,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dyn_tr_manager\appSettings_ui.cpp" />
+    <ClCompile Include="dyn_tr_manager\frameChangelog_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\GuiDownloader_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\LiteMD_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\ui_update_event.cpp" />
     <ClCompile Include="modules\Downloader.cpp" />
+    <ClCompile Include="modules\frameChangelog.cpp" />
     <ClCompile Include="modules\GuiDownloader.cpp" />
     <ClCompile Include="settings_tabs\tab_basic.cpp" />
     <ClCompile Include="settings_tabs\tab_downloader.cpp" />
@@ -222,6 +227,8 @@
     </ClCompile>
     <ClCompile Include="ui_primitives\OrientalPushButton.cpp" />
     <ClCompile Include="utls\globalFlags.c" />
+    <ClCompile Include="utls\xmlReader.cpp" />
+    <ClCompile Include="utls\xmlWriter.cpp" />
     <ClCompile Include="window_widgets\appSettings.cpp" />
     <ClCompile Include="window_widgets\mdEditor.cpp" />
     <ClCompile Include="window_widgets\mdScreen.cpp" />
@@ -245,6 +252,7 @@
     <Image Include="ress\icon_place_url.png" />
     <Image Include="ress\icon_place_url_alternate.png" />
     <Image Include="ress\icon_quit.png" />
+    <Image Include="ress\icon_recent_files.png" />
     <Image Include="ress\icon_save.png" />
     <Image Include="ress\icon_save_as.png" />
     <Image Include="ress\icon_settings.png" />
@@ -262,6 +270,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dyn_tr_manager\ui_update_event.h" />
+    <QtMoc Include="modules\frameChangelog.h" />
     <ClInclude Include="ress\resource.h" />
     <ClInclude Include="ress\resource1.h" />
     <ClInclude Include="string_processing\syntax_postprocessor.h" />
@@ -270,11 +279,16 @@
     <ClInclude Include="utls\event_id_constructor.h" />
     <ClInclude Include="utls\globalFlags.h" />
     <ClInclude Include="utls\global_definitions.h" />
+    <ClInclude Include="utls\xmlReader.h" />
+    <ClInclude Include="utls\xmlWriter.h" />
     <QtMoc Include="window_widgets\appSettings.h" />
     <QtMoc Include="window_widgets\mdScreen.h" />
     <QtMoc Include="window_widgets\mdEditor.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="docs\Changelog.md" />
+    <None Include="docs\Current_ver.md" />
+    <None Include="docs\Manual.md" />
     <None Include="Readme.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

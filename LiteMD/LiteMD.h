@@ -5,6 +5,9 @@
 #include "mdScreen.h"
 #include "GuiDownloader.h"
 #include "appSettings.h"
+#include "frameChangelog.h"
+#include "xmlWriter.h"
+#include "xmlReader.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -32,6 +35,10 @@ class LiteMD : public QMainWindow
 		appSettings* mdlSet;			//Диалог настроек приложения
 		QGroupBox* editorWindow;		//Окно редактора
 		QGroupBox* viewerWindow;		//Окно рендера
+		currentChangelog* cLog;			//Список изменений
+		xmlWriter* xmlW;				//Класс для записи настроек в файл
+		xmlReader* xmlR;				//Читалка настроек
+		QTimer* showTim;				//Таймер на отображение окна
 
 		//Действия всякие, в меню и в док
 		QAction* actAbout;				//Пункт меню о программе
@@ -45,7 +52,8 @@ class LiteMD : public QMainWindow
 		QAction* actPlaceUrl;			//Преобразовать в (ссылку)
 		QAction* actPlaceAltUrl;		//Преобразовать в [альтернативную](ссылку)
 		QAction* actSetTextFormat;		//Выбрать форматирование выделенного текста
-		QAction* actHelp;
+		QAction* actHelp;				//Открывает справку
+		QAction* actOpenChangelog;		//Открывает список изменений текущей версии
 	protected:
 		bool eventFilter(QObject* pobj, QEvent* event);
 		void update_ui();

@@ -62,19 +62,28 @@ void appSettings::configureBasicSettingsTab()
 	//Список файлов локалей
 	QStringList available_langs = lang_dir.entryList(QStringList("LiteMD_*.qm"));
 
-	loc_map = new std::map<uint8_t, QString>;
-
-	for (uint8_t locales = 0; locales < static_cast<uint8_t>(available_langs.size()); ++locales)
+	if (!available_langs.isEmpty())
 	{
-		QString locale_name = available_langs[locales];
-		loc_map->insert(std::pair<uint8_t, QString>(locales, locale_name));
-		locale_name.truncate(locale_name.lastIndexOf("."));
-		locale_name.remove(0, locale_name.indexOf("_",0) + 1);
-		QString locale = localeNameConverter(QLocale::languageToString(QLocale(locale_name).language()),locale_name);
-		langList->addItem(locale);
-		if (current_lang == locale_name)
-			langList->setCurrentIndex(locales);
+		loc_map = new std::map<uint8_t, QString>;
+
+		for (uint8_t locales = 0; locales < static_cast<uint8_t>(available_langs.size()); ++locales)
+		{
+			QString locale_name = available_langs[locales];
+			loc_map->insert(std::pair<uint8_t, QString>(locales, locale_name));
+			locale_name.truncate(locale_name.lastIndexOf("."));
+			locale_name.remove(0, locale_name.indexOf("_", 0) + 1);
+			QString locale = localeNameConverter(QLocale::languageToString(QLocale(locale_name).language()), locale_name);
+			langList->addItem(locale);
+			if (current_lang == locale_name)
+				langList->setCurrentIndex(locales);
+		}
 	}
+	else
+	{
+		langList->addItem("Локали не найдены");
+		langList->setDisabled(1);
+	}
+	
 
 	//Конфигурируем дизайн кнопки и размещаем
 	QHBoxLayout* langListManager = new QHBoxLayout;
@@ -95,7 +104,7 @@ void appSettings::configureBasicSettingsTab()
 
 	//Отключаем элементы, механика которых не реализована
 	themeList->addItem(tr("Will be added in future"));
-	saveSettings->addItem(tr("Will be added in future"));
+	saveSettings->addItem("XML");
 	saveFreq->addItem(tr("Will be added in future"));
 	autoSave->setChecked(0);
 	themeList->setDisabled(1);

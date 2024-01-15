@@ -130,11 +130,11 @@ github.com/anrej0705
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation>[В РАЗРАБОТКЕ]LiteMD alpha 0.1.8 сборка </translation>
+        <translation>[В РАЗРАБОТКЕ]LiteMD alpha 0.1.9 сборка </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.1.8 сборка </translation>
+        <translation>Ver. alpha 0.1.9 сборка </translation>
     </message>
     <message>
         <source>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</source>
@@ -219,6 +219,10 @@ github.com/anrej0705
     <message>
         <source>Make alt&amp;enate URL</source>
         <translation>Преобразовать в альтернативный &amp;URL</translation>
+    </message>
+    <message>
+        <source>Sh&amp;ow changelog</source>
+        <translation>По&amp;казать список изменений</translation>
     </message>
 </context>
 <context>
@@ -316,6 +320,17 @@ github.com/anrej0705
     <message>
         <source>Enable content caching</source>
         <translation>Кешировать загруженный контент</translation>
+    </message>
+</context>
+<context>
+    <name>currentChangelog</name>
+    <message>
+        <source>New version changelog</source>
+        <translation>Изменения в новой версии</translation>
+    </message>
+    <message>
+        <source>Current_ver.md отсутствует</source>
+        <translation>Current_ver.md отсутствует</translation>
     </message>
 </context>
 <context>
