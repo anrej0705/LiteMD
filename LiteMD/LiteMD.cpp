@@ -17,9 +17,6 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mds = new mdScreen;
 	//---------------------------------------------
 
-	//Сбрасываем настройки до чтения файла
-	settingStruct.logReadState = 0;
-
 	//Блок элементов интерфейса
 	QScrollArea* mdsArea = new QScrollArea;
 	OrientablePushButton* btnDown = new OrientablePushButton("--->", this);
@@ -36,6 +33,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mHelp = new QMenu(tr("&Help"));
 	workProgressCap = new QLabel(tr("work in progress"));
 	mdlSet = new appSettings;
+	xmlW = new xmlWriter;
 	//-------------------------
 
 	qApp->installEventFilter(new ui_event_filter(qApp));
@@ -72,6 +70,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 
 	//Блок конфигурации элементов интерфейса
 	quick_tb->setMovable(0);	//В будущем будет переведено в настройки
+	xmlW->writeConfig();
 
 	//Добавляем кнопки в доки
 	quick_tb->addAction(actNew);

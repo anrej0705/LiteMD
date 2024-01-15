@@ -12,8 +12,7 @@ extern bool allowHttpWarn;
 extern bool httpDerpWarned;
 
 //Настройки
-extern struct appSettingsStruct
-{
-	bool logReadState
-}settingStruct;
+extern bool logReadState;
+
+
 #endif

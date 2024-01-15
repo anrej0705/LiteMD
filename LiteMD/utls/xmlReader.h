@@ -4,7 +4,7 @@
 class xmlReader
 {
 	private:
-		QString docName;
+		QString file_name;
 	public:
 		xmlReader(QString filename);
 };

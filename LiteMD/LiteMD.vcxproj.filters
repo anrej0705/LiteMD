@@ -112,14 +112,14 @@
     <ClCompile Include="settings_tabs\tab_downloader.cpp">
       <Filter>Интерфейс\Окна\Вкладки</Filter>
     </ClCompile>
-    <ClCompile Include="frameChangelog.cpp">
-      <Filter>Модули</Filter>
-    </ClCompile>
     <ClCompile Include="utls\xmlReader.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="utls\xmlWriter.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\frameChangelog.cpp">
+      <Filter>Модули</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -236,14 +236,14 @@
     <ClInclude Include="utls\event_id_constructor.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="frameChangelog.h">
-      <Filter>Модули</Filter>
-    </ClInclude>
-    <ClInclude Include="xmlWriter.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="utls\xmlReader.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utls\xmlWriter.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\frameChangelog.h">
+      <Filter>Модули</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
