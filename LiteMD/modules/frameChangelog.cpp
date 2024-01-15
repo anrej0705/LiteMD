@@ -58,6 +58,6 @@ void currentChangelog::slotShowWindow()
 void currentChangelog::slotHideWindow()
 {
 	logReadState = 1;
-	//xmlW->writeConfig();
+	xmlW->writeConfig();
 	this->hide();
 }

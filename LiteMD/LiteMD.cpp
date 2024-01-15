@@ -18,7 +18,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//---------------------------------------------
 
 	//Инициализируем контейнер настроек
-	newRecentFilesArray();
+	//newRecentFilesArray();
 
 	//Блок элементов интерфейса
 	QScrollArea* mdsArea = new QScrollArea;
@@ -306,5 +306,5 @@ void LiteMD::httpModuleShow()
 }
 LiteMD::~LiteMD()
 {
-	deleteOnExit();
+	//deleteOnExit();
 }

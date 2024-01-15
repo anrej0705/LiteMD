@@ -18,7 +18,7 @@ xmlWriter::xmlWriter()
 xmlWriter::xmlWriter(QString fName)
 {
 	fileName = fName;
-	lmdFileSet = new QDomDocument(appSign);
+	lmdFileSet = new QDomDocument("LMD");
 	lmdSet = new QDomElement(lmdFileSet->createElement(appSign));
 	lmdFileSet->appendChild(*lmdSet);
 	QDomElement patchNoteRead = attrib(*lmdFileSet, "patchNoteRead", logReadState);
@@ -27,6 +27,13 @@ xmlWriter::xmlWriter(QString fName)
 
 void xmlWriter::writeConfig()
 {
+	delete lmdFileSet;
+	delete lmdSet;
+	lmdFileSet = new QDomDocument("LMD");
+	lmdSet = new QDomElement(lmdFileSet->createElement(appSign));
+	lmdFileSet->appendChild(*lmdSet);
+	QDomElement patchNoteRead = attrib(*lmdFileSet, "patchNoteRead", logReadState);
+	lmdSet->appendChild(patchNoteRead);
 	QFile settingsFile(fileName);
 	if (settingsFile.open(QIODevice::WriteOnly))
 	{
