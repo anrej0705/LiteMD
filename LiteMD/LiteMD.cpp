@@ -34,6 +34,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	workProgressCap = new QLabel(tr("work in progress"));
 	mdlSet = new appSettings;
 	xmlW = new xmlWriter;
+	xmlR = new xmlReader;
 	//-------------------------
 
 	qApp->installEventFilter(new ui_event_filter(qApp));
@@ -70,7 +71,10 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 
 	//Блок конфигурации элементов интерфейса
 	quick_tb->setMovable(0);	//В будущем будет переведено в настройки
-	xmlW->writeConfig();
+	if (!xmlR->checkFileExisting())	//Проверяем существование файлов настроек
+		xmlW->writeConfig();	//Если нет - создаем по умолчанию
+	else
+		xmlR->readConfig();		//Если есть - читаем
 
 	//Добавляем кнопки в доки
 	quick_tb->addAction(actNew);

@@ -1,10 +1,14 @@
 #pragma once
 #include <qdom.h>
+#include <qfile.h>
 
 class xmlReader
 {
 	private:
-		QString file_name;
+		QString fileName;
 	public:
+		xmlReader();
 		xmlReader(QString filename);
+		bool checkFileExisting();
+		void readConfig();
 };
