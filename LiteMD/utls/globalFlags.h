@@ -3,7 +3,7 @@
 #define GLOBALFLAGS_H_
 #include <stdbool.h>
 #include <stdint.h>
-//Флаги состояний
+//Р¤Р»Р°РіРё СЃРѕСЃС‚РѕСЏРЅРёР№
 extern bool fileOpenedState;
 extern bool fileChangedState;
 extern bool appTitleUpdated;
@@ -12,12 +12,12 @@ extern bool appClose;
 extern bool allowHttpWarn;
 extern bool httpDerpWarned;
 
-//Настройки
+//РќР°СЃС‚СЂРѕР№РєРё
 extern bool logReadState;
 
-//Хранилище последних открытых файлов(коммит SilverWolf2k20)
-#define NUMBER_OF_FILES	4	//Строки
-#define FILENAME_SIZE	256	//Столбцы
+//РҐСЂР°РЅРёР»РёС‰Рµ РїРѕСЃР»РµРґРЅРёС… РѕС‚РєСЂС‹С‚С‹С… С„Р°Р№Р»РѕРІ(РєРѕРјРјРёС‚ SilverWolf2k20)
+#define NUMBER_OF_FILES	4	//РЎС‚СЂРѕРєРё
+#define FILENAME_SIZE	256	//РЎС‚РѕР»Р±С†С‹
 extern char** lastFiles;
 void newRecentFilesArray();
 void deleteOnExit();

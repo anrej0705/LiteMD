@@ -11,25 +11,25 @@ bool appClose = 0;
 bool allowHttpWarn = 1;
 bool httpDerpWarned = 0;
 
-//Настрйоки
+//РќР°СЃС‚СЂР№РѕРєРё
 bool logReadState = 0;
 
-//Последние использованные файлы, под патч SilverWolf2k20 -> Последние файлы
+//РџРѕСЃР»РµРґРЅРёРµ РёСЃРїРѕР»СЊР·РѕРІР°РЅРЅС‹Рµ С„Р°Р№Р»С‹, РїРѕРґ РїР°С‚С‡ SilverWolf2k20 -> РџРѕСЃР»РµРґРЅРёРµ С„Р°Р№Р»С‹
 char** lastFiles = NULL;
 void newRecentFilesArray()
 {
-	lastFiles = (char**)malloc(NUMBER_OF_FILES * sizeof(char*));	//Инициализируем строки
-	for (uint8_t index = 0; index < NUMBER_OF_FILES; ++index)	//Инициализируем ячейки в строках
+	lastFiles = (char**)malloc(NUMBER_OF_FILES * sizeof(char*));	//РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј СЃС‚СЂРѕРєРё
+	for (uint8_t index = 0; index < NUMBER_OF_FILES; ++index)	//РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј СЏС‡РµР№РєРё РІ СЃС‚СЂРѕРєР°С…
 	{
 		lastFiles[index] = (char*)malloc(FILENAME_SIZE * sizeof(char));
 		for (uint16_t colIndex = 0; colIndex < FILENAME_SIZE; ++colIndex)
-			lastFiles[index][colIndex] = (char)NULL;  //Чистим от мусора
+			lastFiles[index][colIndex] = (char)NULL;  //Р§РёСЃС‚РёРј РѕС‚ РјСѓСЃРѕСЂР°
 	}
 }
 
 void deleteOnExit()
 {
-	//Удаляем массив
+	//РЈРґР°Р»СЏРµРј РјР°СЃСЃРёРІ
 	for (uint8_t index = 0; index < NUMBER_OF_FILES; ++index)
 	{
 		free(lastFiles[index]);
@@ -39,7 +39,7 @@ void deleteOnExit()
 
 void deleteName(uint8_t pos)
 {
-	//чистим массив по индексу, memset применять нельзя(удаляет указатели)
+	//С‡РёСЃС‚РёРј РјР°СЃСЃРёРІ РїРѕ РёРЅРґРµРєСЃСѓ, memset РїСЂРёРјРµРЅСЏС‚СЊ РЅРµР»СЊР·СЏ(СѓРґР°Р»СЏРµС‚ СѓРєР°Р·Р°С‚РµР»Рё)
 	for (uint16_t subIndex = 0; subIndex < FILENAME_SIZE; ++subIndex)
 	{
 		lastFiles[pos][subIndex] = (char)NULL;
@@ -48,6 +48,6 @@ void deleteName(uint8_t pos)
 
 void setName(uint8_t pos, char* source)
 {
-	//Копируем строку
+	//РљРѕРїРёСЂСѓРµРј СЃС‚СЂРѕРєСѓ
 	strcpy(lastFiles[pos], source);
 }
