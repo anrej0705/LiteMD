@@ -30,7 +30,7 @@ void xmlReader::readConfig()
 	{
 		QXmlStreamReader settingsReader(&settings);
 		settingsReader.readNext();
-		if (settingsReader.text() == "<!DOCTYPE LMD");
+		if (settingsReader.text() == "<!DOCTYPE LMD>");
 		{
 			settingsReader.readNext();
 			settingsReader.readNext();
