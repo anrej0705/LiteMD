@@ -1,5 +1,9 @@
 #include "xmlReader.h"
 #include "global_definitions.h"
+extern "C"
+{
+	#include "globalFlags.h"
+}
 xmlReader::xmlReader()
 {
 	fileName = "config.xml";
@@ -20,13 +24,36 @@ bool xmlReader::checkFileExisting()
 
 void xmlReader::readConfig()
 {
+	QString value;
 	QFile settings(fileName);
 	if (settings.open(QIODevice::ReadOnly))
 	{
 		QXmlStreamReader settingsReader(&settings);
-		do{
+		settingsReader.readNext();
+		if (settingsReader.text() == "<!DOCTYPE LMD");
+		{
 			settingsReader.readNext();
-			qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
-		} while (!settingsReader.atEnd());
+			settingsReader.readNext();
+			if (settingsReader.name() == appSign)	//Ищем сигнатуру __Shani_basic
+			{
+				settingsReader.readNext();
+				do {
+					settingsReader.readNext();
+					if (settingsReader.tokenString() == "StartElement" && settingsReader.name() == "patchNoteRead")
+					{
+						settingsReader.readNext();
+						settingsReader.readNext();
+						settingsReader.readNext();
+						qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
+						value = settingsReader.text().toString();
+						if (value == QString("true"))
+							logReadState = 1;
+						else if (value == QString("false"))
+							logReadState = 0;
+					}
+				} while (!settingsReader.atEnd());
+			}
+		}
 	}
+	settings.close();	//Закрываем файл чтобы освободить дескриптор
 }

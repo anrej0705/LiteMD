@@ -8,7 +8,7 @@ extern "C"
 xmlWriter::xmlWriter()
 {
 	fileName = "config.xml";
-	lmdFileSet = new QDomDocument(appSign);
+	lmdFileSet = new QDomDocument("LMD");
 	lmdSet = new QDomElement(lmdFileSet->createElement(appSign));
 	lmdFileSet->appendChild(*lmdSet);
 	QDomElement patchNoteRead = attrib(*lmdFileSet, "patchNoteRead", logReadState);
