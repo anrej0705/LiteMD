@@ -5,9 +5,9 @@ xmlReader::xmlReader()
 	fileName = "config.xml";
 }
 
-xmlReader::xmlReader(QString filename)
+xmlReader::xmlReader(QString fName)
 {
-
+	fileName = fName;
 }
 
 bool xmlReader::checkFileExisting()
