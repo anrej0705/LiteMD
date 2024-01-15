@@ -56,6 +56,9 @@
     <ClCompile Include="LiteMD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <QtMoc Include="modules\frameChangelog.h">
+      <Filter>Модули</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -120,6 +123,9 @@
     </ClCompile>
     <ClCompile Include="modules\frameChangelog.cpp">
       <Filter>Модули</Filter>
+    </ClCompile>
+    <ClCompile Include="dyn_tr_manager\frameChangelog_ui.cpp">
+      <Filter>Модули\Динамический перевод</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -244,9 +250,6 @@
     </ClInclude>
     <ClInclude Include="utls\xmlWriter.h">
       <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="modules\frameChangelog.h">
-      <Filter>Модули</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

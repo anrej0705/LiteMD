@@ -38,6 +38,7 @@ class LiteMD : public QMainWindow
 		currentChangelog* cLog;			//Список изменений
 		xmlWriter* xmlW;				//Класс для записи настроек в файл
 		xmlReader* xmlR;				//Читалка настроек
+		QTimer* showTim;				//Таймер на отображение окна
 
 		//Действия всякие, в меню и в док
 		QAction* actAbout;				//Пункт меню о программе

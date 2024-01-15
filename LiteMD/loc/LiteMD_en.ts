@@ -218,6 +218,10 @@ I hope u like my app :D</translation>
         <source>Make alt&amp;enate URL</source>
         <translation>Make alt&amp;enate URL</translation>
     </message>
+    <message>
+        <source>Sh&amp;ow changelog</source>
+        <translation>Sh&amp;ow changelog</translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
@@ -314,6 +318,17 @@ I hope u like my app :D</translation>
     <message>
         <source>Enable content caching</source>
         <translation>Enable content caching</translation>
+    </message>
+</context>
+<context>
+    <name>currentChangelog</name>
+    <message>
+        <source>New version changelog</source>
+        <translation>New version changelog</translation>
+    </message>
+    <message>
+        <source>Current_ver.md отсутствует</source>
+        <translation>Current_ver.md not found</translation>
     </message>
 </context>
 <context>

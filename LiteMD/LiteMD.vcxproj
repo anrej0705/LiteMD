@@ -203,6 +203,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dyn_tr_manager\appSettings_ui.cpp" />
+    <ClCompile Include="dyn_tr_manager\frameChangelog_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\GuiDownloader_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\LiteMD_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\ui_update_event.cpp" />
@@ -269,7 +270,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dyn_tr_manager\ui_update_event.h" />
-    <ClInclude Include="modules\frameChangelog.h" />
+    <QtMoc Include="modules\frameChangelog.h" />
     <ClInclude Include="ress\resource.h" />
     <ClInclude Include="ress\resource1.h" />
     <ClInclude Include="string_processing\syntax_postprocessor.h" />

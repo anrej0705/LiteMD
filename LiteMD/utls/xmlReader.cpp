@@ -31,7 +31,7 @@ void xmlReader::readConfig()
 		QXmlStreamReader settingsReader(&settings);
 		settingsReader.readNext();
 		settingsReader.readNext();
-		qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
+		//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
 		if (settingsReader.text() == QString("<!DOCTYPE LMD>"))
 		{
 			settingsReader.readNext();
@@ -45,7 +45,7 @@ void xmlReader::readConfig()
 						settingsReader.readNext();
 						settingsReader.readNext();
 						settingsReader.readNext();
-						qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
+						//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
 						value = settingsReader.text().toString();
 						if (value == QString("true"))
 							logReadState = 1;
