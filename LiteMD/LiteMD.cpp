@@ -17,6 +17,9 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mds = new mdScreen;
 	//---------------------------------------------
 
+	//Инициализируем контейнер настроек
+	newRecentFilesArray();
+
 	//Блок элементов интерфейса
 	QScrollArea* mdsArea = new QScrollArea;
 	OrientablePushButton* btnDown = new OrientablePushButton("--->", this);
@@ -283,4 +286,6 @@ void LiteMD::httpModuleShow()
 	dwModule->slotShow();
 }
 LiteMD::~LiteMD()
-{}
+{
+	deleteOnExit();
+}

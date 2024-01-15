@@ -1,6 +1,8 @@
 #pragma once
 #include <qdom.h>
 #include <qfile.h>
+#include <qxmlstream.h>
+#include <qdebug.h>
 
 class xmlReader
 {

@@ -251,6 +251,7 @@
     <Image Include="ress\icon_place_url.png" />
     <Image Include="ress\icon_place_url_alternate.png" />
     <Image Include="ress\icon_quit.png" />
+    <Image Include="ress\icon_recent_files.png" />
     <Image Include="ress\icon_save.png" />
     <Image Include="ress\icon_save_as.png" />
     <Image Include="ress\icon_settings.png" />

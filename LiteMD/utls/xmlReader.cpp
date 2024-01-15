@@ -20,5 +20,13 @@ bool xmlReader::checkFileExisting()
 
 void xmlReader::readConfig()
 {
-
+	QFile settings(fileName);
+	if (settings.open(QIODevice::ReadOnly))
+	{
+		QXmlStreamReader settingsReader(&settings);
+		do{
+			settingsReader.readNext();
+			qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
+		} while (!settingsReader.atEnd());
+	}
 }
