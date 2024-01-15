@@ -30,9 +30,10 @@ void xmlReader::readConfig()
 	{
 		QXmlStreamReader settingsReader(&settings);
 		settingsReader.readNext();
-		if (settingsReader.text() == "<!DOCTYPE LMD>");
+		settingsReader.readNext();
+		qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
+		if (settingsReader.text() == QString("<!DOCTYPE LMD>"))
 		{
-			settingsReader.readNext();
 			settingsReader.readNext();
 			if (settingsReader.name() == appSign)	//»щем сигнатуру __Shani_basic
 			{
@@ -50,6 +51,8 @@ void xmlReader::readConfig()
 							logReadState = 1;
 						else if (value == QString("false"))
 							logReadState = 0;
+						else
+							break;
 					}
 				} while (!settingsReader.atEnd());
 			}
