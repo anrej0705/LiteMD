@@ -1,4 +1,4 @@
-#### LiteMD версия 0.1.9 сборка 0000
+#### LiteMD версия 0.1.9 сборка 1225
 
 Изменения:
 - Добавлена механика сохранения настроек в формат XML, в 0.3.3 будет доработана, см раздел Roadmap в  [README.md](https://github.com/anrej0705/LiteMD/blob/master/README.md) на сайте GitHub
