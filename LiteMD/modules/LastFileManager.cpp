@@ -49,7 +49,7 @@ void LastFileManager::addFile(std::string path)
 
 	// Если количество файлов больше 3х - удалить последний элемент.
 	if (lastFilePaths_.size() > numberOfRecords_)
-		lastFilePaths_.erase(lastFilePaths_.end());
+		lastFilePaths_.pop_back();
 }
 
 // Сохраняет список последних открытых файлов.
