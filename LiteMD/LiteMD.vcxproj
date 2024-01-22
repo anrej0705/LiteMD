@@ -208,6 +208,7 @@
     <ClCompile Include="dyn_tr_manager\LiteMD_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\ui_update_event.cpp" />
     <ClCompile Include="modules\Downloader.cpp" />
+    <ClCompile Include="modules\exceptionHandler.cpp" />
     <ClCompile Include="modules\frameChangelog.cpp" />
     <ClCompile Include="modules\GuiDownloader.cpp" />
     <ClCompile Include="settings_tabs\tab_basic.cpp" />
@@ -271,6 +272,7 @@
   <ItemGroup>
     <ClInclude Include="dyn_tr_manager\ui_update_event.h" />
     <QtMoc Include="modules\frameChangelog.h" />
+    <ClInclude Include="modules\exceptionHandler.h" />
     <ClInclude Include="ress\resource.h" />
     <ClInclude Include="ress\resource1.h" />
     <ClInclude Include="string_processing\syntax_postprocessor.h" />

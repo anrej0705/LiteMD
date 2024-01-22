@@ -127,6 +127,9 @@
     <ClCompile Include="dyn_tr_manager\frameChangelog_ui.cpp">
       <Filter>Модули\Динамический перевод</Filter>
     </ClCompile>
+    <ClCompile Include="modules\exceptionHandler.cpp">
+      <Filter>Модули</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">
@@ -250,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="utls\xmlWriter.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\exceptionHandler.h">
+      <Filter>Модули</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
