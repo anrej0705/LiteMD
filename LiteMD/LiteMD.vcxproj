@@ -246,6 +246,8 @@
     <Image Include="icon.ico" />
     <Image Include="ress\appicon.ico" />
     <Image Include="ress\icon_about.png" />
+    <Image Include="ress\icon_exception_fatal.png" />
+    <Image Include="ress\icon_exception_warning.png" />
     <Image Include="ress\icon_help.png" />
     <Image Include="ress\icon_http_downloader.png" />
     <Image Include="ress\icon_new_document.png" />

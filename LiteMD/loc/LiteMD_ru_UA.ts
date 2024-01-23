@@ -242,6 +242,28 @@ github.com/anrej0705
         <source>You dont save changes in file, which is opened currently. Save?</source>
         <translation>Вы не сохранили изменения в файле, который сейчасо открыт. Сохранить?</translation>
     </message>
+    <message>
+        <source>Warning</source>
+        <translation>Предупреждение</translation>
+    </message>
+    <message>
+        <source>Exception throwed!</source>
+        <translation>Сгенерировано исключение!</translation>
+    </message>
+    <message>
+        <source>FATAL</source>
+        <translation>Критическая ошибка</translation>
+    </message>
+    <message>
+        <source>Exception throwed!
+Programm will close</source>
+        <translation>Критическая ошибка! 
+Программа будет закрыта</translation>
+    </message>
+    <message>
+        <source>Cannot open config file!</source>
+        <translation>Невозможно открыть файл конфига, возможно он занят другой программой или не существует!</translation>
+    </message>
 </context>
 <context>
     <name>appSettings</name>

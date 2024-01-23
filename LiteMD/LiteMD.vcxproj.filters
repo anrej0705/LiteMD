@@ -200,6 +200,12 @@
     <Image Include="ress\icon_recent_files.png">
       <Filter>Resource Files\Иконки док панели</Filter>
     </Image>
+    <Image Include="ress\icon_exception_fatal.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_exception_warning.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ress\buildInfo.rc">

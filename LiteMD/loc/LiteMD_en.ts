@@ -240,6 +240,28 @@ I hope u like my app :D</translation>
         <source>You dont save changes in file, which is opened currently. Save?</source>
         <translation>You dont save changes in file, which is opened currently. Save?</translation>
     </message>
+    <message>
+        <source>Warning</source>
+        <translation>Warning</translation>
+    </message>
+    <message>
+        <source>Exception throwed!</source>
+        <translation>Exception throwed!</translation>
+    </message>
+    <message>
+        <source>FATAL</source>
+        <translation>FATAL</translation>
+    </message>
+    <message>
+        <source>Exception throwed!
+Programm will close</source>
+        <translation>Exception throwed!
+Programm will close</translation>
+    </message>
+    <message>
+        <source>Cannot open config file!</source>
+        <translation>Cannot open config file!</translation>
+    </message>
 </context>
 <context>
     <name>appSettings</name>

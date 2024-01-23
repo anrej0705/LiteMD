@@ -1,4 +1,5 @@
 #include "xmlWriter.h"
+#include "exceptionHandler.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -40,6 +41,8 @@ void xmlWriter::writeConfig()
 		QTextStream(&settingsFile) << lmdFileSet->toString();
 		settingsFile.close();
 	}
+	else
+		throw(exceptionHandler(exceptionHandler::FATAL));
 }
 
 QDomElement xmlWriter::attrib(QDomDocument& setDoc, const QString& attribName, const QVariant& attrType)

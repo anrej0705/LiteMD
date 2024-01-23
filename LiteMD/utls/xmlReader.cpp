@@ -1,5 +1,6 @@
 #include "xmlReader.h"
 #include "global_definitions.h"
+#include "exceptionHandler.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -58,5 +59,7 @@ void xmlReader::readConfig()
 			}
 		}
 	}
+	else
+		throw(exceptionHandler(exceptionHandler::WARNING, QObject::tr("Cannot open config file!")));
 	settings.close();	//Закрываем файл чтобы освободить дескриптор
 }
