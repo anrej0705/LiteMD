@@ -22,11 +22,11 @@ currentChangelog::currentChangelog(QWidget* qwgt) : QDialog(qwgt)
 		QTextStream cLogStream(&clogFile);
 		cLogStream.setCodec("UTF-8");
 		render->setWordWrap(1);
-		render->slotSetText(cLogStream.readAll());
+		//render->slotSetText(cLogStream.readAll());
 	}
 	else
 	{
-		render->slotSetText(tr("Current_ver.md отсутствует"));
+		//render->slotSetText(tr("Current_ver.md отсутствует"));
 	}
 
 	//Настройка кнопки

@@ -48,6 +48,9 @@
     <Filter Include="Resource Files\Иконки док панели">
       <UniqueIdentifier>{32ade865-8d36-46ba-9dbc-7217fc5cd2d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="String processing\Парсеры">
+      <UniqueIdentifier>{99be61b7-85a3-4c8f-9bfd-4be5877409eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="LiteMD.h">
@@ -129,6 +132,18 @@
     </ClCompile>
     <ClCompile Include="modules\exceptionHandler.cpp">
       <Filter>Модули</Filter>
+    </ClCompile>
+    <ClCompile Include="string_processing\crlfParser.cpp">
+      <Filter>String processing\Парсеры</Filter>
+    </ClCompile>
+    <ClCompile Include="symbolCleaner.cpp">
+      <Filter>String processing\Парсеры</Filter>
+    </ClCompile>
+    <ClCompile Include="string_processing\urlParser.cpp">
+      <Filter>String processing\Парсеры</Filter>
+    </ClCompile>
+    <ClCompile Include="string_processing\regex.cpp">
+      <Filter>String processing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -262,6 +277,18 @@
     </ClInclude>
     <ClInclude Include="modules\exceptionHandler.h">
       <Filter>Модули</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\crlfParser.h">
+      <Filter>String processing\Парсеры</Filter>
+    </ClInclude>
+    <ClInclude Include="symbolCleaner.h">
+      <Filter>String processing\Парсеры</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\urlParser.h">
+      <Filter>String processing\Парсеры</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\regex.h">
+      <Filter>String processing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

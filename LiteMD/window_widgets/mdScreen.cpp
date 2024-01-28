@@ -2,6 +2,7 @@
 #include "mdScreen.h"
 #include "syntax_preprocessor.h"
 #include "syntax_postprocessor.h"
+#include "symbolCleaner.h"
 #include <string>
 #include <regex>
 
@@ -50,7 +51,8 @@ std::wstring mdScreen::hyperlinkParser(std::wstring& str)
 		//Копируем в буфер
 		buffer = str.substr(index, range - index);
 		//Отправляем в обработчик который чистит текст от символов для исключения ложного срабатывания
-		preprocessTrianlgeBrackets(buffer);
+		buffer = symbolCleaner(buffer);
+		//preprocessTrianlgeBrackets(buffer);
 		//Сохраняем мусор в контейнер
 		garbage.push_back(buffer);
 		//Ищем закрывающую скобку
@@ -72,7 +74,8 @@ std::wstring mdScreen::hyperlinkParser(std::wstring& str)
 	{
 		//Помещяем в буфер всё остальное до конца, обрабатываем от мусора и помещаем результат в контейнер
 		buffer = mdInput.substr(index, mdInput.size() - index);
-		preprocessTrianlgeBrackets(buffer);
+		buffer = symbolCleaner(buffer);
+		//preprocessTrianlgeBrackets(buffer);
 		garbage.push_back(buffer);
 	}
 	//Чистим буфер
@@ -107,6 +110,8 @@ void mdScreen::slotSetText(const QString& str)
 	mdInput = str.toStdWString();
 	//Копираем в поле вывода
 	mdFormatted = QString::fromStdWString(mdInput);
+
+	//mdInput = symbolCleaner(mdInput);
 
 	//Обрабатываем текст препроцессором
 	mdInput = hyperlinkParser(mdInput);
