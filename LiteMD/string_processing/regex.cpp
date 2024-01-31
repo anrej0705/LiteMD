@@ -1,10 +1,14 @@
 #include "regex.h"
 
-std::wregex regexHyperlink(L"[<]{1,1}(http|https|ftp://){0,1}\\S{1,}[>]{1,1}", std::wregex::collate);
-std::wregex advRegexHyperlink(L"(\\[(.*?)\\])(\\(\\S{1,})\\)", std::wregex::collate);
+std::wregex regexHyperlink(L"[<]{1,1}(http|https|ftp:){0,1}://([^/?#>]*)[>]{1,1}", std::wregex::collate);	//<http://www.url.ru>
+std::wregex simplifiedRegexHyperlink(L"[<]([^/?#>]*)[>]{1,1}", std::wregex::collate);	//<www.url.ru>
+std::wregex advRegexHyperlink(L"(\\[(.*?)\\])(\\(\\S{1,})\\)", std::wregex::collate);	//[url](любойтекст)
 
-std::wstring symbolCollection(L"<>");	//Служебные символы
-std::wstring symbolClearance(L">");		//Символы обязательной очистки
+std::wstring symbolCollection(L"<>[]()");		//Служебные символы
+
+//Символы обязательной очистки
+std::wstring symbolClearanceBack(L">])");		//Очистка с начала
+std::wstring symbolClearanceFront(L"<[(");		//Очистка с конца
 
 //Библиотека заменителей
 std::vector<std::wstring> replaceSymbols = { L"&#60;", L"&#62;" };

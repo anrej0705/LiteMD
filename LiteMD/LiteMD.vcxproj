@@ -216,10 +216,11 @@
     <ClCompile Include="settings_tabs\tab_render.cpp" />
     <ClCompile Include="string_processing\crlfParser.cpp" />
     <ClCompile Include="string_processing\regex.cpp" />
+    <ClCompile Include="string_processing\symbolCleaner.cpp" />
     <ClCompile Include="string_processing\syntax_postprocessor.cpp" />
     <ClCompile Include="string_processing\syntax_preprocessor.cpp" />
-    <ClCompile Include="string_processing\urlParser.cpp" />
-    <ClCompile Include="symbolCleaner.cpp" />
+    <ClCompile Include="string_processing\urlAlternateParser.cpp" />
+    <ClCompile Include="string_processing\urlBasicParser.cpp" />
     <ClCompile Include="ui_primitives\dialogBoxes.cpp">
       <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">input</DynamicSource>
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).moc</QtMocFileName>
@@ -283,10 +284,11 @@
     <ClInclude Include="ress\resource1.h" />
     <ClInclude Include="string_processing\crlfParser.h" />
     <ClInclude Include="string_processing\regex.h" />
+    <ClInclude Include="string_processing\symbolCleaner.h" />
     <ClInclude Include="string_processing\syntax_postprocessor.h" />
     <ClInclude Include="string_processing\syntax_preprocessor.h" />
-    <ClInclude Include="string_processing\urlParser.h" />
-    <ClInclude Include="symbolCleaner.h" />
+    <ClInclude Include="string_processing\urlAlternateParser.h" />
+    <ClInclude Include="string_processing\urlBasicParser.h" />
     <ClInclude Include="ui_primitives\dialogBoxes.h" />
     <ClInclude Include="utls\event_id_constructor.h" />
     <ClInclude Include="utls\globalFlags.h" />

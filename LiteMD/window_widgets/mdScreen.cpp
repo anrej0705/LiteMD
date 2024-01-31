@@ -3,6 +3,7 @@
 #include "syntax_preprocessor.h"
 #include "syntax_postprocessor.h"
 #include "symbolCleaner.h"
+#include "urlBasicParser.h"
 #include <string>
 #include <regex>
 
@@ -111,7 +112,8 @@ void mdScreen::slotSetText(const QString& str)
 	//Копираем в поле вывода
 	mdFormatted = QString::fromStdWString(mdInput);
 
-	//mdInput = symbolCleaner(mdInput);
+	mdInput = symbolCleaner(mdInput);
+	mdInput = basicUrlParser(mdInput);
 
 	//Обрабатываем текст препроцессором
 	mdInput = hyperlinkParser(mdInput);

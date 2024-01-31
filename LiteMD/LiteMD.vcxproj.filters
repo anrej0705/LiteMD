@@ -136,14 +136,17 @@
     <ClCompile Include="string_processing\crlfParser.cpp">
       <Filter>String processing\Парсеры</Filter>
     </ClCompile>
-    <ClCompile Include="symbolCleaner.cpp">
-      <Filter>String processing\Парсеры</Filter>
-    </ClCompile>
-    <ClCompile Include="string_processing\urlParser.cpp">
+    <ClCompile Include="string_processing\urlBasicParser.cpp">
       <Filter>String processing\Парсеры</Filter>
     </ClCompile>
     <ClCompile Include="string_processing\regex.cpp">
       <Filter>String processing</Filter>
+    </ClCompile>
+    <ClCompile Include="string_processing\urlAlternateParser.cpp">
+      <Filter>String processing\Парсеры</Filter>
+    </ClCompile>
+    <ClCompile Include="string_processing\symbolCleaner.cpp">
+      <Filter>String processing\Парсеры</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -281,14 +284,17 @@
     <ClInclude Include="string_processing\crlfParser.h">
       <Filter>String processing\Парсеры</Filter>
     </ClInclude>
-    <ClInclude Include="symbolCleaner.h">
-      <Filter>String processing\Парсеры</Filter>
-    </ClInclude>
-    <ClInclude Include="string_processing\urlParser.h">
+    <ClInclude Include="string_processing\urlBasicParser.h">
       <Filter>String processing\Парсеры</Filter>
     </ClInclude>
     <ClInclude Include="string_processing\regex.h">
       <Filter>String processing</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\urlAlternateParser.h">
+      <Filter>String processing\Парсеры</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\symbolCleaner.h">
+      <Filter>String processing\Парсеры</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
