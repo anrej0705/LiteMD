@@ -1,6 +1,6 @@
 README.MD
 
-# LiteMD alpha 0.1.9
+# LiteMD alpha 0.2.0
 
 ![Qt](https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white)
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
@@ -31,7 +31,7 @@ README.MD
 Существующие на данный момент баги:
 - :x:Визуальный баг наложения ссылок при написании конструкции с упрощённым в URL внутри конструкции с альтернативным URL
 
-Roadmap:
+#### **Roadmap**:
 
 - :white_check_mark:0.0.1 - **Выход в альфу**
 - :white_check_mark:0.0.2 - Панель меню сверху
@@ -52,8 +52,8 @@ Roadmap:
 - :white_check_mark:0.1.7 - Базовые настройки
 - :white_check_mark:0.1.8 - Иконки на кнопках меню и дока
 - :white_check_mark:0.1.9 - Списки изменений от версии к версии
-- :arrow_forward:0.2.0 - **Дополнительное форматирование текста и помощь**
-- :x:0.2.1 - Уровни заголовков
+- :white_check_mark:0.2.0 - **Дополнительное форматирование текста и помощь**
+- :arrow_forward:0.2.1 - Уровни заголовков
 - :x:0.2.2 - Жирный текст
 - :x:0.2.3 - Зачеркнутый текст
 - :x:0.2.4 - Подчеркнутый текст 
