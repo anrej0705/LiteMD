@@ -115,7 +115,7 @@ void mdScreen::slotSetText(const QString& str)
 	mdFormatted = QString::fromStdWString(mdInput);
 
 	mdInput = symbolCleaner(mdInput);
-	mdInput = basicUrlParser(mdInput);
+	mdInput = basicSimplifiedUrlParser(mdInput);
 
 	//Обрабатываем текст препроцессором
 	mdInput = hyperlinkParser(mdInput);

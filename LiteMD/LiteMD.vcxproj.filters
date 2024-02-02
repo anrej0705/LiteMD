@@ -51,6 +51,9 @@
     <Filter Include="String processing\Парсеры">
       <UniqueIdentifier>{99be61b7-85a3-4c8f-9bfd-4be5877409eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Устаревшее">
+      <UniqueIdentifier>{38718a96-747e-4b83-a2bf-5bdb47a50124}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="LiteMD.h">
@@ -87,12 +90,6 @@
     </ClCompile>
     <ClCompile Include="ui_primitives\dialogBoxes.cpp">
       <Filter>Интерфейс</Filter>
-    </ClCompile>
-    <ClCompile Include="string_processing\syntax_preprocessor.cpp">
-      <Filter>String processing</Filter>
-    </ClCompile>
-    <ClCompile Include="string_processing\syntax_postprocessor.cpp">
-      <Filter>String processing</Filter>
     </ClCompile>
     <ClCompile Include="utls\globalFlags.c">
       <Filter>Utils</Filter>
@@ -146,10 +143,16 @@
       <Filter>String processing\Парсеры</Filter>
     </ClCompile>
     <ClCompile Include="string_processing\symbolCleaner.cpp">
-      <Filter>String processing\Парсеры</Filter>
+      <Filter>String processing</Filter>
+    </ClCompile>
+    <ClCompile Include="string_processing\syntax_postprocessor.cpp">
+      <Filter>Устаревшее</Filter>
+    </ClCompile>
+    <ClCompile Include="string_processing\syntax_preprocessor.cpp">
+      <Filter>Устаревшее</Filter>
     </ClCompile>
     <ClCompile Include="string_processing\urlBasicParser.cpp">
-      <Filter>String processing</Filter>
+      <Filter>String processing\Парсеры</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -257,12 +260,6 @@
     <ClInclude Include="ui_primitives\dialogBoxes.h">
       <Filter>Интерфейс</Filter>
     </ClInclude>
-    <ClInclude Include="string_processing\syntax_preprocessor.h">
-      <Filter>String processing</Filter>
-    </ClInclude>
-    <ClInclude Include="string_processing\syntax_postprocessor.h">
-      <Filter>String processing</Filter>
-    </ClInclude>
     <ClInclude Include="utls\globalFlags.h">
       <Filter>Utils</Filter>
     </ClInclude>
@@ -296,11 +293,17 @@
     <ClInclude Include="string_processing\urlAdvancedParser.h">
       <Filter>String processing\Парсеры</Filter>
     </ClInclude>
-    <ClInclude Include="string_processing\symbolCleaner.h">
-      <Filter>String processing\Парсеры</Filter>
-    </ClInclude>
     <ClInclude Include="string_processing\urlBasicParser.h">
       <Filter>String processing\Парсеры</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\symbolCleaner.h">
+      <Filter>String processing</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\syntax_preprocessor.h">
+      <Filter>Устаревшее</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\syntax_postprocessor.h">
+      <Filter>Устаревшее</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

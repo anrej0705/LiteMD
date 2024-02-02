@@ -49,13 +49,13 @@ std::wstring symbolCleaner(std::wstring& rawInput)
 		regBuffer = buffer.substr(index, buffer.size() - index);
 		if (std::regex_search(regBuffer, wstrMatch, regexHyperlink))
 		{
-			if (index == wstrMatch.position() + index)
+			if (index == wstrMatch.position() + index)	//Если начало указателя совпадает с первым вхождением + смещение то выполняем
 			{
-				index == 0 ? firstOrder = 1 : firstOrder = 0;
-				garbage.push_back(buffer.substr(prevIndex, index - prevIndex));
-				xpression.push_back(buffer.substr(index, wstrMatch.length()));
-				index += wstrMatch.length();
-				prevIndex = index;
+				index == 0 ? firstOrder = 1 : firstOrder = 0;					//Если в начале есть что-то полезное то ставим 1
+				garbage.push_back(buffer.substr(prevIndex, index - prevIndex));	//Закидываем говно в говновоз
+				xpression.push_back(buffer.substr(index, wstrMatch.length()));	//Конфетки оставляем
+				index += wstrMatch.length();									//Смещаемся до следующего вхождения
+				prevIndex = index;												//Запоминаем предыдущее вхождение
 			}
 		}
 		if (std::regex_search(regBuffer, wstrMatch, simplifiedRegexHyperlink))

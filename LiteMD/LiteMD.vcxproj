@@ -107,7 +107,7 @@
       <BuildAction>false</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\dyn_tr_manager;C:\git\LiteMD\LiteMD\settings_tabs;C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;C:\git\LiteMD\LiteMD;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)window_widgets;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -120,7 +120,7 @@
       <BuildAction>false</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\dyn_tr_manager;C:\git\LiteMD\LiteMD\settings_tabs;C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;C:\git\LiteMD\LiteMD;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)window_widgets;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
@@ -136,7 +136,7 @@
       <BuildAction>lupdate_lrelease</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\dyn_tr_manager;C:\git\LiteMD\LiteMD\settings_tabs;C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;C:\git\LiteMD\LiteMD;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)window_widgets;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -149,7 +149,7 @@
       <BuildAction>lupdate_lrelease</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\dyn_tr_manager;C:\git\LiteMD\LiteMD\settings_tabs;C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;C:\git\LiteMD\LiteMD;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)window_widgets;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
