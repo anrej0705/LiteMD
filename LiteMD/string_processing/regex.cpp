@@ -1,7 +1,7 @@
 #include "regex.h"
 
 std::wregex regexHyperlink(L"[<]{1,1}(http|https|ftp:){0,1}://([^/?#>]*)[>]{1,1}", std::wregex::collate);	//<http://www.url.ru>
-std::wregex simplifiedRegexHyperlink(L"[<]([^/?#>]*)[>]{1,1}", std::wregex::collate);	//<www.url.ru>
+std::wregex simplifiedRegexHyperlink(L"[<]{1,1}([^</?#>]*)[>]{1,1}", std::wregex::collate);	//<www.url.ru>
 std::wregex advRegexHyperlink(L"(\\[(.*?)\\])(\\(\\S{1,})\\)", std::wregex::collate);	//[url](любойтекст)
 
 std::wstring symbolCollection(L"<>[]()");		//Служебные символы

@@ -73,9 +73,6 @@ std::wstring basicUrlParser(std::wstring& rawInput)
 			if (index < xpression.size())
 				buffer += xpression.at(index);
 		}
-		//Если остался дополнительный контент, то добавляем, аналогично как с мусором
-		if (garbage.size() < xpression.size())
-			buffer += xpression.at(xpression.size());
 	}
 
 	return buffer;
