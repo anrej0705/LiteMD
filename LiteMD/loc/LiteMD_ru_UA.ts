@@ -130,11 +130,11 @@ github.com/anrej0705
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation>[В РАЗРАБОТКЕ]LiteMD alpha 0.1.9 сборка </translation>
+        <translation>[В РАЗРАБОТКЕ]LiteMD alpha 0.2.0 сборка </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.1.9 сборка </translation>
+        <translation>Ver. alpha 0.2.0 сборка </translation>
     </message>
     <message>
         <source>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</source>
@@ -343,6 +343,14 @@ Programm will close</source>
         <source>Enable content caching</source>
         <translation>Кешировать загруженный контент</translation>
     </message>
+    <message>
+        <source>Enable deprecated features</source>
+        <translation>Активировать устаревший функционал</translation>
+    </message>
+    <message>
+        <source>Enable in-dev features</source>
+        <translation>Возможности находящиеся в разработке</translation>
+    </message>
 </context>
 <context>
     <name>currentChangelog</name>
@@ -352,7 +360,7 @@ Programm will close</source>
     </message>
     <message>
         <source>Current_ver.md отсутствует</source>
-        <translation>Current_ver.md отсутствует</translation>
+        <translation type="vanished">Current_ver.md отсутствует</translation>
     </message>
 </context>
 <context>
