@@ -145,14 +145,20 @@
     <ClCompile Include="string_processing\symbolCleaner.cpp">
       <Filter>String processing</Filter>
     </ClCompile>
-    <ClCompile Include="string_processing\syntax_postprocessor.cpp">
-      <Filter>Устаревшее</Filter>
-    </ClCompile>
-    <ClCompile Include="string_processing\syntax_preprocessor.cpp">
-      <Filter>Устаревшее</Filter>
-    </ClCompile>
     <ClCompile Include="string_processing\urlBasicParser.cpp">
       <Filter>String processing\Парсеры</Filter>
+    </ClCompile>
+    <ClCompile Include="deprecated\syntax_postprocessor.cpp">
+      <Filter>Устаревшее</Filter>
+    </ClCompile>
+    <ClCompile Include="deprecated\syntax_preprocessor.cpp">
+      <Filter>Устаревшее</Filter>
+    </ClCompile>
+    <ClCompile Include="deprecated\mdScreen__hyprelinkParserDeprecated.cpp">
+      <Filter>Устаревшее</Filter>
+    </ClCompile>
+    <ClCompile Include="deprecated\mdScreen__advHyperlinkParserDeprecated.cpp">
+      <Filter>Устаревшее</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -299,10 +305,10 @@
     <ClInclude Include="string_processing\symbolCleaner.h">
       <Filter>String processing</Filter>
     </ClInclude>
-    <ClInclude Include="string_processing\syntax_preprocessor.h">
+    <ClInclude Include="deprecated\syntax_postprocessor.h">
       <Filter>Устаревшее</Filter>
     </ClInclude>
-    <ClInclude Include="string_processing\syntax_postprocessor.h">
+    <ClInclude Include="deprecated\syntax_preprocessor.h">
       <Filter>Устаревшее</Filter>
     </ClInclude>
   </ItemGroup>

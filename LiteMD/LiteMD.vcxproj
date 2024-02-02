@@ -202,6 +202,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="deprecated\mdScreen__advHyperlinkParserDeprecated.cpp" />
+    <ClCompile Include="deprecated\mdScreen__hyprelinkParserDeprecated.cpp" />
+    <ClCompile Include="deprecated\syntax_postprocessor.cpp" />
+    <ClCompile Include="deprecated\syntax_preprocessor.cpp" />
     <ClCompile Include="dyn_tr_manager\appSettings_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\frameChangelog_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\GuiDownloader_ui.cpp" />
@@ -217,8 +221,6 @@
     <ClCompile Include="string_processing\crlfParser.cpp" />
     <ClCompile Include="string_processing\regex.cpp" />
     <ClCompile Include="string_processing\symbolCleaner.cpp" />
-    <ClCompile Include="string_processing\syntax_postprocessor.cpp" />
-    <ClCompile Include="string_processing\syntax_preprocessor.cpp" />
     <ClCompile Include="string_processing\urlAdvancedParser.cpp" />
     <ClCompile Include="string_processing\urlBasicParser.cpp" />
     <ClCompile Include="string_processing\urlBasicSimplifiedParser.cpp" />
@@ -278,6 +280,8 @@
     <QtTranslation Include="loc\LiteMD_ru_UA.ts" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="deprecated\syntax_postprocessor.h" />
+    <ClInclude Include="deprecated\syntax_preprocessor.h" />
     <ClInclude Include="dyn_tr_manager\ui_update_event.h" />
     <QtMoc Include="modules\frameChangelog.h" />
     <ClInclude Include="modules\exceptionHandler.h" />
@@ -286,8 +290,6 @@
     <ClInclude Include="string_processing\crlfParser.h" />
     <ClInclude Include="string_processing\regex.h" />
     <ClInclude Include="string_processing\symbolCleaner.h" />
-    <ClInclude Include="string_processing\syntax_postprocessor.h" />
-    <ClInclude Include="string_processing\syntax_preprocessor.h" />
     <ClInclude Include="string_processing\urlAdvancedParser.h" />
     <ClInclude Include="string_processing\urlBasicParser.h" />
     <ClInclude Include="string_processing\urlBasicSimplifiedParser.h" />
