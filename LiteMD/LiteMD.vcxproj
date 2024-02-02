@@ -219,8 +219,9 @@
     <ClCompile Include="string_processing\symbolCleaner.cpp" />
     <ClCompile Include="string_processing\syntax_postprocessor.cpp" />
     <ClCompile Include="string_processing\syntax_preprocessor.cpp" />
-    <ClCompile Include="string_processing\urlAlternateParser.cpp" />
+    <ClCompile Include="string_processing\urlAdvancedParser.cpp" />
     <ClCompile Include="string_processing\urlBasicParser.cpp" />
+    <ClCompile Include="string_processing\urlBasicSimplifiedParser.cpp" />
     <ClCompile Include="ui_primitives\dialogBoxes.cpp">
       <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">input</DynamicSource>
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).moc</QtMocFileName>
@@ -287,8 +288,9 @@
     <ClInclude Include="string_processing\symbolCleaner.h" />
     <ClInclude Include="string_processing\syntax_postprocessor.h" />
     <ClInclude Include="string_processing\syntax_preprocessor.h" />
-    <ClInclude Include="string_processing\urlAlternateParser.h" />
+    <ClInclude Include="string_processing\urlAdvancedParser.h" />
     <ClInclude Include="string_processing\urlBasicParser.h" />
+    <ClInclude Include="string_processing\urlBasicSimplifiedParser.h" />
     <ClInclude Include="ui_primitives\dialogBoxes.h" />
     <ClInclude Include="utls\event_id_constructor.h" />
     <ClInclude Include="utls\globalFlags.h" />

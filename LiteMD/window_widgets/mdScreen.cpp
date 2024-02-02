@@ -3,7 +3,9 @@
 #include "syntax_preprocessor.h"
 #include "syntax_postprocessor.h"
 #include "symbolCleaner.h"
+#include "urlBasicSimplifiedParser.h"
 #include "urlBasicParser.h"
+#include "urlAdvancedParser.h"
 #include <string>
 #include <regex>
 

@@ -23,8 +23,8 @@ std::wstring symbolCleaner(std::wstring& rawInput)
 	uint32_t prevIndex = 0;
 
 	//Маркер, по которому потом будет заменяться пустые символы
-	//std::wstring marker(L"\u009C");
-	std::wstring marker(L"Z");
+	std::wstring marker(L"\u009C");
+	//std::wstring marker(L"Z");
 
 	//Хранит значение предыдущего спецсимвола
 	uint32_t symbolDuplicate = 0;
@@ -35,8 +35,6 @@ std::wstring symbolCleaner(std::wstring& rawInput)
 	//0 - первым мусор
 	//1 - первым полезный фрагмент
 	bool firstOrder = 0;
-
-	std::wstring temp;
 
 	//Хранилище мусора
 	std::vector<std::wstring> garbage;
@@ -94,7 +92,6 @@ std::wstring symbolCleaner(std::wstring& rawInput)
 				if (garbage.at(iters).at(index) == symbol.at(0))
 				{
 					symbolIndexes.insert(std::map<int, int>::value_type(symbolDuplicate, replaceIndex));
-					temp = garbage.at(iters).substr(symbolDuplicate, 1);
 					garbage.at(iters).replace(symbolDuplicate, 1, marker);
 					symbolDuplicate = index;
 				}

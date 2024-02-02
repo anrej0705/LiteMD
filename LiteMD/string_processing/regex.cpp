@@ -12,3 +12,7 @@ std::wstring symbolClearanceFront(L"<[(");		//Очистка с конца
 
 //Библиотека заменителей
 std::vector<std::wstring> replaceSymbols = { L"&#60;", L"&#62;" };
+
+//Обёртка для HTML
+std::vector<std::wstring> basicUrlWrap = { L"<A HREF=\"", L"\">", L"</A>"};
+std::vector<std::wstring> advUrlWrap = { L"<A HREF=\"", L"\">", L"</A>" };
