@@ -13,10 +13,6 @@ mdScreen::mdScreen(QWidget* scrWgt) : QLabel(scrWgt)
 {
 	//Задаем формат отображения как html
 	setTextFormat(Qt::RichText);
-	lengShift = 0;
-	//Инициализируем регексы
-	regexHyperlink = new std::wregex(L"[<]{1,1}(http|https|ftp://){0,1}\\S{1,}[>]{1,1}", std::wregex::collate);
-	advRegexHyperlink = new std::wregex(L"(\\[(.*?)\\])(\\(\\S{1,})\\)", std::wregex::collate);
 	//Задаем выравниваем на вверх и лево
 	setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	//Разрешаем интерактивный текст

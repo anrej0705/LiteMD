@@ -204,6 +204,7 @@
   <ItemGroup>
     <ClCompile Include="deprecated\mdScreen__advHyperlinkParserDeprecated.cpp" />
     <ClCompile Include="deprecated\mdScreen__hyprelinkParserDeprecated.cpp" />
+    <ClCompile Include="deprecated\mdScreen__initializeVarsDeprecated.cpp" />
     <ClCompile Include="deprecated\syntax_postprocessor.cpp" />
     <ClCompile Include="deprecated\syntax_preprocessor.cpp" />
     <ClCompile Include="dyn_tr_manager\appSettings_ui.cpp" />

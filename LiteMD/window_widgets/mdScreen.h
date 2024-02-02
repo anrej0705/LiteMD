@@ -13,6 +13,7 @@ class mdScreen : public QLabel
 		QString mdFormatted;	//Контейнер для обработанного текста
 		std::wstring hyperlinkParser(std::wstring&);	//Парсер гипертекста(скоро будет заменен) //0.2.0 Deprecated
 	protected:
+		void initializeDeprecatedVars();
 		void textProcessorDeprecated();
 	public:
 		//Базовый конструктор

@@ -160,6 +160,9 @@
     <ClCompile Include="deprecated\mdScreen__advHyperlinkParserDeprecated.cpp">
       <Filter>Устаревшее</Filter>
     </ClCompile>
+    <ClCompile Include="deprecated\mdScreen__initializeVarsDeprecated.cpp">
+      <Filter>Устаревшее</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">

@@ -39,6 +39,12 @@ class appSettings : public QDialog
 
 		QLabel* autoSaveHint;	//Описание для галки автосейва
 		QCheckBox* autoSave;	//Галка для выбора автосейва
+
+		QLabel* depFuncHint;	//Описание для галки устаревшего функционала
+		QCheckBox* depFunc;		//Галка активации устаревшего функционала
+
+		QLabel* inDevFuncHint;	//Описание для галки функционала находящегося в разработке
+		QCheckBox* devFunc;	//Галка для активации функционала в разработке
 		//-------------------------
 
 		//Вкладка "Рендер"
