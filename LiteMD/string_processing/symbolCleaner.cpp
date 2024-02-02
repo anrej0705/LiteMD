@@ -82,6 +82,10 @@ std::wstring symbolCleaner(std::wstring& rawInput)
 		}
 	}
 
+	//Если после последнего встреченного фрагмента остался мусор то добавляем его тоже
+	if (prevIndex < buffer.size())
+		garbage.push_back(buffer.substr(prevIndex, buffer.size() - (prevIndex)));
+
 	for (uint32_t iters = 0; iters < garbage.size(); ++iters)
 	{
 		//Проходимся по фрагменту заменяя служебные символы маркерами
@@ -181,7 +185,8 @@ std::wstring symbolCleaner(std::wstring& rawInput)
 		{
 			//Тут наоборот - сначала мусор а потом полезное
 			buffer += garbage.at(index);
-			buffer += xpression.at(index);
+			if(index < xpression.size())
+				buffer += xpression.at(index);
 		}
 		//Если остался дополнительный контент, то добавляем, аналогично как с мусором
 		if (garbage.size() < xpression.size())

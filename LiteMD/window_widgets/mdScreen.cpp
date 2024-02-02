@@ -114,8 +114,10 @@ void mdScreen::slotSetText(const QString& str)
 	//Копираем в поле вывода
 	mdFormatted = QString::fromStdWString(mdInput);
 
-	mdInput = symbolCleaner(mdInput);
-	mdInput = basicSimplifiedUrlParser(mdInput);
+	mdInput = symbolCleaner(mdInput);					//0 -> 1|Фильтрация служебных символов не являющихся частью тега
+	mdInput = basicSimplifiedUrlParser(mdInput);		//1 -> 2|Обработка <www.url.ru>
+	mdInput = basicUrlParser(mdInput);					//2 -> 3|Обработка <http://www.url.ru>
+
 
 	//Обрабатываем текст препроцессором
 	mdInput = hyperlinkParser(mdInput);

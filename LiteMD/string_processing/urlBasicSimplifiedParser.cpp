@@ -1,6 +1,5 @@
 #include "regex.h"
 #include "urlBasicSimplifiedParser.h"
-#include <map>
 
 std::wstring basicSimplifiedUrlParser(std::wstring& rawInput)
 {
@@ -33,6 +32,10 @@ std::wstring basicSimplifiedUrlParser(std::wstring& rawInput)
 		garbage.push_back(buffer.substr(prevIndex, index - prevIndex));	//Запоминаем мусор(его мы не трогаем)
 		xpression.push_back(buffer.substr(index, range));				//Запоминаем фрагменты которые будем обрабатывать
 	}
+
+	//Если после последнего встреченного фрагмента остался мусор то добавляем его тоже
+	if (index + range < buffer.size())
+		garbage.push_back(buffer.substr(index + range, buffer.size() - (index + range)));
 
 	//Обрабатываем отсеянные фрагменты приводя их в HTML формат
 	for (uint16_t iter = 0; iter < xpression.size(); ++iter)
@@ -67,7 +70,8 @@ std::wstring basicSimplifiedUrlParser(std::wstring& rawInput)
 		{
 			//Тут наоборот - сначала мусор а потом полезное
 			buffer += garbage.at(index);
-			buffer += xpression.at(index);
+			if (index < xpression.size())
+				buffer += xpression.at(index);
 		}
 		//Если остался дополнительный контент, то добавляем, аналогично как с мусором
 		if (garbage.size() < xpression.size())
