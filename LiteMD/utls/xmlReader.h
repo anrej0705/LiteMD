@@ -12,5 +12,5 @@ class xmlReader
 		xmlReader();
 		xmlReader(QString filename);
 		bool checkFileExisting();
-		void readConfig();
+		bool readConfig();
 };

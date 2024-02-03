@@ -2,6 +2,7 @@
 #include "ui_update_event.h"
 #include "event_id_constructor.h"
 #include "global_definitions.h"
+#include "exceptionHandler.h"
 #include <QtWidgets>
 extern "C"
 {
@@ -63,6 +64,10 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 		QErrorMessage::qtHandler();
 	if (!connect(allowWarnings, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_warn_allow(int))))
 		QErrorMessage::qtHandler();
+	if (!connect(depFunc, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_deprecated(int))))
+		QErrorMessage::qtHandler();
+	if (!connect(devFunc, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_features(int))))
+		QErrorMessage::qtHandler();
 	
 
 	//Ставим заглушку
@@ -98,9 +103,30 @@ void appSettings::slot_apply_settings()
 	qApp->installTranslator(&lmd_lng);
 	if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_UI_UPDATE_EVENT)))	//Постим событие изменения интерфейса
 		QErrorMessage::qtHandler();
+	xmlw->writeConfig();	//Сохраняем в XML
 }
 void appSettings::slot_switch_warn_allow(int state)
 {
 	allowHttpWarn = static_cast<bool>(state);
 }
 
+void appSettings::slot_switch_deprecated(int state)
+{
+	enableDeprFeatures = static_cast<bool>(state);
+}
+
+void appSettings::slot_switch_features(int state)
+{
+	if (!enableIndevFeatures)
+	{
+		try
+		{
+			newRecentFilesArray();
+		}
+		catch (exceptionHandler)
+		{
+			(exceptionHandler(exceptionHandler::FATAL));
+		}
+	}
+	enableIndevFeatures = static_cast<bool>(state);
+}

@@ -2,6 +2,7 @@
 #include <QtWidgets>
 #include <map>
 #include "ui_update_event.h"
+#include "xmlWriter.h"
 class appSettings : public QDialog
 {
 	Q_OBJECT
@@ -13,6 +14,8 @@ class appSettings : public QDialog
 		std::map<uint8_t, QString>* loc_map;	//Список локалей
 
 		QWidget* capTab;	//Заглушка
+
+		xmlWriter* xmlw;	//Менеджер XML
 
 		QTranslator lmd_lng;
 
@@ -44,7 +47,7 @@ class appSettings : public QDialog
 		QCheckBox* depFunc;		//Галка активации устаревшего функционала
 
 		QLabel* inDevFuncHint;	//Описание для галки функционала находящегося в разработке
-		QCheckBox* devFunc;	//Галка для активации функционала в разработке
+		QCheckBox* devFunc;		//Галка для активации функционала в разработке
 		//-------------------------
 
 		//Вкладка "Рендер"
@@ -71,4 +74,6 @@ class appSettings : public QDialog
 		void slot_lang_selected(int);
 		void slot_apply_settings();
 		void slot_switch_warn_allow(int);
+		void slot_switch_deprecated(int);
+		void slot_switch_features(int);
 };

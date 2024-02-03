@@ -12,8 +12,14 @@ xmlWriter::xmlWriter()
 	lmdFileSet = new QDomDocument("LMD");
 	lmdSet = new QDomElement(lmdFileSet->createElement(appSign));
 	lmdFileSet->appendChild(*lmdSet);
+	QDomElement build = attrib(*lmdFileSet, "build", BUILD_NUMBER);
 	QDomElement patchNoteRead = attrib(*lmdFileSet, "patchNoteRead", logReadState);
+	QDomElement indevFeatures = attrib(*lmdFileSet, "enableIndevFeatures", enableIndevFeatures);
+	QDomElement deprFeatures = attrib(*lmdFileSet, "enableDeprFeatures", enableDeprFeatures);
+	lmdSet->appendChild(build);
 	lmdSet->appendChild(patchNoteRead);
+	lmdSet->appendChild(indevFeatures);
+	lmdSet->appendChild(deprFeatures);
 }
 
 xmlWriter::xmlWriter(QString fName)
@@ -22,8 +28,14 @@ xmlWriter::xmlWriter(QString fName)
 	lmdFileSet = new QDomDocument("LMD");
 	lmdSet = new QDomElement(lmdFileSet->createElement(appSign));
 	lmdFileSet->appendChild(*lmdSet);
+	QDomElement build = attrib(*lmdFileSet, "build", BUILD_NUMBER);
 	QDomElement patchNoteRead = attrib(*lmdFileSet, "patchNoteRead", logReadState);
+	QDomElement indevFeatures = attrib(*lmdFileSet, "enableIndevFeatures", enableIndevFeatures);
+	QDomElement deprFeatures = attrib(*lmdFileSet, "enableDeprFeatures", enableDeprFeatures);
+	lmdSet->appendChild(build);
 	lmdSet->appendChild(patchNoteRead);
+	lmdSet->appendChild(indevFeatures);
+	lmdSet->appendChild(deprFeatures);
 }
 
 void xmlWriter::writeConfig()
@@ -33,8 +45,14 @@ void xmlWriter::writeConfig()
 	lmdFileSet = new QDomDocument("LMD");
 	lmdSet = new QDomElement(lmdFileSet->createElement(appSign));
 	lmdFileSet->appendChild(*lmdSet);
+	QDomElement build = attrib(*lmdFileSet, "build", BUILD_NUMBER);
 	QDomElement patchNoteRead = attrib(*lmdFileSet, "patchNoteRead", logReadState);
+	QDomElement indevFeatures = attrib(*lmdFileSet, "enableIndevFeatures", enableIndevFeatures);
+	QDomElement deprFeatures = attrib(*lmdFileSet, "enableDeprFeatures", enableDeprFeatures);
+	lmdSet->appendChild(build);
 	lmdSet->appendChild(patchNoteRead);
+	lmdSet->appendChild(indevFeatures);
+	lmdSet->appendChild(deprFeatures);
 	QFile settingsFile(fileName);
 	if (settingsFile.open(QIODevice::WriteOnly))
 	{

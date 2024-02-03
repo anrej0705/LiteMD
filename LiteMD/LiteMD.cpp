@@ -3,6 +3,7 @@
 #include "OrientalPushButton.h"
 #include "GuiDownloader.h"
 #include "dialogBoxes.h"
+#include "exceptionHandler.h"
 #include <QtWidgets>
 extern "C"
 {
@@ -16,9 +17,6 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mde = new mdEditor;
 	mds = new mdScreen;
 	//---------------------------------------------
-
-	//Инициализируем контейнер настроек
-	//newRecentFilesArray();
 
 	//Блок элементов интерфейса
 	QScrollArea* mdsArea = new QScrollArea;
@@ -41,6 +39,35 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	cLog = new currentChangelog;
 	showTim = new QTimer;
 	//-------------------------
+
+	//Блок конфигурации элементов интерфейса
+	quick_tb->setMovable(0);	//В будущем будет переведено в настройки
+	if (!xmlR->checkFileExisting())	//Проверяем существование файлов настроек
+		xmlW->writeConfig();	//Если нет - создаем по умолчанию
+	else						//Если есть - читаем
+	{
+		//Пытаемся читать, если не получается - пытаемся записать и снова прочитать
+		//Если снова не получается - выходим из проги
+		if (!xmlR->readConfig())
+		{
+			xmlW->writeConfig();
+			if (!xmlR->readConfig())
+				throw(exceptionHandler(exceptionHandler::FATAL));
+		}
+	}
+
+	//Инициализируем контейнер настроек
+	if (enableIndevFeatures)
+	{
+		try
+		{
+			newRecentFilesArray();
+		}
+		catch (exceptionHandler)
+		{
+			(exceptionHandler(exceptionHandler::FATAL));
+		}
+	}
 
 	qApp->installEventFilter(new ui_event_filter(qApp));
 	
@@ -74,13 +101,6 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	actSetTextFormat->setDisabled(1);
 	actHelp->setDisabled(1);
 	//--------------------
-
-	//Блок конфигурации элементов интерфейса
-	quick_tb->setMovable(0);	//В будущем будет переведено в настройки
-	if (!xmlR->checkFileExisting())	//Проверяем существование файлов настроек
-		xmlW->writeConfig();	//Если нет - создаем по умолчанию
-	else
-		xmlR->readConfig();		//Если есть - читаем
 
 	//Добавляем кнопки в доки
 	quick_tb->addAction(actNew);
