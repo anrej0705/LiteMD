@@ -20,6 +20,7 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	configureDownloaderSettingsTab();
 
 	//Инициализируем указатели
+	xmlw = new xmlWriter;
 	settingsLister = new QTabWidget(this);
 	btnOk = new QPushButton(tr("&Ok"));
 	btnCancel = new QPushButton(tr("&Cancel"));

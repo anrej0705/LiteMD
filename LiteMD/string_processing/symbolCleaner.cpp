@@ -1,5 +1,6 @@
 #include "symbolCleaner.h"
 #include "regex.h"
+#include "exceptionHandler.h"
 #include <map>
 
 std::wstring symbolCleaner(std::wstring& rawInput)
@@ -21,6 +22,7 @@ std::wstring symbolCleaner(std::wstring& rawInput)
 
 	//Указатель на предыдущее вхождение
 	uint32_t prevIndex = 0;
+	uint32_t prevSize = 0;
 
 	//Маркер, по которому потом будет заменяться пустые символы
 	std::wstring marker(L"\u009C");
@@ -30,55 +32,66 @@ std::wstring symbolCleaner(std::wstring& rawInput)
 	uint32_t symbolDuplicate = 0;
 
 	//Хранит индексы заменяемых спецсимволов
+	//first - позиция
+	//second - длина
 	std::map<int, int> symbolIndexes;
 
 	//0 - первым мусор
 	//1 - первым полезный фрагмент
-	bool firstOrder = 0;
+	bool firstOrden = 0;
 
 	//Хранилище мусора
 	std::vector<std::wstring> garbage;
 	std::vector<std::wstring> xpression;
 
+	//Размечаем файл для нарезки на фрагменты
+	for (auto it = std::wsregex_iterator(buffer.begin(), buffer.end(), regexHyperlink); it != std::wsregex_iterator(); ++it)
+	{
+		it->position() == 0 ? firstOrden = 1 : firstOrden = 0;
+		if (!symbolIndexes.insert(std::map<int, int>::value_type(it->position(), it->length())).second)
+		{
+			throw(exceptionHandler(exceptionHandler::WARNING));	//Если не удалось вставить то кидаем пред
+		}
+	}
+	for (auto it = std::wsregex_iterator(buffer.begin(), buffer.end(), simplifiedRegexHyperlink); it != std::wsregex_iterator(); ++it)
+	{
+		it->position() == 0 ? firstOrden = 1 : firstOrden = 0;
+		if (!symbolIndexes.insert(std::map<int, int>::value_type(it->position(), it->length())).second)
+		{
+			throw(exceptionHandler(exceptionHandler::WARNING));	//Если не удалось вставить то кидаем пред
+		}
+	}
+	for (auto it = std::wsregex_iterator(buffer.begin(), buffer.end(), advRegexHyperlink); it != std::wsregex_iterator(); ++it)
+	{
+		it->position() == 0 ? firstOrden = 1 : firstOrden = 0;
+		if (!symbolIndexes.insert(std::map<int, int>::value_type(it->position(), it->length())).second)
+		{
+			throw(exceptionHandler(exceptionHandler::WARNING));	//Если не удалось вставить то кидаем пред
+		}
+	}
+
 	//Нарезаем строку на "полезные" фрагменты и мусор
 	//Полезные фрагменты - прошедшие проверку регексом - обработке не подлежат на данном этапе
 	//Мусор - чистится от служебных символов
-	for (uint32_t index = 0; index < buffer.size(); ++index)
+	//В зависимости от того что было в начале порядок разделения будет разным
+	if (firstOrden)
 	{
-		//Пробегаемся регулярками определяя свой-чужой(полезное-мусор)
-		regBuffer = buffer.substr(index, buffer.size() - index);
-		if (std::regex_search(regBuffer, wstrMatch, regexHyperlink))
+		for (auto it = symbolIndexes.begin(); it != symbolIndexes.end(); ++it)
 		{
-			if (index == wstrMatch.position() + index)	//Если начало указателя совпадает с первым вхождением + смещение то выполняем
-			{
-				index == 0 ? firstOrder = 1 : firstOrder = 0;					//Если в начале есть что-то полезное то ставим 1
-				garbage.push_back(buffer.substr(prevIndex, index - prevIndex));	//Закидываем говно в говновоз
-				xpression.push_back(buffer.substr(index, wstrMatch.length()));	//Конфетки оставляем
-				index += wstrMatch.length();									//Смещаемся до следующего вхождения
-				prevIndex = index;												//Запоминаем предыдущее вхождение
-			}
+			xpression.push_back(buffer.substr(prevIndex + prevSize, it->first - prevIndex - prevSize));
+			prevIndex = it->first;
+			prevSize = it->second;
+			garbage.push_back(buffer.substr(prevIndex, prevSize));
 		}
-		if (std::regex_search(regBuffer, wstrMatch, simplifiedRegexHyperlink))
+	}
+	else
+	{
+		for (auto it = symbolIndexes.begin(); it != symbolIndexes.end(); ++it)
 		{
-			if (index == wstrMatch.position() + index)
-			{
-				index == 0 ? firstOrder = 1 : firstOrder = 0;
-				garbage.push_back(buffer.substr(prevIndex, index - prevIndex));
-				xpression.push_back(buffer.substr(index, wstrMatch.length()));
-				index += wstrMatch.length();
-				prevIndex = index;
-			}
-		}
-		if (std::regex_search(regBuffer, wstrMatch, advRegexHyperlink))
-		{
-			if (index == wstrMatch.position() + index)
-			{
-				index == 0 ? firstOrder = 1 : firstOrder = 0;
-				garbage.push_back(buffer.substr(prevIndex, index - prevIndex));
-				xpression.push_back(buffer.substr(index, wstrMatch.length()));
-				index += wstrMatch.length();
-				prevIndex = index;
-			}
+			garbage.push_back(buffer.substr(prevIndex + prevSize, it->first - prevIndex - prevSize));
+			prevIndex = it->first;
+			prevSize = it->second;
+			xpression.push_back(buffer.substr(prevIndex, prevSize));
 		}
 	}
 
@@ -167,7 +180,7 @@ std::wstring symbolCleaner(std::wstring& rawInput)
 	//Чистим буффер т.к старые данные в нём больше не нужны
 	buffer.clear();
 
-	if (firstOrder)	//Если сначала у нас полезный контент то пихаем его
+	if (firstOrden)	//Если сначала у нас полезный контент то пихаем его
 	{
 		for (uint32_t index = 0; index < xpression.size(); ++index)
 		{
