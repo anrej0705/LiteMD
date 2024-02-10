@@ -107,9 +107,12 @@
       <BuildAction>false</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)window_widgets;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\boost\boost_1_84_0;$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)window_widgets;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
+    <Link>
+      <OutputFile>C:\boost\boost_1_84_0\stage\lib;$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <PostBuildEvent>
@@ -120,12 +123,16 @@
       <BuildAction>false</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)window_widgets;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)window_widgets;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_);C:\boost\boost_1_84_0</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
       <EnableModules>false</EnableModules>
     </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalLibraryDirectories>C:\boost\boost_1_84_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <PostBuildEvent>
@@ -136,9 +143,12 @@
       <BuildAction>lupdate_lrelease</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)window_widgets;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\boost\boost_1_84_0;$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)window_widgets;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
+    <Link>
+      <OutputFile>C:\boost\boost_1_84_0\stage\lib;$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <PostBuildEvent>
@@ -149,9 +159,12 @@
       <BuildAction>lupdate_lrelease</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)window_widgets;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\boost\boost_1_84_0;$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)window_widgets;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
+    <Link>
+      <OutputFile>C:\boost\boost_1_84_0\stage\lib;$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
@@ -219,6 +232,7 @@
     <ClCompile Include="settings_tabs\tab_basic.cpp" />
     <ClCompile Include="settings_tabs\tab_downloader.cpp" />
     <ClCompile Include="settings_tabs\tab_render.cpp" />
+    <ClCompile Include="shieldingParser.cpp" />
     <ClCompile Include="string_processing\crlfParser.cpp" />
     <ClCompile Include="string_processing\regex.cpp" />
     <ClCompile Include="string_processing\symbolCleaner.cpp" />
@@ -288,6 +302,7 @@
     <ClInclude Include="modules\exceptionHandler.h" />
     <ClInclude Include="ress\resource.h" />
     <ClInclude Include="ress\resource1.h" />
+    <ClInclude Include="shieldingParser.h" />
     <ClInclude Include="string_processing\crlfParser.h" />
     <ClInclude Include="string_processing\regex.h" />
     <ClInclude Include="string_processing\symbolCleaner.h" />

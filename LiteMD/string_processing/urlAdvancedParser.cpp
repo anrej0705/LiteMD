@@ -15,6 +15,9 @@ std::wstring advancedUrlParser(std::wstring& rawInput)
 	bool firstOrder = 0;
 
 	//Указатель на название ссылки
+	uint32_t linkIndex = 0;
+
+	//Указатель на начало заголовка ссылки
 	uint32_t nameIndex = 0;
 
 	//Временный буфер для обработки
@@ -43,11 +46,12 @@ std::wstring advancedUrlParser(std::wstring& rawInput)
 	//Обрабатываем отсеянные фрагменты приводя их в HTML формат
 	for (uint16_t iter = 0; iter < xpression.size(); ++iter)
 	{
-		nameIndex = xpression.at(iter).find(L"(");																//Находим позицию начала ссылки
+		linkIndex = xpression.at(iter).find(L"(");																//Находим позицию начала ссылки
+		nameIndex = xpression.at(iter).find(L"[");
 		_xpression = advUrlWrap.at(0);																			//Формируем открывающий тег
-		_xpression.append(xpression.at(iter).substr(nameIndex + 1, xpression.at(iter).size() - nameIndex - 2));	//Добавляем в тег ссылку освобожденную от служ. символов
+		_xpression.append(xpression.at(iter).substr(linkIndex + 1, xpression.at(iter).size() - linkIndex - 2));	//Добавляем в тег ссылку освобожденную от служ. символов
 		_xpression.append(advUrlWrap.at(1));																	//Завершаем формирование открывающего тега
-		_xpression.append(xpression.at(iter).substr(1, nameIndex - 2));											//Добавляем кликабельный текст ссылки
+		_xpression.append(xpression.at(iter).substr(nameIndex + 1, linkIndex - nameIndex - 2));					//Добавляем кликабельный текст ссылки
 		_xpression.append(advUrlWrap.at(2));																	//Добавляем закрывающий тег
 		xpression.at(iter) = _xpression;																		//Заменяем исходник обработанным текстом
 	}

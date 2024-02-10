@@ -1,7 +1,87 @@
 #include "symbolCleaner.h"
 #include "regex.h"
 #include "exceptionHandler.h"
+#include <boost/thread/thread.hpp>
+#include <mutex>
 #include <map>
+std::condition_variable condition;
+std::mutex m_mut;
+
+//Хранит индексы заменяемых спецсимволов
+//first - позиция
+//second - длина
+std::map<int, int> symbolIndexes;
+
+//0 - первым мусор
+//1 - первым полезный фрагмент
+bool firstOrden = 0;
+
+bool hLinkParsed = 0;
+bool hSimpLinkParsed = 0;
+bool hAdvLinkParsed = 0;
+
+//Эту дичь пихать только в методы
+#define THREAD_LOCK std::lock_guard<std::mutex> lg(m_mut);
+#define NOTIFY_ALL_THREAD condition.notify_all();
+
+/*//Запуск менеджера и перенос в отдельный поток
+void semaphor_manager::run_manager()
+{
+	manager_thread = new boost::thread(&semaphor_manager::queueManager, this);
+	manager_thread->detach();
+}*/
+
+void saveToMap(int position, int length)
+{
+	THREAD_LOCK
+	if (!symbolIndexes.insert(std::map<int, int>::value_type(position, length)).second)
+	{
+		throw(exceptionHandler(exceptionHandler::WARNING));	//Если не удалось вставить то кидаем пред
+	}
+	NOTIFY_ALL_THREAD
+}
+
+void regexHyperlinkParse(std::wstring input)
+{
+	std::wstring temp;
+	for (auto it = std::wsregex_iterator(input.begin(), input.end(), regexHyperlink); it != std::wsregex_iterator(); ++it)
+	{
+		it->position() == 0 ? firstOrden = 1 : firstOrden = 0;
+		saveToMap(it->position(), it->length());
+		temp = input.substr(it->position(), it->length());
+		temp = temp;
+		qDebug() << "Detect regexHyperlink:" << QString::fromStdWString(temp);
+	}
+	hLinkParsed = 1;
+}
+
+void regexSimplyHLinkParse(std::wstring input)
+{
+	std::wstring temp;
+	for (auto it = std::wsregex_iterator(input.begin(), input.end(), simplifiedRegexHyperlink); it != std::wsregex_iterator(); ++it)
+	{
+		it->position() == 0 ? firstOrden = 1 : firstOrden = 0;
+		saveToMap(it->position(), it->length());
+		temp = input.substr(it->position(), it->length());
+		temp = temp;
+		qDebug() << "Detect simplifiedRegexHyperlink:" << QString::fromStdWString(temp);
+	}
+	hSimpLinkParsed = 1;
+}
+
+void regexAdvHLinkParse(std::wstring input)
+{
+	std::wstring temp;
+	for (auto it = std::wsregex_iterator(input.begin(), input.end(), advRegexHyperlink); it != std::wsregex_iterator(); ++it)
+	{
+		it->position() == 0 ? firstOrden = 1 : firstOrden = 0;
+		saveToMap(it->position(), it->length());
+		temp = input.substr(it->position(), it->length());
+		temp = temp;
+		qDebug() << "Detect advRegexHyperlink:" << QString::fromStdWString(temp);
+	}
+	hAdvLinkParsed = 1;
+}
 
 std::wstring symbolCleaner(std::wstring& rawInput)
 {
@@ -31,44 +111,36 @@ std::wstring symbolCleaner(std::wstring& rawInput)
 	//Хранит значение предыдущего спецсимвола
 	uint32_t symbolDuplicate = 0;
 
-	//Хранит индексы заменяемых спецсимволов
-	//first - позиция
-	//second - длина
-	std::map<int, int> symbolIndexes;
-
-	//0 - первым мусор
-	//1 - первым полезный фрагмент
-	bool firstOrden = 0;
-
 	//Хранилище мусора
 	std::vector<std::wstring> garbage;
 	std::vector<std::wstring> xpression;
 
-	//Размечаем файл для нарезки на фрагменты
-	for (auto it = std::wsregex_iterator(buffer.begin(), buffer.end(), regexHyperlink); it != std::wsregex_iterator(); ++it)
+	//Размечаем файл для нарезки на фрагменты, разделяем на потоки
+	boost::thread* regexHyperlinkParser = new boost::thread(&regexHyperlinkParse, buffer);
+	boost::thread* regexSimplyHLinkParser = new boost::thread(&regexSimplyHLinkParse, buffer);
+	boost::thread* regexAdvHLinkParser = new boost::thread(&regexAdvHLinkParse, buffer);
+	regexHyperlinkParser->detach();
+	regexSimplyHLinkParser->detach();
+	regexAdvHLinkParser->detach();
+	while ((hLinkParsed && hSimpLinkParsed && hAdvLinkParsed) == 0)
+	{
+		boost::this_thread::sleep_for(boost::chrono::milliseconds(1));
+	}
+	/*for (auto it = std::wsregex_iterator(buffer.begin(), buffer.end(), regexHyperlink); it != std::wsregex_iterator(); ++it)
 	{
 		it->position() == 0 ? firstOrden = 1 : firstOrden = 0;
-		if (!symbolIndexes.insert(std::map<int, int>::value_type(it->position(), it->length())).second)
-		{
-			throw(exceptionHandler(exceptionHandler::WARNING));	//Если не удалось вставить то кидаем пред
-		}
-	}
+		saveToMap(it->position(), it->length());
+	}*
 	for (auto it = std::wsregex_iterator(buffer.begin(), buffer.end(), simplifiedRegexHyperlink); it != std::wsregex_iterator(); ++it)
 	{
 		it->position() == 0 ? firstOrden = 1 : firstOrden = 0;
-		if (!symbolIndexes.insert(std::map<int, int>::value_type(it->position(), it->length())).second)
-		{
-			throw(exceptionHandler(exceptionHandler::WARNING));	//Если не удалось вставить то кидаем пред
-		}
+		saveToMap(it->position(), it->length());
 	}
 	for (auto it = std::wsregex_iterator(buffer.begin(), buffer.end(), advRegexHyperlink); it != std::wsregex_iterator(); ++it)
 	{
 		it->position() == 0 ? firstOrden = 1 : firstOrden = 0;
-		if (!symbolIndexes.insert(std::map<int, int>::value_type(it->position(), it->length())).second)
-		{
-			throw(exceptionHandler(exceptionHandler::WARNING));	//Если не удалось вставить то кидаем пред
-		}
-	}
+		saveToMap(it->position(), it->length());
+	}*/
 
 	//Нарезаем строку на "полезные" фрагменты и мусор
 	//Полезные фрагменты - прошедшие проверку регексом - обработке не подлежат на данном этапе

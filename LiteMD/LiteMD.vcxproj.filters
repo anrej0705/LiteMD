@@ -163,6 +163,9 @@
     <ClCompile Include="deprecated\mdScreen__initializeVarsDeprecated.cpp">
       <Filter>Устаревшее</Filter>
     </ClCompile>
+    <ClCompile Include="shieldingParser.cpp">
+      <Filter>String processing\Парсеры</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">
@@ -313,6 +316,9 @@
     </ClInclude>
     <ClInclude Include="deprecated\syntax_preprocessor.h">
       <Filter>Устаревшее</Filter>
+    </ClInclude>
+    <ClInclude Include="shieldingParser.h">
+      <Filter>String processing\Парсеры</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
