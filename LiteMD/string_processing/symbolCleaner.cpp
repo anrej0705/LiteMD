@@ -43,42 +43,42 @@ void saveToMap(int position, int length)
 
 void regexHyperlinkParse(std::wstring input)
 {
-	std::wstring temp;
+	//std::wstring temp;
 	for (auto it = std::wsregex_iterator(input.begin(), input.end(), regexHyperlink); it != std::wsregex_iterator(); ++it)
 	{
 		it->position() == 0 ? firstOrden = 1 : firstOrden = 0;
 		saveToMap(it->position(), it->length());
-		temp = input.substr(it->position(), it->length());
-		temp = temp;
-		qDebug() << "Detect regexHyperlink:" << QString::fromStdWString(temp);
+		//temp = input.substr(it->position(), it->length());
+		//temp = temp;
+		//qDebug() << "Detect regexHyperlink:" << QString::fromStdWString(temp);
 	}
 	hLinkParsed = 1;
 }
 
 void regexSimplyHLinkParse(std::wstring input)
 {
-	std::wstring temp;
+	//std::wstring temp;
 	for (auto it = std::wsregex_iterator(input.begin(), input.end(), simplifiedRegexHyperlink); it != std::wsregex_iterator(); ++it)
 	{
 		it->position() == 0 ? firstOrden = 1 : firstOrden = 0;
 		saveToMap(it->position(), it->length());
-		temp = input.substr(it->position(), it->length());
-		temp = temp;
-		qDebug() << "Detect simplifiedRegexHyperlink:" << QString::fromStdWString(temp);
+		//temp = input.substr(it->position(), it->length());
+		//temp = temp;
+		//qDebug() << "Detect simplifiedRegexHyperlink:" << QString::fromStdWString(temp);
 	}
 	hSimpLinkParsed = 1;
 }
 
 void regexAdvHLinkParse(std::wstring input)
 {
-	std::wstring temp;
+	//std::wstring temp;
 	for (auto it = std::wsregex_iterator(input.begin(), input.end(), advRegexHyperlink); it != std::wsregex_iterator(); ++it)
 	{
 		it->position() == 0 ? firstOrden = 1 : firstOrden = 0;
 		saveToMap(it->position(), it->length());
-		temp = input.substr(it->position(), it->length());
-		temp = temp;
-		qDebug() << "Detect advRegexHyperlink:" << QString::fromStdWString(temp);
+		//temp = input.substr(it->position(), it->length());
+		//temp = temp;
+		//qDebug() << "Detect advRegexHyperlink:" << QString::fromStdWString(temp);
 	}
 	hAdvLinkParsed = 1;
 }
