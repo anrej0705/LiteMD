@@ -16,10 +16,12 @@ xmlWriter::xmlWriter()
 	QDomElement patchNoteRead = attrib(*lmdFileSet, "patchNoteRead", logReadState);
 	QDomElement indevFeatures = attrib(*lmdFileSet, "enableIndevFeatures", enableIndevFeatures);
 	QDomElement deprFeatures = attrib(*lmdFileSet, "enableDeprFeatures", enableDeprFeatures);
+	QDomElement langCodeParam = attrib(*lmdFileSet, "langCode", langCode);
 	lmdSet->appendChild(build);
 	lmdSet->appendChild(patchNoteRead);
 	lmdSet->appendChild(indevFeatures);
 	lmdSet->appendChild(deprFeatures);
+	lmdSet->appendChild(langCodeParam);
 }
 
 xmlWriter::xmlWriter(QString fName)
@@ -32,10 +34,12 @@ xmlWriter::xmlWriter(QString fName)
 	QDomElement patchNoteRead = attrib(*lmdFileSet, "patchNoteRead", logReadState);
 	QDomElement indevFeatures = attrib(*lmdFileSet, "enableIndevFeatures", enableIndevFeatures);
 	QDomElement deprFeatures = attrib(*lmdFileSet, "enableDeprFeatures", enableDeprFeatures);
+	QDomElement langCodeParam = attrib(*lmdFileSet, "langCode", langCode);
 	lmdSet->appendChild(build);
 	lmdSet->appendChild(patchNoteRead);
 	lmdSet->appendChild(indevFeatures);
 	lmdSet->appendChild(deprFeatures);
+	lmdSet->appendChild(langCodeParam);
 }
 
 void xmlWriter::writeConfig()
@@ -49,10 +53,12 @@ void xmlWriter::writeConfig()
 	QDomElement patchNoteRead = attrib(*lmdFileSet, "patchNoteRead", logReadState);
 	QDomElement indevFeatures = attrib(*lmdFileSet, "enableIndevFeatures", enableIndevFeatures);
 	QDomElement deprFeatures = attrib(*lmdFileSet, "enableDeprFeatures", enableDeprFeatures);
+	QDomElement langCodeParam = attrib(*lmdFileSet, "langCode", langCode);
 	lmdSet->appendChild(build);
 	lmdSet->appendChild(patchNoteRead);
 	lmdSet->appendChild(indevFeatures);
 	lmdSet->appendChild(deprFeatures);
+	lmdSet->appendChild(langCodeParam);
 	QFile settingsFile(fileName);
 	if (settingsFile.open(QIODevice::WriteOnly))
 	{

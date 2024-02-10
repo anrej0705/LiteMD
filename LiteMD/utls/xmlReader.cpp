@@ -123,12 +123,25 @@ bool xmlReader::readConfig()
 					else
 						readSuccess = 0;
 
+					settingsReader.readNext();
+					settingsReader.readNext();
+					settingsReader.readNext();
+					settingsReader.readNext();
+					settingsReader.readNext();
+
+					if (settingsReader.tokenString() == "StartElement" && settingsReader.name() == "langCode")
+					{
+						settingsReader.readNext();
+						settingsReader.readNext();
+						settingsReader.readNext();
+						//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
+						value = settingsReader.text().toString();
+						langCode = value.toInt();
+					}
+					else
+						readSuccess = 0;
+
 					break;
-					//settingsReader.readNext();
-					//settingsReader.readNext();
-					//settingsReader.readNext();
-					//settingsReader.readNext();
-					//settingsReader.readNext();
 
 				} while (!settingsReader.atEnd());
 			}

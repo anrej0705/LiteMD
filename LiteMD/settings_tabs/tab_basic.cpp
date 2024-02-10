@@ -78,9 +78,11 @@ void appSettings::configureBasicSettingsTab()
 			locale_name.remove(0, locale_name.indexOf("_", 0) + 1);
 			QString locale = localeNameConverter(QLocale::languageToString(QLocale(locale_name).language()), locale_name);
 			langList->addItem(locale);
-			if (current_lang == locale_name)
-				langList->setCurrentIndex(locales);
+			/*if (current_lang == locale_name)
+				langList->setCurrentIndex(locales); */
 		}
+
+		langList->setCurrentIndex(langCode);
 	}
 	else
 	{
@@ -167,10 +169,13 @@ void appSettings::slot_lang_selected(int lIndx)
 {
 	int langIndx = 0;
 	langIndx = lIndx;
+	langCode = lIndx;
 	auto it = loc_map->cbegin();
 	std::advance(it, lIndx);
 	QString lang_file = it->second;
 
 	if(!lmd_lng.load("loc/"+ lang_file, "."))
 		QErrorMessage::qtHandler();
+
+	langList->setCurrentIndex(langCode);
 }

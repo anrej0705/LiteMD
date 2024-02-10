@@ -169,6 +169,9 @@
     <ClCompile Include="string_processing\crlfProcessor.cpp">
       <Filter>String processing</Filter>
     </ClCompile>
+    <ClCompile Include="utls\localeDetector.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">

@@ -252,6 +252,7 @@
     </ClCompile>
     <ClCompile Include="ui_primitives\OrientalPushButton.cpp" />
     <ClCompile Include="utls\globalFlags.c" />
+    <ClCompile Include="utls\localeDetector.cpp" />
     <ClCompile Include="utls\xmlReader.cpp" />
     <ClCompile Include="utls\xmlWriter.cpp" />
     <ClCompile Include="window_widgets\appSettings.cpp" />

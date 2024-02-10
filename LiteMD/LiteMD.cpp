@@ -43,7 +43,10 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//Блок конфигурации элементов интерфейса
 	quick_tb->setMovable(0);	//В будущем будет переведено в настройки
 	if (!xmlR->checkFileExisting())	//Проверяем существование файлов настроек
+	{
+		localeDetector();		//Запускаем обнаружение установленного в системе языка
 		xmlW->writeConfig();	//Если нет - создаем по умолчанию
+	}
 	else						//Если есть - читаем
 	{
 		//Пытаемся читать, если не получается - пытаемся записать и снова прочитать
@@ -55,6 +58,9 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 				throw(exceptionHandler(exceptionHandler::FATAL));
 		}
 	}
+
+	//Создаем обработчика событий
+	qApp->installEventFilter(new ui_event_filter(qApp));
 
 	//Инициализируем контейнер настроек
 	if (enableIndevFeatures)
@@ -68,8 +74,6 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 			(exceptionHandler(exceptionHandler::FATAL));
 		}
 	}
-
-	qApp->installEventFilter(new ui_event_filter(qApp));
 	
 	//Блок менеджеров размещения кнопок
 	QVBoxLayout* editorLay = new QVBoxLayout;
@@ -239,6 +243,10 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		showTim->setSingleShot(1);
 		showTim->start();
 	}
+
+	//Устанавливаем язык
+	mdlSet->slot_lang_selected(langCode);
+	mdlSet->slot_apply_settings();
 
 	//Показываем сообщение готовности к работе
 	statusBar()->showMessage(tr("Ready"), 3000);

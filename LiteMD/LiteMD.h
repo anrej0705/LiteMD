@@ -57,12 +57,14 @@ class LiteMD : public QMainWindow
 	protected:
 		bool eventFilter(QObject* pobj, QEvent* event);
 		void update_ui();
+		void localeDetector(void);
 	public:
 		void closeEvent(QCloseEvent*);		//Перехватчик закрытия приложения
 		LiteMD(QWidget *parent = nullptr);	//Базовый конструкор
 		~LiteMD();
 	signals:
-		void saveFile();	//Сохранение файла
+		void saveFile();		//Сохранение файла
+		void switch_lang(int);	//Сигнал смены языка
 	private slots:
 		void slotAbout();	//Слот для вызова окна о программе
 		void httpModuleShow();	//Сигнал для вызова модуля загрузчика
