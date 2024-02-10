@@ -14,6 +14,8 @@ std::wstring shieldingParser(std::wstring& rawInput)
 	//Ищем специсимволы, которые отмечены знаком экранирования
 	for (uint32_t index = buffer.size() - 1; index > 0; --index)
 	{
+		if (buffer.empty())
+			break;
 		//Если находим то читаем символ в буфер, находим такой же в контейнере
 		//затем превращаем спецсимвол в дрисню и проливаем обратно в буфер
 		if (buffer.at(index) == L'\\')

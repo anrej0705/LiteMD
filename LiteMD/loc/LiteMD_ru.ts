@@ -360,7 +360,7 @@ Programm will close</source>
     </message>
     <message>
         <source>Current_ver.md отсутствует</source>
-        <translation type="vanished">Current_ver.md отсутствует</translation>
+        <translation>Current_ver.md отсутствует</translation>
     </message>
 </context>
 <context>

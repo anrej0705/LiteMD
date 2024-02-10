@@ -11,6 +11,8 @@ std::wstring crlfProcessor(std::wstring& rawInput)
 	//Проходим с конца
 	for (uint32_t index = buffer.size() - 1; index > 0; --index)
 	{
+		if (buffer.empty())
+			break;
 		if (buffer.at(index) == L'\n')
 		{
 			buffer.replace(index, 1, brTag);

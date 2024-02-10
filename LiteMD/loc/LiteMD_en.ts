@@ -358,7 +358,7 @@ Programm will close</translation>
     </message>
     <message>
         <source>Current_ver.md отсутствует</source>
-        <translation type="vanished">Current_ver.md not found</translation>
+        <translation>Current_ver.md not found</translation>
     </message>
 </context>
 <context>

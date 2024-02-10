@@ -16,6 +16,10 @@ std::map<int, int> symbolIndexes;
 //1 - первым полезный фрагмент
 bool firstOrden = 0;
 
+bool hLinkDetect = 0;
+bool hSimpLinkDetect = 0;
+bool hAdvLinkDetect = 0;
+
 bool hLinkParsed = 0;
 bool hSimpLinkParsed = 0;
 bool hAdvLinkParsed = 0;
@@ -51,6 +55,7 @@ void regexHyperlinkParse(std::wstring input)
 		//temp = input.substr(it->position(), it->length());
 		//temp = temp;
 		//qDebug() << "Detect regexHyperlink:" << QString::fromStdWString(temp);
+		hLinkDetect = 1;
 	}
 	hLinkParsed = 1;
 }
@@ -65,6 +70,7 @@ void regexSimplyHLinkParse(std::wstring input)
 		//temp = input.substr(it->position(), it->length());
 		//temp = temp;
 		//qDebug() << "Detect simplifiedRegexHyperlink:" << QString::fromStdWString(temp);
+		hSimpLinkParsed = 1;
 	}
 	hSimpLinkParsed = 1;
 }
@@ -79,6 +85,7 @@ void regexAdvHLinkParse(std::wstring input)
 		//temp = input.substr(it->position(), it->length());
 		//temp = temp;
 		//qDebug() << "Detect advRegexHyperlink:" << QString::fromStdWString(temp);
+		hAdvLinkDetect = 1;
 	}
 	hAdvLinkParsed = 1;
 }
@@ -171,6 +178,10 @@ std::wstring symbolCleaner(std::wstring& rawInput)
 	if (prevIndex < buffer.size() && firstOrden)
 		garbage.push_back(buffer.substr(prevIndex, buffer.size() - (prevIndex)));
 
+	//Если никаких спецсимволов не обнаружено то считаем что это был обычный текст и пропускаем
+	if (!hLinkDetect && !hSimpLinkDetect && !hAdvLinkDetect)
+		garbage.push_back(buffer);
+
 	for (uint32_t iters = 0; iters < garbage.size(); ++iters)
 	{
 		//Проходимся по фрагменту заменяя служебные символы маркерами
@@ -215,6 +226,8 @@ std::wstring symbolCleaner(std::wstring& rawInput)
 		//Ищем остатки проходясь с конца в начало(поиск открывающих символов)
 		for (uint32_t index = garbage.at(iters).size() - 1; index > 0; --index)
 		{
+			if (garbage.at(iters).empty())
+				break;
 			//Как только находим первый попавшийся - убираем и выходим из цикла
 			if (symbolClearanceFront.find(garbage.at(iters).at(index)) <= symbolClearanceFront.size())
 			{
