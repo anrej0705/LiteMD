@@ -29,6 +29,9 @@ currentChangelog::currentChangelog(QWidget* qwgt) : QDialog(qwgt)
 		//render->slotSetText(tr("Current_ver.md отсутствует"));
 	}
 
+	//Устанавливаем фильтр на отлов события смены языка
+	qApp->installEventFilter(this);
+
 	//Настройка кнопки
 	dismissButton->setFixedWidth(120);
 	btnLayout->setAlignment(Qt::AlignCenter);

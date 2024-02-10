@@ -1,5 +1,6 @@
 #include "frameChangelog.h"
 #include "global_definitions.h"
+#include "ui_update_event.h"
 
 bool currentChangelog::eventFilter(QObject* pobj, QEvent* p_event)
 {
