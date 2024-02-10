@@ -7,6 +7,7 @@
 #include "urlBasicParser.h"
 #include "urlAdvancedParser.h"
 #include "shieldingParser.h"
+#include "crlfProcessor.h"
 #include <string>
 #include <regex>
 
@@ -35,6 +36,7 @@ void mdScreen::slotSetText(const QString& str)
 	mdInput = basicSimplifiedUrlParser(mdInput);		//2 -> 3|Обработка <www.url.ru>
 	mdInput = basicUrlParser(mdInput);					//3 -> 4|Обработка <http://www.url.ru>
 	mdInput = advancedUrlParser(mdInput);				//4 -> 5|Обработка [name](url)
+	mdInput = crlfProcessor(mdInput);					//5 -> 6|Обработка переноса строки
 
 	//Преобразуем в QString
 	mdFormatted = QString::fromStdWString(mdInput);

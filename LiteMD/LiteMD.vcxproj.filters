@@ -166,6 +166,9 @@
     <ClCompile Include="string_processing\shieldingParser.cpp">
       <Filter>String processing</Filter>
     </ClCompile>
+    <ClCompile Include="string_processing\crlfProcessor.cpp">
+      <Filter>String processing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">
@@ -318,6 +321,9 @@
       <Filter>Устаревшее</Filter>
     </ClInclude>
     <ClInclude Include="string_processing\shieldingParser.h">
+      <Filter>String processing</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\crlfProcessor.h">
       <Filter>String processing</Filter>
     </ClInclude>
   </ItemGroup>
