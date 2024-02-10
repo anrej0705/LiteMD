@@ -168,7 +168,7 @@ std::wstring symbolCleaner(std::wstring& rawInput)
 	}
 
 	//Если после последнего встреченного фрагмента остался мусор то добавляем его тоже
-	if (prevIndex < buffer.size())
+	if (prevIndex < buffer.size() && firstOrden)
 		garbage.push_back(buffer.substr(prevIndex, buffer.size() - (prevIndex)));
 
 	for (uint32_t iters = 0; iters < garbage.size(); ++iters)
