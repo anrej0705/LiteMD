@@ -80,7 +80,7 @@
     </message>
     <message>
         <source>[MAX FILE SIZE 65K]</source>
-        <translation>[МАКС РАЗМЕР ФАЙЛА 65K]</translation>
+        <translation type="vanished">[МАКС РАЗМЕР ФАЙЛА 65K]</translation>
     </message>
     <message>
         <source>Ready</source>

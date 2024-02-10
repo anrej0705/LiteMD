@@ -226,7 +226,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	setCentralWidget(mainWgt);
 
 	//Устанавливаем заголовок окна
-	setWindowTitle(tr("LiteMD alpha 0.0.0 build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER)) + tr("[MAX FILE SIZE 65K]"));
+	setWindowTitle(tr("LiteMD alpha 0.0.0 build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))/* + tr("[MAX FILE SIZE 65K]")*/);
 
 	//Кешируем имя окна для возможности восстановления исходного заголовка
 	defTitle = windowTitle();
