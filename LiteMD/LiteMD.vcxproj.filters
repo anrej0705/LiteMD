@@ -163,8 +163,8 @@
     <ClCompile Include="deprecated\mdScreen__initializeVarsDeprecated.cpp">
       <Filter>Устаревшее</Filter>
     </ClCompile>
-    <ClCompile Include="shieldingParser.cpp">
-      <Filter>String processing\Парсеры</Filter>
+    <ClCompile Include="string_processing\shieldingParser.cpp">
+      <Filter>String processing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -317,8 +317,8 @@
     <ClInclude Include="deprecated\syntax_preprocessor.h">
       <Filter>Устаревшее</Filter>
     </ClInclude>
-    <ClInclude Include="shieldingParser.h">
-      <Filter>String processing\Парсеры</Filter>
+    <ClInclude Include="string_processing\shieldingParser.h">
+      <Filter>String processing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

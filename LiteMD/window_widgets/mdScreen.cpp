@@ -6,6 +6,7 @@
 #include "urlBasicSimplifiedParser.h"
 #include "urlBasicParser.h"
 #include "urlAdvancedParser.h"
+#include "shieldingParser.h"
 #include <string>
 #include <regex>
 
@@ -29,10 +30,11 @@ void mdScreen::slotSetText(const QString& str)
 	mdFormatted = QString::fromStdWString(mdInput);
 
 	//Обрабатываем текст
-	mdInput = symbolCleaner(mdInput);					//0 -> 1|Фильтрация служебных символов не являющихся частью тега
-	mdInput = basicSimplifiedUrlParser(mdInput);		//1 -> 2|Обработка <www.url.ru>
-	mdInput = basicUrlParser(mdInput);					//2 -> 3|Обработка <http://www.url.ru>
-	mdInput = advancedUrlParser(mdInput);				//3 -> 4|Обработка [name](url)
+	mdInput = shieldingParser(mdInput);					//0 -> 1|Предварительная конвертация экранированных символов
+	mdInput = symbolCleaner(mdInput);					//1 -> 2|Фильтрация служебных символов не являющихся частью тега
+	mdInput = basicSimplifiedUrlParser(mdInput);		//2 -> 3|Обработка <www.url.ru>
+	mdInput = basicUrlParser(mdInput);					//3 -> 4|Обработка <http://www.url.ru>
+	mdInput = advancedUrlParser(mdInput);				//4 -> 5|Обработка [name](url)
 
 	//Преобразуем в QString
 	mdFormatted = QString::fromStdWString(mdInput);

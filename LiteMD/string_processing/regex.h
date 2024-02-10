@@ -18,3 +18,7 @@ extern std::vector<std::wstring> replaceSymbols;
 //Наборы HTML-конструкций разметки
 extern std::vector<std::wstring> basicUrlWrap;
 extern std::vector<std::wstring> advUrlWrap;
+
+//Наборы символов для экранирования
+extern std::wstring shieldingSymbolsSrc;
+extern std::vector<std::wstring> shieldingSymbols;

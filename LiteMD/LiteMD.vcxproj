@@ -232,9 +232,9 @@
     <ClCompile Include="settings_tabs\tab_basic.cpp" />
     <ClCompile Include="settings_tabs\tab_downloader.cpp" />
     <ClCompile Include="settings_tabs\tab_render.cpp" />
-    <ClCompile Include="shieldingParser.cpp" />
     <ClCompile Include="string_processing\crlfParser.cpp" />
     <ClCompile Include="string_processing\regex.cpp" />
+    <ClCompile Include="string_processing\shieldingParser.cpp" />
     <ClCompile Include="string_processing\symbolCleaner.cpp" />
     <ClCompile Include="string_processing\urlAdvancedParser.cpp" />
     <ClCompile Include="string_processing\urlBasicParser.cpp" />
@@ -302,9 +302,9 @@
     <ClInclude Include="modules\exceptionHandler.h" />
     <ClInclude Include="ress\resource.h" />
     <ClInclude Include="ress\resource1.h" />
-    <ClInclude Include="shieldingParser.h" />
     <ClInclude Include="string_processing\crlfParser.h" />
     <ClInclude Include="string_processing\regex.h" />
+    <ClInclude Include="string_processing\shieldingParser.h" />
     <ClInclude Include="string_processing\symbolCleaner.h" />
     <ClInclude Include="string_processing\urlAdvancedParser.h" />
     <ClInclude Include="string_processing\urlBasicParser.h" />
