@@ -80,7 +80,7 @@
     </message>
     <message>
         <source>[MAX FILE SIZE 65K]</source>
-        <translation>[МАКС РАЗМЕР ФАЙЛА 65K]</translation>
+        <translation type="vanished">[МАКС РАЗМЕР ФАЙЛА 65K]</translation>
     </message>
     <message>
         <source>Ready</source>
@@ -130,11 +130,11 @@ github.com/anrej0705
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation>[В РАЗРАБОТКЕ]LiteMD alpha 0.1.9 сборка </translation>
+        <translation>[В РАЗРАБОТКЕ]LiteMD alpha 0.2.0 сборка </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.1.9 сборка </translation>
+        <translation>Ver. alpha 0.2.0 сборка </translation>
     </message>
     <message>
         <source>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</source>
@@ -242,6 +242,28 @@ github.com/anrej0705
         <source>You dont save changes in file, which is opened currently. Save?</source>
         <translation>Вы не сохранили изменения в файле, который сейчасо открыт. Сохранить?</translation>
     </message>
+    <message>
+        <source>Warning</source>
+        <translation>Предупреждение</translation>
+    </message>
+    <message>
+        <source>Exception throwed!</source>
+        <translation>Сгенерировано исключение!</translation>
+    </message>
+    <message>
+        <source>FATAL</source>
+        <translation>Критическая ошибка</translation>
+    </message>
+    <message>
+        <source>Exception throwed!
+Programm will close</source>
+        <translation>Критическая ошибка! 
+Программа будет закрыта</translation>
+    </message>
+    <message>
+        <source>Cannot open config file!</source>
+        <translation>Невозможно открыть файл конфига, возможно он занят другой программой или не существует!</translation>
+    </message>
 </context>
 <context>
     <name>appSettings</name>
@@ -320,6 +342,14 @@ github.com/anrej0705
     <message>
         <source>Enable content caching</source>
         <translation>Кешировать загруженный контент</translation>
+    </message>
+    <message>
+        <source>Enable deprecated features</source>
+        <translation>Активировать устаревший функционал</translation>
+    </message>
+    <message>
+        <source>Enable in-dev features</source>
+        <translation>Возможности находящиеся в разработке</translation>
     </message>
 </context>
 <context>

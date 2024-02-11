@@ -80,7 +80,7 @@
     </message>
     <message>
         <source>[MAX FILE SIZE 65K]</source>
-        <translation>[MAX FILE SIZE 65K]</translation>
+        <translation type="vanished">[MAX FILE SIZE 65K]</translation>
     </message>
     <message>
         <source>Ready</source>
@@ -128,11 +128,11 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation>[WORK IN PROGRESS]LiteMD alpha 0.1.9 build </translation>
+        <translation>[WORK IN PROGRESS]LiteMD alpha 0.2.0 build </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.1.9 build </translation>
+        <translation>Ver. alpha 0.2.0 build </translation>
     </message>
     <message>
         <source>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</source>
@@ -240,6 +240,28 @@ I hope u like my app :D</translation>
         <source>You dont save changes in file, which is opened currently. Save?</source>
         <translation>You dont save changes in file, which is opened currently. Save?</translation>
     </message>
+    <message>
+        <source>Warning</source>
+        <translation>Warning</translation>
+    </message>
+    <message>
+        <source>Exception throwed!</source>
+        <translation>Exception throwed!</translation>
+    </message>
+    <message>
+        <source>FATAL</source>
+        <translation>FATAL</translation>
+    </message>
+    <message>
+        <source>Exception throwed!
+Programm will close</source>
+        <translation>Exception throwed!
+Programm will close</translation>
+    </message>
+    <message>
+        <source>Cannot open config file!</source>
+        <translation>Cannot open config file!</translation>
+    </message>
 </context>
 <context>
     <name>appSettings</name>
@@ -318,6 +340,14 @@ I hope u like my app :D</translation>
     <message>
         <source>Enable content caching</source>
         <translation>Enable content caching</translation>
+    </message>
+    <message>
+        <source>Enable deprecated features</source>
+        <translation>Enable deprecated features</translation>
+    </message>
+    <message>
+        <source>Enable in-dev features</source>
+        <translation>Enable in-dev features</translation>
     </message>
 </context>
 <context>

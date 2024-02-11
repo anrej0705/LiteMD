@@ -32,4 +32,6 @@ void appSettings::update_ui()
 	saveSettingsHint->setText(tr("Settings save type"));
 	autoSaveHint->setText(tr("Autosave"));
 	saveFreqHint->setText(tr("Autosave frequency"));
+	depFuncHint->setText(tr("Enable deprecated features"));
+	inDevFuncHint->setText(tr("Enable in-dev features"));
 }

@@ -7,6 +7,9 @@ bool fileOpenedState=0;
 bool fileChangedState=0;
 bool appTitleUpdated=0;
 bool appClose = 0;
+bool enableDeprFeatures = 0;
+bool enableIndevFeatures = 0;
+int langCode = 0;
 //Deprecated
 bool allowHttpWarn = 1;
 bool httpDerpWarned = 0;

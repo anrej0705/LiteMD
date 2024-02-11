@@ -5,6 +5,7 @@ extern "C"
 }
 currentChangelog::currentChangelog(QWidget* qwgt) : QDialog(qwgt)
 {
+	QScrollArea* mdsArea = new QScrollArea;
 	compositionManager = new QVBoxLayout;
 	renderComposeManager = new QVBoxLayout;
 	btnLayout = new QHBoxLayout;
@@ -16,18 +17,33 @@ currentChangelog::currentChangelog(QWidget* qwgt) : QDialog(qwgt)
 	this->setWindowTitle(tr("New version changelog"));
 	this->setWindowIcon(QIcon("icon.ico"));
 
+	std::wstring temp;
+	QString qtemp;
+
 	QFile clogFile("docs/Current_ver.md");
 	if (clogFile.open(QIODevice::ReadOnly))
 	{
 		QTextStream cLogStream(&clogFile);
 		cLogStream.setCodec("UTF-8");
+		temp = cLogStream.readAll().toStdWString();
+		qtemp = QString::fromStdWString(temp);
 		render->setWordWrap(1);
-		render->slotSetText(cLogStream.readAll());
+		render->slotSetText(qtemp);
 	}
 	else
 	{
 		render->slotSetText(tr("Current_ver.md отсутствует"));
 	}
+
+	//Настраиваем полосу прокрутки
+	mdsArea->setWidgetResizable(1);
+	mdsArea->setWidget(render);
+	//viewerLay->addWidget(mdsArea);
+	mdsArea->setMinimumWidth(320);
+	//mdsArea->resize(viewerWindow->sizeHint());
+
+	//Устанавливаем фильтр на отлов события смены языка
+	qApp->installEventFilter(this);
 
 	//Настройка кнопки
 	dismissButton->setFixedWidth(120);
@@ -38,15 +54,15 @@ currentChangelog::currentChangelog(QWidget* qwgt) : QDialog(qwgt)
 	compositionManager->addLayout(btnLayout);
 	renderFrame->setAutoFillBackground(1);
 	renderFrame->setLayout(renderComposeManager);
-	renderFrame->setFixedHeight(300);
-	renderComposeManager->addWidget(render);
+	renderFrame->setFixedHeight(324);
+	renderComposeManager->addWidget(mdsArea);
 	btnLayout->addWidget(dismissButton);
 
 	//Соединяем кнопку
 	if (!connect(dismissButton, SIGNAL(clicked()), this, SLOT(slotHideWindow())))
 		QErrorMessage::qtHandler();	//Соединяем кнопку со слотом, прячет окно
 
-	this->setFixedSize(480, 360);
+	this->setFixedSize(512, 384);
 	this->setLayout(compositionManager);
 }
 

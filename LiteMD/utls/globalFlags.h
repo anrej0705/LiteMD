@@ -14,6 +14,9 @@ extern bool httpDerpWarned;
 
 //Настройки
 extern bool logReadState;
+extern bool enableDeprFeatures;
+extern bool enableIndevFeatures;
+extern int langCode;
 
 //Хранилище последних открытых файлов(коммит SilverWolf2k20)
 #define NUMBER_OF_FILES	4	//Строки

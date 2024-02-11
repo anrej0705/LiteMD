@@ -48,6 +48,12 @@
     <Filter Include="Resource Files\Иконки док панели">
       <UniqueIdentifier>{32ade865-8d36-46ba-9dbc-7217fc5cd2d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="String processing\Парсеры">
+      <UniqueIdentifier>{99be61b7-85a3-4c8f-9bfd-4be5877409eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Устаревшее">
+      <UniqueIdentifier>{38718a96-747e-4b83-a2bf-5bdb47a50124}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="LiteMD.h">
@@ -85,12 +91,6 @@
     <ClCompile Include="ui_primitives\dialogBoxes.cpp">
       <Filter>Интерфейс</Filter>
     </ClCompile>
-    <ClCompile Include="string_processing\syntax_preprocessor.cpp">
-      <Filter>String processing</Filter>
-    </ClCompile>
-    <ClCompile Include="string_processing\syntax_postprocessor.cpp">
-      <Filter>String processing</Filter>
-    </ClCompile>
     <ClCompile Include="utls\globalFlags.c">
       <Filter>Utils</Filter>
     </ClCompile>
@@ -126,6 +126,51 @@
     </ClCompile>
     <ClCompile Include="dyn_tr_manager\frameChangelog_ui.cpp">
       <Filter>Модули\Динамический перевод</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\exceptionHandler.cpp">
+      <Filter>Модули</Filter>
+    </ClCompile>
+    <ClCompile Include="string_processing\crlfParser.cpp">
+      <Filter>String processing\Парсеры</Filter>
+    </ClCompile>
+    <ClCompile Include="string_processing\urlBasicSimplifiedParser.cpp">
+      <Filter>String processing\Парсеры</Filter>
+    </ClCompile>
+    <ClCompile Include="string_processing\regex.cpp">
+      <Filter>String processing</Filter>
+    </ClCompile>
+    <ClCompile Include="string_processing\urlAdvancedParser.cpp">
+      <Filter>String processing\Парсеры</Filter>
+    </ClCompile>
+    <ClCompile Include="string_processing\symbolCleaner.cpp">
+      <Filter>String processing</Filter>
+    </ClCompile>
+    <ClCompile Include="string_processing\urlBasicParser.cpp">
+      <Filter>String processing\Парсеры</Filter>
+    </ClCompile>
+    <ClCompile Include="deprecated\syntax_postprocessor.cpp">
+      <Filter>Устаревшее</Filter>
+    </ClCompile>
+    <ClCompile Include="deprecated\syntax_preprocessor.cpp">
+      <Filter>Устаревшее</Filter>
+    </ClCompile>
+    <ClCompile Include="deprecated\mdScreen__hyprelinkParserDeprecated.cpp">
+      <Filter>Устаревшее</Filter>
+    </ClCompile>
+    <ClCompile Include="deprecated\mdScreen__advHyperlinkParserDeprecated.cpp">
+      <Filter>Устаревшее</Filter>
+    </ClCompile>
+    <ClCompile Include="deprecated\mdScreen__initializeVarsDeprecated.cpp">
+      <Filter>Устаревшее</Filter>
+    </ClCompile>
+    <ClCompile Include="string_processing\shieldingParser.cpp">
+      <Filter>String processing</Filter>
+    </ClCompile>
+    <ClCompile Include="string_processing\crlfProcessor.cpp">
+      <Filter>String processing</Filter>
+    </ClCompile>
+    <ClCompile Include="utls\localeDetector.cpp">
+      <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +242,12 @@
     <Image Include="ress\icon_recent_files.png">
       <Filter>Resource Files\Иконки док панели</Filter>
     </Image>
+    <Image Include="ress\icon_exception_fatal.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_exception_warning.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ress\buildInfo.rc">
@@ -227,12 +278,6 @@
     <ClInclude Include="ui_primitives\dialogBoxes.h">
       <Filter>Интерфейс</Filter>
     </ClInclude>
-    <ClInclude Include="string_processing\syntax_preprocessor.h">
-      <Filter>String processing</Filter>
-    </ClInclude>
-    <ClInclude Include="string_processing\syntax_postprocessor.h">
-      <Filter>String processing</Filter>
-    </ClInclude>
     <ClInclude Include="utls\globalFlags.h">
       <Filter>Utils</Filter>
     </ClInclude>
@@ -250,6 +295,39 @@
     </ClInclude>
     <ClInclude Include="utls\xmlWriter.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\exceptionHandler.h">
+      <Filter>Модули</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\crlfParser.h">
+      <Filter>String processing\Парсеры</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\urlBasicSimplifiedParser.h">
+      <Filter>String processing\Парсеры</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\regex.h">
+      <Filter>String processing</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\urlAdvancedParser.h">
+      <Filter>String processing\Парсеры</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\urlBasicParser.h">
+      <Filter>String processing\Парсеры</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\symbolCleaner.h">
+      <Filter>String processing</Filter>
+    </ClInclude>
+    <ClInclude Include="deprecated\syntax_postprocessor.h">
+      <Filter>Устаревшее</Filter>
+    </ClInclude>
+    <ClInclude Include="deprecated\syntax_preprocessor.h">
+      <Filter>Устаревшее</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\shieldingParser.h">
+      <Filter>String processing</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\crlfProcessor.h">
+      <Filter>String processing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

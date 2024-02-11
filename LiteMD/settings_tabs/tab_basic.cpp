@@ -18,6 +18,8 @@ void appSettings::configureBasicSettingsTab()
 	saveSettingsHint = new QLabel(tr("Settings save type"));
 	autoSaveHint = new QLabel(tr("Autosave"));
 	saveFreqHint = new QLabel(tr("Autosave frequency"));
+	depFuncHint = new QLabel(tr("Enable deprecated features"));
+	inDevFuncHint = new QLabel(tr("Enable in-dev features"));
 
 	//Инициализируем элементы взаимодействий
 	langList = new QComboBox;
@@ -25,6 +27,8 @@ void appSettings::configureBasicSettingsTab()
 	saveSettings = new QComboBox;
 	autoSave = new QCheckBox;
 	saveFreq = new QComboBox;
+	depFunc = new QCheckBox;
+	devFunc = new QCheckBox;
 
 	//Инициализируем вкладку
 	basicSettings = new QWidget;
@@ -74,9 +78,11 @@ void appSettings::configureBasicSettingsTab()
 			locale_name.remove(0, locale_name.indexOf("_", 0) + 1);
 			QString locale = localeNameConverter(QLocale::languageToString(QLocale(locale_name).language()), locale_name);
 			langList->addItem(locale);
-			if (current_lang == locale_name)
-				langList->setCurrentIndex(locales);
+			/*if (current_lang == locale_name)
+				langList->setCurrentIndex(locales); */
 		}
+
+		langList->setCurrentIndex(langCode);
 	}
 	else
 	{
@@ -94,6 +100,8 @@ void appSettings::configureBasicSettingsTab()
 	lbl_lay->addWidget(saveSettingsHint);
 	lbl_lay->addWidget(autoSaveHint);
 	lbl_lay->addWidget(saveFreqHint);
+	lbl_lay->addWidget(depFuncHint);
+	lbl_lay->addWidget(inDevFuncHint);
 
 	//Добавляем элементы в правую половину(взаимодействие)
 	interact_lay->addWidget(langList);
@@ -101,6 +109,8 @@ void appSettings::configureBasicSettingsTab()
 	interact_lay->addWidget(saveSettings);
 	interact_lay->addWidget(autoSave);
 	interact_lay->addWidget(saveFreq);
+	interact_lay->addWidget(depFunc);
+	interact_lay->addWidget(devFunc);
 
 	//Отключаем элементы, механика которых не реализована
 	themeList->addItem(tr("Will be added in future"));
@@ -118,12 +128,16 @@ void appSettings::configureBasicSettingsTab()
 	saveSettingsHint->setFixedHeight(SETTINGS_HEIGH);
 	autoSaveHint->setFixedHeight(SETTINGS_HEIGH);
 	saveFreqHint->setFixedHeight(SETTINGS_HEIGH);
+	depFuncHint->setFixedHeight(SETTINGS_HEIGH);
+	inDevFuncHint->setFixedHeight(SETTINGS_HEIGH);
 
 	langList->setFixedHeight(SETTINGS_HEIGH);
 	themeList->setFixedHeight(SETTINGS_HEIGH);
 	saveSettings->setFixedHeight(SETTINGS_HEIGH);
 	autoSave->setFixedHeight(SETTINGS_HEIGH);
 	saveFreq->setFixedHeight(SETTINGS_HEIGH);
+	depFunc->setFixedHeight(SETTINGS_HEIGH);
+	devFunc->setFixedHeight(SETTINGS_HEIGH);
 
 	//Привязываем менеджеры компоновки к виджетам
 	lbl_box->setLayout(lbl_lay);
@@ -155,10 +169,13 @@ void appSettings::slot_lang_selected(int lIndx)
 {
 	int langIndx = 0;
 	langIndx = lIndx;
+	langCode = lIndx;
 	auto it = loc_map->cbegin();
 	std::advance(it, lIndx);
 	QString lang_file = it->second;
 
 	if(!lmd_lng.load("loc/"+ lang_file, "."))
 		QErrorMessage::qtHandler();
+
+	langList->setCurrentIndex(langCode);
 }

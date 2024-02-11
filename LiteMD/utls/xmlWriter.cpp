@@ -1,4 +1,5 @@
 #include "xmlWriter.h"
+#include "exceptionHandler.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -11,8 +12,16 @@ xmlWriter::xmlWriter()
 	lmdFileSet = new QDomDocument("LMD");
 	lmdSet = new QDomElement(lmdFileSet->createElement(appSign));
 	lmdFileSet->appendChild(*lmdSet);
+	QDomElement build = attrib(*lmdFileSet, "build", BUILD_NUMBER);
 	QDomElement patchNoteRead = attrib(*lmdFileSet, "patchNoteRead", logReadState);
+	QDomElement indevFeatures = attrib(*lmdFileSet, "enableIndevFeatures", enableIndevFeatures);
+	QDomElement deprFeatures = attrib(*lmdFileSet, "enableDeprFeatures", enableDeprFeatures);
+	QDomElement langCodeParam = attrib(*lmdFileSet, "langCode", langCode);
+	lmdSet->appendChild(build);
 	lmdSet->appendChild(patchNoteRead);
+	lmdSet->appendChild(indevFeatures);
+	lmdSet->appendChild(deprFeatures);
+	lmdSet->appendChild(langCodeParam);
 }
 
 xmlWriter::xmlWriter(QString fName)
@@ -21,8 +30,16 @@ xmlWriter::xmlWriter(QString fName)
 	lmdFileSet = new QDomDocument("LMD");
 	lmdSet = new QDomElement(lmdFileSet->createElement(appSign));
 	lmdFileSet->appendChild(*lmdSet);
+	QDomElement build = attrib(*lmdFileSet, "build", BUILD_NUMBER);
 	QDomElement patchNoteRead = attrib(*lmdFileSet, "patchNoteRead", logReadState);
+	QDomElement indevFeatures = attrib(*lmdFileSet, "enableIndevFeatures", enableIndevFeatures);
+	QDomElement deprFeatures = attrib(*lmdFileSet, "enableDeprFeatures", enableDeprFeatures);
+	QDomElement langCodeParam = attrib(*lmdFileSet, "langCode", langCode);
+	lmdSet->appendChild(build);
 	lmdSet->appendChild(patchNoteRead);
+	lmdSet->appendChild(indevFeatures);
+	lmdSet->appendChild(deprFeatures);
+	lmdSet->appendChild(langCodeParam);
 }
 
 void xmlWriter::writeConfig()
@@ -32,14 +49,24 @@ void xmlWriter::writeConfig()
 	lmdFileSet = new QDomDocument("LMD");
 	lmdSet = new QDomElement(lmdFileSet->createElement(appSign));
 	lmdFileSet->appendChild(*lmdSet);
+	QDomElement build = attrib(*lmdFileSet, "build", BUILD_NUMBER);
 	QDomElement patchNoteRead = attrib(*lmdFileSet, "patchNoteRead", logReadState);
+	QDomElement indevFeatures = attrib(*lmdFileSet, "enableIndevFeatures", enableIndevFeatures);
+	QDomElement deprFeatures = attrib(*lmdFileSet, "enableDeprFeatures", enableDeprFeatures);
+	QDomElement langCodeParam = attrib(*lmdFileSet, "langCode", langCode);
+	lmdSet->appendChild(build);
 	lmdSet->appendChild(patchNoteRead);
+	lmdSet->appendChild(indevFeatures);
+	lmdSet->appendChild(deprFeatures);
+	lmdSet->appendChild(langCodeParam);
 	QFile settingsFile(fileName);
 	if (settingsFile.open(QIODevice::WriteOnly))
 	{
 		QTextStream(&settingsFile) << lmdFileSet->toString();
 		settingsFile.close();
 	}
+	else
+		throw(exceptionHandler(exceptionHandler::FATAL));
 }
 
 QDomElement xmlWriter::attrib(QDomDocument& setDoc, const QString& attribName, const QVariant& attrType)
