@@ -30,6 +30,9 @@ void mdScreen::slotSetText(const QString& str)
 	//Копираем в поле вывода
 	mdFormatted = QString::fromStdWString(mdInput);
 
+	//Отправляем на показ
+	this->setText(mdFormatted);
+
 	//Обрабатываем текст
 	mdInput = shieldingParser(mdInput);					//0 -> 1|Предварительная конвертация экранированных символов
 	mdInput = symbolCleaner(mdInput);					//1 -> 2|Фильтрация служебных символов не являющихся частью тега
