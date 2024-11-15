@@ -29,6 +29,7 @@ std::wstring advancedUrlParser(std::wstring& rawInput)
 	uint32_t range = 0;
 
 	//ќбрабатыванием раздел€€ на мусор и отсе€нные регул€ркой выражени€
+	//71 секунда выполнение!!
 	for (std::wsregex_iterator it = std::wsregex_iterator(buffer.cbegin(), buffer.cend(), advRegexHyperlink); it != std::wsregex_iterator(); ++it)
 	{
 		prevIndex = index + range;										//«апоминаем предыдущее вхождение

@@ -187,6 +187,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler(); //Соединяем сигнал от редактора к слоту изменения текста
 	if (!connect(mde, SIGNAL(titleChanged(const QString&)), this, SLOT(slotTitleChanged(const QString&))))
 		QErrorMessage::qtHandler();	//Соединяем сигнал открытия файла со слотом изменения заголовка под файл
+	if (!connect(mdlSet, SIGNAL(signalTitleChanged(const QString&)), this, SLOT(slotTitleChanged(const QString&))))
+		QErrorMessage::qtHandler();	//Соединяем сигнал из окна настрое со слотом изменения заголовка под файл
 	if (!connect(actAbout, SIGNAL(triggered()), this, SLOT(slotAbout())))
 		QErrorMessage::qtHandler();	//Соединяем сигнал со слотом вызова окна о программе
 	if (!connect(actOpen, SIGNAL(triggered()), mde, SLOT(slotOpen())))
@@ -256,9 +258,9 @@ void LiteMD::slotAbout()
 {
 	QMessageBox::about(this, "LiteMD", tr("Ver. alpha 0.0.0 build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))
 		+ tr("<BR>By anrej0705<BR>See me at Github:") + "<BR><A HREF=\"github.com/anrej0705\">github.com/anrej0705</A><BR><BR>" 
-		+ tr("This app is free for use,modify and reupload<BR>") 
+		+ tr("This app is free for use,modify and reupload<BR><BR>LiteMD IS FREE SOFTWARE! IF YOU PAID FOR IT YOU HAVE BEEN SCAMMED!") 
 		+ "<BR>" + "<BR>| Qt 5.14.2 | C++17 | C11 | Boost 1.84.00 |<BR>" + "<BR>" 
-		+ tr("Repo on Github: " ) + "<A HREF=\"https://github.com/anrej0705/LiteMD\">https://github.com/anrej0705/LiteMD</A><BR>" 
+		+ tr("Github repo: " ) + "<A HREF=\"https://github.com/anrej0705/LiteMD\">https://github.com/anrej0705/LiteMD</A><BR>" 
 		+ tr("Releases: ") + "<A HREF=\"https://github.com/anrej0705/LiteMD/releases\">https://github.com/anrej0705/LiteMD/releases</A>");
 }
 //Слот редактирования заголовка(добавления файла к концу)

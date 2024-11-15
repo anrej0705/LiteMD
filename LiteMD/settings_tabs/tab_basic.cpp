@@ -9,6 +9,8 @@ extern "C"
 //Конвертер имени языка - имя_языка(код_языка)
 QString localeNameConverter(QString lang_string_name, QString file_loc_name);
 
+bool emptyMapDet = NULL;
+
 //Конфигурируем окно базовых настроек
 void appSettings::configureBasicSettingsTab()
 {
@@ -88,6 +90,7 @@ void appSettings::configureBasicSettingsTab()
 	{
 		langList->addItem("Локали не найдены");
 		langList->setDisabled(1);
+		emptyMapDet=!emptyMapDet;
 	}
 	
 
@@ -167,6 +170,11 @@ QString localeNameConverter(QString lang_string_name, QString file_loc_name)
 }
 void appSettings::slot_lang_selected(int lIndx)
 {
+	if (emptyMapDet)
+	{
+		emit signalTitleChanged("[Локали не найдены!]");
+		return;
+	}
 	int langIndx = 0;
 	langIndx = lIndx;
 	langCode = lIndx;

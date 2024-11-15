@@ -65,6 +65,7 @@ class appSettings : public QDialog
 		void configureBasicSettingsTab();
 		void configureRenderSettingsTab();
 		void configureDownloaderSettingsTab();
+		void titleChanged(const QString&);
 	protected:
 		bool eventFilter(QObject* pobj, QEvent* event);
 		void update_ui();
@@ -76,4 +77,6 @@ class appSettings : public QDialog
 		void slot_switch_warn_allow(int);
 		void slot_switch_deprecated(int);
 		void slot_switch_features(int);
+	signals:
+		void signalTitleChanged(const QString&);
 };
