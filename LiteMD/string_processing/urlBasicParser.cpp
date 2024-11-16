@@ -1,79 +1,122 @@
-#include "regex.h"
+#include <boost/container/string.hpp>
 #include "urlBasicParser.h"
+#include "global_definitions.h"
 
-std::wstring basicUrlParser(std::wstring& rawInput)
+struct entry_pointer_list
 {
-	//Буффер для работы с текстом
-	std::wstring buffer = rawInput;
+	uint32_t str_entry_first;
+	uint32_t str_entry_second;
+	uint32_t buffer_shift;
+}entry_ptr;
 
-	//Хранилище мусора
-	std::vector<std::wstring> garbage;
-	std::vector<std::wstring> xpression;
+char* piece;
+boost::container::string *output;
 
-	//0 - первым мусор
-	//1 - первым полезный фрагмент
-	bool firstOrder = 0;
+std::string basicUrlParser(std::string &rawInput)
+{
+	uint32_t* entry_list;	//Список с индексами, с которых начинаются обнаруженные символы
+	uint32_t* entry_offset;	//Список со смещением до закрывающего знака
+	uint32_t entrys = 0;
+	uint32_t offsets = 0;
+	
+	output = new boost::container::string;
 
-	//Временный буфер для обработки
-	std::wstring _xpression;
+	uint32_t* buffer_size = (uint32_t*)malloc(sizeof(uint32_t));
+	*buffer_size = rawInput.size();	//Создаём переменную с количеством символов
 
-	//индекс вхождения и длина выражения
-	uint32_t prevIndex = 0;
-	uint32_t index = 0;
-	uint32_t range = 0;
+	char* buffer = (char*)malloc(*buffer_size);
+	strcpy(buffer, rawInput.c_str());	//Медленно, //Создаём буфер с размером входящего блока и копируем его туда
 
-	//Обрабатыванием разделяя на мусор и отсеянные регуляркой выражения
-	for (std::wsregex_iterator it = std::wsregex_iterator(buffer.cbegin(), buffer.cend(), regexHyperlink); it != std::wsregex_iterator(); ++it)
+	entry_list = (uint32_t*)malloc(sizeof(uint32_t));
+	entry_offset = (uint32_t*)malloc(sizeof(uint32_t));
+
+	//Дальше будет поиск признаков тега, пока что нужно считать что признаки есть
+	//а объекта нет, здесь будет искаться выражение <url> где url - любой текст внутри
+	//который будет принят за ссылку неважно что это за текст
+	//Референс https://www.markdownguide.org/basic-syntax/#urls-and-email-addresses
+
+	//Ищем вхождения по знаку '<'
+	for (volatile uint32_t _index = 0; _index < *buffer_size; ++_index)
 	{
-		prevIndex = index + range;										//Запоминаем предыдущее вхождение
-		index = it->position();											//Получаем индекс вхождения
-		range = it->length();											//Получаем длину отсеянного фрагмента
-		index == 0 ? firstOrder = 1 : firstOrder = 0;					//Определяем порядок следования содержимого
-		garbage.push_back(buffer.substr(prevIndex, index - prevIndex));	//Запоминаем мусор(его мы не трогаем)
-		xpression.push_back(buffer.substr(index, range));				//Запоминаем фрагменты которые будем обрабатывать
-	}
-
-	//Если после последнего встреченного фрагмента остался мусор то добавляем его тоже
-	if (index + range < buffer.size())
-		garbage.push_back(buffer.substr(index + range, buffer.size() - (index + range)));
-
-	//Обрабатываем отсеянные фрагменты приводя их в HTML формат
-	for (uint16_t iter = 0; iter < xpression.size(); ++iter)
-	{
-		_xpression = basicUrlWrap.at(0);													//Формируем открывающий тег
-		_xpression.append(xpression.at(iter).substr(1, xpression.at(iter).size() - 2));		//Добавляем в тег ссылку освобожденную от служ. символов
-		_xpression.append(basicUrlWrap.at(1));												//Завершаем формирование открывающего тега
-		_xpression.append(xpression.at(iter).substr(1, xpression.at(iter).size() - 2));		//Добавляем кликабельный текст ссылки
-		_xpression.append(basicUrlWrap.at(2));												//Добавляем закрывающий тег
-		xpression.at(iter) = _xpression;													//Заменяем исходник обработанным текстом
-	}
-
-	//Подготавливаем буфер к сборке
-	buffer.clear();
-
-	//Финальный этап - сборка строки
-	if (firstOrder)	//Если сначала у нас полезный контент то пихаем его
-	{
-		for (uint32_t index = 0; index < xpression.size(); ++index)
+		if (buffer[_index] == '<')	//Любое найденое вхождение запоминаем на будущее
 		{
-			//Добавляем сначала полезный контент(он идёт первым) а потом мусор
-			buffer += xpression.at(index);
-			buffer += garbage.at(index);
-		}
-		//Если остался дополнительный мусор, то тоже добавляем
-		if (xpression.size() < garbage.size())
-			buffer += garbage.at(garbage.size());
-	}
-	else //Иначе считаем что мусор
-	{
-		for (uint32_t index = 0; index < garbage.size(); ++index)
-		{
-			//Тут наоборот - сначала мусор а потом полезное
-			buffer += garbage.at(index);
-			if (index < xpression.size())
-				buffer += xpression.at(index);
+			++entrys;
+			entry_list = (uint32_t*)realloc(entry_list, sizeof(uint32_t) * entrys);
+			entry_list[entrys - 1] = _index + 1;
 		}
 	}
 
-	return buffer;
+	//Есть вероятность, что юзер оставит неполный тег, чтобы не вызвать
+	//ошибку в памяти добавляется дополнительное вхождение равное позиции
+	//последнего символа в тексте
+	entry_list = (uint32_t*)realloc(entry_list, sizeof(uint32_t) * entrys+1);
+	entry_list[entrys] = *buffer_size + 1;	//Костыль с фиксом последнего символа
+
+	if (entry_list[0] != 0)	//Если первое вхождение не является началом блока то отмечаем 0 как смещение
+	{
+		++offsets;
+		entry_offset = (uint32_t*)realloc(entry_offset, sizeof(uint32_t) * offsets);
+		entry_offset[offsets - 1] = 0;
+	}
+
+	//Ищем закрывающие знаки '>' от индекса вхождения
+	for (volatile uint32_t _entry_idx = 0; _entry_idx < entrys; ++_entry_idx)
+	{
+		//Небольшая доработка предыдущего алгоритма. Для ускорения и предовтращения
+		//натыканий на один и тот же знак, поиск будет проводиться с мест где был обнаружен
+		//открывающий символ '<'
+		for (uint32_t _index = entry_list[_entry_idx]; _index < entry_list[_entry_idx + 1]; ++_index)
+		{
+			if (buffer[_index] == '>')
+			{
+				++offsets;
+				entry_offset = (uint32_t*)realloc(entry_offset, sizeof(uint32_t) * offsets);
+				entry_offset[offsets - 1] = _index;
+			}
+		}
+	}
+
+	//Этап конвертации и сборки текста. Вместо символов '<' и '>' вставляется '<a href="'+текст+'">'+текст+'</a>'
+
+	uint32_t entrys_cnt = 0;
+	uint32_t blocks_cnt = 0;
+
+	if (entry_list[entrys_cnt] == 0)	//Если тег начинается с первого символа то формируем строчку и +1 entrys_cnt
+	{									//и выполняем сборку на месте
+		//Сборка
+		for (volatile uint32_t _part_idx = entrys_cnt; _part_idx < entrys + offsets + 0;)
+		{
+
+		}
+	}
+	else
+	{
+		uint32_t testpoint1 = 0;
+		uint32_t testpoint2 = 0;
+
+		//Копирование текста до тега
+		testpoint1 = entry_offset[entrys_cnt];
+		testpoint2 = entry_list[entrys_cnt];
+		output->append(&buffer[entry_offset[entrys_cnt]], entry_list[entrys_cnt] - 1);
+
+		//Сборка в циклi
+		for (volatile uint32_t _part_idx = 0; _part_idx < entrys;++_part_idx)
+		{
+			++entrys_cnt;
+			//Вставка тега <a href="
+			output->append(simple_url_iopenurl, simple_url_iopenurl_size);
+			//Вставка текста-ссылки
+			output->append(&buffer[entry_list[entrys_cnt - 1]], entry_offset[entrys_cnt] - entry_list[entrys_cnt - 1]);
+			//Вставка закрывающего ссылку ">
+			output->append(simple_url_icloseurl, simple_url_icloseurl_size);
+			//Вставка кликабельного текста
+			output->append(&buffer[entry_list[entrys_cnt - 1]], entry_offset[entrys_cnt] - entry_list[entrys_cnt - 1]);
+			//Вставка закрывающего тега
+			output->append(simple_url_iclosetext, simple_url_iclosetext_size);
+			//Вставка текста между тегами
+			output->append(&buffer[entry_offset[entrys_cnt]] + 1, entry_list[entrys_cnt] - entry_offset[entrys_cnt] - 2);
+		}
+	}
+
+	return output->c_str();
 }

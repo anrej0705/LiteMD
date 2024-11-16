@@ -11,7 +11,7 @@ std::wstring shieldingParser(std::wstring& rawInput)
 	//Символ-детектор экранирования
 	std::wstring shieldDetector(L"\\");
 
-	//Ищем специсимволы, которые отмечены знаком экранирования
+	//Ищем спецсимволы, которые отмечены знаком экранирования
 	for (uint32_t index = buffer.size() - 1; index > 0; --index)
 	{
 		if (buffer.empty())

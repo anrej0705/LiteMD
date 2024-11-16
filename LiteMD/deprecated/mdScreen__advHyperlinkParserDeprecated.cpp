@@ -22,18 +22,18 @@ struct visualTags
 void mdScreen::textProcessorDeprecated()
 {
 	//Обрабатываем текст препроцессором
-	mdInput = hyperlinkParser(mdInput);
+	mdInput_depr = hyperlinkParser(mdInput_depr);
 
 	//Обрабатываем и вставляем ссылки
 	//Ищем ссылки с помощью регулярного выражения
-	std::wsregex_iterator beg{mdInput.cbegin(),mdInput.cend(),*regexHyperlink};
+	std::wsregex_iterator beg{ mdInput_depr.cbegin(),mdInput_depr.cend(),*regexHyperlink};
 	std::wsregex_iterator end{};
 	std::wstring buffer = QString("NULL").toStdWString();
 	std::wstring debugPeek;
 
 	//Сбрасываем смещение
 	lengShift = 0;
-	mdFormatted = QString::fromStdWString(mdInput);
+	mdFormatted = QString::fromStdWString(mdInput_depr);
 
 	//Выполняем пока в строке существуют регулярки
 	for (std::wsregex_iterator i = beg; i != end;++i)
@@ -62,7 +62,7 @@ void mdScreen::textProcessorDeprecated()
 	processCRLF(mdFormatted);
 	lengShift = 0;
 	buffer = L"";
-	mdInput = mdFormatted.toStdWString();
+	mdInput_depr = mdFormatted.toStdWString();
 
 	//Обработка альтернативных ссылок
 	int indexIn = 0;
@@ -72,32 +72,32 @@ void mdScreen::textProcessorDeprecated()
 	std::wstring bufferLink=L"";
 	std::wstring bufferName=L"";
 	//Выполняем пока не дошли до конца строки
-	for (int i = 0;i < mdInput.size();++i)
+	for (int i = 0;i < mdInput_depr.size();++i)
 	{
 		//Получаем указатель на пользовательское название ссылки
-		index = mdInput.find('[', index);
-		range = mdInput.find(']', index);
+		index = mdInput_depr.find('[', index);
+		range = mdInput_depr.find(']', index);
 		//Если внезапно чего-то этого не оказалось то прерываем
 		if (index == -1 || range == -1)
 			break;
 		//Копируем пользовательское название в буффер
-		buffer = mdInput.substr(index, range - index+1);
+		buffer = mdInput_depr.substr(index, range - index+1);
 		bufferName = buffer;
 		//Копируем указатели на начало и длину
 		indexIn = index;
 		index = range;
 		//Выполяем пока указатель не дошёл до конца строки
-		if (index!=mdInput.size()-1)
+		if (index!= mdInput_depr.size()-1)
 			//Если найдена открывающая скобка то выполняем
-			if(mdInput.at(index + 1) == '(')
+			if(mdInput_depr.at(index + 1) == '(')
 			{
 				//Получаем длину ссылки до закрывающей скобки
-				range = mdInput.find(')', index + 1);
+				range = mdInput_depr.find(')', index + 1);
 				//Если закрывающей скобки нет то выходим
 				if (range == -1)
 					break;
 				//Копируем в буфер ссылку
-				buffer = mdInput.substr(index + 1, range - index);
+				buffer = mdInput_depr.substr(index + 1, range - index);
 				bufferLink = buffer;
 				buffer = L"";
 				//Прикрепляем к буферу сначала ссылку а затем пользовательское название ссылки
@@ -115,9 +115,9 @@ void mdScreen::textProcessorDeprecated()
 				buffer.replace(buffer.find(')'), 2, L">");
 				buffer.replace(buffer.find(']'), 1, std::wstring(vType.tag_href_end.begin(), vType.tag_href_end.end()));
 				//Вставляем ссылку
-				mdInput.replace(indexIn, urname_length, buffer);
+				mdInput_depr.replace(indexIn, urname_length, buffer);
 				//Переносим в массив на вывод
-				mdFormatted = QString::fromStdWString(mdInput);
+				mdFormatted = QString::fromStdWString(mdInput_depr);
 			}
 	}
 }

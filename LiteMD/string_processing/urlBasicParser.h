@@ -2,4 +2,4 @@
 #include "regex.h"
 #include <string>
 
-std::wstring basicUrlParser(std::wstring& rawInput);
+std::string basicUrlParser(std::string& rawInput);

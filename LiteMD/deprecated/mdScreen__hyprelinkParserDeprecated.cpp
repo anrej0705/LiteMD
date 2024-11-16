@@ -36,7 +36,7 @@ std::wstring mdScreen::hyperlinkParser(std::wstring& str)
 		//Ищем закрывающую скобку
 		for (int i = range; i < str.size(); ++i)
 		{
-			if (mdInput.at(i) == '>')
+			if (mdInput_depr.at(i) == '>')
 			{
 				//Как только находим - записываем позицию и выходим из цикла
 				index = i + 1;
@@ -48,10 +48,10 @@ std::wstring mdScreen::hyperlinkParser(std::wstring& str)
 		xpressions.push_back(buffer);
 	}
 	//Если в конце что-то есть то выполняем
-	if (index < mdInput.size())
+	if (index < mdInput_depr.size())
 	{
 		//Помещяем в буфер всё остальное до конца, обрабатываем от мусора и помещаем результат в контейнер
-		buffer = mdInput.substr(index, mdInput.size() - index);
+		buffer = mdInput_depr.substr(index, mdInput_depr.size() - index);
 		preprocessTrianlgeBrackets(buffer);
 		//preprocessTrianlgeBrackets(buffer);
 		garbage.push_back(buffer);
