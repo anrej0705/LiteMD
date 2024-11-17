@@ -2,24 +2,17 @@
 #include "urlBasicParser.h"
 #include "global_definitions.h"
 
-struct entry_pointer_list
-{
-	uint32_t str_entry_first;
-	uint32_t str_entry_second;
-	uint32_t buffer_shift;
-}entry_ptr;
-
-char* piece;
-boost::container::string *output;
+boost::container::string *simple_url_output;
 
 std::string basicUrlParser(std::string &rawInput)
 {
 	uint32_t* entry_list;	//Список с индексами, с которых начинаются обнаруженные символы
 	uint32_t* entry_offset;	//Список со смещением до закрывающего знака
+	// ^^^^^^^^^^^^^^^^^^^^ почистить в конце
 	uint32_t entrys = 0;
 	uint32_t offsets = 0;
 	
-	output = new boost::container::string;
+	simple_url_output = new boost::container::string;
 
 	uint32_t* buffer_size = (uint32_t*)malloc(sizeof(uint32_t));
 	*buffer_size = rawInput.size();	//Создаём переменную с количеством символов
@@ -40,8 +33,8 @@ std::string basicUrlParser(std::string &rawInput)
 	{
 		if (buffer[_index] == '<')	//Любое найденое вхождение запоминаем на будущее
 		{
-			++entrys;
-			entry_list = (uint32_t*)realloc(entry_list, sizeof(uint32_t) * entrys);
+			++entrys;	//realloc требуемый размер + 1 чтобы не вылезать за пределы
+			entry_list = (uint32_t*)realloc(entry_list, sizeof(uint32_t) * (entrys + 1) + sizeof(uint32_t));
 			entry_list[entrys - 1] = _index + 1;
 		}
 	}
@@ -49,13 +42,13 @@ std::string basicUrlParser(std::string &rawInput)
 	//Есть вероятность, что юзер оставит неполный тег, чтобы не вызвать
 	//ошибку в памяти добавляется дополнительное вхождение равное позиции
 	//последнего символа в тексте
-	entry_list = (uint32_t*)realloc(entry_list, sizeof(uint32_t) * entrys+1);
+	entry_list = (uint32_t*)realloc(entry_list, sizeof(uint32_t) * (entrys + 1));
 	entry_list[entrys] = *buffer_size + 1;	//Костыль с фиксом последнего символа
 
 	if (entry_list[0] != 0)	//Если первое вхождение не является началом блока то отмечаем 0 как смещение
 	{
 		++offsets;
-		entry_offset = (uint32_t*)realloc(entry_offset, sizeof(uint32_t) * offsets);
+		entry_offset = (uint32_t*)realloc(entry_offset, sizeof(uint32_t) * (offsets + 1) + sizeof(uint32_t));
 		entry_offset[offsets - 1] = 0;
 	}
 
@@ -70,7 +63,7 @@ std::string basicUrlParser(std::string &rawInput)
 			if (buffer[_index] == '>')
 			{
 				++offsets;
-				entry_offset = (uint32_t*)realloc(entry_offset, sizeof(uint32_t) * offsets);
+				entry_offset = (uint32_t*)realloc(entry_offset, sizeof(uint32_t) * (offsets + 1));
 				entry_offset[offsets - 1] = _index;
 			}
 		}
@@ -97,26 +90,30 @@ std::string basicUrlParser(std::string &rawInput)
 		//Копирование текста до тега
 		testpoint1 = entry_offset[entrys_cnt];
 		testpoint2 = entry_list[entrys_cnt];
-		output->append(&buffer[entry_offset[entrys_cnt]], entry_list[entrys_cnt] - 1);
+		simple_url_output->append(&buffer[entry_offset[entrys_cnt]], entry_list[entrys_cnt] - 1);
 
 		//Сборка в циклi
 		for (volatile uint32_t _part_idx = 0; _part_idx < entrys;++_part_idx)
 		{
 			++entrys_cnt;
 			//Вставка тега <a href="
-			output->append(simple_url_iopenurl, simple_url_iopenurl_size);
+			simple_url_output->append(simple_url_iopenurl, simple_url_iopenurl_size);
 			//Вставка текста-ссылки
-			output->append(&buffer[entry_list[entrys_cnt - 1]], entry_offset[entrys_cnt] - entry_list[entrys_cnt - 1]);
+			simple_url_output->append(&buffer[entry_list[entrys_cnt - 1]], entry_offset[entrys_cnt] - entry_list[entrys_cnt - 1]);
 			//Вставка закрывающего ссылку ">
-			output->append(simple_url_icloseurl, simple_url_icloseurl_size);
+			simple_url_output->append(simple_url_icloseurl, simple_url_icloseurl_size);
 			//Вставка кликабельного текста
-			output->append(&buffer[entry_list[entrys_cnt - 1]], entry_offset[entrys_cnt] - entry_list[entrys_cnt - 1]);
+			simple_url_output->append(&buffer[entry_list[entrys_cnt - 1]], entry_offset[entrys_cnt] - entry_list[entrys_cnt - 1]);
 			//Вставка закрывающего тега
-			output->append(simple_url_iclosetext, simple_url_iclosetext_size);
+			simple_url_output->append(simple_url_iclosetext, simple_url_iclosetext_size);
 			//Вставка текста между тегами
-			output->append(&buffer[entry_offset[entrys_cnt]] + 1, entry_list[entrys_cnt] - entry_offset[entrys_cnt] - 2);
+			simple_url_output->append(&buffer[entry_offset[entrys_cnt]] + 1, entry_list[entrys_cnt] - entry_offset[entrys_cnt] - 2);
 		}
 	}
 
-	return output->c_str();
+	//Чистка указателей
+	free(entry_list);
+	free(entry_offset);
+
+	return simple_url_output->c_str();
 }

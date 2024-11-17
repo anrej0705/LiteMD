@@ -3,4 +3,4 @@
 #include "regex.h"
 #include <string>
 
-std::wstring advancedUrlParser(std::wstring& rawInput);
+std::string advancedUrlParser(std::string& rawInput);
