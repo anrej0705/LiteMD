@@ -33,26 +33,27 @@ README.MD
 
 #### **Roadmap**:
 
-- :white_check_mark:0.0.1 - **Выход в альфу**
-- :white_check_mark:0.0.2 - Панель меню сверху
-- :white_check_mark:0.0.3 - Кнопки прокрутки
-- :white_check_mark:0.0.4 - Скроллинг текста в окнах рендера и редактора
-- :white_check_mark:0.0.5 - Сохранение файлов в .MD
-- :white_check_mark:0.0.6 - Окно "О программе"
-- :white_check_mark:0.0.7 - Динамическое обновление текста в рендере
-- :white_check_mark:0.0.8 - Смена заголовка `lmd prj` -> `LiteMD`
-- :white_check_mark:0.0.9 - Исправления - интерфейс
-- :white_check_mark:0.1.0 - **URL ссылки**
-- :white_check_mark:0.1.1 - Строка состояния
-- :white_check_mark:0.1.2 - Иконка приложения
-- :white_check_mark:0.1.3 - Исправление - привязка к разрешению
-- :white_check_mark:0.1.4 - Модуль загрузки по HTTP
-- :white_check_mark:0.1.5 - Прототип окна настроек
-- :white_check_mark:0.1.6 - Исправления
-- :white_check_mark:0.1.7 - Базовые настройки
-- :white_check_mark:0.1.8 - Иконки на кнопках меню и дока
-- :white_check_mark:0.1.9 - Списки изменений от версии к версии
-- :white_check_mark:0.2.0 - **Дополнительное форматирование текста и помощь**
+- :white_check_mark:rc - [релиз-кандидат](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_rc)
+- :white_check_mark:0.0.1 - [**Выход в альфу**](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha84)
+- :white_check_mark:0.0.2 - Панель меню сверху(не выложен)
+- :white_check_mark:0.0.3 - Кнопки прокрутки(не выложен)
+- :white_check_mark:0.0.4 - Скроллинг текста в окнах рендера и редактора(не выложен)
+- :white_check_mark:0.0.5 - Сохранение файлов в .MD(не выложен)
+- :white_check_mark:0.0.6 - Окно "О программе"(не выложен)
+- :white_check_mark:0.0.7 - Динамическое обновление текста в рендере(не выложен)
+- :white_check_mark:0.0.8 - Смена заголовка `lmd prj` -> `LiteMD`(не выложен)
+- :white_check_mark:0.0.9 - Исправления - интерфейс(не выложен)
+- :white_check_mark:0.1.0 - **URL ссылки**(не выложен)
+- :white_check_mark:0.1.1 - [Строка состояния](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha312)
+- :white_check_mark:0.1.2 - [Иконка приложения](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha356)
+- :white_check_mark:0.1.3 - [Исправление - привязка к разрешению](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha428)
+- :white_check_mark:0.1.4 - [Модуль загрузки по HTTP](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha455)
+- :white_check_mark:0.1.5 - [Прототип окна настроек](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha782)
+- :white_check_mark:0.1.6 - [Исправления](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha842)
+- :white_check_mark:0.1.7 - [Базовые настройки](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1006)
+- :white_check_mark:0.1.8 - [Иконки на кнопках меню и дока](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1064)
+- :white_check_mark:0.1.9 - [Списки изменений от версии к версии](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1225)
+- :white_check_mark:0.2.0 - [**Дополнительное форматирование текста и помощь**](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1554)
 - :arrow_forward:0.2.1 - Уровни заголовков
 - :x:0.2.2 - Жирный текст
 - :x:0.2.3 - Зачеркнутый текст
@@ -69,7 +70,7 @@ README.MD
 - :x:0.3.4 - Проверка орфографии
 - :x:0.3.5 - Режим читалки
 - :x:0.3.6 - Режим разработчика(для разработчиков)
-- :x:0.3.7 - Новый загрузчик
+- :x:0.3.7 - Новый загрузчик(запрос обновления с github)
 - :x:0.3.8 - Запрос настроек по сети
 - :x:0.3.9 - Улучшенная система исключений(мы заботимся о ваших файлах)
 - :x:0.4.0 - **Таблицы и разделители**
@@ -98,7 +99,7 @@ README.MD
 - :x:0.7.2 - Подсветка синтаксиса кода
 - :x:0.8.0 - **Бета**
 - :x:0.8.1 - Внешний дизайн
-- :x:0.8.2 - Проверка обновлений(запрос GitHub)
+- :x:0.8.2 - Дополнительные опции проверки обновлений
 - :x:0.8.3 - MDI приложение
 - :x:0.8.4 - **Эмодзи**
 - :x:0.8.5 - Скины(тёмный, гибрид)
