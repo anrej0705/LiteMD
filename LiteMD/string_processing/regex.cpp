@@ -12,12 +12,17 @@ std::wstring symbolClearanceFront(L"<[(");		//Очистка с конца
 
 //Символы для экранирования
 boost::container::string shieldingSymbolsSrc("`*_{}[]<>()#+-.!|/");
+boost::container::string bracketsSrc("{}[]<>()");
 boost::container::vector<boost::container::string> shieldingSymbols = {
 	"&#96;", "&#42;", "&#95;", "&#123;",
 	"&#125;","&#91;", "&#93;", "&#60;",
 	"&#62;", "&#40;", "&#41;", "&#35;",
 	"&#43;", "&#45;", "&#46;", "&#33;",
 	"&#124;","&#47;"
+};
+boost::container::vector<boost::container::string> bracketsTable = {
+	"&#123;", "&#125;", "&#91;", "&#93;",
+	"&#60;",  "&#62;",  "&#40;", "&#41;"
 };
 
 //Библиотека заменителей
