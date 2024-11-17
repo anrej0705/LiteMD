@@ -1,28 +1,28 @@
-#include "regex.h"
+п»ї#include "regex.h"
 
 std::wregex regexHyperlink(L"[<]{1,1}(http|https|ftp:){0,1}://([^?#>]*)[>]{1,1}", std::wregex::collate);	//<http://www.url.ru>
 std::wregex simplifiedRegexHyperlink(L"([<]{1,1}([^</?#>]*)[>]{1,1})", std::wregex::collate);		//<www.url.ru>
-std::wregex advRegexHyperlink(L"!{0,1}\\[[^\\[\\]]*?\\]\\(.*?\\)|^\\[*?\\]\\(.*?\\)", std::wregex::collate);	//[url](любойтекст)
+std::wregex advRegexHyperlink(L"!{0,1}\\[[^\\[\\]]*?\\]\\(.*?\\)|^\\[*?\\]\\(.*?\\)", std::wregex::collate);	//[url](Р»СЋР±РѕР№С‚РµРєСЃС‚)
 
-std::wstring symbolCollection(L"<>[]()");		//Служебные символы
+std::wstring symbolCollection(L"<>[]()");		//РЎР»СѓР¶РµР±РЅС‹Рµ СЃРёРјРІРѕР»С‹
 
-//Символы обязательной очистки
-std::wstring symbolClearanceBack(L">])");		//Очистка с начала
-std::wstring symbolClearanceFront(L"<[(");		//Очистка с конца
+//РЎРёРјРІРѕР»С‹ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕР№ РѕС‡РёСЃС‚РєРё
+std::wstring symbolClearanceBack(L">])");		//РћС‡РёСЃС‚РєР° СЃ РЅР°С‡Р°Р»Р°
+std::wstring symbolClearanceFront(L"<[(");		//РћС‡РёСЃС‚РєР° СЃ РєРѕРЅС†Р°
 
-//Символы для экранирования
-std::wstring shieldingSymbolsSrc(L"`*_{}[]<>()#+-.!|/");
-std::vector<std::wstring> shieldingSymbols = { 
-	L"&#96;", L"&#42;", L"&#95;", L"&#123;", 
-	L"&#125;", L"&#91;", L"&#93;", L"&#60;", 
-	L"&#62;", L"&#40;", L"&#41;", L"&#35;", 
-	L"&#43;", L"&#45;", L"&#46;", L"&#33;", 
-	L"&#124;", L"&#47;" 
+//РЎРёРјРІРѕР»С‹ РґР»СЏ СЌРєСЂР°РЅРёСЂРѕРІР°РЅРёСЏ
+boost::container::string shieldingSymbolsSrc("`*_{}[]<>()#+-.!|/");
+boost::container::vector<boost::container::string> shieldingSymbols = {
+	"&#96;", "&#42;", "&#95;", "&#123;",
+	"&#125;","&#91;", "&#93;", "&#60;",
+	"&#62;", "&#40;", "&#41;", "&#35;",
+	"&#43;", "&#45;", "&#46;", "&#33;",
+	"&#124;","&#47;"
 };
 
-//Библиотека заменителей
+//Р‘РёР±Р»РёРѕС‚РµРєР° Р·Р°РјРµРЅРёС‚РµР»РµР№
 std::vector<std::wstring> replaceSymbols = { L"&#60;", L"&#62;" };
 
-//Обёртка для HTML
+//РћР±С‘СЂС‚РєР° РґР»СЏ HTML
 std::vector<std::wstring> basicUrlWrap = { L"<A HREF=\"", L"\">", L"</A>"};
 std::vector<std::wstring> advUrlWrap = { L"<A HREF=\"", L"\">", L"</A>" };

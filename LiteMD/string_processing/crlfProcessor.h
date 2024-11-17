@@ -2,5 +2,6 @@
 
 #include "regex.h"
 #include <string>
+#include <boost/container/string.hpp>
 
-std::wstring crlfProcessor(std::wstring& rawInput);
+std::string crlfProcessor(std::string& rawInput);

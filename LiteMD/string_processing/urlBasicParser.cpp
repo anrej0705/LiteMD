@@ -28,12 +28,15 @@ std::string basicUrlParser(std::string &rawInput)
 	//который будет принят за ссылку неважно что это за текст
 	//Референс https://www.markdownguide.org/basic-syntax/#urls-and-email-addresses
 
+	//std::string test;
+
 	//Ищем вхождения по знаку '<'
 	for (volatile uint32_t _index = 0; _index < *buffer_size; ++_index)
 	{
 		if (buffer[_index] == '<')	//Любое найденое вхождение запоминаем на будущее
 		{
 			++entrys;	//realloc требуемый размер + 1 чтобы не вылезать за пределы
+			//strncpy(test, buffer, _index);
 			entry_list = (uint32_t*)realloc(entry_list, sizeof(uint32_t) * (entrys + 1) + sizeof(uint32_t));
 			entry_list[entrys - 1] = _index + 1;
 		}
@@ -87,6 +90,8 @@ std::string basicUrlParser(std::string &rawInput)
 		uint32_t testpoint1 = 0;
 		uint32_t testpoint2 = 0;
 
+		std::string test;
+
 		//Копирование текста до тега
 		testpoint1 = entry_offset[entrys_cnt];
 		testpoint2 = entry_list[entrys_cnt];
@@ -99,6 +104,8 @@ std::string basicUrlParser(std::string &rawInput)
 			//Вставка тега <a href="
 			simple_url_output->append(simple_url_iopenurl, simple_url_iopenurl_size);
 			//Вставка текста-ссылки
+			testpoint1 = entry_offset[entrys_cnt];
+			testpoint2 = entry_list[entrys_cnt - 1];
 			simple_url_output->append(&buffer[entry_list[entrys_cnt - 1]], entry_offset[entrys_cnt] - entry_list[entrys_cnt - 1]);
 			//Вставка закрывающего ссылку ">
 			simple_url_output->append(simple_url_icloseurl, simple_url_icloseurl_size);

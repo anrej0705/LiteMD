@@ -1,24 +1,26 @@
 #include "crlfProcessor.h"
 
-std::wstring crlfProcessor(std::wstring& rawInput)
+boost::container::string* buffer;
+
+std::string crlfProcessor(std::string& rawInput)
 {
 	//Буфер для операций внутри функций
-	std::wstring buffer = rawInput;
+	buffer = new boost::container::string(rawInput.c_str());
 
 	//Тег переноса строки
-	std::wstring brTag(L"<BR>");
+	boost::container::string brTag("<BR>");
 
 	//Проходим с конца
-	for (uint32_t index = buffer.size() - 1; index > 0; --index)
+	for (volatile uint32_t index = buffer->size() - 1; index > 0; --index)
 	{
-		if (buffer.empty())
+		if (buffer->empty())
 			break;
-		if (buffer.at(index) == L'\n')
+		if (buffer->at(index) == '\n')
 		{
-			buffer.replace(index, 1, brTag);
+			buffer->replace(index, 1, brTag);
 		}
 	}
 
 	//Возвращаем значение
-	return buffer;
+	return buffer->c_str();
 }
