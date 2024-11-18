@@ -8,20 +8,20 @@
 
 //SYMPBOLCLEANER.CPP чистит дублирующие символы от повторов чтобы парсинг проходил без ошибок
 /*************************************************************************************************************************
-																									   ЮЗЕР              *
-	 ПАРСЕР   __                SYMBOLCLEANER.CPP                     buffer->replace '.\|/.'         .----.__           *
-			 /()\````\          ░░░░░░███████ ]▄▄▄▄▄▄▄▄              '.\|/.'          (\   /)         /---.__  \        *
-			/____\____\         ▂▄▅█████████▅▄▃▂                  (\   /)          - -O- -       /       `\ |        *
-			|n  n|.___|        [████###############                  - -O- -          (/   \)       | o     o  \|        *
-	..      | __ /_\___\        ◥⊙▲░░░░░░███████ ]▄▄▄▄▄▄▄▄          (/   \)|/.'  for ,'/|\'.     ./| .vvvvv.   |\       *
+                                                                                                         ЮЗЕР            *
+     ПАРСЕР   __                SYMBOLCLEANER.CPP                     buffer->replace '.\|/.'          .----.__          *
+             /()\````\          ░░░░░░███████ ]▄▄▄▄▄▄▄▄              '.\|/.'          (\   /)         /---.__  \         *
+            /____\____\         ▂▄▅█████████▅▄▃▂                  (\   /)          - -O- -       /       `\ |        *
+            |n  n|.___|        [████###############                  - -O- -          (/   \)       | o     o  \|        *
+    ..      | __ /_\___\        ◥⊙▲░░░░░░███████ ]▄▄▄▄▄▄▄▄          (/   \)|/.'  for ,'/|\'.     ./| .vvvvv.   |\       *
    ___|  `'::::. |n|n_n|            ▂▄▅█████████▅▄▃▂              '.\(/   \)             .    / /| |     |   | \      *
   /___/\  _____A_                  [█████##############                 -- -O- -                / /'| `^vvvv'   |/\\     *
   |' '|| /      /\                  ◥⊙▲ ░░░░░███████ ]▄▄▄▄▄▄▄▄          (/   \)                ~   \ ЕБЛАНСТВО |  \\    *
   `"""__/__/\__/  \__                   ▂▄▅█████████▅▄▃▂             '.\)|/.'   switch           |   ЮЗЕРА   |.       *
   ---/__|" '' "| /___/\---- 	       [███████████████████].                                    _л7|   ю  /     \х      *
-	 |''|"'||'"| |' '||                 ◥⊙▲⊙▲⊙▲⊙▲⊙▲⊙▲⊙◤..                     if           .1_ /  .   . у  | /юх    *
-	 `""`""))""`"`""""`                                                                     dькккк|_/\/ `--.| _ \юллл    *
-																														 *
+     |''|"'||'"| |' '||                 ◥⊙▲⊙▲⊙▲⊙▲⊙▲⊙▲⊙◤..                     if           .1_ /  .   . у  | /юх    *
+     `""`""))""`"`""""`                                                                     dькккк|_/\/ `--.| _ \юллл    *
+                                                                                                                         *
 **************************************************************************************************************************/
 
 std::condition_variable condition;
@@ -169,126 +169,9 @@ std::string symbolCleaner(std::string& rawInput)
 					if (buffer[_idx] == '(')
 					{
 						first_entry = _idx + 1;
-						//clean->assign(&buffer[first_entry], last_entry - first_entry);
-						//testpoint1 = clean->c_str();
+						clean->assign(&buffer[first_entry], last_entry - first_entry);
+						testpoint1 = clean->c_str();
 						break;
-					}
-				}
-				//Выход если вхождения больше не найдены
-				if (first_entry == -1)
-					break;
-				//Поправка - ищется '(', ближайший к ')' в сторону уменьшения
-				for (volatile int32_t _idx = first_entry; _idx >= 0; --_idx)
-				{
-					if (buffer[_idx] == ')')
-					{
-						//testpoint3 = first_entry;
-						//testpoint3 = last_entry;
-						//clean->assign(&buffer[first_entry], last_entry - first_entry);
-						//testpoint1 = clean->c_str();
-						break;
-					}
-					else if (buffer[_idx] == '(')
-					{
-						first_entry = _idx + 1;
-					}
-				}
-				//Следующей позицией должен быть ']'
-				if (buffer[first_entry - 2] == ']')
-				{
-					size_offset = 0;
-					squ_last_entry = first_entry - 2;
-					//Если тег написан неправильно то вообще не считаем за тег
-					for (volatile int32_t _idx = squ_last_entry; _idx >= 0; --_idx)
-					{
-						if (buffer[_idx] == '[')
-						{
-							squ_first_entry = _idx + 1;
-							//clean->assign(&buffer[first_entry], last_entry - first_entry);
-							//testpoint1 = clean->c_str();
-							break;
-						}
-					}
-					//Выход если вхождения больше не найдены
-					if (squ_first_entry == -1)
-						break;
-					//Поправка - ищется '[', ближайший к ']' в сторону уменьшения
-					for (volatile int32_t _idx = squ_first_entry; _idx >= 0; --_idx)
-					{
-						if ((buffer[_idx] == ']') || (_idx == 0))
-						{
-							//testpoint3 = squ_first_entry;
-							//testpoint3 = squ_last_entry;
-							clean->assign(&buffer[squ_first_entry], squ_last_entry - squ_first_entry);
-							//testpoint1 = clean->c_str();
-							break;
-						}
-						else if (buffer[_idx] == '[')
-						{
-							squ_first_entry = _idx + 1;
-						}
-					}
-					//testpoint1 = clean->c_str();
-					//testpoint3 = squ_first_entry;
-					//testpoint3 = squ_last_entry;
-					for (volatile int32_t _idx = clean->size() - 1; _idx >= 0; --_idx)
-					{
-						if (bracketsSrc.find(clean->at(_idx)) != -1)
-						{
-							clean->replace(_idx, 1, bracketsTable.at(bracketsSrc.find(clean->at(_idx))).c_str());
-							size_offset += 4;
-							//testpoint1 = clean->c_str();
-							//testpoint1 = testpoint1;
-						}
-					}
-					//testpoint1 = clean_buffer->c_str();
-					clean_buffer->replace(squ_first_entry, squ_last_entry - squ_first_entry, clean->c_str());
-					//testpoint1 = clean_buffer->c_str();
-				}
-				else
-				{
-					//Если тег написан неправильно то вообще не считаем за тег
-					for (volatile int32_t _idx = _index; _idx >= 0; --_idx)
-					{
-						if ((buffer[_idx] == '(') || (buffer[_idx] == '['))
-						{
-							first_entry = _idx + 1;
-							//clean->assign(&buffer[first_entry], last_entry - first_entry);
-							//testpoint1 = clean->c_str();
-							break;
-						}
-					}
-					//Выход если вхождения больше не найдены
-					if (first_entry == -1)
-						break;
-					//Поправка - ищется '(', ближайший к ')' в сторону уменьшения
-					for (volatile int32_t _idx = first_entry; _idx >= 0; --_idx)
-					{
-						if ((buffer[_idx] == ')') || (buffer[_idx] == ']'))
-						{
-							//testpoint3 = first_entry;
-							//testpoint3 = last_entry;
-							//clean->assign(&buffer[first_entry], last_entry - first_entry);
-							//testpoint1 = clean->c_str();
-							break;
-						}
-						else if ((buffer[_idx] == '(') || (buffer[_idx] == '['))
-						{
-							first_entry = _idx + 1;
-						}
-					}
-				}
-				//Ищется наличие повторов внутри, все повторы заменяются на html коды
-				clean->assign(&buffer[first_entry], last_entry - first_entry);
-				//testpoint1 = clean->c_str();
-				for (volatile int32_t _idx = clean->size() - 1; _idx >= 0; --_idx)
-				{
-					if (bracketsSrc.find(clean->at(_idx)) != -1)
-					{
-						clean->replace(_idx, 1, bracketsTable.at(bracketsSrc.find(clean->at(_idx))).c_str());
-						//size_offset += 4;
-						//testpoint1 = clean->c_str();
-						//testpoint1 = testpoint1;
 					}
 				}
 				//testpoint1 = clean_buffer->c_str();
