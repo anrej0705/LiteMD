@@ -194,7 +194,7 @@ std::string symbolCleaner(std::string& rawInput)
 			}
 		}
 		//Выход если достигнут 0
-		if (_index == 0)
+		if (_index <= 0)
 			break;
 		else
 			--_index;
