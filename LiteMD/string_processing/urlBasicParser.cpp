@@ -82,19 +82,37 @@ std::string basicUrlParser(std::string &rawInput)
 		//Сборка
 		for (volatile uint32_t _part_idx = entrys_cnt; _part_idx < entrys + offsets + 0;)
 		{
-
+			//Сборка в циклi
+			for (volatile uint32_t _part_idx = 0; _part_idx < entrys; ++_part_idx)
+			{
+				//Вставка тега <a href="
+				simple_url_output->append(simple_url_iopenurl, simple_url_iopenurl_size);
+				//Вставка текста-ссылки
+				//testpoint1 = entry_offset[entrys_cnt];
+				//testpoint2 = entry_list[entrys_cnt - 1];
+				simple_url_output->append(&buffer[entry_list[entrys_cnt - 1]], entry_offset[entrys_cnt] - entry_list[entrys_cnt - 1]);
+				//Вставка закрывающего ссылку ">
+				simple_url_output->append(simple_url_icloseurl, simple_url_icloseurl_size);
+				//Вставка кликабельного текста
+				simple_url_output->append(&buffer[entry_list[entrys_cnt - 1]], entry_offset[entrys_cnt] - entry_list[entrys_cnt - 1]);
+				//Вставка закрывающего тега
+				simple_url_output->append(simple_url_iclosetext, simple_url_iclosetext_size);
+				//Вставка текста между тегами
+				simple_url_output->append(&buffer[entry_offset[entrys_cnt]] + 1, entry_list[entrys_cnt] - entry_offset[entrys_cnt] - 2);
+				++entrys_cnt;
+			}
 		}
 	}
 	else
 	{
-		uint32_t testpoint1 = 0;
-		uint32_t testpoint2 = 0;
+		//uint32_t testpoint1 = 0;
+		//uint32_t testpoint2 = 0;
 
 		std::string test;
 
 		//Копирование текста до тега
-		testpoint1 = entry_offset[entrys_cnt];
-		testpoint2 = entry_list[entrys_cnt];
+		//testpoint1 = entry_offset[entrys_cnt];
+		//testpoint2 = entry_list[entrys_cnt];
 		simple_url_output->append(&buffer[entry_offset[entrys_cnt]], entry_list[entrys_cnt] - 1);
 
 		//Сборка в циклi
@@ -104,8 +122,8 @@ std::string basicUrlParser(std::string &rawInput)
 			//Вставка тега <a href="
 			simple_url_output->append(simple_url_iopenurl, simple_url_iopenurl_size);
 			//Вставка текста-ссылки
-			testpoint1 = entry_offset[entrys_cnt];
-			testpoint2 = entry_list[entrys_cnt - 1];
+			//testpoint1 = entry_offset[entrys_cnt];
+			//testpoint2 = entry_list[entrys_cnt - 1];
 			simple_url_output->append(&buffer[entry_list[entrys_cnt - 1]], entry_offset[entrys_cnt] - entry_list[entrys_cnt - 1]);
 			//Вставка закрывающего ссылку ">
 			simple_url_output->append(simple_url_icloseurl, simple_url_icloseurl_size);

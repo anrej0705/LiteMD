@@ -134,7 +134,23 @@ std::string advancedUrlParser(std::string& rawInput)
 		//Сборка
 		for (volatile uint32_t _part_idx = entrys_cnt; _part_idx < squ_brackets_entry;)
 		{
-
+			//Сборка в циклi
+			for (volatile uint32_t _part_idx = 0; _part_idx < squ_brackets_entry; ++_part_idx)
+			{
+				++entrys_cnt;
+				//Вставка тега <a href="
+				format_url_output->append(simple_url_iopenurl, simple_url_iopenurl_size);
+				//Вставка текста-ссылки
+				format_url_output->append(&buffer[entry_list[entrys_cnt - 1]], offsets[entrys_cnt - 1] - entry_list[entrys_cnt - 1]);
+				//Вставка закрывающего ссылку ">
+				format_url_output->append(simple_url_icloseurl, simple_url_icloseurl_size);
+				//Вставка кликабельного текста
+				format_url_output->append(&buffer[squ_entry_list[entrys_cnt - 1]], squ_offsets[entrys_cnt] - squ_entry_list[entrys_cnt - 1]);
+				//Вставка закрывающего тега
+				format_url_output->append(simple_url_iclosetext, simple_url_iclosetext_size);
+				//Вставка текста между тегами
+				format_url_output->append(&buffer[offsets[entrys_cnt - 1]] + 1, squ_entry_list[entrys_cnt] - offsets[entrys_cnt - 1] - 2);
+			}
 		}
 	}
 	else

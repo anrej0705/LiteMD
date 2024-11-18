@@ -116,34 +116,34 @@ std::string symbolCleaner(std::string& rawInput)
 				//Поправка - ищется '<', ближайший к '>' в сторону уменьшения
 				for (volatile int32_t _idx = first_entry; _idx >= 0; --_idx)
 				{
-					if (buffer[_idx] == '>')
-					{
-						//testpoint3 = first_entry;
-						//testpoint3 = last_entry;
-						clean->assign(&buffer[first_entry], last_entry - first_entry);
-						//testpoint1 = clean->c_str();
-						break;
-					}
-					else if (buffer[_idx] == '<')
+					if (buffer[_idx] == '<')
 					{
 						first_entry = _idx + 1;
 					}
+					if ((buffer[_idx] == '>') || (_idx == 0))
+					{
+						testpoint3 = first_entry;
+						testpoint3 = last_entry;
+						clean->assign(&buffer[first_entry], last_entry - first_entry);
+						testpoint1 = clean->c_str();
+						break;
+					}
 				}
 				//Ищется наличие повторов внутри, все повторы заменяются на html коды
-				//testpoint1 = clean->c_str();
+				testpoint1 = clean->c_str();
 				for (volatile int32_t _idx = clean->size() - 1; _idx >= 0; --_idx)
 				{
 					if (bracketsSrc.find(clean->at(_idx)) != -1)
 					{
 						clean->replace(_idx, 1, bracketsTable.at(bracketsSrc.find(clean->at(_idx))).c_str());
 						//size_offset += 4;
-						//testpoint1 = clean->c_str();
-						//testpoint1 = testpoint1;
+						testpoint1 = clean->c_str();
+						testpoint1 = testpoint1;
 					}
 				}
-				//testpoint1 = clean_buffer->c_str();
+				testpoint1 = clean_buffer->c_str();
 				clean_buffer->replace(first_entry, last_entry - first_entry, clean->c_str());
-				//testpoint1 = clean_buffer->c_str();
+				testpoint1 = clean_buffer->c_str();
 
 				//Поправка положения указателя
 				if (first_entry >= 1)
@@ -169,13 +169,13 @@ std::string symbolCleaner(std::string& rawInput)
 					if (buffer[_idx] == '(')
 					{
 						first_entry = _idx + 1;
-						clean->assign(&buffer[first_entry], last_entry - first_entry);
-						testpoint1 = clean->c_str();
+						//clean->assign(&buffer[first_entry], last_entry - first_entry);
+						//testpoint1 = clean->c_str();
 						break;
 					}
 				}
 				//testpoint1 = clean_buffer->c_str();
-				clean_buffer->replace(squ_last_entry + size_offset + 2, last_entry - first_entry, clean->c_str());
+				//clean_buffer->replace(squ_last_entry + size_offset + 2, last_entry - first_entry, clean->c_str());
 				//testpoint1 = clean_buffer->c_str();
 
 				//Поправка положения указателя
@@ -199,8 +199,8 @@ std::string symbolCleaner(std::string& rawInput)
 		else
 			--_index;
 	}
-	//testpoint1 = clean_buffer->c_str();
-	//testpoint1 = testpoint1;
+	testpoint1 = clean_buffer->c_str();
+	testpoint1 = testpoint1;
 
 	//Очистка закрывающих символов которые были до первого открывающего
 
@@ -223,8 +223,8 @@ std::string symbolCleaner(std::string& rawInput)
 			break;
 		}
 	}
-	//testpoint1 = clean_buffer->c_str();
-	//testpoint1 = testpoint1;
+	testpoint1 = clean_buffer->c_str();
+	testpoint1 = testpoint1;
 
 	//Оистка '<'
 	for (volatile int32_t _idx = clean_buffer->size() - 1; _idx >= 0; --_idx)
@@ -246,8 +246,8 @@ std::string symbolCleaner(std::string& rawInput)
 			break;
 		}
 	}
-	//testpoint1 = clean_buffer->c_str();
-	//testpoint1 = testpoint1;
+	testpoint1 = clean_buffer->c_str();
+	testpoint1 = testpoint1;
 
 	//Очистка ')'
 	for (volatile int32_t _idx = 0; _idx < clean_buffer->size(); ++_idx)
@@ -268,8 +268,8 @@ std::string symbolCleaner(std::string& rawInput)
 			break;
 		}
 	}
-	//testpoint1 = clean_buffer->c_str();
-	//testpoint1 = testpoint1;
+	testpoint1 = clean_buffer->c_str();
+	testpoint1 = testpoint1;
 
 	//Оистка '<'
 	for (volatile int32_t _idx = clean_buffer->size() - 1; _idx >= 0; --_idx)
@@ -291,8 +291,8 @@ std::string symbolCleaner(std::string& rawInput)
 			break;
 		}
 	}
-	//testpoint1 = clean_buffer->c_str();
-	//testpoint1 = testpoint1;
+	testpoint1 = clean_buffer->c_str();
+	testpoint1 = testpoint1;
 
 	//std::string old_buffer = rawInput;
 
