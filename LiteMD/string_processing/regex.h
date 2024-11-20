@@ -23,6 +23,8 @@ extern std::vector<std::wstring> advUrlWrap;
 
 //Наборы символов для экранирования
 extern boost::container::string shieldingSymbolsSrc;
+extern boost::container::string reverse_bump;
+extern boost::container::string forward_bump;
 extern boost::container::string bracketsSrc;
 extern boost::container::vector<boost::container::string> shieldingSymbols;
 extern boost::container::vector<boost::container::string> bracketsTable;

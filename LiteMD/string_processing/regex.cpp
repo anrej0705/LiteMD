@@ -12,6 +12,8 @@ std::wstring symbolClearanceFront(L"<[(");		//Очистка с конца
 
 //Символы для экранирования
 boost::container::string shieldingSymbolsSrc("`*_{}[]<>()#+-.!|/");
+boost::container::string reverse_bump("}]>)");
+boost::container::string forward_bump("{[<(");
 boost::container::string bracketsSrc("{}[]<>()");
 boost::container::vector<boost::container::string> shieldingSymbols = {
 	"&#96;", "&#42;", "&#95;", "&#123;",
