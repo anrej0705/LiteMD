@@ -142,11 +142,11 @@ github.com/anrej0705
     </message>
     <message>
         <source>This app is free for use,modify and reupload&lt;BR&gt;</source>
-        <translation>Это приложение свободно для использования, модифицикации и распространения</translation>
+        <translation type="vanished">Это приложение свободно для использования, модифицикации и распространения</translation>
     </message>
     <message>
         <source>Repo on Github: </source>
-        <translation>Репозитории на GitHub: </translation>
+        <translation type="vanished">Репозитории на GitHub: </translation>
     </message>
     <message>
         <source>Releases: </source>
@@ -223,6 +223,14 @@ github.com/anrej0705
     <message>
         <source>Sh&amp;ow changelog</source>
         <translation>По&amp;казать список изменений</translation>
+    </message>
+    <message>
+        <source>This app is free for use,modify and reupload&lt;BR&gt;&lt;BR&gt;LiteMD IS FREE SOFTWARE! IF YOU PAID FOR IT YOU HAVE BEEN SCAMMED!</source>
+        <translation>Приложение полностью бесплатно и свободно для модификации, использования и распространения&lt;BR&gt;&lt;BR&gt;LiteMD ЯВЛЯЕТСЯ БЕСПЛАТНЫМ ПРИЛОЖЕНИЕМ! ЕСЛИ ВЫ ЗАПЛАТИЛИ - ВАС ОБМАНУЛИ!</translation>
+    </message>
+    <message>
+        <source>Github repo: </source>
+        <translation>Репозиторий GitHub: </translation>
     </message>
 </context>
 <context>

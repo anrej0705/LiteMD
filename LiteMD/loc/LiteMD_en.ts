@@ -140,11 +140,11 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>This app is free for use,modify and reupload&lt;BR&gt;</source>
-        <translation>This app is free for use,modify and reupload&lt;BR&gt;</translation>
+        <translation type="vanished">This app is free for use,modify and reupload&lt;BR&gt;</translation>
     </message>
     <message>
         <source>Repo on Github: </source>
-        <translation>Repo on Github: </translation>
+        <translation type="vanished">Repo on Github: </translation>
     </message>
     <message>
         <source>Releases: </source>
@@ -221,6 +221,14 @@ I hope u like my app :D</translation>
     <message>
         <source>Sh&amp;ow changelog</source>
         <translation>Sh&amp;ow changelog</translation>
+    </message>
+    <message>
+        <source>This app is free for use,modify and reupload&lt;BR&gt;&lt;BR&gt;LiteMD IS FREE SOFTWARE! IF YOU PAID FOR IT YOU HAVE BEEN SCAMMED!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Github repo: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
