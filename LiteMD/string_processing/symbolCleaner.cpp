@@ -250,10 +250,7 @@ std::string symbolCleaner(std::string& rawInput)
 						if (bracketsSrc.find(clean_buffer->at(_idx)) != -1)
 							clean_buffer->replace(_idx, 1, bracketsTable.at(bracketsSrc.find(clean_buffer->at(_idx))).c_str());
 					}
-					if (tag_list[rb_cache_ptr].first_entry > 0)
-						_index = tag_list[rb_cache_ptr].first_entry - 1;
-					else
-						_index = tag_list[rb_cache_ptr].first_entry;
+					_index = tag_list[rb_cache_ptr].first_entry - 1;
 					if (rb_cache_ptr < tag_list_size)
 						++rb_cache_ptr;
 					break;
@@ -286,7 +283,7 @@ std::string symbolCleaner(std::string& rawInput)
 			}
 		}
 		//Чистка служебных символов, находящихся между скобочками
-		if (bracketsSrc.find(clean_buffer->at(_index)) != -1)
+		if (_index >= 0 && bracketsSrc.find(clean_buffer->at(_index)) != -1)
 			clean_buffer->replace(_index, 1, bracketsTable.at(bracketsSrc.find(clean_buffer->at(_index))).c_str());
 	}
 
