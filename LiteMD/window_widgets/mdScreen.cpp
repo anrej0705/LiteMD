@@ -35,7 +35,7 @@ void mdScreen::slotSetText(const QString& str)
 	balamut.lock();
 	//Обрабатываем текст
 	mdInput = shieldingParser(mdInput);					//0 -> 1|Предварительная конвертация экранированных символов
-	//mdInput = symbolCleaner(mdInput);					//1 -> 2|Фильтрация служебных символов не являющихся частью тега
+	mdInput = symbolCleaner(mdInput);					//1 -> 2|Фильтрация служебных символов не являющихся частью тега
 	mdInput = basicUrlParser(mdInput);					//2 -> 3|Обработка <www.url.ru>
 	mdInput = advancedUrlParser(mdInput);				//3 -> 4|Обработка [name](url)
 	mdInput = crlfProcessor(mdInput);					//4 -> 5|Обработка переноса строки
