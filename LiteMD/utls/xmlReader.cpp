@@ -5,6 +5,7 @@ extern "C"
 {
 	#include "globalFlags.h"
 }
+extern struct parser_switchers parswitch;
 xmlReader::xmlReader()
 {
 	fileName = "config.xml";
@@ -137,6 +138,60 @@ bool xmlReader::readConfig()
 						//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
 						value = settingsReader.text().toString();
 						langCode = value.toInt();
+					}
+					else
+						readSuccess = 0;
+
+					settingsReader.readNext();
+					settingsReader.readNext();
+					settingsReader.readNext();
+					settingsReader.readNext();
+					settingsReader.readNext();
+
+					if (settingsReader.tokenString() == "StartElement" && settingsReader.name() == "enBasicUrlParse")
+					{
+						settingsReader.readNext();
+						settingsReader.readNext();
+						settingsReader.readNext();
+						//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
+						value = settingsReader.text().toString();
+						parswitch.en_simple_url = static_cast<bool>(value.toInt());
+					}
+					else
+						readSuccess = 0;
+
+					settingsReader.readNext();
+					settingsReader.readNext();
+					settingsReader.readNext();
+					settingsReader.readNext();
+					settingsReader.readNext();
+
+					if (settingsReader.tokenString() == "StartElement" && settingsReader.name() == "enAdvUrlParse")
+					{
+						settingsReader.readNext();
+						settingsReader.readNext();
+						settingsReader.readNext();
+						//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
+						value = settingsReader.text().toString();
+						parswitch.en_adv_url = static_cast<bool>(value.toInt());
+					}
+					else
+						readSuccess = 0;
+
+					settingsReader.readNext();
+					settingsReader.readNext();
+					settingsReader.readNext();
+					settingsReader.readNext();
+					settingsReader.readNext();
+
+					if (settingsReader.tokenString() == "StartElement" && settingsReader.name() == "enHeaderLvlParse")
+					{
+						settingsReader.readNext();
+						settingsReader.readNext();
+						settingsReader.readNext();
+						//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
+						value = settingsReader.text().toString();
+						parswitch.en_header_lvl = static_cast<bool>(value.toInt());
 					}
 					else
 						readSuccess = 0;

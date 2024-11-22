@@ -18,6 +18,14 @@ extern bool enableDeprFeatures;
 extern bool enableIndevFeatures;
 extern int langCode;
 
+//Настройки битов парсинга - биты по умолчанию заданы в appSettings.cpp
+struct parser_switchers
+{
+	bool en_simple_url;
+	bool en_adv_url;
+	bool en_header_lvl;
+};
+
 //Хранилище последних открытых файлов(коммит SilverWolf2k20)
 #define NUMBER_OF_FILES	4	//Строки
 #define FILENAME_SIZE	256	//Столбцы
