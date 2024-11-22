@@ -5,7 +5,7 @@ extern "C"
 	#include "globalFlags.h"
 	#include "global_definitions.h"
 }
-
+extern struct parser_switchers parswitch;
 xmlWriter::xmlWriter()
 {
 	fileName = "config.xml";
@@ -17,11 +17,17 @@ xmlWriter::xmlWriter()
 	QDomElement indevFeatures = attrib(*lmdFileSet, "enableIndevFeatures", enableIndevFeatures);
 	QDomElement deprFeatures = attrib(*lmdFileSet, "enableDeprFeatures", enableDeprFeatures);
 	QDomElement langCodeParam = attrib(*lmdFileSet, "langCode", langCode);
+	QDomElement enBasicUrlParse = attrib(*lmdFileSet, "enBasicUrlParse", parswitch.en_simple_url);
+	QDomElement enAdvUrlParse = attrib(*lmdFileSet, "enAdvUrlParse", parswitch.en_adv_url);
+	QDomElement enHeaderLvlParse = attrib(*lmdFileSet, "enHeaderLvlParse", parswitch.en_header_lvl);
 	lmdSet->appendChild(build);
 	lmdSet->appendChild(patchNoteRead);
 	lmdSet->appendChild(indevFeatures);
 	lmdSet->appendChild(deprFeatures);
 	lmdSet->appendChild(langCodeParam);
+	lmdSet->appendChild(enBasicUrlParse);
+	lmdSet->appendChild(enAdvUrlParse);
+	lmdSet->appendChild(enHeaderLvlParse);
 }
 
 xmlWriter::xmlWriter(QString fName)
@@ -35,11 +41,17 @@ xmlWriter::xmlWriter(QString fName)
 	QDomElement indevFeatures = attrib(*lmdFileSet, "enableIndevFeatures", enableIndevFeatures);
 	QDomElement deprFeatures = attrib(*lmdFileSet, "enableDeprFeatures", enableDeprFeatures);
 	QDomElement langCodeParam = attrib(*lmdFileSet, "langCode", langCode);
+	QDomElement enBasicUrlParse = attrib(*lmdFileSet, "enBasicUrlParse", parswitch.en_simple_url);
+	QDomElement enAdvUrlParse = attrib(*lmdFileSet, "enAdvUrlParse", parswitch.en_adv_url);
+	QDomElement enHeaderLvlParse = attrib(*lmdFileSet, "enHeaderLvlParse", parswitch.en_header_lvl);
 	lmdSet->appendChild(build);
 	lmdSet->appendChild(patchNoteRead);
 	lmdSet->appendChild(indevFeatures);
 	lmdSet->appendChild(deprFeatures);
 	lmdSet->appendChild(langCodeParam);
+	lmdSet->appendChild(enBasicUrlParse);
+	lmdSet->appendChild(enAdvUrlParse);
+	lmdSet->appendChild(enHeaderLvlParse);
 }
 
 void xmlWriter::writeConfig()
@@ -54,11 +66,17 @@ void xmlWriter::writeConfig()
 	QDomElement indevFeatures = attrib(*lmdFileSet, "enableIndevFeatures", enableIndevFeatures);
 	QDomElement deprFeatures = attrib(*lmdFileSet, "enableDeprFeatures", enableDeprFeatures);
 	QDomElement langCodeParam = attrib(*lmdFileSet, "langCode", langCode);
+	QDomElement enBasicUrlParse = attrib(*lmdFileSet, "enBasicUrlParse", parswitch.en_simple_url);
+	QDomElement enAdvUrlParse = attrib(*lmdFileSet, "enAdvUrlParse", parswitch.en_adv_url);
+	QDomElement enHeaderLvlParse = attrib(*lmdFileSet, "enHeaderLvlParse", parswitch.en_header_lvl);
 	lmdSet->appendChild(build);
 	lmdSet->appendChild(patchNoteRead);
 	lmdSet->appendChild(indevFeatures);
 	lmdSet->appendChild(deprFeatures);
 	lmdSet->appendChild(langCodeParam);
+	lmdSet->appendChild(enBasicUrlParse);
+	lmdSet->appendChild(enAdvUrlParse);
+	lmdSet->appendChild(enHeaderLvlParse);
 	QFile settingsFile(fileName);
 	if (settingsFile.open(QIODevice::WriteOnly))
 	{
