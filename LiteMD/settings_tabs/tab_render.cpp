@@ -11,18 +11,21 @@ void appSettings::configureRenderSettingsTab()
 
 	//Инициализируем метки
 	parseSimplLinksHint = new QLabel(tr("Parse URL links"));
+	parseAdvLinksHint = new QLabel(tr("Обрабатывать форматированные ссылки"));
+	parseHeaderLvlHint = new QLabel(tr("Обрабатывать уровни заголовков"));
 	 
 	//Инициализируем элементы взаимодействия
 	parseSimplLinks = new QCheckBox;
-
-	//Отрубаем до реализации механики
-	//parseLinks->setCheckable(0);
-	parseSimplLinks->setChecked(1);
-	parseSimplLinks->setDisabled(1);
+	parseAdvLinksl = new QCheckBox;
+	parseHeaderLvl = new QCheckBox;
 
 	//Устанавливаем высоту
 	parseSimplLinksHint->setFixedHeight(SETTINGS_HEIGH);
+	parseAdvLinksHint->setFixedHeight(SETTINGS_HEIGH);
+	parseHeaderLvlHint->setFixedHeight(SETTINGS_HEIGH);
 	parseSimplLinks->setFixedHeight(SETTINGS_HEIGH);
+	parseAdvLinksl->setFixedHeight(SETTINGS_HEIGH);
+	parseHeaderLvl->setFixedHeight(SETTINGS_HEIGH);
 
 	//Инициализируем рамку
 	QGroupBox* render_box = new QGroupBox;
@@ -42,8 +45,12 @@ void appSettings::configureRenderSettingsTab()
 
 	//Добавляем в компоновку
 	lbl_lay->addWidget(parseSimplLinksHint);
+	lbl_lay->addWidget(parseAdvLinksHint);
+	lbl_lay->addWidget(parseHeaderLvlHint);
 
 	interact_lay->addWidget(parseSimplLinks);
+	interact_lay->addWidget(parseAdvLinksl);
+	interact_lay->addWidget(parseHeaderLvl);
 
 	//Настраиваем порядок размещения элементов - сверху
 	lbl_lay->setAlignment(Qt::AlignTop);
