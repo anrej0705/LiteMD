@@ -24,7 +24,7 @@ void appSettings::update_ui()
 	settingsLister->setTabText(1, tr("Render"));
 	settingsLister->setTabText(2, tr("Downloader"));
 	settingsLister->setTabText(3, tr("Cap"));
-	parseLinksHint->setText(tr("Parse URL links"));
+	parseSimplLinksHint->setText(tr("Parse URL links"));
 	themeList->setItemText(0, tr("Will be added in future"));
 	saveSettings->setItemText(0, tr("Will be added in future"));
 	saveFreq->setItemText(0, tr("Will be added in future"));
