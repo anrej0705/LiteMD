@@ -94,9 +94,9 @@ bool xmlReader::readConfig()
 						//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
 						value = settingsReader.text().toString();
 						if (value == QString("true"))
-							enableDeprFeatures = 1;
+							enableIndevFeatures = 1;
 						else if (value == QString("false"))
-							enableDeprFeatures = 0;
+							enableIndevFeatures = 0;
 						else
 							return 0;
 					}
