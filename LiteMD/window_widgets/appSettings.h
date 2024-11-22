@@ -51,16 +51,29 @@ class appSettings : public QDialog
 		//-------------------------
 
 		//Вкладка "Рендер"
-		QLabel* parseLinksHint;	//Описание галки обработки ссылок
-		QCheckBox* parseLinks;	//Галка обработки ссылок
+		QLabel* parseSimplLinksHint;//Описание галки обработки ссылок <url>
+		QLabel* parseAdvLinksHint;	//Описание галки обработки [link](url)
+		QLabel* parseHeaderLvlHint;	//Описание галки обработки заголовков #...#####
+		QCheckBox* parseSimplLinks;	//Галка обработки ссылок <url>
+		QCheckBox* parseAdvLinksl;	//Галка обработки [link](url)
+		QCheckBox* parseHeaderLvl;	//Галка обработки заголовков #...#####
 		//-------------------------
 
 		//Вкладка "Загрузчик"
-		QLabel* allowWarningsHint;//Разрешить предупреждать об устаревшем функционале
-		QCheckBox* allowWarnings;//Флажок
+		QLabel* allowWarningsHint;	//Разрешить предупреждать об устаревшем функционале
+		QCheckBox* allowWarnings;	//Флажок
 
-		QLabel* allowCacheHint;	//Разрешить кеширование из интернета(папка cache по умолчанию)
-		QCheckBox* allowCache;	//Флажок
+		QLabel* allowCacheHint;		//Разрешить кеширование из интернета(папка cache по умолчанию)
+		QCheckBox* allowCache;		//Флажок
+		//-------------------------
+
+		//Вкладка "Логи"
+		QLabel* logHint;			//Подпись окна в логом
+		QTextEdit* logBox;			//Контейнер для отображения логов
+		QPushButton* clearLog;		//Кнопка "Очистить лог"
+		QPushButton* saveLog;		//Кнопка "Сохранить лог"
+		//-------------------------
+
 
 		void configureBasicSettingsTab();
 		void configureRenderSettingsTab();
