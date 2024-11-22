@@ -21,8 +21,11 @@ std::string shieldingParser(std::string& rawInput)
 		if (shielding_buffer->at(index) == '\\')
 		{
 			replaceSymbol[0] = shielding_buffer->at(index + 1);
-			replaceSymbol[0] = shieldingSymbols.at(shieldingSymbolsSrc.find(replaceSymbol[0])).c_str();
-			shielding_buffer->replace(index, 2, replaceSymbol[0]);
+			if (shieldingSymbolsSrc.find(replaceSymbol[0]) != -1)
+			{
+				replaceSymbol[0] = shieldingSymbols.at(shieldingSymbolsSrc.find(replaceSymbol[0])).c_str();
+				shielding_buffer->replace(index, 2, replaceSymbol[0]);
+			}
 		}
 	}
 
