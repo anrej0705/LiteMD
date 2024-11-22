@@ -10,19 +10,19 @@ void appSettings::configureRenderSettingsTab()
 	renderSettings = new QWidget;
 
 	//Инициализируем метки
-	parseLinksHint = new QLabel(tr("Parse URL links"));
+	parseSimplLinksHint = new QLabel(tr("Parse URL links"));
 	 
 	//Инициализируем элементы взаимодействия
-	parseLinks = new QCheckBox;
+	parseSimplLinks = new QCheckBox;
 
 	//Отрубаем до реализации механики
 	//parseLinks->setCheckable(0);
-	parseLinks->setChecked(1);
-	parseLinks->setDisabled(1);
+	parseSimplLinks->setChecked(1);
+	parseSimplLinks->setDisabled(1);
 
 	//Устанавливаем высоту
-	parseLinksHint->setFixedHeight(SETTINGS_HEIGH);
-	parseLinks->setFixedHeight(SETTINGS_HEIGH);
+	parseSimplLinksHint->setFixedHeight(SETTINGS_HEIGH);
+	parseSimplLinks->setFixedHeight(SETTINGS_HEIGH);
 
 	//Инициализируем рамку
 	QGroupBox* render_box = new QGroupBox;
@@ -41,9 +41,9 @@ void appSettings::configureRenderSettingsTab()
 	QHBoxLayout* manager = new QHBoxLayout;
 
 	//Добавляем в компоновку
-	lbl_lay->addWidget(parseLinksHint);
+	lbl_lay->addWidget(parseSimplLinksHint);
 
-	interact_lay->addWidget(parseLinks);
+	interact_lay->addWidget(parseSimplLinks);
 
 	//Настраиваем порядок размещения элементов - сверху
 	lbl_lay->setAlignment(Qt::AlignTop);
