@@ -10,7 +10,6 @@ extern "C"
 	#include "globalFlags.h"
 	#include "global_definitions.h"
 }
-
 LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 {
 	//Инициализация окон редактора и рендера текста
@@ -188,7 +187,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	if (!connect(mde, SIGNAL(titleChanged(const QString&)), this, SLOT(slotTitleChanged(const QString&))))
 		QErrorMessage::qtHandler();	//Соединяем сигнал открытия файла со слотом изменения заголовка под файл
 	if (!connect(mdlSet, SIGNAL(signalTitleChanged(const QString&)), this, SLOT(slotTitleChanged(const QString&))))
-		QErrorMessage::qtHandler();	//Соединяем сигнал из окна настрое со слотом изменения заголовка под файл
+		QErrorMessage::qtHandler();	//Соединяем сигнал из окна настроек со слотом изменения заголовка под файл
 	if (!connect(actAbout, SIGNAL(triggered()), this, SLOT(slotAbout())))
 		QErrorMessage::qtHandler();	//Соединяем сигнал со слотом вызова окна о программе
 	if (!connect(actOpen, SIGNAL(triggered()), mde, SLOT(slotOpen())))
@@ -213,7 +212,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler();	//Спрашиваем сохранить ли перед закрытием
 	if (!connect(actSet, SIGNAL(triggered()), mdlSet, SLOT(show())))
 		QErrorMessage::qtHandler();	//Открытие окна настроек
-	if(!connect(actPlaceUrl, SIGNAL(triggered()), mde, SLOT(convertToUrl())))
+	if (!connect(actPlaceUrl, SIGNAL(triggered()), mde, SLOT(convertToUrl())))
 		QErrorMessage::qtHandler();	//Конвертация в (ссылку)
 	if (!connect(actPlaceAltUrl, SIGNAL(triggered()), mde, SLOT(convToAltUrl())))
 		QErrorMessage::qtHandler();	//Конвертация в [альтернативную](ссылку)
