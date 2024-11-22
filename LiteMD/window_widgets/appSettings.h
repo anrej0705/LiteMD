@@ -90,6 +90,9 @@ class appSettings : public QDialog
 		void slot_switch_warn_allow(int);
 		void slot_switch_deprecated(int);
 		void slot_switch_features(int);
+		void slot_switch_simple_url_parser(int);
+		void slot_switch_adv_url_parser(int);
+		void slot_switch_header_lvl_parser(int);
 	signals:
 		void signalTitleChanged(const QString&);
 };
