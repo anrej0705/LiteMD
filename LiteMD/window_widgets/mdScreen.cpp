@@ -13,6 +13,13 @@
 #include <string>
 #include <regex>
 
+extern struct parser_switchers
+{
+	bool en_simple_url;
+	bool en_adv_url;
+	bool en_header_lvl;
+}parswitch;
+
 std::mutex balamut;
 
 mdScreen::mdScreen(QWidget* scrWgt) : QLabel(scrWgt)

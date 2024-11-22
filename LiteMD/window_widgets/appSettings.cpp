@@ -8,8 +8,19 @@ extern "C"
 {
 	#include "globalFlags.h"
 }
+extern struct parser_switchers
+{
+	bool en_simple_url;
+	bool en_adv_url;
+	bool en_header_lvl;
+}parswitch;
 appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 {
+	//Настройка флагов по умолчанию
+	parswitch.en_simple_url = 0;
+	parswitch.en_adv_url = 0;
+	parswitch.en_header_lvl = 0;
+
 	//Окно настроек, будет переписано
 	setModal(1);
 	setWindowTitle(tr("LiteMD Settings"));
@@ -106,17 +117,33 @@ void appSettings::slot_apply_settings()
 		QErrorMessage::qtHandler();
 	xmlw->writeConfig();	//Сохраняем в XML
 }
-void appSettings::slot_switch_warn_allow(int state)
+
+void appSettings::slot_switch_simple_url_parser(int bit)
 {
-	allowHttpWarn = static_cast<bool>(state);
+	parswitch.en_simple_url = static_cast<bool>(bit);
 }
 
-void appSettings::slot_switch_deprecated(int state)
+void appSettings::slot_switch_adv_url_parser(int bit)
 {
-	enableDeprFeatures = static_cast<bool>(state);
+	parswitch.en_adv_url = static_cast<bool>(bit);
 }
 
-void appSettings::slot_switch_features(int state)
+void appSettings::slot_switch_header_lvl_parser(int bit)
+{
+	parswitch.en_header_lvl = static_cast<bool>(bit);
+}
+
+void appSettings::slot_switch_warn_allow(int bit)
+{
+	allowHttpWarn = static_cast<bool>(bit);
+}
+
+void appSettings::slot_switch_deprecated(int bit)
+{
+	enableDeprFeatures = static_cast<bool>(bit);
+}
+
+void appSettings::slot_switch_features(int bit)
 {
 	if (!enableIndevFeatures)
 	{
@@ -129,5 +156,5 @@ void appSettings::slot_switch_features(int state)
 			(exceptionHandler(exceptionHandler::FATAL));
 		}
 	}
-	enableIndevFeatures = static_cast<bool>(state);
+	enableIndevFeatures = static_cast<bool>(bit);
 }

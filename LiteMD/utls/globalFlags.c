@@ -3,6 +3,14 @@
 
 //settings settingsStruct;
 
+//Настройки битов парсинга - биты по умолчанию заданы в appSettings.cpp
+struct parser_switchers
+{
+	bool en_simple_url;
+	bool en_adv_url;
+	bool en_header_lvl;
+}parswitch;
+
 bool fileOpenedState=0;
 bool fileChangedState=0;
 bool appTitleUpdated=0;
