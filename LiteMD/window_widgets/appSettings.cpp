@@ -8,18 +8,13 @@ extern "C"
 {
 	#include "globalFlags.h"
 }
-extern struct parser_switchers
-{
-	bool en_simple_url;
-	bool en_adv_url;
-	bool en_header_lvl;
-}parswitch;
+struct parser_switchers parswitch;
 appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 {
 	//Настройка флагов по умолчанию
-	parswitch.en_simple_url = 0;
-	parswitch.en_adv_url = 0;
-	parswitch.en_header_lvl = 0;
+	parswitch.en_simple_url = 1;
+	parswitch.en_adv_url = 1;
+	parswitch.en_header_lvl = 1;
 
 	//Окно настроек, будет переписано
 	setModal(1);
@@ -75,6 +70,12 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	if (!connect(btnApply, SIGNAL(clicked()), this, SLOT(slot_apply_settings())))
 		QErrorMessage::qtHandler();
 	if (!connect(allowWarnings, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_warn_allow(int))))
+		QErrorMessage::qtHandler();
+	if (!connect(parseSimplLinks, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_simple_url_parser(int))))
+		QErrorMessage::qtHandler();
+	if (!connect(parseAdvLinksl, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_adv_url_parser(int))))
+		QErrorMessage::qtHandler();
+	if (!connect(parseHeaderLvl, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_header_lvl_parser(int))))
 		QErrorMessage::qtHandler();
 	if (!connect(depFunc, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_deprecated(int))))
 		QErrorMessage::qtHandler();
