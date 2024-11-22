@@ -35,6 +35,10 @@ void appSettings::configureBasicSettingsTab()
 	//Инициализируем вкладку
 	basicSettings = new QWidget;
 
+	//Пока что отключено
+	devFunc->setDisabled(1);
+	devFunc->setChecked(0);
+
 	//Инициализируем рамку
 	QGroupBox* basic_box = new QGroupBox;
 	basic_box->setAutoFillBackground(1);
