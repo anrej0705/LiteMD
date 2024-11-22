@@ -1,6 +1,7 @@
 #include "xmlReader.h"
 #include "global_definitions.h"
 #include "exceptionHandler.h"
+#include "event_id_constructor.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -205,5 +206,7 @@ bool xmlReader::readConfig()
 	else
 		throw(exceptionHandler(exceptionHandler::WARNING, QObject::tr("Cannot open config file!")));
 	settings.close();	//Закрываем файл чтобы освободить дескриптор
+	if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_UI_UPDATE_USER_SETTINGS)))
+		QErrorMessage::qtHandler();//Отправка события на обновление визуала - галочек, радиокнопок и прочего
 	return readSuccess;
 }
