@@ -27,6 +27,10 @@ void appSettings::configureRenderSettingsTab()
 	parseAdvLinksl->setFixedHeight(SETTINGS_HEIGH);
 	parseHeaderLvl->setFixedHeight(SETTINGS_HEIGH);
 
+	parseSimplLinks->setChecked(1);
+	parseAdvLinksl->setChecked(1);
+	parseHeaderLvl->setChecked(1);
+
 	//Инициализируем рамку
 	QGroupBox* render_box = new QGroupBox;
 	render_box->setAutoFillBackground(1);
