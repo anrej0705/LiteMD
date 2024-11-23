@@ -223,7 +223,7 @@ std::string symbolCleaner(std::string& rawInput)
 	}
 	catch (exceptionHandler)
 	{
-		throw(exceptionHandler(exceptionHandler::WARNING, QString("Карма в говне! - Ошибка работы с памятью в symbolCleaner.cpp -> 88:217")));
+		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в symbolCleaner.cpp -> 88:217")));
 	}
 	
 	/*testpoint1.clear();
@@ -242,39 +242,17 @@ std::string symbolCleaner(std::string& rawInput)
 		testpoint1.clear();
 	}*/
 
-	//Чистка мусорных символов. Пары символов, создающие цельные теги не будут затронуты
-	for (volatile int32_t _index = *buffer_size - 1; _index >= 0; --_index)
+	try
 	{
-		if (_index == tag_list[rb_cache_ptr].last_entry)	//Поиск закрывающих символов
+		//Чистка мусорных символов. Пары символов, создающие цельные теги не будут затронуты
+		for (volatile int32_t _index = *buffer_size - 1; _index >= 0; --_index)
 		{
-			switch (tag_list[rb_cache_ptr].type)			//В зависимости от типа тегов, выбирается метод чистки
+			if (_index == tag_list[rb_cache_ptr].last_entry)	//Поиск закрывающих символов
 			{
-				case 2:
-				{	//Чистятся символы внутри тега чтобы исключить ложное срабатывание
-					for (volatile int32_t _idx = tag_list[rb_cache_ptr].last_entry - 1; _idx >= tag_list[rb_cache_ptr].first_entry + 1; --_idx)
-					{
-						if (bracketsSrc.find(clean_buffer->at(_idx)) != -1)
-							clean_buffer->replace(_idx, 1, bracketsTable.at(bracketsSrc.find(clean_buffer->at(_idx))).c_str());
-					}
-					_index = tag_list[rb_cache_ptr].first_entry - 1;
-					if (rb_cache_ptr < tag_list_size)
-						++rb_cache_ptr;
-					break;
-				}
-				case 3:
-				{	//Чистятся символы внутри тега чтобы исключить ложное срабатывание
-					if (tag_list_size > 0)
-					{
-						//Обработка круглых скобок
-						for (volatile int32_t _idx = tag_list[rb_cache_ptr].last_entry - 1; _idx >= tag_list[rb_cache_ptr].first_entry + 1; --_idx)
-						{
-							if (bracketsSrc.find(clean_buffer->at(_idx)) != -1)
-								clean_buffer->replace(_idx, 1, bracketsTable.at(bracketsSrc.find(clean_buffer->at(_idx))).c_str());
-						}
-						_index = tag_list[rb_cache_ptr].first_entry;
-						++rb_cache_ptr;
-
-						//Обработка квадратных скобок
+				switch (tag_list[rb_cache_ptr].type)			//В зависимости от типа тегов, выбирается метод чистки
+				{
+					case 2:
+					{	//Чистятся символы внутри тега чтобы исключить ложное срабатывание
 						for (volatile int32_t _idx = tag_list[rb_cache_ptr].last_entry - 1; _idx >= tag_list[rb_cache_ptr].first_entry + 1; --_idx)
 						{
 							if (bracketsSrc.find(clean_buffer->at(_idx)) != -1)
@@ -285,12 +263,41 @@ std::string symbolCleaner(std::string& rawInput)
 							++rb_cache_ptr;
 						break;
 					}
+					case 3:
+					{	//Чистятся символы внутри тега чтобы исключить ложное срабатывание
+						if (tag_list_size > 0)
+						{
+							//Обработка круглых скобок
+							for (volatile int32_t _idx = tag_list[rb_cache_ptr].last_entry - 1; _idx >= tag_list[rb_cache_ptr].first_entry + 1; --_idx)
+							{
+								if (bracketsSrc.find(clean_buffer->at(_idx)) != -1)
+									clean_buffer->replace(_idx, 1, bracketsTable.at(bracketsSrc.find(clean_buffer->at(_idx))).c_str());
+							}
+							_index = tag_list[rb_cache_ptr].first_entry;
+							++rb_cache_ptr;
+
+							//Обработка квадратных скобок
+							for (volatile int32_t _idx = tag_list[rb_cache_ptr].last_entry - 1; _idx >= tag_list[rb_cache_ptr].first_entry + 1; --_idx)
+							{
+								if (bracketsSrc.find(clean_buffer->at(_idx)) != -1)
+									clean_buffer->replace(_idx, 1, bracketsTable.at(bracketsSrc.find(clean_buffer->at(_idx))).c_str());
+							}
+							_index = tag_list[rb_cache_ptr].first_entry - 1;
+							if (rb_cache_ptr < tag_list_size)
+								++rb_cache_ptr;
+							break;
+						}
+					}
 				}
 			}
+			//Чистка служебных символов, находящихся между скобочками
+			if (_index >= 0 && bracketsSrc.find(clean_buffer->at(_index)) != -1)
+				clean_buffer->replace(_index, 1, bracketsTable.at(bracketsSrc.find(clean_buffer->at(_index))).c_str());
 		}
-		//Чистка служебных символов, находящихся между скобочками
-		if (_index >= 0 && bracketsSrc.find(clean_buffer->at(_index)) != -1)
-			clean_buffer->replace(_index, 1, bracketsTable.at(bracketsSrc.find(clean_buffer->at(_index))).c_str());
+	}
+	catch (exceptionHandler)
+	{
+		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью при фильтрации служебных символов(symbolCleaner.cpp 245:297)")));
 	}
 
 	//testpoint1 = clean_buffer->c_str();
