@@ -18,6 +18,8 @@ std::string crlfProcessor(std::string& rawInput)
 		if (buffer->at(index) == '\n')
 		{
 			buffer->replace(index, 1, brTag);
+			if (index > 2)
+				index -= 2;
 		}
 	}
 
