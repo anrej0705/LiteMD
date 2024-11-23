@@ -46,6 +46,8 @@ void appSettings::update_ui()
 	parseSimplLinksHint->setText(tr("Parse URL links"));
 	parseAdvLinksHint->setText(tr("parseAdvLinksHint"));
 	parseHeaderLvlHint->setText(tr("parseHeaderLvlHint"));
+	allowWarningsHint->setText(tr("Show one-time deprecated warning"));
+	allowCacheHint->setText(tr("Enable content caching"));
 }
 
 void appSettings::update_interactive()
