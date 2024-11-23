@@ -32,6 +32,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	QWidget* scrollDock = new QWidget;
 	QWidget* mainWgt = new QWidget;
 	quick_tb = new QToolBar;
+	serv_tb = new QToolBar;
 	dwModule = new DownloaderGui;
 	mFile = new QMenu(tr("&File"));
 	mEdit = new QMenu(tr("&Edit"));
@@ -113,6 +114,12 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	actBugReport->setDisabled(1);	//Отключено до 0.2.2
 	//--------------------
 
+	//Настройка тулбаров
+	quick_tb->setMovable(0);
+	serv_tb->setMovable(0);
+	serv_tb->setLayoutDirection(Qt::RightToLeft);
+	//--------------------
+
 	//Добавляем кнопки в доки
 	quick_tb->addAction(actNew);
 	quick_tb->addAction(actOpen);
@@ -123,17 +130,18 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	quick_tb->addAction(actPlaceAltUrl);
 	quick_tb->addAction(actSetTextFormat);
 	quick_tb->addSeparator();
-	quick_tb->addAction(actDownloader);
-	quick_tb->addAction(actSet);
-	quick_tb->addSeparator();
-	quick_tb->addAction(actHelp);
-	quick_tb->addAction(actAbout);
-	quick_tb->addAction(actOpenChangelog);
-	quick_tb->addSeparator();
-	quick_tb->addAction(actBugReport);
+	serv_tb->addAction(actBugReport);
+	serv_tb->addSeparator();
+	serv_tb->addAction(actHelp);
+	serv_tb->addAction(actAbout);
+	serv_tb->addAction(actOpenChangelog);
+	serv_tb->addSeparator();
+	serv_tb->addAction(actSet);
+	serv_tb->addAction(actDownloader);
 	//-----------------------
 
 	this->addToolBar(Qt::TopToolBarArea, quick_tb);
+	this->addToolBar(Qt::TopToolBarArea, serv_tb);
 	actAbout->setShortcut(Qt::CTRL | Qt::Key_A);
 	actOpen->setShortcut(Qt::CTRL | Qt::Key_O);
 	actSave->setShortcut(Qt::CTRL | Qt::Key_S);

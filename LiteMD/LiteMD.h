@@ -23,6 +23,7 @@ class LiteMD : public QMainWindow
 	private:
 		//Ui::LiteMDClass ui;			//Не используется
 		QToolBar* quick_tb;				//Тулбар для кнопок-ярлыков
+		QToolBar* serv_tb;				//Тулбар для кнопок помощи, о проге, Bug!
 		QMenu* mHelp;					//Меню помощи
 		QMenu* mFile;					//Меню файла
 		QMenu* mEdit;					//Меню "Правка"
