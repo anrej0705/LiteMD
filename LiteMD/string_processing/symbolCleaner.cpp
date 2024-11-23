@@ -151,17 +151,13 @@ std::string symbolCleaner(std::string& rawInput)
 					}
 					case 3:
 					{
+						volatile int32_t squ_brackets_entry = -1;
+						volatile int32_t squ_brackets_last = -1;
+						volatile int32_t brackets_entry = -1;
+						volatile int32_t brackets_last = -1;
 						//testpoint1.clear();
-						//Готовится участок памяти
-						new_list = reinterpret_cast<service_tags*>(realloc(tag_list, sizeof(service_tags) * (tag_list_size + 1)));
-						if (new_list != NULL)											//Проверка на карму
-							tag_list = new_list;
-						else
-							throw(exceptionHandler(exceptionHandler::WARNING, QString("Карма в говне! - new_list вернул NULL")));
-						tag_list[tag_list_size].type = char_type;						//Записывается тип найденого символа
-						tag_list[tag_list_size].first_entry = -1;						//Позиция начала обозначается как неизвестная
 						compare_char = forward_bump.at(char_type);						//Кешируется символ который ожидается встретить со стороны начала
-						tag_list[tag_list_size].last_entry = _index;					//Текущая позиция записывается как конец тега
+						brackets_last = _index;											//Текущая позиция записывается как конец тега
 						for (volatile int32_t _idx = _index; _idx >= 0; --_idx)			//Ищется позиция начала
 						{																//Если наход то проверяем из чего сделан кокс
 							//testpoint2 = clean_buffer->at(_idx);
@@ -169,25 +165,34 @@ std::string symbolCleaner(std::string& rawInput)
 							if ((compare_char == clean_buffer->at(_idx)) && (clean_buffer->at(_idx - 1) == ']'))
 							{
 								compare_char = forward_bump.at(1);						//Снова кешируется но уже для пары '[]'
-								tag_list[tag_list_size].first_entry = _idx;				//Кешируется
-								tag_list[tag_list_size].size = tag_list[tag_list_size].last_entry - tag_list[tag_list_size].first_entry;
-								++tag_list_size;
-								//Готовится участок памяти
-								new_list = reinterpret_cast<service_tags*>(realloc(tag_list, sizeof(service_tags) * (tag_list_size + 1)));
-								if (new_list != NULL)									//Проверка на карму
-									tag_list = new_list;
-								else
-									throw(exceptionHandler(exceptionHandler::WARNING, QString("Карма в говне! - new_list вернул NULL")));
-								tag_list[tag_list_size].last_entry = _idx - 1;
+								brackets_entry = _idx;									//Кешируется начало скобок
+								squ_brackets_last = _idx - 1;
 								for (volatile int32_t _squ_idx = _idx; _squ_idx >= 0; --_squ_idx)
 								{
 									//testpoint2 = clean_buffer->at(_squ_idx);
 									//testpoint1.insert(0, 1, testpoint2);
 									if (compare_char == clean_buffer->at(_squ_idx))		//Пора сворачиваться
 									{
-										tag_list[tag_list_size].first_entry = _squ_idx;	//Сохраняется позиция начала
+										squ_brackets_entry = _squ_idx;					//Сохраняется позиция начала
+										new_list = reinterpret_cast<service_tags*>(realloc(tag_list, sizeof(service_tags) * (tag_list_size + 1)));
+										if (new_list != NULL)							//Проверка на карму
+											tag_list = new_list;
+										else
+											throw(exceptionHandler(exceptionHandler::WARNING, QString("Карма в говне! - new_list вернул NULL")));
+										tag_list[tag_list_size].last_entry = brackets_last;
+										tag_list[tag_list_size].first_entry = brackets_entry;
 										tag_list[tag_list_size].size = tag_list[tag_list_size].last_entry - tag_list[tag_list_size].first_entry;
+										tag_list[tag_list_size].type = char_type;
 										++tag_list_size;
+										new_list = reinterpret_cast<service_tags*>(realloc(tag_list, sizeof(service_tags) * (tag_list_size + 1)));
+										if (new_list != NULL)							//Проверка на карму
+											tag_list = new_list;
+										else
+											throw(exceptionHandler(exceptionHandler::WARNING, QString("Карма в говне! - new_list вернул NULL")));
+										tag_list[tag_list_size].last_entry = squ_brackets_last;
+										tag_list[tag_list_size].first_entry = squ_brackets_entry;
+										tag_list[tag_list_size].size = tag_list[tag_list_size].last_entry - tag_list[tag_list_size].first_entry;
+										++tag_list_size;								//Писать ещё раз char_type нет смысла
 										_index = _squ_idx;
 										//testpoint1.clear();
 										break;
@@ -201,7 +206,8 @@ std::string symbolCleaner(std::string& rawInput)
 								{
 									if (clean_buffer->at(_search) == ')')
 									{
-										tag_list[tag_list_size].last_entry = _search + 1;
+										//tag_list[tag_list_size].last_entry = _search + 1;
+										brackets_last = _search + 1;
 										//testpoint1.clear();
 										break;
 									}
