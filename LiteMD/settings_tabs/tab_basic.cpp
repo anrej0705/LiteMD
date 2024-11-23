@@ -9,6 +9,8 @@ extern "C"
 //Конвертер имени языка - имя_языка(код_языка)
 QString localeNameConverter(QString lang_string_name, QString file_loc_name);
 
+bool emptyMapDet = NULL;
+
 //Конфигурируем окно базовых настроек
 void appSettings::configureBasicSettingsTab()
 {
@@ -32,6 +34,10 @@ void appSettings::configureBasicSettingsTab()
 
 	//Инициализируем вкладку
 	basicSettings = new QWidget;
+
+	//Пока что отключено
+	devFunc->setDisabled(1);
+	devFunc->setChecked(0);
 
 	//Инициализируем рамку
 	QGroupBox* basic_box = new QGroupBox;
@@ -88,6 +94,7 @@ void appSettings::configureBasicSettingsTab()
 	{
 		langList->addItem("Локали не найдены");
 		langList->setDisabled(1);
+		emptyMapDet=!emptyMapDet;
 	}
 	
 
@@ -121,6 +128,8 @@ void appSettings::configureBasicSettingsTab()
 	saveSettings->setDisabled(1);
 	saveFreq->setDisabled(1);
 	autoSave->setDisabled(1);
+	depFunc->setDisabled(1);
+	devFunc->setDisabled(1);
 
 	//Настраиваем высоту(подгон высоты текста к элементам управления)
 	langListHint->setFixedHeight(SETTINGS_HEIGH);
@@ -167,6 +176,11 @@ QString localeNameConverter(QString lang_string_name, QString file_loc_name)
 }
 void appSettings::slot_lang_selected(int lIndx)
 {
+	if (emptyMapDet)
+	{
+		emit signalTitleChanged("[Локали не найдены!]");
+		return;
+	}
 	int langIndx = 0;
 	langIndx = lIndx;
 	langCode = lIndx;

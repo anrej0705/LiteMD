@@ -4,25 +4,36 @@ extern "C"
 {
 	#include "globalFlags.h"
 }
-
 void appSettings::configureRenderSettingsTab()
 {
 	renderSettings = new QWidget;
 
 	//Инициализируем метки
-	parseLinksHint = new QLabel(tr("Parse URL links"));
+	parseSimplLinksHint = new QLabel(tr("parseSimplLinksHint"));
+	parseAdvLinksHint = new QLabel(tr("parseAdvLinksHint"));
+	parseHeaderLvlHint = new QLabel(tr("parseHeaderLvlHint"));
+
+	//Подсказка для перезагрузки документа
+	reloadHint = new QLabel(tr("reloadHint"));
+	reloadHint->setAlignment(Qt::AlignBottom | Qt::AlignLeft);
+	reloadHint->setFixedHeight(SETTINGS_HEIGH);
 	 
 	//Инициализируем элементы взаимодействия
-	parseLinks = new QCheckBox;
-
-	//Отрубаем до реализации механики
-	//parseLinks->setCheckable(0);
-	parseLinks->setChecked(1);
-	parseLinks->setDisabled(1);
+	parseSimplLinks = new QCheckBox;
+	parseAdvLinksl = new QCheckBox;
+	parseHeaderLvl = new QCheckBox;
 
 	//Устанавливаем высоту
-	parseLinksHint->setFixedHeight(SETTINGS_HEIGH);
-	parseLinks->setFixedHeight(SETTINGS_HEIGH);
+	parseSimplLinksHint->setFixedHeight(SETTINGS_HEIGH);
+	parseAdvLinksHint->setFixedHeight(SETTINGS_HEIGH);
+	parseHeaderLvlHint->setFixedHeight(SETTINGS_HEIGH);
+	parseSimplLinks->setFixedHeight(SETTINGS_HEIGH);
+	parseAdvLinksl->setFixedHeight(SETTINGS_HEIGH);
+	parseHeaderLvl->setFixedHeight(SETTINGS_HEIGH);
+
+	parseSimplLinks->setChecked(1);
+	parseAdvLinksl->setChecked(1);
+	parseHeaderLvl->setChecked(1);
 
 	//Инициализируем рамку
 	QGroupBox* render_box = new QGroupBox;
@@ -38,12 +49,16 @@ void appSettings::configureRenderSettingsTab()
 
 	//Вспомогательная компоновка
 	QHBoxLayout* render_box_lay = new QHBoxLayout;
-	QHBoxLayout* manager = new QHBoxLayout;
+	QVBoxLayout* manager = new QVBoxLayout;
 
 	//Добавляем в компоновку
-	lbl_lay->addWidget(parseLinksHint);
+	lbl_lay->addWidget(parseSimplLinksHint);
+	lbl_lay->addWidget(parseAdvLinksHint);
+	lbl_lay->addWidget(parseHeaderLvlHint);
 
-	interact_lay->addWidget(parseLinks);
+	interact_lay->addWidget(parseSimplLinks);
+	interact_lay->addWidget(parseAdvLinksl);
+	interact_lay->addWidget(parseHeaderLvl);
 
 	//Настраиваем порядок размещения элементов - сверху
 	lbl_lay->setAlignment(Qt::AlignTop);
@@ -65,6 +80,7 @@ void appSettings::configureRenderSettingsTab()
 	//Прикрепляем скомпонованные элементы
 	render_box->setLayout(render_box_lay);
 	manager->addWidget(render_box);
+	manager->addWidget(reloadHint);
 
 	renderSettings->setLayout(manager);
 }

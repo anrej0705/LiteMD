@@ -3,10 +3,14 @@
 #define GLOBAL_DEFINITIONS_H_
 //Глобальные определения, в т.ч версии сборки и ИД событий
 
-//##[VERSION-9]
 //---------------------------------------------
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
-#define BUILD_NUMBER 1554
+//!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
+//!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
+//##[VERSION-9]
+#define BUILD_NUMBER 1683
+//!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
+//!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
 //---------------------------------------------
 
@@ -45,4 +49,27 @@ const char appSign[] = "__Shani_basic";
 #define APP_EVENT_frame_changelog_UPDATE_EVENT			41
 //--------------------------------------------------------
 
+//Событие обновления настроек после чтения конфига
+//Обработчик лежит в appSettings_ui.cpp
+#define APP_EVENT_UI_UPDATE_USER_SETTINGS				127
+
+/*
+* Блок шаблонов для парсеров. Когда парсер встречает свой тег, он подменяет тег на
+* HTML-шаблон
+*/
+const char simple_url_iopenurl[] = "<A HREF=\"";
+const char simple_url_icloseurl[] = "\">";
+const char simple_url_iclosetext[] = "</A>";
+
+const char header_lvl_iopenlvl[] = "<H";
+const char header_lvl_icloselvl[] = ">";
+const char header_lvl_iclosetext[] = "</H";
+
+const uint8_t simple_url_iopenurl_size = 9;
+const uint8_t simple_url_icloseurl_size = 2;
+const uint8_t simple_url_iclosetext_size = 4;
+
+const uint8_t header_lvl_iopenlvl_size = 2;
+const uint8_t header_lvl_icloselvl_size = 1;
+const uint8_t header_lvl_iclosetext_size = 3;
 #endif

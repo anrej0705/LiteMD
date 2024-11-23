@@ -2,5 +2,6 @@
 
 #include "regex.h"
 #include <string>
+#include <boost/container/string.hpp>
 
-std::wstring shieldingParser(std::wstring& rawInput);
+std::string shieldingParser(std::string& rawInput);

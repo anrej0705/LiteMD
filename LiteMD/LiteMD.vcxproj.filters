@@ -54,6 +54,9 @@
     <Filter Include="Устаревшее">
       <UniqueIdentifier>{38718a96-747e-4b83-a2bf-5bdb47a50124}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Тесты">
+      <UniqueIdentifier>{ad513707-3df8-481c-8cc7-4da994c750a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="LiteMD.h">
@@ -171,6 +174,9 @@
     </ClCompile>
     <ClCompile Include="utls\localeDetector.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="string_processing\headerLvlParser.cpp">
+      <Filter>String processing\Парсеры</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -329,6 +335,9 @@
     <ClInclude Include="string_processing\crlfProcessor.h">
       <Filter>String processing</Filter>
     </ClInclude>
+    <ClInclude Include="string_processing\headerLvlParser.h">
+      <Filter>String processing\Парсеры</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Readme.md" />
@@ -340,6 +349,9 @@
     </None>
     <None Include="docs\Manual.md">
       <Filter>Документация</Filter>
+    </None>
+    <None Include="testPattern.md">
+      <Filter>Тесты</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -1,31 +1,34 @@
-#include "shieldingParser.h"
+ï»¿#include "shieldingParser.h"
 
-std::wstring shieldingParser(std::wstring& rawInput)
+boost::container::string* shielding_buffer;
+boost::container::string* replaceSymbol;
+
+std::string shieldingParser(std::string& rawInput)
 {
-	//Ñîçäàåì áóôôåğ â êîòîğîì áóäåì ïğîâîäèòü îáğàáîòêó
-	std::wstring buffer = rawInput;
+	//Ğ¡Ğ¾Ğ·Ğ´Ğ°ĞµĞ¼ Ğ±ÑƒÑ„Ñ„ĞµÑ€ Ğ² ĞºĞ¾Ñ‚Ğ¾Ñ€Ğ¾Ğ¼ Ğ±ÑƒĞ´ĞµĞ¼ Ğ¿Ñ€Ğ¾Ğ²Ğ¾Ğ´Ğ¸Ñ‚ÑŒ Ğ¾Ğ±Ñ€Ğ°Ğ±Ğ¾Ñ‚ĞºÑƒ
+	shielding_buffer = new boost::container::string(rawInput.c_str());
 
-	//Ñèìâîë êîòîğûì áóäåò ïğîâîäèòüñÿ çàìåíà
-	std::wstring replaceSymbol;
+	//Ğ¡Ğ¸Ğ¼Ğ²Ğ¾Ğ» ĞºĞ¾Ñ‚Ğ¾Ñ€Ñ‹Ğ¼ Ğ±ÑƒĞ´ĞµÑ‚ Ğ¿Ñ€Ğ¾Ğ²Ğ¾Ğ´Ğ¸Ñ‚ÑŒÑÑ Ğ·Ğ°Ğ¼ĞµĞ½Ğ°
+	replaceSymbol = new boost::container::string;
 
-	//Ñèìâîë-äåòåêòîğ ıêğàíèğîâàíèÿ
-	std::wstring shieldDetector(L"\\");
-
-	//Èùåì ñïåöèñèìâîëû, êîòîğûå îòìå÷åíû çíàêîì ıêğàíèğîâàíèÿ
-	for (uint32_t index = buffer.size() - 1; index > 0; --index)
+	//Ğ˜Ñ‰ĞµĞ¼ ÑĞ¿ĞµÑ†ÑĞ¸Ğ¼Ğ²Ğ¾Ğ»Ñ‹, ĞºĞ¾Ñ‚Ğ¾Ñ€Ñ‹Ğµ Ğ¾Ñ‚Ğ¼ĞµÑ‡ĞµĞ½Ñ‹ Ğ·Ğ½Ğ°ĞºĞ¾Ğ¼ ÑĞºÑ€Ğ°Ğ½Ğ¸Ñ€Ğ¾Ğ²Ğ°Ğ½Ğ¸Ñ
+	for (uint32_t index = shielding_buffer->size() - 1; index > 0; --index)
 	{
-		if (buffer.empty())
+		if (shielding_buffer->empty())
 			break;
-		//Åñëè íàõîäèì òî ÷èòàåì ñèìâîë â áóôåğ, íàõîäèì òàêîé æå â êîíòåéíåğå
-		//çàòåì ïğåâğàùàåì ñïåöñèìâîë â äğèñíş è ïğîëèâàåì îáğàòíî â áóôåğ
-		if (buffer.at(index) == L'\\')
+		//Ğ•ÑĞ»Ğ¸ Ğ½Ğ°Ñ…Ğ¾Ğ´Ğ¸Ğ¼ Ñ‚Ğ¾ Ñ‡Ğ¸Ñ‚Ğ°ĞµĞ¼ ÑĞ¸Ğ¼Ğ²Ğ¾Ğ» Ğ² Ğ±ÑƒÑ„ĞµÑ€, Ğ½Ğ°Ñ…Ğ¾Ğ´Ğ¸Ğ¼ Ñ‚Ğ°ĞºĞ¾Ğ¹ Ğ¶Ğµ Ğ² ĞºĞ¾Ğ½Ñ‚ĞµĞ¹Ğ½ĞµÑ€Ğµ
+		//Ğ·Ğ°Ñ‚ĞµĞ¼ Ğ¿Ñ€ĞµĞ²Ñ€Ğ°Ñ‰Ğ°ĞµĞ¼ ÑĞ¿ĞµÑ†ÑĞ¸Ğ¼Ğ²Ğ¾Ğ» Ğ² Ğ´Ñ€Ğ¸ÑĞ½Ñ Ğ¸ Ğ¿Ñ€Ğ¾Ğ»Ğ¸Ğ²Ğ°ĞµĞ¼ Ğ¾Ğ±Ñ€Ğ°Ñ‚Ğ½Ğ¾ Ğ² Ğ±ÑƒÑ„ĞµÑ€
+		if (shielding_buffer->at(index) == '\\')
 		{
-			replaceSymbol = buffer.at(index + 1);
-			replaceSymbol = shieldingSymbols.at(shieldingSymbolsSrc.find(replaceSymbol));
-			buffer.replace(index, 2, replaceSymbol);
+			replaceSymbol[0] = shielding_buffer->at(index + 1);
+			if (shieldingSymbolsSrc.find(replaceSymbol[0]) != -1)
+			{
+				replaceSymbol[0] = shieldingSymbols.at(shieldingSymbolsSrc.find(replaceSymbol[0])).c_str();
+				shielding_buffer->replace(index, 2, replaceSymbol[0]);
+			}
 		}
 	}
 
-	//Âîçâğàùàåì áóôôåğ ñ äğèñí¸é
-	return buffer;
+	//Ğ’Ğ¾Ğ·Ğ²Ñ€Ğ°Ñ‰Ğ°ĞµĞ¼ Ğ±ÑƒÑ„Ñ„ĞµÑ€ Ñ Ğ´Ñ€Ğ¸ÑĞ½Ñ‘Ğ¹
+	return shielding_buffer->c_str();
 }

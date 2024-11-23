@@ -174,7 +174,7 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <Optimization>Disabled</Optimization>
+      <Optimization>MaxSpeed</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -237,6 +237,7 @@
     <ClCompile Include="settings_tabs\tab_render.cpp" />
     <ClCompile Include="string_processing\crlfParser.cpp" />
     <ClCompile Include="string_processing\crlfProcessor.cpp" />
+    <ClCompile Include="string_processing\headerLvlParser.cpp" />
     <ClCompile Include="string_processing\regex.cpp" />
     <ClCompile Include="string_processing\shieldingParser.cpp" />
     <ClCompile Include="string_processing\symbolCleaner.cpp" />
@@ -309,6 +310,7 @@
     <ClInclude Include="ress\resource1.h" />
     <ClInclude Include="string_processing\crlfParser.h" />
     <ClInclude Include="string_processing\crlfProcessor.h" />
+    <ClInclude Include="string_processing\headerLvlParser.h" />
     <ClInclude Include="string_processing\regex.h" />
     <ClInclude Include="string_processing\shieldingParser.h" />
     <ClInclude Include="string_processing\symbolCleaner.h" />
@@ -330,6 +332,7 @@
     <None Include="docs\Current_ver.md" />
     <None Include="docs\Manual.md" />
     <None Include="Readme.md" />
+    <None Include="testPattern.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

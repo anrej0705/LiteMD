@@ -2,296 +2,296 @@
 #include "regex.h"
 #include "exceptionHandler.h"
 #include <boost/thread/thread.hpp>
+#include <boost/container/string.hpp>
+#include <boost/container/vector.hpp>
 #include <mutex>
 #include <map>
+
+//SYMPBOLCLEANER.CPP чистит дублирующие символы от повторов чтобы парсинг проходил без ошибок
+/*************************************************************************************************************************
+                                                                                                         ЮЗЕР            *
+     ПАРСЕР   __                SYMBOLCLEANER.CPP                     buffer->replace '.\|/.'          .----.__          *
+             /()\````\          ░░░░░░███████ ]▄▄▄▄▄▄▄▄              '.\|/.'          (\   /)         /---.__  \         *
+            /____\____\         ▂▄▅█████████▅▄▃▂                  (\   /)          - -O- -       /       `\ |        *
+            |n  n|.___|        [████###############                  - -O- -          (/   \)       | o     o  \|        *
+    ..      | __ /_\___\        ◥⊙▲░░░░░░███████ ]▄▄▄▄▄▄▄▄          (/   \)|/.'  for ,'/|\'.     ./| .vvvvv.   |\       *
+   ___|  `'::::. |n|n_n|            ▂▄▅█████████▅▄▃▂              '.\(/   \)             .    / /| |     |   | \      *
+  /___/\  _____A_                  [█████##############                 -- -O- -                / /'| `^vvvv'   |/\\     *
+  |' '|| /      /\                  ◥⊙▲ ░░░░░███████ ]▄▄▄▄▄▄▄▄          (/   \)                ~   \ ЕБЛАНСТВО |  \\    *
+  `"""__/__/\__/  \__                   ▂▄▅█████████▅▄▃▂             '.\)|/.'   switch           |   ЮЗЕРА   |.       *
+  ---/__|" '' "| /___/\---- 	       [███████████████████].                                    _л7|   ю  /     \х      *
+     |''|"'||'"| |' '||                 ◥⊙▲⊙▲⊙▲⊙▲⊙▲⊙▲⊙◤..                     if           .1_ /  .   . у  | /юх    *
+     `""`""))""`"`""""`                                                                     dькккк|_/\/ `--.| _ \юллл    *
+                                                                                                                         *
+**************************************************************************************************************************/
+
 std::condition_variable condition;
 std::mutex m_mut;
 
-//Хранит индексы заменяемых спецсимволов
-//first - позиция
-//second - длина
-std::map<int, int> symbolIndexes;
+boost::container::string* clean_buffer;
+boost::container::string* clean;
 
-//0 - первым мусор
-//1 - первым полезный фрагмент
-bool firstOrden = 0;
+//Хранилище информации о теге
+struct service_tags
+{
+	int32_t first_entry;	//Позиция открывающей скобки
+	int32_t last_entry;		//Позиция закрывающей скобки
+	uint32_t size;			//Размер(поз.закр - поз.откр)
+	uint8_t type;			//Тип
+};
+/*
+* Типы
+* 0 - '}'
+* 1 - ']'
+* 2 - '>'
+* 3 - ')'
+*/
 
-bool hLinkDetect = 0;
-bool hSimpLinkDetect = 0;
-bool hAdvLinkDetect = 0;
-
-bool hLinkParsed = 0;
-bool hSimpLinkParsed = 0;
-bool hAdvLinkParsed = 0;
+//Список тегов в тексте
+service_tags* tag_list;
+service_tags* new_list;
 
 //Эту дичь пихать только в методы
 #define THREAD_LOCK std::lock_guard<std::mutex> lg(m_mut);
 #define NOTIFY_ALL_THREAD condition.notify_all();
 
-/*//Запуск менеджера и перенос в отдельный поток
-void semaphor_manager::run_manager()
+std::string symbolCleaner(std::string& rawInput)
 {
-	manager_thread = new boost::thread(&semaphor_manager::queueManager, this);
-	manager_thread->detach();
-}*/
+	uint32_t* buffer_size = (uint32_t*)malloc(sizeof(uint32_t));
+	*buffer_size = rawInput.size();	//Создаём переменную с количеством символов
 
-void saveToMap(int position, int length)
-{
-	THREAD_LOCK
-	if (!symbolIndexes.insert(std::map<int, int>::value_type(position, length)).second)
+	int32_t* reverse_bump_cache;	//Кеш для закрывающих символов
+	int32_t* new_bc;				//Временная переменная для фокусов
+	reverse_bump_cache = (int32_t*)calloc(1, sizeof(int32_t));
+
+	clean_buffer = new boost::container::string;
+	clean = new boost::container::string;
+	
+	//std::string testpoint1;
+	//char testpoint2;
+	//int testpoint3;
+
+	clean_buffer->assign(rawInput.c_str());
+
+	//testpoint1 = clean_buffer->c_str();
+
+	uint32_t tag_list_size = 0;
+	uint32_t replace_offset = 0;
+	uint16_t rb_cache_ptr = 0;
+	int8_t char_type;
+	/*register */ char compare_char;
+
+	tag_list = (service_tags*)calloc(tag_list_size + 1, sizeof(service_tags));
+
+	//Проход с конца. Ищётся закрывающая скобка, запоминается, ищется открывающая
+	//в интервале ищутся повторы обоих символов, после завершения ищется следующая пара
+	try
 	{
-		throw(exceptionHandler(exceptionHandler::WARNING));	//Если не удалось вставить то кидаем пред
+		for (volatile int32_t _index = *buffer_size - 1; _index >= 0; --_index)
+		{
+			//Если при обратном поиске встречается что-то из этого:
+			// '}'
+			// ']'
+			// ')'
+			// '>'
+			//То вписываем в структуру "досье" на тег
+			char_type = reverse_bump.find(clean_buffer->at(_index));
+			if (char_type != -1)
+			{
+				compare_char = clean_buffer->at(_index);
+				switch (char_type)
+				{
+					case 2:
+					{
+						//Готовится участок памяти
+						new_list = reinterpret_cast<service_tags*>(realloc(tag_list, sizeof(service_tags) * (tag_list_size + 1)));
+						if (new_list != NULL)											//Проверка на карму
+							tag_list = new_list;
+						else
+							throw(exceptionHandler(exceptionHandler::WARNING, QString("Карма в говне! - new_list вернул NULL")));
+						tag_list[tag_list_size].type = char_type;						//Записывается тип найденого символа
+						tag_list[tag_list_size].first_entry = -1;						//Позиция начала обозначается как неизвестная
+						compare_char = forward_bump.at(char_type);				//Кешируется символ который ожидается встретить со стороны начала
+						tag_list[tag_list_size].last_entry = _index;			//Текущая позиция записывается как конец тега
+						for (volatile int32_t _idx = _index; _idx >= 0; --_idx)	//Ищется позиция начала
+						{
+							//testpoint2 = clean_buffer->at(_idx);
+							//testpoint1.insert(0, 1, testpoint2);
+							if (compare_char == clean_buffer->at(_idx))			//Если наход то ловим приход
+							{
+								tag_list[tag_list_size].first_entry = _idx;
+								_index = _idx;									//Перемещаем указатель чтоб не было ложных срабатываний
+								tag_list[tag_list_size].size = tag_list[tag_list_size].last_entry - tag_list[tag_list_size].first_entry;
+								//testpoint1.clear();
+								break;											//Чики брики цiкл выкинь
+							}
+							switch (bracketsSrc.find(clean_buffer->at(_idx)))
+							{
+								case -1:
+								{
+									break;
+								}
+								case 5:
+								{
+									tag_list[tag_list_size].last_entry = _idx;
+									break;
+								}
+								default:
+								{
+									_idx = 0;
+									break;
+								}
+							}
+						}
+						if (tag_list[tag_list_size].first_entry != -1)
+							++tag_list_size;
+						/*else if (tag_list[tag_list_size].first_entry == -1)
+							--tag_list_size;*/
+						break;
+					}
+					case 3:
+					{
+						//testpoint1.clear();
+						//Готовится участок памяти
+						new_list = reinterpret_cast<service_tags*>(realloc(tag_list, sizeof(service_tags) * (tag_list_size + 1)));
+						if (new_list != NULL)											//Проверка на карму
+							tag_list = new_list;
+						else
+							throw(exceptionHandler(exceptionHandler::WARNING, QString("Карма в говне! - new_list вернул NULL")));
+						tag_list[tag_list_size].type = char_type;						//Записывается тип найденого символа
+						tag_list[tag_list_size].first_entry = -1;						//Позиция начала обозначается как неизвестная
+						compare_char = forward_bump.at(char_type);						//Кешируется символ который ожидается встретить со стороны начала
+						tag_list[tag_list_size].last_entry = _index;					//Текущая позиция записывается как конец тега
+						for (volatile int32_t _idx = _index; _idx >= 0; --_idx)			//Ищется позиция начала
+						{																//Если наход то проверяем из чего сделан кокс
+							//testpoint2 = clean_buffer->at(_idx);
+							//testpoint1.insert(0, 1, testpoint2);
+							if ((compare_char == clean_buffer->at(_idx)) && (clean_buffer->at(_idx - 1) == ']'))
+							{
+								compare_char = forward_bump.at(1);						//Снова кешируется но уже для пары '[]'
+								tag_list[tag_list_size].first_entry = _idx;				//Кешируется
+								tag_list[tag_list_size].size = tag_list[tag_list_size].last_entry - tag_list[tag_list_size].first_entry;
+								++tag_list_size;
+								//Готовится участок памяти
+								new_list = reinterpret_cast<service_tags*>(realloc(tag_list, sizeof(service_tags) * (tag_list_size + 1)));
+								if (new_list != NULL)									//Проверка на карму
+									tag_list = new_list;
+								else
+									throw(exceptionHandler(exceptionHandler::WARNING, QString("Карма в говне! - new_list вернул NULL")));
+								tag_list[tag_list_size].last_entry = _idx - 1;
+								for (volatile int32_t _squ_idx = _idx; _squ_idx >= 0; --_squ_idx)
+								{
+									//testpoint2 = clean_buffer->at(_squ_idx);
+									//testpoint1.insert(0, 1, testpoint2);
+									if (compare_char == clean_buffer->at(_squ_idx))		//Пора сворачиваться
+									{
+										tag_list[tag_list_size].first_entry = _squ_idx;	//Сохраняется позиция начала
+										tag_list[tag_list_size].size = tag_list[tag_list_size].last_entry - tag_list[tag_list_size].first_entry;
+										++tag_list_size;
+										_index = _squ_idx;
+										//testpoint1.clear();
+										break;
+									}
+								}
+								break;
+							}
+							else if (clean_buffer->at(_idx) == '(')
+							{
+								for (volatile int32_t _search = _index; _index >= 0; --_index)
+								{
+									if (clean_buffer->at(_search) == ')')
+									{
+										tag_list[tag_list_size].last_entry = _search + 1;
+										//testpoint1.clear();
+										break;
+									}
+								}
+								break;
+							}
+						}
+						break;
+					}
+				}
+			}
+		}
 	}
-	NOTIFY_ALL_THREAD
-}
-
-void regexHyperlinkParse(std::wstring input)
-{
-	//std::wstring temp;
-	for (auto it = std::wsregex_iterator(input.begin(), input.end(), regexHyperlink); it != std::wsregex_iterator(); ++it)
+	catch (exceptionHandler)
 	{
-		it->position() == 0 ? firstOrden = 1 : firstOrden = 0;
-		saveToMap(it->position(), it->length());
-		//temp = input.substr(it->position(), it->length());
-		//temp = temp;
-		//qDebug() << "Detect regexHyperlink:" << QString::fromStdWString(temp);
-		hLinkDetect = 1;
+		throw(exceptionHandler(exceptionHandler::WARNING, QString("Карма в говне! - Ошибка работы с памятью в symbolCleaner.cpp -> 88:217")));
 	}
-	hLinkParsed = 1;
-}
-
-void regexSimplyHLinkParse(std::wstring input)
-{
-	//std::wstring temp;
-	for (auto it = std::wsregex_iterator(input.begin(), input.end(), simplifiedRegexHyperlink); it != std::wsregex_iterator(); ++it)
+	
+	/*testpoint1.clear();
+	std::vector<std::string> testpoint_str;
+	for (uint8_t _idx = 0; _idx < tag_list_size; ++_idx)
 	{
-		it->position() == 0 ? firstOrden = 1 : firstOrden = 0;
-		saveToMap(it->position(), it->length());
-		//temp = input.substr(it->position(), it->length());
-		//temp = temp;
-		//qDebug() << "Detect simplifiedRegexHyperlink:" << QString::fromStdWString(temp);
-		hSimpLinkParsed = 1;
-	}
-	hSimpLinkParsed = 1;
-}
-
-void regexAdvHLinkParse(std::wstring input)
-{
-	//std::wstring temp;
-	for (auto it = std::wsregex_iterator(input.begin(), input.end(), advRegexHyperlink); it != std::wsregex_iterator(); ++it)
-	{
-		it->position() == 0 ? firstOrden = 1 : firstOrden = 0;
-		saveToMap(it->position(), it->length());
-		//temp = input.substr(it->position(), it->length());
-		//temp = temp;
-		//qDebug() << "Detect advRegexHyperlink:" << QString::fromStdWString(temp);
-		hAdvLinkDetect = 1;
-	}
-	hAdvLinkParsed = 1;
-}
-
-std::wstring symbolCleaner(std::wstring& rawInput)
-{
-	//Создаем буффер, в котором будем чистить спецсимволы
-	std::wstring buffer = rawInput;
-
-	//Создаем строку в которой будут искаться регулярки
-	std::wstring regBuffer(buffer);
-
-	//Контейнер спецсимвола, сюда помещается первый попавшийся спецсимвол
-	std::wstring symbol;
-
-	//Хранилище параметров обработки строки
-	std::wsmatch wstrMatch;
-
-	//Указатель на индекс символа из библиотеки замены
-	uint8_t replaceIndex = 0;
-
-	//Указатель на предыдущее вхождение
-	uint32_t prevIndex = 0;
-	uint32_t prevSize = 0;
-
-	//Маркер, по которому потом будет заменяться пустые символы
-	std::wstring marker(L"\u009C");
-	//std::wstring marker(L"Z");
-
-	//Хранит значение предыдущего спецсимвола
-	uint32_t symbolDuplicate = 0;
-
-	//Хранилище мусора
-	std::vector<std::wstring> garbage;
-	std::vector<std::wstring> xpression;
-
-	//Размечаем файл для нарезки на фрагменты, разделяем на потоки
-	boost::thread* regexHyperlinkParser = new boost::thread(&regexHyperlinkParse, buffer);
-	boost::thread* regexSimplyHLinkParser = new boost::thread(&regexSimplyHLinkParse, buffer);
-	boost::thread* regexAdvHLinkParser = new boost::thread(&regexAdvHLinkParse, buffer);
-	regexHyperlinkParser->detach();
-	regexSimplyHLinkParser->detach();
-	regexAdvHLinkParser->detach();
-	while ((hLinkParsed && hSimpLinkParsed && hAdvLinkParsed) == 0)
-	{
-		boost::this_thread::sleep_for(boost::chrono::milliseconds(1));
-	}
-	/*for (auto it = std::wsregex_iterator(buffer.begin(), buffer.end(), regexHyperlink); it != std::wsregex_iterator(); ++it)
-	{
-		it->position() == 0 ? firstOrden = 1 : firstOrden = 0;
-		saveToMap(it->position(), it->length());
-	}*
-	for (auto it = std::wsregex_iterator(buffer.begin(), buffer.end(), simplifiedRegexHyperlink); it != std::wsregex_iterator(); ++it)
-	{
-		it->position() == 0 ? firstOrden = 1 : firstOrden = 0;
-		saveToMap(it->position(), it->length());
-	}
-	for (auto it = std::wsregex_iterator(buffer.begin(), buffer.end(), advRegexHyperlink); it != std::wsregex_iterator(); ++it)
-	{
-		it->position() == 0 ? firstOrden = 1 : firstOrden = 0;
-		saveToMap(it->position(), it->length());
+		testpoint3 = tag_list[_idx].first_entry;
+		testpoint3 = tag_list[_idx].last_entry;
+		testpoint3 = tag_list[_idx].size;
+		for (uint16_t a = tag_list[_idx].first_entry; a < tag_list[_idx].last_entry; ++a)
+		{
+			testpoint2 = clean_buffer->at(a);
+			testpoint1.append(1, testpoint2);
+		}
+		testpoint_str.push_back(testpoint1);
+		testpoint1.clear();
 	}*/
 
-	//Нарезаем строку на "полезные" фрагменты и мусор
-	//Полезные фрагменты - прошедшие проверку регексом - обработке не подлежат на данном этапе
-	//Мусор - чистится от служебных символов
-	//В зависимости от того что было в начале порядок разделения будет разным
-	if (firstOrden)
+	//Чистка мусорных символов. Пары символов, создающие цельные теги не будут затронуты
+	for (volatile int32_t _index = *buffer_size - 1; _index >= 0; --_index)
 	{
-		for (auto it = symbolIndexes.begin(); it != symbolIndexes.end(); ++it)
+		if (_index == tag_list[rb_cache_ptr].last_entry)	//Поиск закрывающих символов
 		{
-			xpression.push_back(buffer.substr(prevIndex + prevSize, it->first - prevIndex - prevSize));
-			prevIndex = it->first;
-			prevSize = it->second;
-			garbage.push_back(buffer.substr(prevIndex, prevSize));
-		}
-	}
-	else
-	{
-		for (auto it = symbolIndexes.begin(); it != symbolIndexes.end(); ++it)
-		{
-			garbage.push_back(buffer.substr(prevIndex + prevSize, it->first - prevIndex - prevSize));
-			prevIndex = it->first;
-			prevSize = it->second;
-			xpression.push_back(buffer.substr(prevIndex, prevSize));
-		}
-	}
-
-	//Если после последнего встреченного фрагмента остался мусор то добавляем его тоже
-	if (prevIndex < buffer.size() && firstOrden)
-		garbage.push_back(buffer.substr(prevIndex, buffer.size() - (prevIndex)));
-
-	//Если никаких спецсимволов не обнаружено то считаем что это был обычный текст и пропускаем
-	if (!hLinkDetect && !hSimpLinkDetect && !hAdvLinkDetect)
-		garbage.push_back(buffer);
-
-	for (uint32_t iters = 0; iters < garbage.size(); ++iters)
-	{
-		//Проходимся по фрагменту заменяя служебные символы маркерами
-		for (uint32_t index = 0; index < garbage.at(iters).size(); ++index)
-		{
-			//Если встречаем повтор символа то удаляем с предыдущей позиции
-			if (!symbol.empty())
-				if (garbage.at(iters).at(index) == symbol.at(0))
-				{
-					symbolIndexes.insert(std::map<int, int>::value_type(symbolDuplicate, replaceIndex));
-					garbage.at(iters).replace(symbolDuplicate, 1, marker);
-					symbolDuplicate = index;
-				}
-
-			//Если новый встречается новый символ то считаем что очистка до него завершена
-			//и поэтому чистим повторы нового символа
-			if (symbolCollection.find(garbage.at(iters).at(index)) <= symbolCollection.size() && !symbol.empty())
-				if (garbage.at(iters).at(index) != symbol.at(0))
-					symbol.clear();
-
-			//Если спецсимвол первый раз попался то запоминаем его
-			if (symbolCollection.find(garbage.at(iters).at(index)) <= symbolCollection.size() && symbol.empty())
+			switch (tag_list[rb_cache_ptr].type)			//В зависимости от типа тегов, выбирается метод чистки
 			{
-				replaceIndex = symbolCollection.find(garbage.at(iters).at(index));
-				symbol = symbolCollection.at(replaceIndex);
-				symbolDuplicate = index;
-			}
-		}
-
-		//Ищем остатки проходясь с начала в конец(поиск закрывающих символов
-		for (uint32_t index = 0; index < garbage.at(iters).size(); ++index)
-		{
-			//Как только находим первый попавшийся - убираем и выходим из цикла
-			if (symbolClearanceBack.find(garbage.at(iters).at(index)) <= symbolClearanceBack.size())
-			{
-				symbolIndexes.insert(std::map<int, int>::value_type(index, symbolClearanceBack.find(garbage.at(iters).at(index))));
-				garbage.at(iters).replace(index, 1, marker);
-				break;
-			}
-		}
-
-		//Ищем остатки проходясь с конца в начало(поиск открывающих символов)
-		for (uint32_t index = garbage.at(iters).size() - 1; index > 0; --index)
-		{
-			if (garbage.at(iters).empty())
-				break;
-			//Как только находим первый попавшийся - убираем и выходим из цикла
-			if (symbolClearanceFront.find(garbage.at(iters).at(index)) <= symbolClearanceFront.size())
-			{
-				symbolIndexes.insert(std::map<int, int>::value_type(index, symbolClearanceFront.find(garbage.at(iters).at(index))));
-				garbage.at(iters).replace(index, 1, marker);
-				break;
-			}
-		}
-
-		//Заменяем маркеры на html имитаторы спецсимволов
-		for (std::map<int, int>::reverse_iterator it = symbolIndexes.rbegin(); it != symbolIndexes.rend(); ++it)
-		{
-			//Заменяем лишние символы руководствуясь содержимым карты
-			switch (it->second)
-			{
-				case 0:
-				{
-					garbage.at(iters).replace(it->first, 1, replaceSymbols[it->second]);
+				case 2:
+				{	//Чистятся символы внутри тега чтобы исключить ложное срабатывание
+					for (volatile int32_t _idx = tag_list[rb_cache_ptr].last_entry - 1; _idx >= tag_list[rb_cache_ptr].first_entry + 1; --_idx)
+					{
+						if (bracketsSrc.find(clean_buffer->at(_idx)) != -1)
+							clean_buffer->replace(_idx, 1, bracketsTable.at(bracketsSrc.find(clean_buffer->at(_idx))).c_str());
+					}
+					_index = tag_list[rb_cache_ptr].first_entry - 1;
+					if (rb_cache_ptr < tag_list_size)
+						++rb_cache_ptr;
 					break;
 				}
-				case 1:
-				{
-					garbage.at(iters).replace(it->first, 1, replaceSymbols[it->second]);
-					break;
+				case 3:
+				{	//Чистятся символы внутри тега чтобы исключить ложное срабатывание
+					if (tag_list_size > 0)
+					{
+						//Обработка круглых скобок
+						for (volatile int32_t _idx = tag_list[rb_cache_ptr].last_entry - 1; _idx >= tag_list[rb_cache_ptr].first_entry + 1; --_idx)
+						{
+							if (bracketsSrc.find(clean_buffer->at(_idx)) != -1)
+								clean_buffer->replace(_idx, 1, bracketsTable.at(bracketsSrc.find(clean_buffer->at(_idx))).c_str());
+						}
+						_index = tag_list[rb_cache_ptr].first_entry;
+						++rb_cache_ptr;
+
+						//Обработка квадратных скобок
+						for (volatile int32_t _idx = tag_list[rb_cache_ptr].last_entry - 1; _idx >= tag_list[rb_cache_ptr].first_entry + 1; --_idx)
+						{
+							if (bracketsSrc.find(clean_buffer->at(_idx)) != -1)
+								clean_buffer->replace(_idx, 1, bracketsTable.at(bracketsSrc.find(clean_buffer->at(_idx))).c_str());
+						}
+						_index = tag_list[rb_cache_ptr].first_entry - 1;
+						if (rb_cache_ptr < tag_list_size)
+							++rb_cache_ptr;
+						break;
+					}
 				}
 			}
 		}
-
-		//Чистим позицию символа, чистим карту символов перед следующей итерацией
-		symbolDuplicate = 0;
-		symbolIndexes.clear();
-		symbol.clear();	//Очищаем символ чтобы не было ложного срабатывания в некст итерации
+		//Чистка служебных символов, находящихся между скобочками
+		if (_index >= 0 && bracketsSrc.find(clean_buffer->at(_index)) != -1)
+			clean_buffer->replace(_index, 1, bracketsTable.at(bracketsSrc.find(clean_buffer->at(_index))).c_str());
 	}
 
-	//Чистим буффер т.к старые данные в нём больше не нужны
-	buffer.clear();
+	//testpoint1 = clean_buffer->c_str();
 
-	if (firstOrden)	//Если сначала у нас полезный контент то пихаем его
-	{
-		for (uint32_t index = 0; index < xpression.size(); ++index)
-		{
-			//Добавляем сначала полезный контент(он идёт первым) а потом мусор
-			buffer += xpression.at(index);
-			buffer += garbage.at(index);
-		}
-		//Если остался дополнительный мусор, то тоже добавляем
-		if (xpression.size() < garbage.size())
-			buffer += garbage.at(garbage.size());
-	}
-	else //Иначе считаем что мусор
-	{
-		for (uint32_t index = 0; index < garbage.size(); ++index)
-		{
-			//Тут наоборот - сначала мусор а потом полезное
-			buffer += garbage.at(index);
-			if(index < xpression.size())
-				buffer += xpression.at(index);
-		}
-		//Если остался дополнительный контент, то добавляем, аналогично как с мусором
-		if (garbage.size() < xpression.size())
-			buffer += xpression.at(xpression.size());
-	}
+	//Чистка памяти
+	free(tag_list);
+	free(buffer_size);
 
-	//buffer = buffer;
-
-	return buffer;
+	return clean_buffer->c_str();
 }

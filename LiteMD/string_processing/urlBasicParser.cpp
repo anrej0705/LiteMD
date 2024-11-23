@@ -1,79 +1,178 @@
-#include "regex.h"
+#include <boost/container/string.hpp>
 #include "urlBasicParser.h"
+#include "global_definitions.h"
+#include "exceptionHandler.h"
 
-std::wstring basicUrlParser(std::wstring& rawInput)
+//std::string *simple_url_output;
+boost::container::string *simple_url_output;
+
+std::string basicUrlParser(std::string &rawInput)
 {
-	//Буффер для работы с текстом
-	std::wstring buffer = rawInput;
+	uint32_t* entry_list;	//РЎРїРёСЃРѕРє СЃ РёРЅРґРµРєСЃР°РјРё, СЃ РєРѕС‚РѕСЂС‹С… РЅР°С‡РёРЅР°СЋС‚СЃСЏ РѕР±РЅР°СЂСѓР¶РµРЅРЅС‹Рµ СЃРёРјРІРѕР»С‹
+	uint32_t* entry_offset;	//РЎРїРёСЃРѕРє СЃРѕ СЃРјРµС‰РµРЅРёРµРј РґРѕ Р·Р°РєСЂС‹РІР°СЋС‰РµРіРѕ Р·РЅР°РєР°
+	// ^^^^^^^^^^^^^^^^^^^^ РїРѕС‡РёСЃС‚РёС‚СЊ РІ РєРѕРЅС†Рµ
+	uint32_t entrys = 0;
+	uint32_t offsets = 0;
+	
+	//simple_url_output = new std::string;
+	simple_url_output = new boost::container::string;
 
-	//Хранилище мусора
-	std::vector<std::wstring> garbage;
-	std::vector<std::wstring> xpression;
+	uint32_t* buffer_size = (uint32_t*)malloc(sizeof(uint32_t));
+	*buffer_size = rawInput.size();	//РЎРѕР·РґР°С‘Рј РїРµСЂРµРјРµРЅРЅСѓСЋ СЃ РєРѕР»РёС‡РµСЃС‚РІРѕРј СЃРёРјРІРѕР»РѕРІ
 
-	//0 - первым мусор
-	//1 - первым полезный фрагмент
-	bool firstOrder = 0;
+	char* buffer = (char*)calloc(*buffer_size + 1, sizeof(char));
+	strcpy(buffer, rawInput.c_str());	//РњРµРґР»РµРЅРЅРѕ, //РЎРѕР·РґР°С‘Рј Р±СѓС„РµСЂ СЃ СЂР°Р·РјРµСЂРѕРј РІС…РѕРґСЏС‰РµРіРѕ Р±Р»РѕРєР° Рё РєРѕРїРёСЂСѓРµРј РµРіРѕ С‚СѓРґР°
 
-	//Временный буфер для обработки
-	std::wstring _xpression;
+	entry_list = (uint32_t*)calloc(1, sizeof(uint32_t));
+	entry_offset = (uint32_t*)calloc(1, sizeof(uint32_t));
 
-	//индекс вхождения и длина выражения
-	uint32_t prevIndex = 0;
-	uint32_t index = 0;
-	uint32_t range = 0;
+	//Р”Р°Р»СЊС€Рµ Р±СѓРґРµС‚ РїРѕРёСЃРє РїСЂРёР·РЅР°РєРѕРІ С‚РµРіР°, РїРѕРєР° С‡С‚Рѕ РЅСѓР¶РЅРѕ СЃС‡РёС‚Р°С‚СЊ С‡С‚Рѕ РїСЂРёР·РЅР°РєРё РµСЃС‚СЊ
+	//Р° РѕР±СЉРµРєС‚Р° РЅРµС‚, Р·РґРµСЃСЊ Р±СѓРґРµС‚ РёСЃРєР°С‚СЊСЃСЏ РІС‹СЂР°Р¶РµРЅРёРµ <url> РіРґРµ url - Р»СЋР±РѕР№ С‚РµРєСЃС‚ РІРЅСѓС‚СЂРё
+	//РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РїСЂРёРЅСЏС‚ Р·Р° СЃСЃС‹Р»РєСѓ РЅРµРІР°Р¶РЅРѕ С‡С‚Рѕ СЌС‚Рѕ Р·Р° С‚РµРєСЃС‚
+	//Р РµС„РµСЂРµРЅСЃ https://www.markdownguide.org/basic-syntax/#urls-and-email-addresses
 
-	//Обрабатыванием разделяя на мусор и отсеянные регуляркой выражения
-	for (std::wsregex_iterator it = std::wsregex_iterator(buffer.cbegin(), buffer.cend(), regexHyperlink); it != std::wsregex_iterator(); ++it)
+	//std::string test;
+
+	try
 	{
-		prevIndex = index + range;										//Запоминаем предыдущее вхождение
-		index = it->position();											//Получаем индекс вхождения
-		range = it->length();											//Получаем длину отсеянного фрагмента
-		index == 0 ? firstOrder = 1 : firstOrder = 0;					//Определяем порядок следования содержимого
-		garbage.push_back(buffer.substr(prevIndex, index - prevIndex));	//Запоминаем мусор(его мы не трогаем)
-		xpression.push_back(buffer.substr(index, range));				//Запоминаем фрагменты которые будем обрабатывать
-	}
-
-	//Если после последнего встреченного фрагмента остался мусор то добавляем его тоже
-	if (index + range < buffer.size())
-		garbage.push_back(buffer.substr(index + range, buffer.size() - (index + range)));
-
-	//Обрабатываем отсеянные фрагменты приводя их в HTML формат
-	for (uint16_t iter = 0; iter < xpression.size(); ++iter)
-	{
-		_xpression = basicUrlWrap.at(0);													//Формируем открывающий тег
-		_xpression.append(xpression.at(iter).substr(1, xpression.at(iter).size() - 2));		//Добавляем в тег ссылку освобожденную от служ. символов
-		_xpression.append(basicUrlWrap.at(1));												//Завершаем формирование открывающего тега
-		_xpression.append(xpression.at(iter).substr(1, xpression.at(iter).size() - 2));		//Добавляем кликабельный текст ссылки
-		_xpression.append(basicUrlWrap.at(2));												//Добавляем закрывающий тег
-		xpression.at(iter) = _xpression;													//Заменяем исходник обработанным текстом
-	}
-
-	//Подготавливаем буфер к сборке
-	buffer.clear();
-
-	//Финальный этап - сборка строки
-	if (firstOrder)	//Если сначала у нас полезный контент то пихаем его
-	{
-		for (uint32_t index = 0; index < xpression.size(); ++index)
+		//РС‰РµРј РІС…РѕР¶РґРµРЅРёСЏ РїРѕ Р·РЅР°РєСѓ '<'
+		for (volatile uint32_t _index = 0; _index < *buffer_size; ++_index)
 		{
-			//Добавляем сначала полезный контент(он идёт первым) а потом мусор
-			buffer += xpression.at(index);
-			buffer += garbage.at(index);
-		}
-		//Если остался дополнительный мусор, то тоже добавляем
-		if (xpression.size() < garbage.size())
-			buffer += garbage.at(garbage.size());
-	}
-	else //Иначе считаем что мусор
-	{
-		for (uint32_t index = 0; index < garbage.size(); ++index)
-		{
-			//Тут наоборот - сначала мусор а потом полезное
-			buffer += garbage.at(index);
-			if (index < xpression.size())
-				buffer += xpression.at(index);
+			if (buffer[_index] == '<')	//Р›СЋР±РѕРµ РЅР°Р№РґРµРЅРѕРµ РІС…РѕР¶РґРµРЅРёРµ Р·Р°РїРѕРјРёРЅР°РµРј РЅР° Р±СѓРґСѓС‰РµРµ
+			{
+				++entrys;	//realloc С‚СЂРµР±СѓРµРјС‹Р№ СЂР°Р·РјРµСЂ + 1 С‡С‚РѕР±С‹ РЅРµ РІС‹Р»РµР·Р°С‚СЊ Р·Р° РїСЂРµРґРµР»С‹
+				//strncpy(test, buffer, _index);
+				entry_list = (uint32_t*)realloc(entry_list, sizeof(uint32_t) * (entrys + 1) + sizeof(uint32_t));
+				entry_list[entrys - 1] = _index + 1;
+			}
 		}
 	}
+	catch (exceptionHandler)
+	{
+		throw(exceptionHandler(exceptionHandler::FATAL, QString("РљР°СЂРјР° РІ РіРѕРІРЅРµ! - РћС€РёР±РєР° СЂР°Р±РѕС‚С‹ СЃ РїР°РјСЏС‚СЊСЋ РІ urlBasicParser.cpp 34:47")));
+	}
 
-	return buffer;
+	try
+	{
+		//Р•СЃС‚СЊ РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ, С‡С‚Рѕ СЋР·РµСЂ РѕСЃС‚Р°РІРёС‚ РЅРµРїРѕР»РЅС‹Р№ С‚РµРі, С‡С‚РѕР±С‹ РЅРµ РІС‹Р·РІР°С‚СЊ
+		//РѕС€РёР±РєСѓ РІ РїР°РјСЏС‚Рё РґРѕР±Р°РІР»СЏРµС‚СЃСЏ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕРµ РІС…РѕР¶РґРµРЅРёРµ СЂР°РІРЅРѕРµ РїРѕР·РёС†РёРё
+		//РїРѕСЃР»РµРґРЅРµРіРѕ СЃРёРјРІРѕР»Р° РІ С‚РµРєСЃС‚Рµ
+		entry_list = (uint32_t*)realloc(entry_list, sizeof(uint32_t) * (entrys + 1));
+		entry_list[entrys] = *buffer_size + 1;	//РљРѕСЃС‚С‹Р»СЊ СЃ С„РёРєСЃРѕРј РїРѕСЃР»РµРґРЅРµРіРѕ СЃРёРјРІРѕР»Р°
+
+		if (entry_list[0] != 0)	//Р•СЃР»Рё РїРµСЂРІРѕРµ РІС…РѕР¶РґРµРЅРёРµ РЅРµ СЏРІР»СЏРµС‚СЃСЏ РЅР°С‡Р°Р»РѕРј Р±Р»РѕРєР° С‚Рѕ РѕС‚РјРµС‡Р°РµРј 0 РєР°Рє СЃРјРµС‰РµРЅРёРµ
+		{
+			++offsets;
+			entry_offset = (uint32_t*)realloc(entry_offset, sizeof(uint32_t) * (offsets + 1) + sizeof(uint32_t));
+			entry_offset[offsets - 1] = 0;
+		}
+	}
+	catch (exceptionHandler)
+	{
+		throw(exceptionHandler(exceptionHandler::FATAL, QString("РљР°СЂРјР° РІ РіРѕРІРЅРµ! - РћС€РёР±РєР° СЂР°Р±РѕС‚С‹ СЃ РїР°РјСЏС‚СЊСЋ РІ urlBasicParser.cpp 53:67")));
+	}
+
+	try
+	{
+		//РС‰РµРј Р·Р°РєСЂС‹РІР°СЋС‰РёРµ Р·РЅР°РєРё '>' РѕС‚ РёРЅРґРµРєСЃР° РІС…РѕР¶РґРµРЅРёСЏ
+		for (volatile uint32_t _entry_idx = 0; _entry_idx < entrys; ++_entry_idx)
+		{
+			//РќРµР±РѕР»СЊС€Р°СЏ РґРѕСЂР°Р±РѕС‚РєР° РїСЂРµРґС‹РґСѓС‰РµРіРѕ Р°Р»РіРѕСЂРёС‚РјР°. Р”Р»СЏ СѓСЃРєРѕСЂРµРЅРёСЏ Рё РїСЂРµРґРѕРІС‚СЂР°С‰РµРЅРёСЏ
+			//РЅР°С‚С‹РєР°РЅРёР№ РЅР° РѕРґРёРЅ Рё С‚РѕС‚ Р¶Рµ Р·РЅР°Рє, РїРѕРёСЃРє Р±СѓРґРµС‚ РїСЂРѕРІРѕРґРёС‚СЊСЃСЏ СЃ РјРµСЃС‚ РіРґРµ Р±С‹Р» РѕР±РЅР°СЂСѓР¶РµРЅ
+			//РѕС‚РєСЂС‹РІР°СЋС‰РёР№ СЃРёРјРІРѕР» '<'
+			for (uint32_t _index = entry_list[_entry_idx]; _index < entry_list[_entry_idx + 1]; ++_index)
+			{
+				if (buffer[_index] == '>')
+				{
+					++offsets;
+					entry_offset = (uint32_t*)realloc(entry_offset, sizeof(uint32_t) * (offsets + 1));
+					entry_offset[offsets - 1] = _index;
+				}
+			}
+		}
+	}
+	catch (exceptionHandler)
+	{
+		throw(exceptionHandler(exceptionHandler::FATAL, QString("РљР°СЂРјР° РІ РіРѕРІРЅРµ! - РћС€РёР±РєР° СЂР°Р±РѕС‚С‹ СЃ РїР°РјСЏС‚СЊСЋ РІ urlBasicParser.cpp 73:91")));
+	}
+
+	//Р­С‚Р°Рї РєРѕРЅРІРµСЂС‚Р°С†РёРё Рё СЃР±РѕСЂРєРё С‚РµРєСЃС‚Р°. Р’РјРµСЃС‚Рѕ СЃРёРјРІРѕР»РѕРІ '<' Рё '>' РІСЃС‚Р°РІР»СЏРµС‚СЃСЏ '<a href="'+С‚РµРєСЃС‚+'">'+С‚РµРєСЃС‚+'</a>'
+
+	uint32_t entrys_cnt = 0;
+	uint32_t blocks_cnt = 0;
+
+	try
+	{
+		if (entry_list[entrys_cnt] == 0)	//Р•СЃР»Рё С‚РµРі РЅР°С‡РёРЅР°РµС‚СЃСЏ СЃ РїРµСЂРІРѕРіРѕ СЃРёРјРІРѕР»Р° С‚Рѕ С„РѕСЂРјРёСЂСѓРµРј СЃС‚СЂРѕС‡РєСѓ Рё +1 entrys_cnt
+		{									//Рё РІС‹РїРѕР»РЅСЏРµРј СЃР±РѕСЂРєСѓ РЅР° РјРµСЃС‚Рµ
+			//РЎР±РѕСЂРєР°
+			for (volatile uint32_t _part_idx = entrys_cnt; _part_idx < entrys + offsets + 0;)
+			{
+				//РЎР±РѕСЂРєР° РІ С†РёРєР»i
+				for (volatile uint32_t _part_idx = 0; _part_idx < entrys; ++_part_idx)
+				{
+					//Р’СЃС‚Р°РІРєР° С‚РµРіР° <a href="
+					simple_url_output->append(simple_url_iopenurl, simple_url_iopenurl_size);
+					//Р’СЃС‚Р°РІРєР° С‚РµРєСЃС‚Р°-СЃСЃС‹Р»РєРё
+					//testpoint1 = entry_offset[entrys_cnt];
+					//testpoint2 = entry_list[entrys_cnt - 1];
+					simple_url_output->append(&buffer[entry_list[entrys_cnt - 1]], entry_offset[entrys_cnt] - entry_list[entrys_cnt - 1]);
+					//Р’СЃС‚Р°РІРєР° Р·Р°РєСЂС‹РІР°СЋС‰РµРіРѕ СЃСЃС‹Р»РєСѓ ">
+					simple_url_output->append(simple_url_icloseurl, simple_url_icloseurl_size);
+					//Р’СЃС‚Р°РІРєР° РєР»РёРєР°Р±РµР»СЊРЅРѕРіРѕ С‚РµРєСЃС‚Р°
+					simple_url_output->append(&buffer[entry_list[entrys_cnt - 1]], entry_offset[entrys_cnt] - entry_list[entrys_cnt - 1]);
+					//Р’СЃС‚Р°РІРєР° Р·Р°РєСЂС‹РІР°СЋС‰РµРіРѕ С‚РµРіР°
+					simple_url_output->append(simple_url_iclosetext, simple_url_iclosetext_size);
+					//Р’СЃС‚Р°РІРєР° С‚РµРєСЃС‚Р° РјРµР¶РґСѓ С‚РµРіР°РјРё
+					simple_url_output->append(&buffer[entry_offset[entrys_cnt]] + 1, entry_list[entrys_cnt] - entry_offset[entrys_cnt] - 2);
+					++entrys_cnt;
+				}
+			}
+		}
+		else
+		{
+			//uint32_t testpoint1 = 0;
+			//uint32_t testpoint2 = 0;
+
+			std::string test;
+
+			//РљРѕРїРёСЂРѕРІР°РЅРёРµ С‚РµРєСЃС‚Р° РґРѕ С‚РµРіР°
+			//testpoint1 = entry_offset[entrys_cnt];
+			//testpoint2 = entry_list[entrys_cnt];
+			simple_url_output->append(&buffer[entry_offset[entrys_cnt]], entry_list[entrys_cnt] - 1);
+
+			//РЎР±РѕСЂРєР° РІ С†РёРєР»i
+			for (volatile uint32_t _part_idx = 0; _part_idx < entrys; ++_part_idx)
+			{
+				++entrys_cnt;
+				//Р’СЃС‚Р°РІРєР° С‚РµРіР° <a href="
+				simple_url_output->append(simple_url_iopenurl, simple_url_iopenurl_size);
+				//Р’СЃС‚Р°РІРєР° С‚РµРєСЃС‚Р°-СЃСЃС‹Р»РєРё
+				//testpoint1 = entry_offset[entrys_cnt];
+				//testpoint2 = entry_list[entrys_cnt - 1];
+				simple_url_output->append(&buffer[entry_list[entrys_cnt - 1]], entry_offset[entrys_cnt] - entry_list[entrys_cnt - 1]);
+				//Р’СЃС‚Р°РІРєР° Р·Р°РєСЂС‹РІР°СЋС‰РµРіРѕ СЃСЃС‹Р»РєСѓ ">
+				simple_url_output->append(simple_url_icloseurl, simple_url_icloseurl_size);
+				//Р’СЃС‚Р°РІРєР° РєР»РёРєР°Р±РµР»СЊРЅРѕРіРѕ С‚РµРєСЃС‚Р°
+				simple_url_output->append(&buffer[entry_list[entrys_cnt - 1]], entry_offset[entrys_cnt] - entry_list[entrys_cnt - 1]);
+				//Р’СЃС‚Р°РІРєР° Р·Р°РєСЂС‹РІР°СЋС‰РµРіРѕ С‚РµРіР°
+				simple_url_output->append(simple_url_iclosetext, simple_url_iclosetext_size);
+				//Р’СЃС‚Р°РІРєР° С‚РµРєСЃС‚Р° РјРµР¶РґСѓ С‚РµРіР°РјРё
+				simple_url_output->append(&buffer[entry_offset[entrys_cnt]] + 1, entry_list[entrys_cnt] - entry_offset[entrys_cnt] - 2);
+			}
+		}
+	}
+	catch (exceptionHandler)
+	{
+		throw(exceptionHandler(exceptionHandler::FATAL, QString("РљР°СЂРјР° РІ РіРѕРІРЅРµ! - РћС€РёР±РєР° СЂР°Р±РѕС‚С‹ СЃ РїР°РјСЏС‚СЊСЋ РІ urlBasicParser.cpp 102:162")));
+	}
+
+	//Р§РёСЃС‚РєР° СѓРєР°Р·Р°С‚РµР»РµР№
+	free(entry_list);
+	free(entry_offset);
+	free(buffer_size);
+	free(buffer);
+
+	//return rawInput.c_str();
+	return simple_url_output->c_str();
 }

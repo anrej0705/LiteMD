@@ -1,15 +1,23 @@
 #include <QtWidgets>
 #include "mdScreen.h"
+#include "boost/thread/thread.hpp"
+#include "boost/chrono/chrono.hpp"
 #include "syntax_preprocessor.h"
 #include "syntax_postprocessor.h"
 #include "symbolCleaner.h"
 #include "urlBasicSimplifiedParser.h"
 #include "urlBasicParser.h"
 #include "urlAdvancedParser.h"
+#include "headerLvlParser.h"
 #include "shieldingParser.h"
 #include "crlfProcessor.h"
+#include "globalFlags.h"
 #include <string>
 #include <regex>
+
+extern struct parser_switchers parswitch;
+
+std::mutex balamut;
 
 mdScreen::mdScreen(QWidget* scrWgt) : QLabel(scrWgt)
 {
@@ -26,20 +34,23 @@ mdScreen::mdScreen(QWidget* scrWgt) : QLabel(scrWgt)
 void mdScreen::slotSetText(const QString& str)
 {
 	//Преобразаем текст к 16 битному формату
-	mdInput = str.toStdWString();
-	//Копираем в поле вывода
-	mdFormatted = QString::fromStdWString(mdInput);
+	mdInput = str.toStdString();
 
+	balamut.lock();
 	//Обрабатываем текст
 	mdInput = shieldingParser(mdInput);					//0 -> 1|Предварительная конвертация экранированных символов
 	mdInput = symbolCleaner(mdInput);					//1 -> 2|Фильтрация служебных символов не являющихся частью тега
-	mdInput = basicSimplifiedUrlParser(mdInput);		//2 -> 3|Обработка <www.url.ru>
-	mdInput = basicUrlParser(mdInput);					//3 -> 4|Обработка <http://www.url.ru>
-	mdInput = advancedUrlParser(mdInput);				//4 -> 5|Обработка [name](url)
+	if (parswitch.en_simple_url)
+		mdInput = basicUrlParser(mdInput);				//2 -> 3|Обработка <www.url.ru>
+	if (parswitch.en_adv_url)
+		mdInput = advancedUrlParser(mdInput);			//3 -> 4|Обработка [name](url)
+	if (parswitch.en_header_lvl)
+		mdInput = headerLvlParser(mdInput);				//4 -> 5|Обработка уровня заголовков
 	mdInput = crlfProcessor(mdInput);					//5 -> 6|Обработка переноса строки
-
+	balamut.unlock();
+	
 	//Преобразуем в QString
-	mdFormatted = QString::fromStdWString(mdInput);
+	mdFormatted = QString::fromStdString(mdInput);
 
 	//Отправляем на показ
 	this->setText(mdFormatted);

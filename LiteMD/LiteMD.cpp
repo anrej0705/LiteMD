@@ -10,9 +10,14 @@ extern "C"
 	#include "globalFlags.h"
 	#include "global_definitions.h"
 }
-
+extern struct parser_switchers parswitch;
 LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 {
+	//Настройка флагов по умолчанию
+	parswitch.en_simple_url = 1;
+	parswitch.en_adv_url = 1;
+	parswitch.en_header_lvl = 1;
+
 	//Инициализация окон редактора и рендера текста
 	mde = new mdEditor;
 	mds = new mdScreen;
@@ -187,6 +192,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler(); //Соединяем сигнал от редактора к слоту изменения текста
 	if (!connect(mde, SIGNAL(titleChanged(const QString&)), this, SLOT(slotTitleChanged(const QString&))))
 		QErrorMessage::qtHandler();	//Соединяем сигнал открытия файла со слотом изменения заголовка под файл
+	if (!connect(mdlSet, SIGNAL(signalTitleChanged(const QString&)), this, SLOT(slotTitleChanged(const QString&))))
+		QErrorMessage::qtHandler();	//Соединяем сигнал из окна настроек со слотом изменения заголовка под файл
 	if (!connect(actAbout, SIGNAL(triggered()), this, SLOT(slotAbout())))
 		QErrorMessage::qtHandler();	//Соединяем сигнал со слотом вызова окна о программе
 	if (!connect(actOpen, SIGNAL(triggered()), mde, SLOT(slotOpen())))
@@ -211,7 +218,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler();	//Спрашиваем сохранить ли перед закрытием
 	if (!connect(actSet, SIGNAL(triggered()), mdlSet, SLOT(show())))
 		QErrorMessage::qtHandler();	//Открытие окна настроек
-	if(!connect(actPlaceUrl, SIGNAL(triggered()), mde, SLOT(convertToUrl())))
+	if (!connect(actPlaceUrl, SIGNAL(triggered()), mde, SLOT(convertToUrl())))
 		QErrorMessage::qtHandler();	//Конвертация в (ссылку)
 	if (!connect(actPlaceAltUrl, SIGNAL(triggered()), mde, SLOT(convToAltUrl())))
 		QErrorMessage::qtHandler();	//Конвертация в [альтернативную](ссылку)
@@ -256,9 +263,9 @@ void LiteMD::slotAbout()
 {
 	QMessageBox::about(this, "LiteMD", tr("Ver. alpha 0.0.0 build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))
 		+ tr("<BR>By anrej0705<BR>See me at Github:") + "<BR><A HREF=\"github.com/anrej0705\">github.com/anrej0705</A><BR><BR>" 
-		+ tr("This app is free for use,modify and reupload<BR>") 
+		+ tr("This app is free for use,modify and reupload<BR><BR>LiteMD IS FREE SOFTWARE! IF YOU PAID FOR IT YOU HAVE BEEN SCAMMED!") 
 		+ "<BR>" + "<BR>| Qt 5.14.2 | C++17 | C11 | Boost 1.84.00 |<BR>" + "<BR>" 
-		+ tr("Repo on Github: " ) + "<A HREF=\"https://github.com/anrej0705/LiteMD\">https://github.com/anrej0705/LiteMD</A><BR>" 
+		+ tr("Github repo: " ) + "<A HREF=\"https://github.com/anrej0705/LiteMD\">https://github.com/anrej0705/LiteMD</A><BR>" 
 		+ tr("Releases: ") + "<A HREF=\"https://github.com/anrej0705/LiteMD/releases\">https://github.com/anrej0705/LiteMD/releases</A>");
 }
 //Слот редактирования заголовка(добавления файла к концу)

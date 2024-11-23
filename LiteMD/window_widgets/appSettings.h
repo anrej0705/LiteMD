@@ -51,22 +51,38 @@ class appSettings : public QDialog
 		//-------------------------
 
 		//Вкладка "Рендер"
-		QLabel* parseLinksHint;	//Описание галки обработки ссылок
-		QCheckBox* parseLinks;	//Галка обработки ссылок
+		QLabel* reloadHint;			//Подсказка - настройки сработают после повторного открытия
+		QLabel* parseSimplLinksHint;//Описание галки обработки ссылок <url>
+		QLabel* parseAdvLinksHint;	//Описание галки обработки [link](url)
+		QLabel* parseHeaderLvlHint;	//Описание галки обработки заголовков #...#####
+		QCheckBox* parseSimplLinks;	//Галка обработки ссылок <url>
+		QCheckBox* parseAdvLinksl;	//Галка обработки [link](url)
+		QCheckBox* parseHeaderLvl;	//Галка обработки заголовков #...#####
 		//-------------------------
 
 		//Вкладка "Загрузчик"
-		QLabel* allowWarningsHint;//Разрешить предупреждать об устаревшем функционале
-		QCheckBox* allowWarnings;//Флажок
+		QLabel* allowWarningsHint;	//Разрешить предупреждать об устаревшем функционале
+		QCheckBox* allowWarnings;	//Флажок
 
-		QLabel* allowCacheHint;	//Разрешить кеширование из интернета(папка cache по умолчанию)
-		QCheckBox* allowCache;	//Флажок
+		QLabel* allowCacheHint;		//Разрешить кеширование из интернета(папка cache по умолчанию)
+		QCheckBox* allowCache;		//Флажок
+		//-------------------------
+
+		//Вкладка "Логи"
+		QLabel* logHint;			//Подпись окна в логом
+		QTextEdit* logBox;			//Контейнер для отображения логов
+		QPushButton* clearLog;		//Кнопка "Очистить лог"
+		QPushButton* saveLog;		//Кнопка "Сохранить лог"
+		//-------------------------
+
 
 		void configureBasicSettingsTab();
 		void configureRenderSettingsTab();
 		void configureDownloaderSettingsTab();
+		void titleChanged(const QString&);
 	protected:
 		bool eventFilter(QObject* pobj, QEvent* event);
+		void update_interactive();
 		void update_ui();
 	public:
 		appSettings(QWidget* aWgt = 0);
@@ -76,4 +92,9 @@ class appSettings : public QDialog
 		void slot_switch_warn_allow(int);
 		void slot_switch_deprecated(int);
 		void slot_switch_features(int);
+		void slot_switch_simple_url_parser(int);
+		void slot_switch_adv_url_parser(int);
+		void slot_switch_header_lvl_parser(int);
+	signals:
+		void signalTitleChanged(const QString&);
 };

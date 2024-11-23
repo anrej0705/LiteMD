@@ -1,87 +1,236 @@
-#include "regex.h"
+#include <boost/container/string.hpp>
 #include "urlAdvancedParser.h"
+#include "global_definitions.h"
+#include "exceptionHandler.h"
 
-std::wstring advancedUrlParser(std::wstring& rawInput)
+//boost::container::string* format_url_output;
+std::string* format_url_output;
+
+std::string advancedUrlParser(std::string& rawInput)
 {
-	//Буффер для работы с текстом
-	std::wstring buffer = rawInput;
+	//Счетчики для каждого элемента тега
+	uint32_t squ_brackets_entry = 0;
+	uint32_t squ_brackets_offset = 0;
+	uint32_t brackets_entry = 0;
+	uint32_t brackets_offset = 0;
 
-	//Хранилище мусора
-	std::vector<std::wstring> garbage;
-	std::vector<std::wstring> xpression;
+	//format_url_output = new boost::container::string;	//Бустовый буфер который быстрее STDшного
+	format_url_output = new std::string;	//Бустовый буфер который быстрее STDшного
 
-	//0 - первым мусор
-	//1 - первым полезный фрагмент
-	bool firstOrder = 0;
+	uint32_t* buffer_size = (uint32_t*)malloc(sizeof(uint32_t));
+	*buffer_size = rawInput.size();	//Создаём переменную с количеством символов
 
-	//Указатель на название ссылки
-	uint32_t linkIndex = 0;
+	char* buffer = (char*)calloc(*buffer_size + 1, sizeof(char));
+	strcpy(buffer, rawInput.c_str());	//Медленно, //Создаём буфер с размером входящего блока и копируем его туда
 
-	//Указатель на начало заголовка ссылки
-	uint32_t nameIndex = 0;
+	uint32_t* squ_entry_list;	//'['
+	uint32_t* squ_offsets;		//']'
+	uint32_t* entry_list;		//'('
+	uint32_t* offsets;			//')'
 
-	//Временный буфер для обработки
-	std::wstring _xpression;
+	squ_entry_list = (uint32_t*)malloc(sizeof(uint32_t));
+	squ_offsets = (uint32_t*)malloc(sizeof(uint32_t));
+	entry_list = (uint32_t*)malloc(sizeof(uint32_t));
+	offsets = (uint32_t*)malloc(sizeof(uint32_t));
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^почистить в конце
 
-	//индекс вхождения и длина выражения
-	uint32_t prevIndex = 0;
-	uint32_t index = 0;
-	uint32_t range = 0;
+	//Дальше будет поиск признаков тега, пока что нужно считать что признаки есть
+	//а объекта нет, здесь будет искаться выражение <url> где url - любой текст внутри
+	//который будет принят за ссылку неважно что это за текст
+	//Референс https://www.markdownguide.org/basic-syntax/#formatting-links
 
-	//Обрабатыванием разделяя на мусор и отсеянные регуляркой выражения
-	for (std::wsregex_iterator it = std::wsregex_iterator(buffer.cbegin(), buffer.cend(), advRegexHyperlink); it != std::wsregex_iterator(); ++it)
+	try
 	{
-		prevIndex = index + range;										//Запоминаем предыдущее вхождение
-		index = it->position();											//Получаем индекс вхождения
-		range = it->length();											//Получаем длину отсеянного фрагмента
-		index == 0 ? firstOrder = 1 : firstOrder = 0;					//Определяем порядок следования содержимого
-		garbage.push_back(buffer.substr(prevIndex, index - prevIndex));	//Запоминаем мусор(его мы не трогаем)
-		xpression.push_back(buffer.substr(index, range));				//Запоминаем фрагменты которые будем обрабатывать
-	}
-
-	//Если после последнего встреченного фрагмента остался мусор то добавляем его тоже
-	if (index + range < buffer.size())
-		garbage.push_back(buffer.substr(index + range, buffer.size() - (index + range)));
-
-	//Обрабатываем отсеянные фрагменты приводя их в HTML формат
-	for (uint16_t iter = 0; iter < xpression.size(); ++iter)
-	{
-		linkIndex = xpression.at(iter).find(L"(");																//Находим позицию начала ссылки
-		nameIndex = xpression.at(iter).find(L"[");
-		_xpression = advUrlWrap.at(0);																			//Формируем открывающий тег
-		_xpression.append(xpression.at(iter).substr(linkIndex + 1, xpression.at(iter).size() - linkIndex - 2));	//Добавляем в тег ссылку освобожденную от служ. символов
-		_xpression.append(advUrlWrap.at(1));																	//Завершаем формирование открывающего тега
-		_xpression.append(xpression.at(iter).substr(nameIndex + 1, linkIndex - nameIndex - 2));					//Добавляем кликабельный текст ссылки
-		_xpression.append(advUrlWrap.at(2));																	//Добавляем закрывающий тег
-		xpression.at(iter) = _xpression;																		//Заменяем исходник обработанным текстом
-	}
-
-	//Подготавливаем буфер к сборке
-	buffer.clear();
-
-	//Финальный этап - сборка строки
-	if (firstOrder)	//Если сначала у нас полезный контент то пихаем его
-	{
-		for (uint32_t index = 0; index < xpression.size(); ++index)
+		//Ищем вхождения по знаку '<'
+		for (volatile uint32_t _index = 0; _index < *buffer_size; ++_index)
 		{
-			//Добавляем сначала полезный контент(он идёт первым) а потом мусор
-			buffer += xpression.at(index);
-			buffer += garbage.at(index);
-		}
-		//Если остался дополнительный мусор, то тоже добавляем
-		if (xpression.size() < garbage.size())
-			buffer += garbage.at(garbage.size());
-	}
-	else //Иначе считаем что мусор
-	{
-		for (uint32_t index = 0; index < garbage.size(); ++index)
-		{
-			//Тут наоборот - сначала мусор а потом полезное
-			buffer += garbage.at(index);
-			if (index < xpression.size())
-				buffer += xpression.at(index);
+			if (buffer[_index] == '[')	//Любое найденое вхождение запоминаем на будущее
+			{
+				++squ_brackets_entry;	//realloc требуемый размер + 1 чтобы не вылезать за пределы
+				squ_entry_list = (uint32_t*)realloc(squ_entry_list, sizeof(uint32_t) * (squ_brackets_entry + 1));
+				squ_entry_list[squ_brackets_entry - 1] = _index + 1;
+			}
 		}
 	}
+	catch (exceptionHandler)
+	{
+		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlAdvancedParser.cpp 40:52")));
+	}
 
-	return buffer;
+	try
+	{
+		//Есть вероятность, что юзер оставит неполный тег, чтобы не вызвать
+		//ошибку в памяти добавляется дополнительное вхождение равное позиции
+		//последнего символа в тексте
+		squ_entry_list = (uint32_t*)realloc(squ_entry_list, sizeof(uint32_t) * (squ_brackets_entry + 1));
+		squ_entry_list[squ_brackets_entry] = *buffer_size + 1;	//Костыль с фиксом последнего символа
+
+		if (entry_list[0] != 0)	//Если первое вхождение не является началом блока то отмечаем 0 как смещение
+		{
+			++squ_brackets_offset;
+			squ_offsets = (uint32_t*)realloc(squ_offsets, sizeof(uint32_t) * (squ_brackets_offset + 1) + sizeof(uint32_t));
+			squ_offsets[squ_brackets_offset - 1] = 0;
+		}
+	}
+	catch (exceptionHandler)
+	{
+		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlAdvancedParser.cpp 58:72")));
+	}
+
+	try
+	{
+		//Ищем закрывающие знаки ']' от индекса вхождения
+		for (volatile uint32_t _entry_idx = 0; _entry_idx < squ_brackets_entry; ++_entry_idx)
+		{
+			//Небольшая доработка предыдущего алгоритма. Для ускорения и предовтращения
+			//натыканий на один и тот же знак, поиск будет проводиться с мест где был обнаружен
+			//открывающий символ '['
+			for (uint32_t _index = squ_entry_list[_entry_idx]; _index < squ_entry_list[_entry_idx + 1]; ++_index)
+			{
+				if (buffer[_index] == ']')
+				{
+					++squ_brackets_offset;
+					squ_offsets = (uint32_t*)realloc(squ_offsets, sizeof(uint32_t) * (squ_brackets_offset + 1));
+					squ_offsets[squ_brackets_offset - 1] = _index;
+				}
+			}
+		}
+	}
+	catch (exceptionHandler)
+	{
+		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlAdvancedParser.cpp 78:96")));
+	}
+
+	try
+	{
+		//Та же тема
+		squ_offsets = (uint32_t*)realloc(squ_offsets, sizeof(uint32_t) * (squ_brackets_offset + 1));
+		squ_offsets[squ_brackets_offset] = *buffer_size + 1;	//Костыль с фиксом последнего символа
+
+		volatile uint32_t _entry_idx = 0;
+
+		if (entry_list[0] != 0)	//Раннее было смещение, это нужно учесть и добавляется +1 к позиции текущего индекса
+			_entry_idx = 1;
+
+		//Ищем закрывающие знаки '(' от индекса вхождения
+		for (; _entry_idx < squ_brackets_offset; ++_entry_idx)
+		{
+			//Небольшая доработка предыдущего алгоритма. Для ускорения и предовтращения
+			//натыканий на один и тот же знак, поиск будет проводиться с мест где был обнаружен
+			//открывающий символ ']'
+			for (uint32_t _index = squ_offsets[_entry_idx]; _index < squ_offsets[_entry_idx + 1]; ++_index)
+			{
+				if (buffer[_index] == '(')
+				{
+					++brackets_entry;
+					entry_list = (uint32_t*)realloc(entry_list, sizeof(uint32_t) * (brackets_entry + 1));
+					entry_list[brackets_entry - 1] = _index + 1;
+				}
+			}
+		}
+	}
+	catch (exceptionHandler)
+	{
+		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlAdvancedParser.cpp 102:129")));
+	}
+
+	try
+	{
+		//Та же тема только с другой парой
+		entry_list = (uint32_t*)realloc(entry_list, sizeof(uint32_t) * (squ_brackets_entry + 1));
+		entry_list[squ_brackets_entry] = *buffer_size + 1;	//Костыль с фиксом последнего символа
+
+		//Ищем закрывающие знаки ')' от индекса вхождения
+		for (volatile uint32_t _entry_idx = 0; _entry_idx < squ_brackets_entry; ++_entry_idx)
+		{
+			//Небольшая доработка предыдущего алгоритма. Для ускорения и предовтращения
+			//натыканий на один и тот же знак, поиск будет проводиться с мест где был обнаружен
+			//открывающий символ '('
+			for (uint32_t _index = entry_list[_entry_idx]; _index < entry_list[_entry_idx + 1]; ++_index)
+			{
+				if (buffer[_index] == ')')
+				{
+					++brackets_offset;
+					offsets = (uint32_t*)realloc(offsets, sizeof(uint32_t) * (brackets_offset + 1));
+					offsets[brackets_offset - 1] = _index;
+				}
+			}
+		}
+	}
+	catch (exceptionHandler)
+	{
+		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlAdvancedParser.cpp 135:157")));
+	}
+
+	//Этап конвертации и сборки текста. Вместо символов '<' и '>' вставляется '<a href="'+текст+'">'+текст+'</a>'
+
+	uint32_t entrys_cnt = 0;
+	uint32_t blocks_cnt = 0;
+
+	try
+	{
+		if (entry_list[entrys_cnt] == 0)	//Если тег начинается с первого символа то формируем строчку и +1 entrys_cnt
+		{									//и выполняем сборку на месте
+			//Сборка
+			for (volatile uint32_t _part_idx = entrys_cnt; _part_idx < squ_brackets_entry;)
+			{
+				//Сборка в циклi
+				for (volatile uint32_t _part_idx = 0; _part_idx < squ_brackets_entry; ++_part_idx)
+				{
+					++entrys_cnt;
+					//Вставка тега <a href="
+					format_url_output->append(simple_url_iopenurl, simple_url_iopenurl_size);
+					//Вставка текста-ссылки
+					format_url_output->append(&buffer[entry_list[entrys_cnt - 1]], offsets[entrys_cnt - 1] - entry_list[entrys_cnt - 1]);
+					//Вставка закрывающего ссылку ">
+					format_url_output->append(simple_url_icloseurl, simple_url_icloseurl_size);
+					//Вставка кликабельного текста
+					format_url_output->append(&buffer[squ_entry_list[entrys_cnt - 1]], squ_offsets[entrys_cnt] - squ_entry_list[entrys_cnt - 1]);
+					//Вставка закрывающего тега
+					format_url_output->append(simple_url_iclosetext, simple_url_iclosetext_size);
+					//Вставка текста между тегами
+					format_url_output->append(&buffer[offsets[entrys_cnt - 1]] + 1, squ_entry_list[entrys_cnt] - offsets[entrys_cnt - 1] - 2);
+				}
+			}
+		}
+		else
+		{
+
+			//Копирование текста до тега
+			format_url_output->append(&buffer[squ_offsets[entrys_cnt]], squ_entry_list[entrys_cnt] - 1);
+
+			//Сборка в циклi
+			for (volatile uint32_t _part_idx = 0; _part_idx < squ_brackets_entry; ++_part_idx)
+			{
+				++entrys_cnt;
+				//Вставка тега <a href="
+				format_url_output->append(simple_url_iopenurl, simple_url_iopenurl_size);
+				//Вставка текста-ссылки
+				format_url_output->append(&buffer[entry_list[entrys_cnt - 1]], offsets[entrys_cnt - 1] - entry_list[entrys_cnt - 1]);
+				//Вставка закрывающего ссылку ">
+				format_url_output->append(simple_url_icloseurl, simple_url_icloseurl_size);
+				//Вставка кликабельного текста
+				format_url_output->append(&buffer[squ_entry_list[entrys_cnt - 1]], squ_offsets[entrys_cnt] - squ_entry_list[entrys_cnt - 1]);
+				//Вставка закрывающего тега
+				format_url_output->append(simple_url_iclosetext, simple_url_iclosetext_size);
+				//Вставка текста между тегами
+				format_url_output->append(&buffer[offsets[entrys_cnt - 1]] + 1, squ_entry_list[entrys_cnt] - offsets[entrys_cnt - 1] - 2);
+			}
+		}
+	}
+	catch (exceptionHandler)
+	{
+		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlAdvancedParser.cpp 168:218")));
+	}
+
+	//чистка указателей
+	free(squ_entry_list);
+	free(squ_offsets);
+	free(entry_list);
+	free(offsets);
+	free(buffer_size);
+	free(buffer);
+
+	//return rawInput.c_str();
+	return format_url_output->c_str();
 }
