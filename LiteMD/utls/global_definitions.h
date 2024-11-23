@@ -49,6 +49,10 @@ const char appSign[] = "__Shani_basic";
 #define APP_EVENT_frame_changelog_UPDATE_EVENT			41
 //--------------------------------------------------------
 
+//Событие обновления настроек после чтения конфига
+//Обработчик лежит в appSettings_ui.cpp
+#define APP_EVENT_UI_UPDATE_USER_SETTINGS				127
+
 /*
 * Блок шаблонов для парсеров. Когда парсер встречает свой тег, он подменяет тег на
 * HTML-шаблон
