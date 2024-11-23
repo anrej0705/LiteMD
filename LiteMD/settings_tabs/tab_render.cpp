@@ -4,7 +4,6 @@ extern "C"
 {
 	#include "globalFlags.h"
 }
-QLabel* reloadHint;
 void appSettings::configureRenderSettingsTab()
 {
 	renderSettings = new QWidget;
@@ -14,8 +13,10 @@ void appSettings::configureRenderSettingsTab()
 	parseAdvLinksHint = new QLabel(tr("parseAdvLinksHint"));
 	parseHeaderLvlHint = new QLabel(tr("parseHeaderLvlHint"));
 
+	//Подсказка для перезагрузки документа
 	reloadHint = new QLabel(tr("reloadHint"));
 	reloadHint->setAlignment(Qt::AlignBottom | Qt::AlignLeft);
+	reloadHint->setFixedHeight(SETTINGS_HEIGH);
 	 
 	//Инициализируем элементы взаимодействия
 	parseSimplLinks = new QCheckBox;
@@ -48,13 +49,12 @@ void appSettings::configureRenderSettingsTab()
 
 	//Вспомогательная компоновка
 	QHBoxLayout* render_box_lay = new QHBoxLayout;
-	QHBoxLayout* manager = new QHBoxLayout;
+	QVBoxLayout* manager = new QVBoxLayout;
 
 	//Добавляем в компоновку
 	lbl_lay->addWidget(parseSimplLinksHint);
 	lbl_lay->addWidget(parseAdvLinksHint);
 	lbl_lay->addWidget(parseHeaderLvlHint);
-	lbl_lay->addWidget(reloadHint);
 
 	interact_lay->addWidget(parseSimplLinks);
 	interact_lay->addWidget(parseAdvLinksl);
@@ -80,6 +80,7 @@ void appSettings::configureRenderSettingsTab()
 	//Прикрепляем скомпонованные элементы
 	render_box->setLayout(render_box_lay);
 	manager->addWidget(render_box);
+	manager->addWidget(reloadHint);
 
 	renderSettings->setLayout(manager);
 }
