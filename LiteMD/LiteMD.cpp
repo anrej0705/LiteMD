@@ -141,6 +141,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	actQuit->setShortcut(Qt::CTRL | Qt::Key_Q);
 	actSet->setShortcut(Qt::CTRL | Qt::Key_H);
 	actNew->setShortcut(Qt::CTRL | Qt::Key_N);
+	actBugReport->setShortcut(Qt::CTRL | Qt::Key_B);
 	mdsArea->setWidgetResizable(1);
 	mdsArea->setWidget(mds);
 	mds->setWordWrap(1);
