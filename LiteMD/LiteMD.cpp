@@ -236,7 +236,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	setWindowTitle(tr("LiteMD alpha 0.0.0 build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))/* + tr("[MAX FILE SIZE 65K]")*/);
 
 	//Кешируем имя окна для возможности восстановления исходного заголовка
-	defTitle = windowTitle();
+	//defTitle = windowTitle();	//patch 0.2.2 исправление версии "0.0.0" при открытии файла
 	
 	//Устанавливаем иконку приложения
 	setWindowIcon(QIcon("icon.ico"));
@@ -272,10 +272,10 @@ void LiteMD::slotAbout()
 void LiteMD::slotTitleChanged(const QString& title)
 {
 	//Контейнеры для помещения элементов заголовка
-	std::string newTitle = defTitle.toStdString();
+	std::string newTitle/* = defTitle.toStdString()*/;	//Патч 0.2.2 исправление заголовка
 	std::string fileFullPath = title.toStdString();
 	//Формируем заголовок из контейнеров и устанавливаем в приложение
-	newTitle.append(" [" + fileFullPath.substr(fileFullPath.rfind('/') + 1, fileFullPath.size() - fileFullPath.rfind('/')) + "]");
+	newTitle.append(tr("LiteMD alpha 0.0.0 build ").toStdString() + " [" + fileFullPath.substr(fileFullPath.rfind('/') + 1, fileFullPath.size() - fileFullPath.rfind('/')) + "]");
 	setWindowTitle(QString::fromStdString(newTitle));
 }
 //Сброс заголовка
