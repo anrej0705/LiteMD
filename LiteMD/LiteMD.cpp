@@ -10,8 +10,14 @@ extern "C"
 	#include "globalFlags.h"
 	#include "global_definitions.h"
 }
+extern struct parser_switchers parswitch;
 LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 {
+	//Настройка флагов по умолчанию
+	parswitch.en_simple_url = 1;
+	parswitch.en_adv_url = 1;
+	parswitch.en_header_lvl = 1;
+
 	//Инициализация окон редактора и рендера текста
 	mde = new mdEditor;
 	mds = new mdScreen;
