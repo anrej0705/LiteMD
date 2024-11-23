@@ -33,7 +33,6 @@ void appSettings::update_ui()
 	settingsLister->setTabText(1, tr("Render"));
 	settingsLister->setTabText(2, tr("Downloader"));
 	settingsLister->setTabText(3, tr("Cap"));
-	parseSimplLinksHint->setText(tr("Parse URL links"));
 	themeList->setItemText(0, tr("Will be added in future"));
 	saveSettings->setItemText(0, tr("Will be added in future"));
 	saveFreq->setItemText(0, tr("Will be added in future"));
@@ -43,6 +42,10 @@ void appSettings::update_ui()
 	saveFreqHint->setText(tr("Autosave frequency"));
 	depFuncHint->setText(tr("Enable deprecated features"));
 	inDevFuncHint->setText(tr("Enable in-dev features"));
+	reloadHint->setText(tr("reloadHint"));
+	parseSimplLinksHint->setText(tr("Parse URL links"));
+	parseAdvLinksHint->setText(tr("parseAdvLinksHint"));
+	parseHeaderLvlHint->setText(tr("parseHeaderLvlHint"));
 }
 
 void appSettings::update_interactive()
