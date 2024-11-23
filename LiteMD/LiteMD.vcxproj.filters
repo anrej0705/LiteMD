@@ -175,6 +175,9 @@
     <ClCompile Include="utls\localeDetector.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="string_processing\headerLvlParser.cpp">
+      <Filter>String processing\Парсеры</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">
@@ -331,6 +334,9 @@
     </ClInclude>
     <ClInclude Include="string_processing\crlfProcessor.h">
       <Filter>String processing</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\headerLvlParser.h">
+      <Filter>String processing\Парсеры</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
