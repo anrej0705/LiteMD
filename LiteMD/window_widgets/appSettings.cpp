@@ -11,11 +11,6 @@ extern "C"
 struct parser_switchers parswitch;
 appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 {
-	//Настройка флагов по умолчанию
-	parswitch.en_simple_url = 1;
-	parswitch.en_adv_url = 1;
-	parswitch.en_header_lvl = 1;
-
 	//Окно настроек, будет переписано
 	setModal(1);
 	setWindowTitle(tr("LiteMD Settings"));
