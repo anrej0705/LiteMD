@@ -101,6 +101,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	actSetTextFormat = new QAction(QPixmap("ress/icon_set_text_format.png"), tr("Te&xt Format"));
 	actHelp = new QAction(QPixmap("ress/icon_help.png"), tr("&Help"));
 	actOpenChangelog = new QAction(QPixmap("ress/icon_show_changelog.png"), tr("Sh&ow changelog"));
+	actBugReport = new QAction(QPixmap("ress/icon_bug.png"), tr("&Bug!"));
 	//----------------
 	
 	//Установка обработчика события смены языка
@@ -109,6 +110,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//Отключенные механики
 	actSetTextFormat->setDisabled(1);
 	actHelp->setDisabled(1);
+	actBugReport->setDisabled(1);	//Отключено до 0.2.2
 	//--------------------
 
 	//Добавляем кнопки в доки
@@ -127,6 +129,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	quick_tb->addAction(actHelp);
 	quick_tb->addAction(actAbout);
 	quick_tb->addAction(actOpenChangelog);
+	quick_tb->addSeparator();
+	quick_tb->addAction(actBugReport);
 	//-----------------------
 
 	this->addToolBar(Qt::TopToolBarArea, quick_tb);
@@ -178,6 +182,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mSettings->addAction(actDownloader);
 	mSettings->addSeparator();
 	mSettings->addAction(actSet);
+	mSettings->addAction(actBugReport);
 	mHelp->addAction(actHelp);
 	mHelp->addAction(actAbout);
 	mHelp->addAction(actOpenChangelog);

@@ -46,14 +46,15 @@ class LiteMD : public QMainWindow
 		QAction* actSave;				//Пункт меню сохранить
 		QAction* actSaveAs;				//Пункт меню сохранить как
 		QAction* actQuit;				//Пункт меню выход
-		QAction* actDownloader;			//Пункт вызова загрузчика
-		QAction* actSet;				//Пункт вызова настроек
-		QAction* actNew;				//Пункт создрания нового документа
+		QAction* actDownloader;			//Кнопка вызова загрузчика
+		QAction* actSet;				//Кнопка вызова настроек
+		QAction* actNew;				//Кнопка создания нового документа
 		QAction* actPlaceUrl;			//Преобразовать в (ссылку)
 		QAction* actPlaceAltUrl;		//Преобразовать в [альтернативную](ссылку)
 		QAction* actSetTextFormat;		//Выбрать форматирование выделенного текста
 		QAction* actHelp;				//Открывает справку
 		QAction* actOpenChangelog;		//Открывает список изменений текущей версии
+		QAction* actBugReport;			//Кнопка открытия окна логов
 	protected:
 		bool eventFilter(QObject* pobj, QEvent* event);
 		void update_ui();
