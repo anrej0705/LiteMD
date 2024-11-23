@@ -232,6 +232,10 @@ github.com/anrej0705
         <source>Github repo: </source>
         <translation>Репозиторий GitHub: </translation>
     </message>
+    <message>
+        <source>&amp;Bug!</source>
+        <translation>&amp;Баг!</translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>

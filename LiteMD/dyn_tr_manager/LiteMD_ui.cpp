@@ -38,5 +38,6 @@ void LiteMD::update_ui()
 	actPlaceAltUrl->setText(tr("Make alt&enate URL"));
 	actSetTextFormat->setText(tr("Te&xt Format"));
 	actHelp->setText(tr("&Help"));
+	actBugReport->setText(tr("&Bug!"));
 	//------------------------
 }

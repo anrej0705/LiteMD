@@ -230,6 +230,10 @@ I hope u like my app :D</translation>
         <source>Github repo: </source>
         <translation>Github repo: </translation>
     </message>
+    <message>
+        <source>&amp;Bug!</source>
+        <translation>&amp;Bug!</translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
