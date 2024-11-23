@@ -4,15 +4,18 @@ extern "C"
 {
 	#include "globalFlags.h"
 }
-
+QLabel* reloadHint;
 void appSettings::configureRenderSettingsTab()
 {
 	renderSettings = new QWidget;
 
 	//Инициализируем метки
-	parseSimplLinksHint = new QLabel(tr("Parse URL links"));
-	parseAdvLinksHint = new QLabel(tr("Обрабатывать форматированные ссылки"));
-	parseHeaderLvlHint = new QLabel(tr("Обрабатывать уровни заголовков"));
+	parseSimplLinksHint = new QLabel(tr("parseSimplLinksHint"));
+	parseAdvLinksHint = new QLabel(tr("parseAdvLinksHint"));
+	parseHeaderLvlHint = new QLabel(tr("parseHeaderLvlHint"));
+
+	reloadHint = new QLabel(tr("reloadHint"));
+	reloadHint->setAlignment(Qt::AlignBottom | Qt::AlignLeft);
 	 
 	//Инициализируем элементы взаимодействия
 	parseSimplLinks = new QCheckBox;
@@ -51,6 +54,7 @@ void appSettings::configureRenderSettingsTab()
 	lbl_lay->addWidget(parseSimplLinksHint);
 	lbl_lay->addWidget(parseAdvLinksHint);
 	lbl_lay->addWidget(parseHeaderLvlHint);
+	lbl_lay->addWidget(reloadHint);
 
 	interact_lay->addWidget(parseSimplLinks);
 	interact_lay->addWidget(parseAdvLinksl);
