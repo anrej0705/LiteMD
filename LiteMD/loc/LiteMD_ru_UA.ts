@@ -130,11 +130,11 @@ github.com/anrej0705
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation>[В РАЗРАБОТКЕ]LiteMD alpha 0.2.0 сборка </translation>
+        <translation>[В РАЗРАБОТКЕ]LiteMD alpha 0.2.1 сборка </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.2.0 сборка </translation>
+        <translation>Ver. alpha 0.2.1 сборка </translation>
     </message>
     <message>
         <source>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</source>
@@ -358,6 +358,22 @@ Programm will close</source>
     <message>
         <source>Enable in-dev features</source>
         <translation>Возможности находящиеся в разработке</translation>
+    </message>
+    <message>
+        <source>parseSimplLinksHint</source>
+        <translation>Обрабатывать простые ссылки</translation>
+    </message>
+    <message>
+        <source>parseAdvLinksHint</source>
+        <translation>Обрабатывать форматированные ссылки</translation>
+    </message>
+    <message>
+        <source>parseHeaderLvlHint</source>
+        <translation>Обрабатывать заголовки</translation>
+    </message>
+    <message>
+        <source>reloadHint</source>
+        <translation>Настройки вступят в силу после перезагрузки документа</translation>
     </message>
 </context>
 <context>

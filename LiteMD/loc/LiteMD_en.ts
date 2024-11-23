@@ -128,11 +128,11 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation>[WORK IN PROGRESS]LiteMD alpha 0.2.0 build </translation>
+        <translation>[WORK IN PROGRESS]LiteMD alpha 0.2.1 build </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.2.0 build </translation>
+        <translation>Ver. alpha 0.2.1 build </translation>
     </message>
     <message>
         <source>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</source>
@@ -224,11 +224,11 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>This app is free for use,modify and reupload&lt;BR&gt;&lt;BR&gt;LiteMD IS FREE SOFTWARE! IF YOU PAID FOR IT YOU HAVE BEEN SCAMMED!</source>
-        <translation type="unfinished"></translation>
+        <translation>This app is free for use,modify and reupload&lt;BR&gt;&lt;BR&gt;LiteMD IS FREE SOFTWARE! IF YOU PAID FOR IT YOU HAVE BEEN SCAMMED!</translation>
     </message>
     <message>
         <source>Github repo: </source>
-        <translation type="unfinished"></translation>
+        <translation>Github repo: </translation>
     </message>
 </context>
 <context>
@@ -356,6 +356,22 @@ Programm will close</translation>
     <message>
         <source>Enable in-dev features</source>
         <translation>Enable in-dev features</translation>
+    </message>
+    <message>
+        <source>parseSimplLinksHint</source>
+        <translation>Parse simple url</translation>
+    </message>
+    <message>
+        <source>parseAdvLinksHint</source>
+        <translation>Parse advanced url</translation>
+    </message>
+    <message>
+        <source>parseHeaderLvlHint</source>
+        <translation>Parse header tags(H1...H5)</translation>
+    </message>
+    <message>
+        <source>reloadHint</source>
+        <translation>The settings will take effect after the document is reloaded</translation>
     </message>
 </context>
 <context>
