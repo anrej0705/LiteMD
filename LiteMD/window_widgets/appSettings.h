@@ -51,6 +51,7 @@ class appSettings : public QDialog
 		//-------------------------
 
 		//Вкладка "Рендер"
+		QLabel* reloadHint;			//Подсказка - настройки сработают после повторного открытия
 		QLabel* parseSimplLinksHint;//Описание галки обработки ссылок <url>
 		QLabel* parseAdvLinksHint;	//Описание галки обработки [link](url)
 		QLabel* parseHeaderLvlHint;	//Описание галки обработки заголовков #...#####
