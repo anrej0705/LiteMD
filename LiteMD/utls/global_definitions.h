@@ -53,11 +53,19 @@ const char appSign[] = "__Shani_basic";
 * Блок шаблонов для парсеров. Когда парсер встречает свой тег, он подменяет тег на
 * HTML-шаблон
 */
-const char simple_url_iopenurl[] = "<a href=\"";
+const char simple_url_iopenurl[] = "<A HREF=\"";
 const char simple_url_icloseurl[] = "\">";
-const char simple_url_iclosetext[] = "</a>";
+const char simple_url_iclosetext[] = "</A>";
+
+const char header_lvl_iopenlvl[] = "<H";
+const char header_lvl_icloselvl[] = ">";
+const char header_lvl_iclosetext[] = "</H";
 
 const uint8_t simple_url_iopenurl_size = 9;
 const uint8_t simple_url_icloseurl_size = 2;
 const uint8_t simple_url_iclosetext_size = 4;
+
+const uint8_t header_lvl_iopenlvl_size = 2;
+const uint8_t header_lvl_icloselvl_size = 1;
+const uint8_t header_lvl_iclosetext_size = 3;
 #endif
