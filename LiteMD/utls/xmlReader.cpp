@@ -156,7 +156,10 @@ bool xmlReader::readConfig()
 						settingsReader.readNext();
 						//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
 						value = settingsReader.text().toString();
-						parswitch.en_simple_url = static_cast<bool>(value.toInt());
+						if (value == QString("true"))
+							parswitch.en_simple_url = 1;
+						else if (value == QString("false"))
+							parswitch.en_simple_url = 0;
 					}
 					else
 						readSuccess = 0;
@@ -174,7 +177,10 @@ bool xmlReader::readConfig()
 						settingsReader.readNext();
 						//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
 						value = settingsReader.text().toString();
-						parswitch.en_adv_url = static_cast<bool>(value.toInt());
+						if (value == QString("true"))
+							parswitch.en_adv_url = 1;
+						else if (value == QString("false"))
+							parswitch.en_adv_url = 0;
 					}
 					else
 						readSuccess = 0;
@@ -192,7 +198,10 @@ bool xmlReader::readConfig()
 						settingsReader.readNext();
 						//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
 						value = settingsReader.text().toString();
-						parswitch.en_header_lvl = static_cast<bool>(value.toInt());
+						if (value == QString("true"))
+							parswitch.en_header_lvl = 1;
+						else if (value == QString("false"))
+							parswitch.en_header_lvl = 0;
 					}
 					else
 						readSuccess = 0;
