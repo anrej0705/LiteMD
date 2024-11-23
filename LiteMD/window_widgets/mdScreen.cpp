@@ -8,6 +8,7 @@
 #include "urlBasicSimplifiedParser.h"
 #include "urlBasicParser.h"
 #include "urlAdvancedParser.h"
+#include "headerLvlParser.h"
 #include "shieldingParser.h"
 #include "crlfProcessor.h"
 #include "globalFlags.h"
@@ -43,7 +44,9 @@ void mdScreen::slotSetText(const QString& str)
 		mdInput = basicUrlParser(mdInput);				//2 -> 3|Обработка <www.url.ru>
 	if (parswitch.en_adv_url)
 		mdInput = advancedUrlParser(mdInput);			//3 -> 4|Обработка [name](url)
-	mdInput = crlfProcessor(mdInput);					//4 -> 5|Обработка переноса строки
+	if (parswitch.en_header_lvl)
+		mdInput = headerLvlParser(mdInput);				//4 -> 5|Обработка уровня заголовков
+	mdInput = crlfProcessor(mdInput);					//5 -> 6|Обработка переноса строки
 	balamut.unlock();
 	
 	//Преобразуем в QString
