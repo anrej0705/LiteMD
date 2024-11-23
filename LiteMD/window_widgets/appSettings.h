@@ -81,6 +81,7 @@ class appSettings : public QDialog
 		void titleChanged(const QString&);
 	protected:
 		bool eventFilter(QObject* pobj, QEvent* event);
+		void update_interactive();
 		void update_ui();
 	public:
 		appSettings(QWidget* aWgt = 0);
