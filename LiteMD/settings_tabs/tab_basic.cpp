@@ -128,6 +128,8 @@ void appSettings::configureBasicSettingsTab()
 	saveSettings->setDisabled(1);
 	saveFreq->setDisabled(1);
 	autoSave->setDisabled(1);
+	depFunc->setDisabled(1);
+	devFunc->setDisabled(1);
 
 	//Настраиваем высоту(подгон высоты текста к элементам управления)
 	langListHint->setFixedHeight(SETTINGS_HEIGH);
