@@ -130,7 +130,7 @@ github.com/anrej0705
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation>[В РАЗРАБОТКЕ]LiteMD alpha 0.2.1 сборка </translation>
+        <translation type="vanished">[В РАЗРАБОТКЕ]LiteMD alpha 0.2.1 сборка </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
@@ -390,6 +390,22 @@ Programm will close</source>
     <message>
         <source>reloadHint</source>
         <translation>Настройки вступят в силу после перезагрузки документа</translation>
+    </message>
+    <message>
+        <source>clearLog</source>
+        <translation>Очистить лог</translation>
+    </message>
+    <message>
+        <source>saveLog</source>
+        <translation>Сохранить лог</translation>
+    </message>
+    <message>
+        <source>logHint</source>
+        <translation>Лог работы</translation>
+    </message>
+    <message>
+        <source>Logs</source>
+        <translation>Лог</translation>
     </message>
 </context>
 <context>

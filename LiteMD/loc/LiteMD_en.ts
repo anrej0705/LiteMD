@@ -128,7 +128,7 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation>[WORK IN PROGRESS]LiteMD alpha 0.2.1 build </translation>
+        <translation type="vanished">[WORK IN PROGRESS]LiteMD alpha 0.2.1 build </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
@@ -388,6 +388,22 @@ Programm will close</translation>
     <message>
         <source>reloadHint</source>
         <translation>The settings will take effect after the document is reloaded</translation>
+    </message>
+    <message>
+        <source>clearLog</source>
+        <translation>Clear logs</translation>
+    </message>
+    <message>
+        <source>saveLog</source>
+        <translation>Save logs</translation>
+    </message>
+    <message>
+        <source>logHint</source>
+        <translation>Logs</translation>
+    </message>
+    <message>
+        <source>Logs</source>
+        <translation>Logs</translation>
     </message>
 </context>
 <context>
