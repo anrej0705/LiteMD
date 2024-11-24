@@ -7,9 +7,10 @@ class appSettings : public QDialog
 {
 	Q_OBJECT
 	private:
-		QWidget* basicSettings;	//Основные настройки
+		QWidget* basicSettings;		//Основные настройки
 		QWidget* renderSettings;	//Настройки обработки текста
 		QWidget* downloaderSettings;//Настройка загрузчика по сети
+		QWidget* tabLogs;			//Логи работы
 
 		std::map<uint8_t, QString>* loc_map;	//Список локалей
 
@@ -69,7 +70,7 @@ class appSettings : public QDialog
 		//-------------------------
 
 		//Вкладка "Логи"
-		QLabel* logHint;			//Подпись окна в логом
+		QLabel* logHint;			//Подпись окна с логами
 		QTextEdit* logBox;			//Контейнер для отображения логов
 		QPushButton* clearLog;		//Кнопка "Очистить лог"
 		QPushButton* saveLog;		//Кнопка "Сохранить лог"
@@ -79,6 +80,7 @@ class appSettings : public QDialog
 		void configureBasicSettingsTab();
 		void configureRenderSettingsTab();
 		void configureDownloaderSettingsTab();
+		void configureLogsTab();
 		void titleChanged(const QString&);
 	protected:
 		bool eventFilter(QObject* pobj, QEvent* event);

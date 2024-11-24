@@ -19,6 +19,7 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	configureBasicSettingsTab();
 	configureRenderSettingsTab();
 	configureDownloaderSettingsTab();
+	configureLogsTab();
 
 	//Инициализируем указатели
 	xmlw = new xmlWriter;
@@ -97,6 +98,7 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	settingsLister->addTab(basicSettings, tr("Basic"));
 	settingsLister->addTab(renderSettings, tr("Render"));
 	settingsLister->addTab(downloaderSettings, tr("Downloader"));
+	settingsLister->addTab(tabLogs, tr("Logs"));
 	settingsLister->addTab(capTab, tr("Cap"));
 
 	//Задаем фиксированный размер
