@@ -132,7 +132,7 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.2.1 build </translation>
+        <translation type="vanished">Ver. alpha 0.2.1 build </translation>
     </message>
     <message>
         <source>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</source>
@@ -233,6 +233,18 @@ I hope u like my app :D</translation>
     <message>
         <source>&amp;Bug!</source>
         <translation>&amp;Bug!</translation>
+    </message>
+    <message>
+        <source>LiteMD</source>
+        <translation>LiteMD</translation>
+    </message>
+    <message>
+        <source> build </source>
+        <translation> build </translation>
+    </message>
+    <message>
+        <source>Ver.</source>
+        <translation>Ver.</translation>
     </message>
 </context>
 <context>
