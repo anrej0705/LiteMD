@@ -420,6 +420,25 @@ Programm will close</source>
     </message>
 </context>
 <context>
+    <name>logger</name>
+    <message>
+        <source>logTitle</source>
+        <translation>Лог работы</translation>
+    </message>
+    <message>
+        <source>clearLog</source>
+        <translation>Очистить лог</translation>
+    </message>
+    <message>
+        <source>saveLog</source>
+        <translation>Сохранить лог</translation>
+    </message>
+    <message>
+        <source>logHint</source>
+        <translation>Лог работы</translation>
+    </message>
+</context>
+<context>
     <name>mdEditor</name>
     <message>
         <source>Open Text/Markdown</source>

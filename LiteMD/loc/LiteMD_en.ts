@@ -418,6 +418,25 @@ Programm will close</translation>
     </message>
 </context>
 <context>
+    <name>logger</name>
+    <message>
+        <source>logTitle</source>
+        <translation>Logs</translation>
+    </message>
+    <message>
+        <source>clearLog</source>
+        <translation>Clear logs</translation>
+    </message>
+    <message>
+        <source>saveLog</source>
+        <translation>Save logs</translation>
+    </message>
+    <message>
+        <source>logHint</source>
+        <translation>Logs</translation>
+    </message>
+</context>
+<context>
     <name>mdEditor</name>
     <message>
         <source>Open Text/Markdown</source>
