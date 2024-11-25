@@ -51,6 +51,9 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	dialogWindow->addWidget(settingsLister);
 	dialogWindow->addLayout(controlBtnLay);
 
+	//Иконка
+	this->setWindowIcon(QIcon("icon.ico"));
+
 	//Устанавливаем менеджер как основной виджет
 	setLayout(dialogWindow);
 	
