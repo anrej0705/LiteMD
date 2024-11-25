@@ -44,6 +44,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	xmlR = new xmlReader;
 	cLog = new currentChangelog;
 	showTim = new QTimer;
+	logWindow = new logger;
 	//-------------------------
 
 	//Блок конфигурации элементов интерфейса
@@ -111,7 +112,6 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//Отключенные механики
 	actSetTextFormat->setDisabled(1);
 	actHelp->setDisabled(1);
-	actBugReport->setDisabled(1);	//Отключено до 0.2.2
 	//--------------------
 
 	//Настройка тулбаров
@@ -240,6 +240,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler();	//Таймер на вызов окна
 	if (!connect(actOpenChangelog, SIGNAL(triggered()), cLog, SLOT(slotShowWindow())))
 		QErrorMessage::qtHandler();	//Вызов окна ченжлога
+	if (!connect(actBugReport, SIGNAL(triggered()), logWindow, SLOT(show())))
+		QErrorMessage::qtHandler();	//Вызов окна логов
 	//------------------------------
 
 	//Рабочий долгосрочный костыль. Создаем пустой виджет и помещаем все в него

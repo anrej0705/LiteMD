@@ -8,6 +8,7 @@
 #include "frameChangelog.h"
 #include "xmlWriter.h"
 #include "xmlReader.h"
+#include "logger.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -40,6 +41,7 @@ class LiteMD : public QMainWindow
 		xmlWriter* xmlW;				//Класс для записи настроек в файл
 		xmlReader* xmlR;				//Читалка настроек
 		QTimer* showTim;				//Таймер на отображение окна
+		logger* logWindow;				//Окно логов которое появляется нажатием на жука
 
 		//Действия всякие, в меню и в док
 		QAction* actAbout;				//Пункт меню о программе
