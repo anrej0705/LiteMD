@@ -26,6 +26,10 @@ logger::logger(QWidget* log) : QDialog(log)
 	saveLog = new QPushButton(tr("saveLog"));
 	logFrame = new QTextEdit;
 
+	//Делаем кнопки побольше чтобы тыкать проще
+	clearLog->setFixedHeight(48);
+	saveLog->setFixedHeight(48);
+
 	//Рамка и её костыль
 	frame = new QGroupBox;
 	frameFix = new QVBoxLayout;
@@ -36,12 +40,12 @@ logger::logger(QWidget* log) : QDialog(log)
 
 	//Сборка окна
 	builder->addWidget(logFrame);
-	builder->addLayout(buttonLay);
 
 	//Костылинг
 	frame->setLayout(builder);
 	frame->setTitle(tr("logHint"));
 	frameFix->addWidget(frame);
+	frameFix->addLayout(buttonLay);
 
 	//Назначение менеджнера в виджет
 	this->setLayout(frameFix);
