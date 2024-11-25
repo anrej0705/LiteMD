@@ -4,6 +4,7 @@ logger::logger(QWidget* log) : QDialog(log)
 {
 	//Задаём модальный тип окна чтобы юзер случайно не скрыл его
 	setModal(1);
+	this->setWindowTitle(tr("logTitle"));
 
 	//Задаём пока что фиксированный размер окна
 	setFixedSize(800, 600);
@@ -11,28 +12,40 @@ logger::logger(QWidget* log) : QDialog(log)
 	//Менеджер размещения кнопок
 	buttonLay = new QHBoxLayout;
 
+	//Фильтр событий чтобы ловить событие смены языка
+	qApp->installEventFilter(this);
+
+	//Иконка
+	this->setWindowIcon(QIcon("icon.ico"));
+
 	//Менеджер размещения панели с кнопками и текстового поля
 	builder = new QVBoxLayout;
 
 	//Всякая приблуда из tab_logs.cpp
 	clearLog = new QPushButton(tr("clearLog"));
 	saveLog = new QPushButton(tr("saveLog"));
-	logHint = new QLabel(tr("logHint"));
 	logFrame = new QTextEdit;
 
-	//Настройка подписи
-	logHint->setAlignment(Qt::AlignLeft);
+	//Рамка и её костыль
+	frame = new QGroupBox;
+	frameFix = new QVBoxLayout;
 
 	//Сборка кнопок
 	buttonLay->addWidget(saveLog);
 	buttonLay->addWidget(clearLog);
 
 	//Сборка окна
-	builder->addWidget(logHint);
 	builder->addWidget(logFrame);
 	builder->addLayout(buttonLay);
 
-	//Назначение менеджнера в виджет
-	this->setLayout(builder);
+	//Костылинг
+	frame->setLayout(builder);
+	frame->setTitle(tr("logHint"));
+	frameFix->addWidget(frame);
 
+	//Назначение менеджнера в виджет
+	this->setLayout(frameFix);
+
+	//Всякие настройки
+	logFrame->setReadOnly(1);		//Отключение возможности писать в окно логов
 }

@@ -51,6 +51,7 @@ const char appSign[] = "__Shani_basic";
 #define APP_EVENT_appSettings_UPDATE_EVENT				39
 #define APP_EVENT_tab_basic_UPDATE_EVENT				40
 #define APP_EVENT_frame_changelog_UPDATE_EVENT			41
+#define APP_EVENT_logger_UPDATE_EVENT					42
 //--------------------------------------------------------
 
 //Событие обновления настроек после чтения конфига

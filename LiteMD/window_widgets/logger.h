@@ -11,8 +11,11 @@ class logger : public QDialog
 		QPushButton* clearLog;
 		QPushButton* saveLog;
 
-		//Подпись
-		QLabel* logHint;
+		//Рамка для крЫсоты
+		QGroupBox* frame;
+
+		//Костыль для помещения рамки
+		QVBoxLayout* frameFix;
 
 		//Поле логов
 		QTextEdit* logFrame;
@@ -20,6 +23,9 @@ class logger : public QDialog
 		//Менеджеры компоновки
 		QHBoxLayout* buttonLay;
 		QVBoxLayout* builder;
+	protected:
+		bool eventFilter(QObject* pobj, QEvent* event);
+		void update_ui();
 	public:
 		logger(QWidget* log = 0);
 };
