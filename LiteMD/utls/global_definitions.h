@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef GLOBAL_DEFINITIONS_H_
 #define GLOBAL_DEFINITIONS_H_
 //Глобальные определения, в т.ч версии сборки и ИД событий
@@ -12,7 +12,7 @@
 //##[VER]
 #define APP_VERSION " 0.2.2"
 //##[BUILD]
-#define BUILD_NUMBER 1683
+#define BUILD_NUMBER 1746
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
