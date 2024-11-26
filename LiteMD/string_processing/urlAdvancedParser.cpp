@@ -2,26 +2,30 @@
 #include "urlAdvancedParser.h"
 #include "global_definitions.h"
 #include "exceptionHandler.h"
+#include "logger_backend.h"
 
 //boost::container::string* format_url_output;
 std::string* format_url_output;
 
+
 std::string advancedUrlParser(std::string& rawInput)
-{
-	//Счетчики для каждого элемента тега
+{	//РљРѕРЅС‚РµР№РЅРµСЂ РґР»СЏ СЃС‚СЂРѕС‡РєРё Р»РѕРіР° РїРµСЂРµРґ РѕС‚РїСЂР°РІРєРѕР№ РІ СЏРґСЂРѕ
+	boost::container::string* log_stroke = new boost::container::string;
+
+	//РЎС‡РµС‚С‡РёРєРё РґР»СЏ РєР°Р¶РґРѕРіРѕ СЌР»РµРјРµРЅС‚Р° С‚РµРіР°
 	uint32_t squ_brackets_entry = 0;
 	uint32_t squ_brackets_offset = 0;
 	uint32_t brackets_entry = 0;
 	uint32_t brackets_offset = 0;
 
-	//format_url_output = new boost::container::string;	//Бустовый буфер который быстрее STDшного
-	format_url_output = new std::string;	//Бустовый буфер который быстрее STDшного
+	//format_url_output = new boost::container::string;	//Р‘СѓСЃС‚РѕРІС‹Р№ Р±СѓС„РµСЂ РєРѕС‚РѕСЂС‹Р№ Р±С‹СЃС‚СЂРµРµ STDС€РЅРѕРіРѕ
+	format_url_output = new std::string;	//Р‘СѓСЃС‚РѕРІС‹Р№ Р±СѓС„РµСЂ РєРѕС‚РѕСЂС‹Р№ Р±С‹СЃС‚СЂРµРµ STDС€РЅРѕРіРѕ
 
 	uint32_t* buffer_size = (uint32_t*)malloc(sizeof(uint32_t));
-	*buffer_size = rawInput.size();	//Создаём переменную с количеством символов
+	*buffer_size = rawInput.size();	//РЎРѕР·РґР°С‘Рј РїРµСЂРµРјРµРЅРЅСѓСЋ СЃ РєРѕР»РёС‡РµСЃС‚РІРѕРј СЃРёРјРІРѕР»РѕРІ
 
 	char* buffer = (char*)calloc(*buffer_size + 1, sizeof(char));
-	strcpy(buffer, rawInput.c_str());	//Медленно, //Создаём буфер с размером входящего блока и копируем его туда
+	strcpy(buffer, rawInput.c_str());	//РњРµРґР»РµРЅРЅРѕ, //РЎРѕР·РґР°С‘Рј Р±СѓС„РµСЂ СЃ СЂР°Р·РјРµСЂРѕРј РІС…РѕРґСЏС‰РµРіРѕ Р±Р»РѕРєР° Рё РєРѕРїРёСЂСѓРµРј РµРіРѕ С‚СѓРґР°
 
 	uint32_t* squ_entry_list;	//'['
 	uint32_t* squ_offsets;		//']'
@@ -32,198 +36,259 @@ std::string advancedUrlParser(std::string& rawInput)
 	squ_offsets = (uint32_t*)malloc(sizeof(uint32_t));
 	entry_list = (uint32_t*)malloc(sizeof(uint32_t));
 	offsets = (uint32_t*)malloc(sizeof(uint32_t));
-	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^почистить в конце
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^РїРѕС‡РёСЃС‚РёС‚СЊ РІ РєРѕРЅС†Рµ
 
-	//Дальше будет поиск признаков тега, пока что нужно считать что признаки есть
-	//а объекта нет, здесь будет искаться выражение <url> где url - любой текст внутри
-	//который будет принят за ссылку неважно что это за текст
-	//Референс https://www.markdownguide.org/basic-syntax/#formatting-links
+	//Р”Р°Р»СЊС€Рµ Р±СѓРґРµС‚ РїРѕРёСЃРє РїСЂРёР·РЅР°РєРѕРІ С‚РµРіР°, РїРѕРєР° С‡С‚Рѕ РЅСѓР¶РЅРѕ СЃС‡РёС‚Р°С‚СЊ С‡С‚Рѕ РїСЂРёР·РЅР°РєРё РµСЃС‚СЊ
+	//Р° РѕР±СЉРµРєС‚Р° РЅРµС‚, Р·РґРµСЃСЊ Р±СѓРґРµС‚ РёСЃРєР°С‚СЊСЃСЏ РІС‹СЂР°Р¶РµРЅРёРµ <url> РіРґРµ url - Р»СЋР±РѕР№ С‚РµРєСЃС‚ РІРЅСѓС‚СЂРё
+	//РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РїСЂРёРЅСЏС‚ Р·Р° СЃСЃС‹Р»РєСѓ РЅРµРІР°Р¶РЅРѕ С‡С‚Рѕ СЌС‚Рѕ Р·Р° С‚РµРєСЃС‚
+	//Р РµС„РµСЂРµРЅСЃ https://www.markdownguide.org/basic-syntax/#formatting-links
+
+	push_log("[urlAdvancedParser]РџРѕРёСЃРє РІС…РѕР¶РґРµРЅРёСЏ РїРѕ Р·РЅР°РєСѓ '['");
 
 	try
 	{
-		//Ищем вхождения по знаку '<'
+		//РС‰РµРј РІС…РѕР¶РґРµРЅРёСЏ РїРѕ Р·РЅР°РєСѓ '['
 		for (volatile uint32_t _index = 0; _index < *buffer_size; ++_index)
 		{
-			if (buffer[_index] == '[')	//Любое найденое вхождение запоминаем на будущее
+			if (buffer[_index] == '[')	//Р›СЋР±РѕРµ РЅР°Р№РґРµРЅРѕРµ РІС…РѕР¶РґРµРЅРёРµ Р·Р°РїРѕРјРёРЅР°РµРј РЅР° Р±СѓРґСѓС‰РµРµ
 			{
-				++squ_brackets_entry;	//realloc требуемый размер + 1 чтобы не вылезать за пределы
+				log_stroke->append("[urlAdvancedParser]РќР°Р№РґРµРЅРѕ РІС…РѕР¶РґРµРЅРёРµ РІ РїРѕР·РёС†РёРё ");
+				log_stroke->append(std::to_string(_index + 1).c_str());
+				push_log(log_stroke->c_str());
+				++squ_brackets_entry;	//realloc С‚СЂРµР±СѓРµРјС‹Р№ СЂР°Р·РјРµСЂ + 1 С‡С‚РѕР±С‹ РЅРµ РІС‹Р»РµР·Р°С‚СЊ Р·Р° РїСЂРµРґРµР»С‹
 				squ_entry_list = (uint32_t*)realloc(squ_entry_list, sizeof(uint32_t) * (squ_brackets_entry + 1));
 				squ_entry_list[squ_brackets_entry - 1] = _index + 1;
+				log_stroke->clear();
 			}
 		}
 	}
 	catch (exceptionHandler)
 	{
-		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlAdvancedParser.cpp 40:52")));
+		throw(exceptionHandler(exceptionHandler::FATAL, QString("РљР°СЂРјР° РІ РіРѕРІРЅРµ! - РћС€РёР±РєР° СЂР°Р±РѕС‚С‹ СЃ РїР°РјСЏС‚СЊСЋ РІ urlAdvancedParser.cpp 40:52")));
 	}
 
 	try
 	{
-		//Есть вероятность, что юзер оставит неполный тег, чтобы не вызвать
-		//ошибку в памяти добавляется дополнительное вхождение равное позиции
-		//последнего символа в тексте
+		//Р•СЃС‚СЊ РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ, С‡С‚Рѕ СЋР·РµСЂ РѕСЃС‚Р°РІРёС‚ РЅРµРїРѕР»РЅС‹Р№ С‚РµРі, С‡С‚РѕР±С‹ РЅРµ РІС‹Р·РІР°С‚СЊ
+		//РѕС€РёР±РєСѓ РІ РїР°РјСЏС‚Рё РґРѕР±Р°РІР»СЏРµС‚СЃСЏ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕРµ РІС…РѕР¶РґРµРЅРёРµ СЂР°РІРЅРѕРµ РїРѕР·РёС†РёРё
+		//РїРѕСЃР»РµРґРЅРµРіРѕ СЃРёРјРІРѕР»Р° РІ С‚РµРєСЃС‚Рµ
 		squ_entry_list = (uint32_t*)realloc(squ_entry_list, sizeof(uint32_t) * (squ_brackets_entry + 1));
-		squ_entry_list[squ_brackets_entry] = *buffer_size + 1;	//Костыль с фиксом последнего символа
+		squ_entry_list[squ_brackets_entry] = *buffer_size + 1;	//РљРѕСЃС‚С‹Р»СЊ СЃ С„РёРєСЃРѕРј РїРѕСЃР»РµРґРЅРµРіРѕ СЃРёРјРІРѕР»Р°
 
-		if (entry_list[0] != 0)	//Если первое вхождение не является началом блока то отмечаем 0 как смещение
+		if (entry_list[0] != 0)	//Р•СЃР»Рё РїРµСЂРІРѕРµ РІС…РѕР¶РґРµРЅРёРµ РЅРµ СЏРІР»СЏРµС‚СЃСЏ РЅР°С‡Р°Р»РѕРј Р±Р»РѕРєР° С‚Рѕ РѕС‚РјРµС‡Р°РµРј 0 РєР°Рє СЃРјРµС‰РµРЅРёРµ
 		{
+			log_stroke->append("[urlAdvancedParser]Р”РѕР±Р°РІР»РµРЅР° Р·РѕРЅР° РїРѕРёСЃРєР° РїРѕРІС‚РѕСЂРѕРІ (0-");
 			++squ_brackets_offset;
 			squ_offsets = (uint32_t*)realloc(squ_offsets, sizeof(uint32_t) * (squ_brackets_offset + 1) + sizeof(uint32_t));
 			squ_offsets[squ_brackets_offset - 1] = 0;
+			log_stroke->append(std::to_string(squ_offsets[squ_brackets_offset - 1]).c_str());
+			log_stroke->append(")");
+			push_log(log_stroke->c_str());
+			log_stroke->clear();
 		}
 	}
 	catch (exceptionHandler)
 	{
-		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlAdvancedParser.cpp 58:72")));
+		throw(exceptionHandler(exceptionHandler::FATAL, QString("РљР°СЂРјР° РІ РіРѕРІРЅРµ! - РћС€РёР±РєР° СЂР°Р±РѕС‚С‹ СЃ РїР°РјСЏС‚СЊСЋ РІ urlAdvancedParser.cpp 58:72")));
 	}
+
+	push_log("[urlAdvancedParser]РџРѕРёСЃРє Р·Р°РєСЂС‹СЋС‰РµРіРѕ Р·РЅР°РєР° ']'");
 
 	try
 	{
-		//Ищем закрывающие знаки ']' от индекса вхождения
+		//РС‰РµРј Р·Р°РєСЂС‹РІР°СЋС‰РёРµ Р·РЅР°РєРё ']' РѕС‚ РёРЅРґРµРєСЃР° РІС…РѕР¶РґРµРЅРёСЏ
 		for (volatile uint32_t _entry_idx = 0; _entry_idx < squ_brackets_entry; ++_entry_idx)
 		{
-			//Небольшая доработка предыдущего алгоритма. Для ускорения и предовтращения
-			//натыканий на один и тот же знак, поиск будет проводиться с мест где был обнаружен
-			//открывающий символ '['
+			//РќРµР±РѕР»СЊС€Р°СЏ РґРѕСЂР°Р±РѕС‚РєР° РїСЂРµРґС‹РґСѓС‰РµРіРѕ Р°Р»РіРѕСЂРёС‚РјР°. Р”Р»СЏ СѓСЃРєРѕСЂРµРЅРёСЏ Рё РїСЂРµРґРѕРІС‚СЂР°С‰РµРЅРёСЏ
+			//РЅР°С‚С‹РєР°РЅРёР№ РЅР° РѕРґРёРЅ Рё С‚РѕС‚ Р¶Рµ Р·РЅР°Рє, РїРѕРёСЃРє Р±СѓРґРµС‚ РїСЂРѕРІРѕРґРёС‚СЊСЃСЏ СЃ РјРµСЃС‚ РіРґРµ Р±С‹Р» РѕР±РЅР°СЂСѓР¶РµРЅ
+			//РѕС‚РєСЂС‹РІР°СЋС‰РёР№ СЃРёРјРІРѕР» '['
 			for (uint32_t _index = squ_entry_list[_entry_idx]; _index < squ_entry_list[_entry_idx + 1]; ++_index)
 			{
 				if (buffer[_index] == ']')
 				{
+					log_stroke->append("[urlAdvancedParser]РќР°Р№РґРµРЅРѕ РІС…РѕР¶РґРµРЅРёРµ РІ РїРѕР·РёС†РёРё ");
+					log_stroke->append(std::to_string(_index).c_str());
+					push_log(log_stroke->c_str());
 					++squ_brackets_offset;
 					squ_offsets = (uint32_t*)realloc(squ_offsets, sizeof(uint32_t) * (squ_brackets_offset + 1));
 					squ_offsets[squ_brackets_offset - 1] = _index;
+					log_stroke->clear();
 				}
 			}
 		}
 	}
 	catch (exceptionHandler)
 	{
-		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlAdvancedParser.cpp 78:96")));
+		throw(exceptionHandler(exceptionHandler::FATAL, QString("РљР°СЂРјР° РІ РіРѕРІРЅРµ! - РћС€РёР±РєР° СЂР°Р±РѕС‚С‹ СЃ РїР°РјСЏС‚СЊСЋ РІ urlAdvancedParser.cpp 78:96")));
 	}
+
+	push_log("[urlAdvancedParser]РџРѕРёСЃРє РІС…РѕР¶РґРµРЅРёСЏ РїРѕ Р·РЅР°РєСѓ '('");
 
 	try
 	{
-		//Та же тема
+		//РўР° Р¶Рµ С‚РµРјР°
 		squ_offsets = (uint32_t*)realloc(squ_offsets, sizeof(uint32_t) * (squ_brackets_offset + 1));
-		squ_offsets[squ_brackets_offset] = *buffer_size + 1;	//Костыль с фиксом последнего символа
+		squ_offsets[squ_brackets_offset] = *buffer_size + 1;	//РљРѕСЃС‚С‹Р»СЊ СЃ С„РёРєСЃРѕРј РїРѕСЃР»РµРґРЅРµРіРѕ СЃРёРјРІРѕР»Р°
 
 		volatile uint32_t _entry_idx = 0;
 
-		if (entry_list[0] != 0)	//Раннее было смещение, это нужно учесть и добавляется +1 к позиции текущего индекса
+		if (entry_list[0] != 0)	//Р Р°РЅРЅРµРµ Р±С‹Р»Рѕ СЃРјРµС‰РµРЅРёРµ, СЌС‚Рѕ РЅСѓР¶РЅРѕ СѓС‡РµСЃС‚СЊ Рё РґРѕР±Р°РІР»СЏРµС‚СЃСЏ +1 Рє РїРѕР·РёС†РёРё С‚РµРєСѓС‰РµРіРѕ РёРЅРґРµРєСЃР°
 			_entry_idx = 1;
 
-		//Ищем закрывающие знаки '(' от индекса вхождения
+		//РС‰РµРј Р·Р°РєСЂС‹РІР°СЋС‰РёРµ Р·РЅР°РєРё '(' РѕС‚ РёРЅРґРµРєСЃР° РІС…РѕР¶РґРµРЅРёСЏ
 		for (; _entry_idx < squ_brackets_offset; ++_entry_idx)
 		{
-			//Небольшая доработка предыдущего алгоритма. Для ускорения и предовтращения
-			//натыканий на один и тот же знак, поиск будет проводиться с мест где был обнаружен
-			//открывающий символ ']'
+			//РќРµР±РѕР»СЊС€Р°СЏ РґРѕСЂР°Р±РѕС‚РєР° РїСЂРµРґС‹РґСѓС‰РµРіРѕ Р°Р»РіРѕСЂРёС‚РјР°. Р”Р»СЏ СѓСЃРєРѕСЂРµРЅРёСЏ Рё РїСЂРµРґРѕРІС‚СЂР°С‰РµРЅРёСЏ
+			//РЅР°С‚С‹РєР°РЅРёР№ РЅР° РѕРґРёРЅ Рё С‚РѕС‚ Р¶Рµ Р·РЅР°Рє, РїРѕРёСЃРє Р±СѓРґРµС‚ РїСЂРѕРІРѕРґРёС‚СЊСЃСЏ СЃ РјРµСЃС‚ РіРґРµ Р±С‹Р» РѕР±РЅР°СЂСѓР¶РµРЅ
+			//РѕС‚РєСЂС‹РІР°СЋС‰РёР№ СЃРёРјРІРѕР» ']'
 			for (uint32_t _index = squ_offsets[_entry_idx]; _index < squ_offsets[_entry_idx + 1]; ++_index)
 			{
 				if (buffer[_index] == '(')
 				{
+					log_stroke->append("[urlAdvancedParser]РќР°Р№РґРµРЅРѕ РІС…РѕР¶РґРµРЅРёРµ РІ РїРѕР·РёС†РёРё ");
+					log_stroke->append(std::to_string(_index + 1).c_str());
+					push_log(log_stroke->c_str());
 					++brackets_entry;
 					entry_list = (uint32_t*)realloc(entry_list, sizeof(uint32_t) * (brackets_entry + 1));
 					entry_list[brackets_entry - 1] = _index + 1;
+					log_stroke->clear();
 				}
 			}
 		}
 	}
 	catch (exceptionHandler)
 	{
-		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlAdvancedParser.cpp 102:129")));
+		throw(exceptionHandler(exceptionHandler::FATAL, QString("РљР°СЂРјР° РІ РіРѕРІРЅРµ! - РћС€РёР±РєР° СЂР°Р±РѕС‚С‹ СЃ РїР°РјСЏС‚СЊСЋ РІ urlAdvancedParser.cpp 102:129")));
 	}
+
+	push_log("[urlAdvancedParser]РџРѕРёСЃРє Р·Р°РєСЂС‹СЋС‰РµРіРѕ Р·РЅР°РєР° ')'");
 
 	try
 	{
-		//Та же тема только с другой парой
+		//РўР° Р¶Рµ С‚РµРјР° С‚РѕР»СЊРєРѕ СЃ РґСЂСѓРіРѕР№ РїР°СЂРѕР№
 		entry_list = (uint32_t*)realloc(entry_list, sizeof(uint32_t) * (squ_brackets_entry + 1));
-		entry_list[squ_brackets_entry] = *buffer_size + 1;	//Костыль с фиксом последнего символа
+		entry_list[squ_brackets_entry] = *buffer_size + 1;	//РљРѕСЃС‚С‹Р»СЊ СЃ С„РёРєСЃРѕРј РїРѕСЃР»РµРґРЅРµРіРѕ СЃРёРјРІРѕР»Р°
 
-		//Ищем закрывающие знаки ')' от индекса вхождения
+		//РС‰РµРј Р·Р°РєСЂС‹РІР°СЋС‰РёРµ Р·РЅР°РєРё ')' РѕС‚ РёРЅРґРµРєСЃР° РІС…РѕР¶РґРµРЅРёСЏ
 		for (volatile uint32_t _entry_idx = 0; _entry_idx < squ_brackets_entry; ++_entry_idx)
 		{
-			//Небольшая доработка предыдущего алгоритма. Для ускорения и предовтращения
-			//натыканий на один и тот же знак, поиск будет проводиться с мест где был обнаружен
-			//открывающий символ '('
+			//РќРµР±РѕР»СЊС€Р°СЏ РґРѕСЂР°Р±РѕС‚РєР° РїСЂРµРґС‹РґСѓС‰РµРіРѕ Р°Р»РіРѕСЂРёС‚РјР°. Р”Р»СЏ СѓСЃРєРѕСЂРµРЅРёСЏ Рё РїСЂРµРґРѕРІС‚СЂР°С‰РµРЅРёСЏ
+			//РЅР°С‚С‹РєР°РЅРёР№ РЅР° РѕРґРёРЅ Рё С‚РѕС‚ Р¶Рµ Р·РЅР°Рє, РїРѕРёСЃРє Р±СѓРґРµС‚ РїСЂРѕРІРѕРґРёС‚СЊСЃСЏ СЃ РјРµСЃС‚ РіРґРµ Р±С‹Р» РѕР±РЅР°СЂСѓР¶РµРЅ
+			//РѕС‚РєСЂС‹РІР°СЋС‰РёР№ СЃРёРјРІРѕР» '('
 			for (uint32_t _index = entry_list[_entry_idx]; _index < entry_list[_entry_idx + 1]; ++_index)
 			{
 				if (buffer[_index] == ')')
 				{
+					log_stroke->append("[urlAdvancedParser]РќР°Р№РґРµРЅРѕ РІС…РѕР¶РґРµРЅРёРµ РІ РїРѕР·РёС†РёРё ");
+					log_stroke->append(std::to_string(_index).c_str());
+					push_log(log_stroke->c_str());
 					++brackets_offset;
 					offsets = (uint32_t*)realloc(offsets, sizeof(uint32_t) * (brackets_offset + 1));
 					offsets[brackets_offset - 1] = _index;
+					log_stroke->clear();
 				}
 			}
 		}
 	}
 	catch (exceptionHandler)
 	{
-		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlAdvancedParser.cpp 135:157")));
+		throw(exceptionHandler(exceptionHandler::FATAL, QString("РљР°СЂРјР° РІ РіРѕРІРЅРµ! - РћС€РёР±РєР° СЂР°Р±РѕС‚С‹ СЃ РїР°РјСЏС‚СЊСЋ РІ urlAdvancedParser.cpp 135:157")));
 	}
 
-	//Этап конвертации и сборки текста. Вместо символов '<' и '>' вставляется '<a href="'+текст+'">'+текст+'</a>'
+	//Р­С‚Р°Рї РєРѕРЅРІРµСЂС‚Р°С†РёРё Рё СЃР±РѕСЂРєРё С‚РµРєСЃС‚Р°. Р’РјРµСЃС‚Рѕ СЃРёРјРІРѕР»РѕРІ '<' Рё '>' РІСЃС‚Р°РІР»СЏРµС‚СЃСЏ '<a href="'+С‚РµРєСЃС‚+'">'+С‚РµРєСЃС‚+'</a>'
+
+	push_log("[urlAdvancedParser]РЎР±РѕСЂРєР° РґРѕРєСѓРјРµРЅС‚Р° СЃРѕ РІСЃС‚Р°РІРєРѕР№ С‚РµРіРѕРІ");
 
 	uint32_t entrys_cnt = 0;
 	uint32_t blocks_cnt = 0;
 
 	try
 	{
-		if (entry_list[entrys_cnt] == 0)	//Если тег начинается с первого символа то формируем строчку и +1 entrys_cnt
-		{									//и выполняем сборку на месте
-			//Сборка
+		if (entry_list[entrys_cnt] == 0)	//Р•СЃР»Рё С‚РµРі РЅР°С‡РёРЅР°РµС‚СЃСЏ СЃ РїРµСЂРІРѕРіРѕ СЃРёРјРІРѕР»Р° С‚Рѕ С„РѕСЂРјРёСЂСѓРµРј СЃС‚СЂРѕС‡РєСѓ Рё +1 entrys_cnt
+		{									//Рё РІС‹РїРѕР»РЅСЏРµРј СЃР±РѕСЂРєСѓ РЅР° РјРµСЃС‚Рµ
+			push_log("[urlAdvancedParser]РћР±РЅР°СЂСѓР¶РµРЅРѕ РЅР°С‡Р°Р»Рѕ С‚РµРіР° РЅР° 0 РёРЅРґРµРєСЃРµ");
+			//РЎР±РѕСЂРєР°
 			for (volatile uint32_t _part_idx = entrys_cnt; _part_idx < squ_brackets_entry;)
 			{
-				//Сборка в циклi
+				
+				//РЎР±РѕСЂРєР° РІ С†РёРєР»i
 				for (volatile uint32_t _part_idx = 0; _part_idx < squ_brackets_entry; ++_part_idx)
 				{
 					++entrys_cnt;
-					//Вставка тега <a href="
+					log_stroke->append("[urlAdvancedParser]Р’СЃС‚Р°РІРєР° С‚РµРіР° (");
+					log_stroke->append(std::to_string(entry_list[entrys_cnt - 1]).c_str());
+					log_stroke->append("-");
+					log_stroke->append(std::to_string(offsets[entrys_cnt - 1]).c_str());
+					log_stroke->append(")[");
+					log_stroke->append(std::to_string(squ_entry_list[entrys_cnt - 1]).c_str());
+					log_stroke->append("-");
+					log_stroke->append(std::to_string(squ_offsets[entrys_cnt]).c_str());
+					log_stroke->append("]");
+					//Р’СЃС‚Р°РІРєР° С‚РµРіР° <a href="
 					format_url_output->append(simple_url_iopenurl, simple_url_iopenurl_size);
-					//Вставка текста-ссылки
+					//Р’СЃС‚Р°РІРєР° С‚РµРєСЃС‚Р°-СЃСЃС‹Р»РєРё
 					format_url_output->append(&buffer[entry_list[entrys_cnt - 1]], offsets[entrys_cnt - 1] - entry_list[entrys_cnt - 1]);
-					//Вставка закрывающего ссылку ">
+					//Р’СЃС‚Р°РІРєР° Р·Р°РєСЂС‹РІР°СЋС‰РµРіРѕ СЃСЃС‹Р»РєСѓ ">
 					format_url_output->append(simple_url_icloseurl, simple_url_icloseurl_size);
-					//Вставка кликабельного текста
+					//Р’СЃС‚Р°РІРєР° РєР»РёРєР°Р±РµР»СЊРЅРѕРіРѕ С‚РµРєСЃС‚Р°
 					format_url_output->append(&buffer[squ_entry_list[entrys_cnt - 1]], squ_offsets[entrys_cnt] - squ_entry_list[entrys_cnt - 1]);
-					//Вставка закрывающего тега
+					//Р’СЃС‚Р°РІРєР° Р·Р°РєСЂС‹РІР°СЋС‰РµРіРѕ С‚РµРіР°
 					format_url_output->append(simple_url_iclosetext, simple_url_iclosetext_size);
-					//Вставка текста между тегами
+					//Р’СЃС‚Р°РІРєР° С‚РµРєСЃС‚Р° РјРµР¶РґСѓ С‚РµРіР°РјРё
 					format_url_output->append(&buffer[offsets[entrys_cnt - 1]] + 1, squ_entry_list[entrys_cnt] - offsets[entrys_cnt - 1] - 2);
+					push_log(log_stroke->c_str());
+					log_stroke->clear();
 				}
 			}
 		}
 		else
 		{
-
-			//Копирование текста до тега
+			log_stroke->append("[urlAdvancedParser]РћР±РЅР°СЂСѓР¶РµРЅРѕ РЅР°С‡Р°Р»Рѕ С‚РµРіР° РЅР° РёРЅРґРµРєСЃРµ ");
+			log_stroke->append(std::to_string(entry_list[entrys_cnt]).c_str());
+			log_stroke->append(" СЃР±РѕСЂРєР° РїРѕ Р°Р»СЊС‚РµСЂРЅР°С‚РёРІРЅРѕРјСѓ Р°Р»РіРѕСЂРёС‚РјСѓ");
+			push_log(log_stroke->c_str());
+			log_stroke->clear();
+			//РљРѕРїРёСЂРѕРІР°РЅРёРµ С‚РµРєСЃС‚Р° РґРѕ С‚РµРіР°
 			format_url_output->append(&buffer[squ_offsets[entrys_cnt]], squ_entry_list[entrys_cnt] - 1);
 
-			//Сборка в циклi
+			//РЎР±РѕСЂРєР° РІ С†РёРєР»i
 			for (volatile uint32_t _part_idx = 0; _part_idx < squ_brackets_entry; ++_part_idx)
 			{
 				++entrys_cnt;
-				//Вставка тега <a href="
+				log_stroke->append("[urlAdvancedParser]Р’СЃС‚Р°РІРєР° С‚РµРіР° (");
+				log_stroke->append(std::to_string(entry_list[entrys_cnt - 1]).c_str());
+				log_stroke->append("-");
+				log_stroke->append(std::to_string(offsets[entrys_cnt - 1]).c_str());
+				log_stroke->append(")[");
+				log_stroke->append(std::to_string(squ_entry_list[entrys_cnt - 1]).c_str());
+				log_stroke->append("-");
+				log_stroke->append(std::to_string(squ_offsets[entrys_cnt]).c_str());
+				log_stroke->append("]");
+				//Р’СЃС‚Р°РІРєР° С‚РµРіР° <a href="
 				format_url_output->append(simple_url_iopenurl, simple_url_iopenurl_size);
-				//Вставка текста-ссылки
+				//Р’СЃС‚Р°РІРєР° С‚РµРєСЃС‚Р°-СЃСЃС‹Р»РєРё
 				format_url_output->append(&buffer[entry_list[entrys_cnt - 1]], offsets[entrys_cnt - 1] - entry_list[entrys_cnt - 1]);
-				//Вставка закрывающего ссылку ">
+				//Р’СЃС‚Р°РІРєР° Р·Р°РєСЂС‹РІР°СЋС‰РµРіРѕ СЃСЃС‹Р»РєСѓ ">
 				format_url_output->append(simple_url_icloseurl, simple_url_icloseurl_size);
-				//Вставка кликабельного текста
+				//Р’СЃС‚Р°РІРєР° РєР»РёРєР°Р±РµР»СЊРЅРѕРіРѕ С‚РµРєСЃС‚Р°
 				format_url_output->append(&buffer[squ_entry_list[entrys_cnt - 1]], squ_offsets[entrys_cnt] - squ_entry_list[entrys_cnt - 1]);
-				//Вставка закрывающего тега
+				//Р’СЃС‚Р°РІРєР° Р·Р°РєСЂС‹РІР°СЋС‰РµРіРѕ С‚РµРіР°
 				format_url_output->append(simple_url_iclosetext, simple_url_iclosetext_size);
-				//Вставка текста между тегами
+				//Р’СЃС‚Р°РІРєР° С‚РµРєСЃС‚Р° РјРµР¶РґСѓ С‚РµРіР°РјРё
 				format_url_output->append(&buffer[offsets[entrys_cnt - 1]] + 1, squ_entry_list[entrys_cnt] - offsets[entrys_cnt - 1] - 2);
+				push_log(log_stroke->c_str());
+				log_stroke->clear();
 			}
 		}
 	}
 	catch (exceptionHandler)
 	{
-		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlAdvancedParser.cpp 168:218")));
+		throw(exceptionHandler(exceptionHandler::FATAL, QString("РљР°СЂРјР° РІ РіРѕРІРЅРµ! - РћС€РёР±РєР° СЂР°Р±РѕС‚С‹ СЃ РїР°РјСЏС‚СЊСЋ РІ urlAdvancedParser.cpp 168:218")));
 	}
 
-	//чистка указателей
+	push_log("[urlAdvancedParser]РЎР±РѕСЂРєР° Р·Р°РІРµСЂС€РµРЅР°, С‡РёСЃС‚РєР° РїР°РјСЏС‚Рё");
+
+	//С‡РёСЃС‚РєР° СѓРєР°Р·Р°С‚РµР»РµР№
 	free(squ_entry_list);
 	free(squ_offsets);
 	free(entry_list);
@@ -231,6 +296,7 @@ std::string advancedUrlParser(std::string& rawInput)
 	free(buffer_size);
 	free(buffer);
 
+	delete(log_stroke);
 	//return rawInput.c_str();
 	return format_url_output->c_str();
 }

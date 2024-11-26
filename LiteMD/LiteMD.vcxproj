@@ -227,6 +227,7 @@
     <ClCompile Include="dyn_tr_manager\frameChangelog_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\GuiDownloader_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\LiteMD_ui.cpp" />
+    <ClCompile Include="dyn_tr_manager\logger_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\ui_update_event.cpp" />
     <ClCompile Include="modules\Downloader.cpp" />
     <ClCompile Include="modules\exceptionHandler.cpp" />
@@ -234,6 +235,7 @@
     <ClCompile Include="modules\GuiDownloader.cpp" />
     <ClCompile Include="settings_tabs\tab_basic.cpp" />
     <ClCompile Include="settings_tabs\tab_downloader.cpp" />
+    <ClCompile Include="settings_tabs\tab_logs.cpp" />
     <ClCompile Include="settings_tabs\tab_render.cpp" />
     <ClCompile Include="string_processing\crlfParser.cpp" />
     <ClCompile Include="string_processing\crlfProcessor.cpp" />
@@ -257,9 +259,11 @@
     <ClCompile Include="ui_primitives\OrientalPushButton.cpp" />
     <ClCompile Include="utls\globalFlags.c" />
     <ClCompile Include="utls\localeDetector.cpp" />
+    <ClCompile Include="utls\logger_backend.cpp" />
     <ClCompile Include="utls\xmlReader.cpp" />
     <ClCompile Include="utls\xmlWriter.cpp" />
     <ClCompile Include="window_widgets\appSettings.cpp" />
+    <ClCompile Include="window_widgets\logger.cpp" />
     <ClCompile Include="window_widgets\mdEditor.cpp" />
     <ClCompile Include="window_widgets\mdScreen.cpp" />
     <QtMoc Include="LiteMD.h" />
@@ -275,6 +279,7 @@
     <Image Include="icon.ico" />
     <Image Include="ress\appicon.ico" />
     <Image Include="ress\icon_about.png" />
+    <Image Include="ress\icon_bug.png" />
     <Image Include="ress\icon_exception_fatal.png" />
     <Image Include="ress\icon_exception_warning.png" />
     <Image Include="ress\icon_help.png" />
@@ -304,6 +309,7 @@
     <ClInclude Include="deprecated\syntax_postprocessor.h" />
     <ClInclude Include="deprecated\syntax_preprocessor.h" />
     <ClInclude Include="dyn_tr_manager\ui_update_event.h" />
+    <QtMoc Include="window_widgets\logger.h" />
     <QtMoc Include="modules\frameChangelog.h" />
     <ClInclude Include="modules\exceptionHandler.h" />
     <ClInclude Include="ress\resource.h" />
@@ -321,6 +327,7 @@
     <ClInclude Include="utls\event_id_constructor.h" />
     <ClInclude Include="utls\globalFlags.h" />
     <ClInclude Include="utls\global_definitions.h" />
+    <ClInclude Include="utls\logger_backend.h" />
     <ClInclude Include="utls\xmlReader.h" />
     <ClInclude Include="utls\xmlWriter.h" />
     <QtMoc Include="window_widgets\appSettings.h" />

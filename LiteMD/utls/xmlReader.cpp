@@ -2,6 +2,7 @@
 #include "global_definitions.h"
 #include "exceptionHandler.h"
 #include "event_id_constructor.h"
+#include "logger_backend.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -27,6 +28,7 @@ bool xmlReader::checkFileExisting()
 
 bool xmlReader::readConfig()
 {
+	push_log("[XML]Р§С‚РµРЅРёРµ РєРѕРЅС„РёРіР°");
 	QString value;
 	QFile settings(fileName);
 	bool readSuccess = 0;
@@ -39,7 +41,7 @@ bool xmlReader::readConfig()
 		if (settingsReader.text() == QString("<!DOCTYPE LMD>"))
 		{
 			settingsReader.readNext();
-			if (settingsReader.name() == appSign)	//Ищем сигнатуру __Shani_basic
+			if (settingsReader.name() == appSign)	//РС‰РµРј СЃРёРіРЅР°С‚СѓСЂСѓ __Shani_basic
 			{
 				settingsReader.readNext();
 				do {
@@ -53,7 +55,7 @@ bool xmlReader::readConfig()
 						//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
 						value = settingsReader.text().toString();
 						if (value.toInt() != BUILD_NUMBER)
-							return 0;	//Обновляем конфиг из-за разницы в версиях
+							return 0;	//РћР±РЅРѕРІР»СЏРµРј РєРѕРЅС„РёРі РёР·-Р·Р° СЂР°Р·РЅРёС†С‹ РІ РІРµСЂСЃРёСЏС…
 
 					}
 					else
@@ -76,7 +78,7 @@ bool xmlReader::readConfig()
 						else if (value == QString("false"))
 							logReadState = 0;
 						else
-							return 0;	//Здесь и далее - возвращаем 0 если есть ошибки в чтении
+							return 0;	//Р—РґРµСЃСЊ Рё РґР°Р»РµРµ - РІРѕР·РІСЂР°С‰Р°РµРј 0 РµСЃР»Рё РµСЃС‚СЊ РѕС€РёР±РєРё РІ С‡С‚РµРЅРёРё
 					}
 					else
 						readSuccess = 0;
@@ -214,8 +216,8 @@ bool xmlReader::readConfig()
 	}
 	else
 		throw(exceptionHandler(exceptionHandler::WARNING, QObject::tr("Cannot open config file!")));
-	settings.close();	//Закрываем файл чтобы освободить дескриптор
+	settings.close();	//Р—Р°РєСЂС‹РІР°РµРј С„Р°Р№Р» С‡С‚РѕР±С‹ РѕСЃРІРѕР±РѕРґРёС‚СЊ РґРµСЃРєСЂРёРїС‚РѕСЂ
 	if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_UI_UPDATE_USER_SETTINGS)))
-		QErrorMessage::qtHandler();//Отправка события на обновление визуала - галочек, радиокнопок и прочего
+		QErrorMessage::qtHandler();//РћС‚РїСЂР°РІРєР° СЃРѕР±С‹С‚РёСЏ РЅР° РѕР±РЅРѕРІР»РµРЅРёРµ РІРёР·СѓР°Р»Р° - РіР°Р»РѕС‡РµРє, СЂР°РґРёРѕРєРЅРѕРїРѕРє Рё РїСЂРѕС‡РµРіРѕ
 	return readSuccess;
 }

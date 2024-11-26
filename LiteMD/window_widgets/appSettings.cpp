@@ -3,7 +3,9 @@
 #include "event_id_constructor.h"
 #include "global_definitions.h"
 #include "exceptionHandler.h"
+#include "logger_backend.h"
 #include <QtWidgets>
+#include <boost/container/vector.hpp>
 extern "C"
 {
 	#include "globalFlags.h"
@@ -19,6 +21,7 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	configureBasicSettingsTab();
 	configureRenderSettingsTab();
 	configureDownloaderSettingsTab();
+	configureLogsTab();
 
 	//Инициализируем указатели
 	xmlw = new xmlWriter;
@@ -50,32 +53,41 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	dialogWindow->addWidget(settingsLister);
 	dialogWindow->addLayout(controlBtnLay);
 
+	//Иконка
+	this->setWindowIcon(QIcon("icon.ico"));
+
 	//Устанавливаем менеджер как основной виджет
 	setLayout(dialogWindow);
 	
 	//Устанавливаем связи кнопок
 	if (!connect(btnOk, SIGNAL(clicked()), this, SLOT(slot_apply_settings())))
-		QErrorMessage::qtHandler();
+		QErrorMessage::qtHandler();	//Кнопка применить изменения
 	if (!connect(btnOk, SIGNAL(clicked()), this, SLOT(hide())))
-		QErrorMessage::qtHandler();
+		QErrorMessage::qtHandler();	//Кнопка "ок"
 	if (!connect(btnCancel, SIGNAL(clicked()), this, SLOT(hide())))
-		QErrorMessage::qtHandler();
+		QErrorMessage::qtHandler();	//Кнопка закрыть
 	if (!connect(langList, SIGNAL(currentIndexChanged(int)), this, SLOT(slot_lang_selected(int))))
-		QErrorMessage::qtHandler();
+		QErrorMessage::qtHandler();	//Сигнал смены номера локали
 	if (!connect(btnApply, SIGNAL(clicked()), this, SLOT(slot_apply_settings())))
-		QErrorMessage::qtHandler();
+		QErrorMessage::qtHandler();	//Кнопка применить настройки
 	if (!connect(allowWarnings, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_warn_allow(int))))
-		QErrorMessage::qtHandler();
+		QErrorMessage::qtHandler();	//Переключатель предупреждений из устаревшего HTTP
 	if (!connect(parseSimplLinks, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_simple_url_parser(int))))
-		QErrorMessage::qtHandler();
+		QErrorMessage::qtHandler();	//Переключатель активации парсера <www.url.com>
 	if (!connect(parseAdvLinksl, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_adv_url_parser(int))))
-		QErrorMessage::qtHandler();
+		QErrorMessage::qtHandler();	//Переключатель активации парсера (url)[www.url.com]
 	if (!connect(parseHeaderLvl, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_header_lvl_parser(int))))
-		QErrorMessage::qtHandler();
+		QErrorMessage::qtHandler();	//Переключатель активации парсера заголовко
 	if (!connect(depFunc, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_deprecated(int))))
-		QErrorMessage::qtHandler();
+		QErrorMessage::qtHandler();	//Переключатель устаревших функций
 	if (!connect(devFunc, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_features(int))))
-		QErrorMessage::qtHandler();
+		QErrorMessage::qtHandler();	//Переключатель функций в разработке
+	if (!connect(settingsLister, SIGNAL(currentChanged(int)), this, SLOT(slot_tab_changed(int))))
+		QErrorMessage::qtHandler();	//Сигнал о выборе определенной вкладки
+	if (!connect(clearLog, SIGNAL(clicked()), this, SLOT(slot_clear_logs())))
+		QErrorMessage::qtHandler();	//Кнопка очистки логов
+	if (!connect(saveLog, SIGNAL(clicked()), this, SLOT(slot_save_logs())))
+		QErrorMessage::qtHandler();	//Кнопка сохранения логов
 	
 
 	//Ставим заглушку
@@ -97,6 +109,7 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	settingsLister->addTab(basicSettings, tr("Basic"));
 	settingsLister->addTab(renderSettings, tr("Render"));
 	settingsLister->addTab(downloaderSettings, tr("Downloader"));
+	settingsLister->addTab(tabLogs, tr("Logs"));
 	settingsLister->addTab(capTab, tr("Cap"));
 
 	//Задаем фиксированный размер
@@ -153,4 +166,48 @@ void appSettings::slot_switch_features(int bit)
 		}
 	}
 	enableIndevFeatures = static_cast<bool>(bit);
+}
+
+void appSettings::slot_tab_changed(int tab_index)
+{
+	if (tab_index == 3)
+	{
+		boost::container::vector<QString> container = logger_backend::getInstance().get_logs();
+		for (uint32_t _index = 0; _index < container.size(); ++_index)
+		{
+			logBox->appendPlainText(container.at(_index));
+		}
+	}
+}
+
+void appSettings::slot_clear_logs()
+{	//Чистка логов
+	logger_backend::getInstance().clear_logs();
+	logBox->clear();
+}
+
+void appSettings::slot_save_logs()
+{
+	QFile mdObject;
+	QString mdFileName;
+	//Если пусто то выходим
+	/*if (this->toPlainText() == "")
+	{
+		fileChangedState = 0;
+		return;
+	}*/
+	//Вызываем диалоговое окно сохранения
+	mdFileName = QFileDialog::getSaveFileName(0, tr("Save logs"), "log", tr("*.txt"));
+	//Присваиваем хандлеру имя файла
+	mdObject.setFileName(mdFileName);
+	//Если удалось открыть файл на запись то выполняем
+	if (mdObject.open(QIODevice::WriteOnly))
+	{
+		//Присваиваем выходному потоку указатель на хандлер и задаем юникод и затем сохраняем
+		QTextStream out(&mdObject);
+		out.setCodec("UTF-8");
+		out << logBox->toPlainText();
+		//Закрываем файл, сбрасываем файл и отсылаем сигнал
+		mdObject.close();
+	}
 }

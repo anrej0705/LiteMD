@@ -32,7 +32,8 @@ void appSettings::update_ui()
 	settingsLister->setTabText(0, tr("Basic"));
 	settingsLister->setTabText(1, tr("Render"));
 	settingsLister->setTabText(2, tr("Downloader"));
-	settingsLister->setTabText(3, tr("Cap"));
+	settingsLister->setTabText(3, tr("Logs"));
+	settingsLister->setTabText(4, tr("Cap"));
 	themeList->setItemText(0, tr("Will be added in future"));
 	saveSettings->setItemText(0, tr("Will be added in future"));
 	saveFreq->setItemText(0, tr("Will be added in future"));
@@ -48,6 +49,9 @@ void appSettings::update_ui()
 	parseHeaderLvlHint->setText(tr("parseHeaderLvlHint"));
 	allowWarningsHint->setText(tr("Show one-time deprecated warning"));
 	allowCacheHint->setText(tr("Enable content caching"));
+	clearLog->setText(tr("clearLog"));
+	saveLog->setText(tr("saveLog"));
+	logHint->setText(tr("logHint"));
 }
 
 void appSettings::update_interactive()

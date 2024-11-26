@@ -2,12 +2,15 @@
 #include "urlBasicParser.h"
 #include "global_definitions.h"
 #include "exceptionHandler.h"
+#include "logger_backend.h"
 
 //std::string *simple_url_output;
 boost::container::string *simple_url_output;
 
 std::string basicUrlParser(std::string &rawInput)
-{
+{	//Контейнер для строчки лога перед отправкой в ядро
+	boost::container::string* log_stroke = new boost::container::string;
+
 	uint32_t* entry_list;	//Список с индексами, с которых начинаются обнаруженные символы
 	uint32_t* entry_offset;	//Список со смещением до закрывающего знака
 	// ^^^^^^^^^^^^^^^^^^^^ почистить в конце
@@ -33,6 +36,8 @@ std::string basicUrlParser(std::string &rawInput)
 
 	//std::string test;
 
+	push_log("[urlBasicParser]Поиск вхождения по знаку '<'");
+
 	try
 	{
 		//Ищем вхождения по знаку '<'
@@ -40,10 +45,14 @@ std::string basicUrlParser(std::string &rawInput)
 		{
 			if (buffer[_index] == '<')	//Любое найденое вхождение запоминаем на будущее
 			{
+				log_stroke->append("[urlBasicParser]Найдено вхождение в позиции ");
+				log_stroke->append(std::to_string(_index + 1).c_str());
+				push_log(log_stroke->c_str());
 				++entrys;	//realloc требуемый размер + 1 чтобы не вылезать за пределы
 				//strncpy(test, buffer, _index);
 				entry_list = (uint32_t*)realloc(entry_list, sizeof(uint32_t) * (entrys + 1) + sizeof(uint32_t));
 				entry_list[entrys - 1] = _index + 1;
+				log_stroke->clear();
 			}
 		}
 	}
@@ -62,15 +71,22 @@ std::string basicUrlParser(std::string &rawInput)
 
 		if (entry_list[0] != 0)	//Если первое вхождение не является началом блока то отмечаем 0 как смещение
 		{
+			log_stroke->append("[urlBasicParser]Добавлена зона поиска повторов (0-");
 			++offsets;
 			entry_offset = (uint32_t*)realloc(entry_offset, sizeof(uint32_t) * (offsets + 1) + sizeof(uint32_t));
 			entry_offset[offsets - 1] = 0;
+			log_stroke->append(std::to_string(entry_offset[offsets - 1]).c_str());
+			log_stroke->append(")");
+			push_log(log_stroke->c_str());
+			log_stroke->clear();
 		}
 	}
 	catch (exceptionHandler)
 	{
 		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlBasicParser.cpp 53:67")));
 	}
+
+	push_log("[urlBasicParser]Поиск закрыющего знака '>'");
 
 	try
 	{
@@ -84,9 +100,13 @@ std::string basicUrlParser(std::string &rawInput)
 			{
 				if (buffer[_index] == '>')
 				{
+					log_stroke->append("[urlBasicParser]Найдено вхождение в позиции ");
+					log_stroke->append(std::to_string(_index).c_str());
+					push_log(log_stroke->c_str());
 					++offsets;
 					entry_offset = (uint32_t*)realloc(entry_offset, sizeof(uint32_t) * (offsets + 1));
 					entry_offset[offsets - 1] = _index;
+					log_stroke->clear();
 				}
 			}
 		}
@@ -98,6 +118,8 @@ std::string basicUrlParser(std::string &rawInput)
 
 	//Этап конвертации и сборки текста. Вместо символов '<' и '>' вставляется '<a href="'+текст+'">'+текст+'</a>'
 
+	push_log("[urlBasicParser]Сборка документа со вставкой тегов");
+
 	uint32_t entrys_cnt = 0;
 	uint32_t blocks_cnt = 0;
 
@@ -105,12 +127,18 @@ std::string basicUrlParser(std::string &rawInput)
 	{
 		if (entry_list[entrys_cnt] == 0)	//Если тег начинается с первого символа то формируем строчку и +1 entrys_cnt
 		{									//и выполняем сборку на месте
+			push_log("[urlBasicParser]Обнаружено начало тега на 0 индексе");
 			//Сборка
 			for (volatile uint32_t _part_idx = entrys_cnt; _part_idx < entrys + offsets + 0;)
 			{
 				//Сборка в циклi
 				for (volatile uint32_t _part_idx = 0; _part_idx < entrys; ++_part_idx)
 				{
+					log_stroke->append("[urlBasicParser]Вставка тега <");
+					log_stroke->append(std::to_string(entry_list[entrys_cnt - 1]).c_str());
+					log_stroke->append("-");
+					log_stroke->append(std::to_string(entry_offset[entrys_cnt]).c_str());
+					log_stroke->append(">");
 					//Вставка тега <a href="
 					simple_url_output->append(simple_url_iopenurl, simple_url_iopenurl_size);
 					//Вставка текста-ссылки
@@ -126,11 +154,18 @@ std::string basicUrlParser(std::string &rawInput)
 					//Вставка текста между тегами
 					simple_url_output->append(&buffer[entry_offset[entrys_cnt]] + 1, entry_list[entrys_cnt] - entry_offset[entrys_cnt] - 2);
 					++entrys_cnt;
+					push_log(log_stroke->c_str());
+					log_stroke->clear();
 				}
 			}
 		}
 		else
 		{
+			log_stroke->append("[urlBasicParser]Обнаружено начало тега на индексе ");
+			log_stroke->append(std::to_string(entry_list[entrys_cnt]).c_str());
+			log_stroke->append(" сборка по альтернативному алгоритму");
+			push_log(log_stroke->c_str());
+			log_stroke->clear();
 			//uint32_t testpoint1 = 0;
 			//uint32_t testpoint2 = 0;
 
@@ -145,6 +180,11 @@ std::string basicUrlParser(std::string &rawInput)
 			for (volatile uint32_t _part_idx = 0; _part_idx < entrys; ++_part_idx)
 			{
 				++entrys_cnt;
+				log_stroke->append("[urlBasicParser]Вставка тега <");
+				log_stroke->append(std::to_string(entry_list[entrys_cnt - 1]).c_str());
+				log_stroke->append("-");
+				log_stroke->append(std::to_string(entry_offset[entrys_cnt]).c_str());
+				log_stroke->append(">");
 				//Вставка тега <a href="
 				simple_url_output->append(simple_url_iopenurl, simple_url_iopenurl_size);
 				//Вставка текста-ссылки
@@ -159,6 +199,8 @@ std::string basicUrlParser(std::string &rawInput)
 				simple_url_output->append(simple_url_iclosetext, simple_url_iclosetext_size);
 				//Вставка текста между тегами
 				simple_url_output->append(&buffer[entry_offset[entrys_cnt]] + 1, entry_list[entrys_cnt] - entry_offset[entrys_cnt] - 2);
+				push_log(log_stroke->c_str());
+				log_stroke->clear();
 			}
 		}
 	}
@@ -167,11 +209,14 @@ std::string basicUrlParser(std::string &rawInput)
 		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlBasicParser.cpp 102:162")));
 	}
 
+	push_log("[urlBasicParser]Сборка завершена, чистка памяти");
+
 	//Чистка указателей
 	free(entry_list);
 	free(entry_offset);
 	free(buffer_size);
 	free(buffer);
+	delete(log_stroke);
 
 	//return rawInput.c_str();
 	return simple_url_output->c_str();

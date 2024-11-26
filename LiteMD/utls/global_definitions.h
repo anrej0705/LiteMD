@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef GLOBAL_DEFINITIONS_H_
 #define GLOBAL_DEFINITIONS_H_
 //Глобальные определения, в т.ч версии сборки и ИД событий
@@ -7,8 +7,12 @@
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
-//##[VERSION-9]
-#define BUILD_NUMBER 1683
+//##[STAGE]
+#define APP_STAGE " alpha"
+//##[VER]
+#define APP_VERSION " 0.2.2"
+//##[BUILD]
+#define BUILD_NUMBER 1746
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
@@ -47,6 +51,7 @@ const char appSign[] = "__Shani_basic";
 #define APP_EVENT_appSettings_UPDATE_EVENT				39
 #define APP_EVENT_tab_basic_UPDATE_EVENT				40
 #define APP_EVENT_frame_changelog_UPDATE_EVENT			41
+#define APP_EVENT_logger_UPDATE_EVENT					42
 //--------------------------------------------------------
 
 //Событие обновления настроек после чтения конфига

@@ -4,7 +4,9 @@
 #include "GuiDownloader.h"
 #include "dialogBoxes.h"
 #include "exceptionHandler.h"
+#include "logger_backend.h"
 #include <QtWidgets>
+#include <boost/container/string.hpp>
 extern "C"
 {
 	#include "globalFlags.h"
@@ -12,7 +14,10 @@ extern "C"
 }
 extern struct parser_switchers parswitch;
 LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
-{
+{	//Контейнер для строчки лога перед отправкой в ядро
+	boost::container::string* log_stroke = new boost::container::string;
+
+	push_log("[QT]Настройка интерфейса QMainWindow");
 	//Настройка флагов по умолчанию
 	parswitch.en_simple_url = 1;
 	parswitch.en_adv_url = 1;
@@ -32,6 +37,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	QWidget* scrollDock = new QWidget;
 	QWidget* mainWgt = new QWidget;
 	quick_tb = new QToolBar;
+	serv_tb = new QToolBar;
 	dwModule = new DownloaderGui;
 	mFile = new QMenu(tr("&File"));
 	mEdit = new QMenu(tr("&Edit"));
@@ -43,6 +49,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	xmlR = new xmlReader;
 	cLog = new currentChangelog;
 	showTim = new QTimer;
+	logWindow = new logger;
 	//-------------------------
 
 	//Блок конфигурации элементов интерфейса
@@ -101,6 +108,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	actSetTextFormat = new QAction(QPixmap("ress/icon_set_text_format.png"), tr("Te&xt Format"));
 	actHelp = new QAction(QPixmap("ress/icon_help.png"), tr("&Help"));
 	actOpenChangelog = new QAction(QPixmap("ress/icon_show_changelog.png"), tr("Sh&ow changelog"));
+	actBugReport = new QAction(QPixmap("ress/icon_bug.png"), tr("&Bug!"));
 	//----------------
 	
 	//Установка обработчика события смены языка
@@ -109,6 +117,12 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	//Отключенные механики
 	actSetTextFormat->setDisabled(1);
 	actHelp->setDisabled(1);
+	//--------------------
+
+	//Настройка тулбаров
+	quick_tb->setMovable(0);
+	serv_tb->setMovable(0);
+	serv_tb->setLayoutDirection(Qt::RightToLeft);
 	//--------------------
 
 	//Добавляем кнопки в доки
@@ -121,15 +135,18 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	quick_tb->addAction(actPlaceAltUrl);
 	quick_tb->addAction(actSetTextFormat);
 	quick_tb->addSeparator();
-	quick_tb->addAction(actDownloader);
-	quick_tb->addAction(actSet);
-	quick_tb->addSeparator();
-	quick_tb->addAction(actHelp);
-	quick_tb->addAction(actAbout);
-	quick_tb->addAction(actOpenChangelog);
+	serv_tb->addAction(actBugReport);
+	serv_tb->addSeparator();
+	serv_tb->addAction(actHelp);
+	serv_tb->addAction(actAbout);
+	serv_tb->addAction(actOpenChangelog);
+	serv_tb->addSeparator();
+	serv_tb->addAction(actSet);
+	serv_tb->addAction(actDownloader);
 	//-----------------------
 
 	this->addToolBar(Qt::TopToolBarArea, quick_tb);
+	this->addToolBar(Qt::TopToolBarArea, serv_tb);
 	actAbout->setShortcut(Qt::CTRL | Qt::Key_A);
 	actOpen->setShortcut(Qt::CTRL | Qt::Key_O);
 	actSave->setShortcut(Qt::CTRL | Qt::Key_S);
@@ -137,6 +154,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	actQuit->setShortcut(Qt::CTRL | Qt::Key_Q);
 	actSet->setShortcut(Qt::CTRL | Qt::Key_H);
 	actNew->setShortcut(Qt::CTRL | Qt::Key_N);
+	actBugReport->setShortcut(Qt::CTRL | Qt::Key_B);
 	mdsArea->setWidgetResizable(1);
 	mdsArea->setWidget(mds);
 	mds->setWordWrap(1);
@@ -178,6 +196,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mSettings->addAction(actDownloader);
 	mSettings->addSeparator();
 	mSettings->addAction(actSet);
+	mSettings->addAction(actBugReport);
 	mHelp->addAction(actHelp);
 	mHelp->addAction(actAbout);
 	mHelp->addAction(actOpenChangelog);
@@ -187,6 +206,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	menuBar()->addMenu(mHelp);
 	//------------------
 
+	push_log("[QT]Установка связей сигнал-слот");
 	//Блок сигнально-слотовых связей
 	if (!connect(mde, SIGNAL(textEdited(const QString&)), mds, SLOT(slotSetText(const QString&))))
 		QErrorMessage::qtHandler(); //Соединяем сигнал от редактора к слоту изменения текста
@@ -226,17 +246,27 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler();	//Таймер на вызов окна
 	if (!connect(actOpenChangelog, SIGNAL(triggered()), cLog, SLOT(slotShowWindow())))
 		QErrorMessage::qtHandler();	//Вызов окна ченжлога
+	if (!connect(actBugReport, SIGNAL(triggered()), logWindow, SLOT(slot_read_n_show())))
+		QErrorMessage::qtHandler();	//Вызов окна логов
 	//------------------------------
 
 	//Рабочий долгосрочный костыль. Создаем пустой виджет и помещаем все в него
 	mainWgt->setLayout(mainWindowHorizontalSetup);
 	setCentralWidget(mainWgt);
 
+	log_stroke->append("[VESRION]Версия приложения");
+	log_stroke->append(APP_STAGE);
+	log_stroke->append(APP_VERSION);
+	log_stroke->append(" ");
+	log_stroke->append(std::to_string(BUILD_NUMBER).c_str());
+	push_log(log_stroke->c_str());
+	log_stroke->clear();
+
 	//Устанавливаем заголовок окна
-	setWindowTitle(tr("LiteMD alpha 0.0.0 build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))/* + tr("[MAX FILE SIZE 65K]")*/);
+	setWindowTitle(tr("LiteMD") + APP_STAGE + APP_VERSION + tr(" build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))/* + tr("[MAX FILE SIZE 65K]")*/);
 
 	//Кешируем имя окна для возможности восстановления исходного заголовка
-	defTitle = windowTitle();
+	//defTitle = windowTitle();	//patch 0.2.2 исправление версии "0.0.0" при открытии файла
 	
 	//Устанавливаем иконку приложения
 	setWindowIcon(QIcon("icon.ico"));
@@ -257,11 +287,13 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 
 	//Показываем сообщение готовности к работе
 	statusBar()->showMessage(tr("Ready"), 3000);
+
+	delete(log_stroke);
 }
 //О программе
 void LiteMD::slotAbout()
 {
-	QMessageBox::about(this, "LiteMD", tr("Ver. alpha 0.0.0 build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))
+	QMessageBox::about(this, "LiteMD", tr("Ver.") + APP_STAGE + APP_VERSION + (" build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))
 		+ tr("<BR>By anrej0705<BR>See me at Github:") + "<BR><A HREF=\"github.com/anrej0705\">github.com/anrej0705</A><BR><BR>" 
 		+ tr("This app is free for use,modify and reupload<BR><BR>LiteMD IS FREE SOFTWARE! IF YOU PAID FOR IT YOU HAVE BEEN SCAMMED!") 
 		+ "<BR>" + "<BR>| Qt 5.14.2 | C++17 | C11 | Boost 1.84.00 |<BR>" + "<BR>" 
@@ -272,10 +304,10 @@ void LiteMD::slotAbout()
 void LiteMD::slotTitleChanged(const QString& title)
 {
 	//Контейнеры для помещения элементов заголовка
-	std::string newTitle = defTitle.toStdString();
+	std::string newTitle/* = defTitle.toStdString()*/;	//Патч 0.2.2 исправление заголовка
 	std::string fileFullPath = title.toStdString();
 	//Формируем заголовок из контейнеров и устанавливаем в приложение
-	newTitle.append(" [" + fileFullPath.substr(fileFullPath.rfind('/') + 1, fileFullPath.size() - fileFullPath.rfind('/')) + "]");
+	newTitle.append((tr("LiteMD") + APP_STAGE + APP_VERSION + tr(" build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))).toStdString() + " [" + fileFullPath.substr(fileFullPath.rfind('/') + 1, fileFullPath.size() - fileFullPath.rfind('/')) + "]");
 	setWindowTitle(QString::fromStdString(newTitle));
 }
 //Сброс заголовка
@@ -302,7 +334,7 @@ void LiteMD::slotFileEdited()
 //Перехватчик события закрытия
 void LiteMD::closeEvent(QCloseEvent* ce)
 {
-	//1
+	push_log("[QT]Вызвано событие закрытия приложения");
 	//Если файл редактировался то спрашиваем нужно ли сохранить
 	if (fileChangedState)
 	{

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <QtWidgets>
 #include <map>
 #include "ui_update_event.h"
@@ -7,9 +7,10 @@ class appSettings : public QDialog
 {
 	Q_OBJECT
 	private:
-		QWidget* basicSettings;	//Основные настройки
+		QWidget* basicSettings;		//Основные настройки
 		QWidget* renderSettings;	//Настройки обработки текста
 		QWidget* downloaderSettings;//Настройка загрузчика по сети
+		QWidget* tabLogs;			//Логи работы
 
 		std::map<uint8_t, QString>* loc_map;	//Список локалей
 
@@ -69,8 +70,8 @@ class appSettings : public QDialog
 		//-------------------------
 
 		//Вкладка "Логи"
-		QLabel* logHint;			//Подпись окна в логом
-		QTextEdit* logBox;			//Контейнер для отображения логов
+		QLabel* logHint;			//Подпись окна с логами
+		QPlainTextEdit* logBox;			//Контейнер для отображения логов
 		QPushButton* clearLog;		//Кнопка "Очистить лог"
 		QPushButton* saveLog;		//Кнопка "Сохранить лог"
 		//-------------------------
@@ -79,6 +80,7 @@ class appSettings : public QDialog
 		void configureBasicSettingsTab();
 		void configureRenderSettingsTab();
 		void configureDownloaderSettingsTab();
+		void configureLogsTab();
 		void titleChanged(const QString&);
 	protected:
 		bool eventFilter(QObject* pobj, QEvent* event);
@@ -95,6 +97,9 @@ class appSettings : public QDialog
 		void slot_switch_simple_url_parser(int);
 		void slot_switch_adv_url_parser(int);
 		void slot_switch_header_lvl_parser(int);
+		void slot_tab_changed(int);
+		void slot_clear_logs();
+		void slot_save_logs();
 	signals:
 		void signalTitleChanged(const QString&);
 };

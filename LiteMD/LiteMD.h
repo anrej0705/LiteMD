@@ -8,6 +8,7 @@
 #include "frameChangelog.h"
 #include "xmlWriter.h"
 #include "xmlReader.h"
+#include "logger.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -23,6 +24,7 @@ class LiteMD : public QMainWindow
 	private:
 		//Ui::LiteMDClass ui;			//Не используется
 		QToolBar* quick_tb;				//Тулбар для кнопок-ярлыков
+		QToolBar* serv_tb;				//Тулбар для кнопок помощи, о проге, Bug!
 		QMenu* mHelp;					//Меню помощи
 		QMenu* mFile;					//Меню файла
 		QMenu* mEdit;					//Меню "Правка"
@@ -39,6 +41,7 @@ class LiteMD : public QMainWindow
 		xmlWriter* xmlW;				//Класс для записи настроек в файл
 		xmlReader* xmlR;				//Читалка настроек
 		QTimer* showTim;				//Таймер на отображение окна
+		logger* logWindow;				//Окно логов которое появляется нажатием на жука
 
 		//Действия всякие, в меню и в док
 		QAction* actAbout;				//Пункт меню о программе
@@ -46,14 +49,15 @@ class LiteMD : public QMainWindow
 		QAction* actSave;				//Пункт меню сохранить
 		QAction* actSaveAs;				//Пункт меню сохранить как
 		QAction* actQuit;				//Пункт меню выход
-		QAction* actDownloader;			//Пункт вызова загрузчика
-		QAction* actSet;				//Пункт вызова настроек
-		QAction* actNew;				//Пункт создрания нового документа
+		QAction* actDownloader;			//Кнопка вызова загрузчика
+		QAction* actSet;				//Кнопка вызова настроек
+		QAction* actNew;				//Кнопка создания нового документа
 		QAction* actPlaceUrl;			//Преобразовать в (ссылку)
 		QAction* actPlaceAltUrl;		//Преобразовать в [альтернативную](ссылку)
 		QAction* actSetTextFormat;		//Выбрать форматирование выделенного текста
 		QAction* actHelp;				//Открывает справку
 		QAction* actOpenChangelog;		//Открывает список изменений текущей версии
+		QAction* actBugReport;			//Кнопка открытия окна логов
 	protected:
 		bool eventFilter(QObject* pobj, QEvent* event);
 		void update_ui();

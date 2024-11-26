@@ -130,11 +130,11 @@ github.com/anrej0705
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation>[В РАЗРАБОТКЕ]LiteMD alpha 0.2.1 сборка </translation>
+        <translation type="vanished">[В РАЗРАБОТКЕ]LiteMD alpha 0.2.1 сборка </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.2.1 сборка </translation>
+        <translation type="vanished">Ver. alpha 0.2.1 сборка </translation>
     </message>
     <message>
         <source>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</source>
@@ -231,6 +231,22 @@ github.com/anrej0705
     <message>
         <source>Github repo: </source>
         <translation>Репозиторий GitHub: </translation>
+    </message>
+    <message>
+        <source>&amp;Bug!</source>
+        <translation>&amp;Баг!</translation>
+    </message>
+    <message>
+        <source>LiteMD</source>
+        <translation>LiteMD</translation>
+    </message>
+    <message>
+        <source> build </source>
+        <translation> сборка </translation>
+    </message>
+    <message>
+        <source>Ver.</source>
+        <translation>версия.</translation>
     </message>
 </context>
 <context>
@@ -375,6 +391,30 @@ Programm will close</source>
         <source>reloadHint</source>
         <translation>Настройки вступят в силу после перезагрузки документа</translation>
     </message>
+    <message>
+        <source>clearLog</source>
+        <translation>Очистить лог</translation>
+    </message>
+    <message>
+        <source>saveLog</source>
+        <translation>Сохранить лог</translation>
+    </message>
+    <message>
+        <source>logHint</source>
+        <translation>Лог работы</translation>
+    </message>
+    <message>
+        <source>Logs</source>
+        <translation>Лог</translation>
+    </message>
+    <message>
+        <source>Save logs</source>
+        <translation>Сохранить логи</translation>
+    </message>
+    <message>
+        <source>*.txt</source>
+        <translation>*.txt</translation>
+    </message>
 </context>
 <context>
     <name>currentChangelog</name>
@@ -385,6 +425,33 @@ Programm will close</source>
     <message>
         <source>Current_ver.md отсутствует</source>
         <translation>Current_ver.md отсутствует</translation>
+    </message>
+</context>
+<context>
+    <name>logger</name>
+    <message>
+        <source>logTitle</source>
+        <translation>Лог работы</translation>
+    </message>
+    <message>
+        <source>clearLog</source>
+        <translation>Очистить лог</translation>
+    </message>
+    <message>
+        <source>saveLog</source>
+        <translation>Сохранить лог</translation>
+    </message>
+    <message>
+        <source>logHint</source>
+        <translation>Лог работы</translation>
+    </message>
+    <message>
+        <source>Save logs</source>
+        <translation>Сохранить логи</translation>
+    </message>
+    <message>
+        <source>*.txt</source>
+        <translation>*.txt</translation>
     </message>
 </context>
 <context>

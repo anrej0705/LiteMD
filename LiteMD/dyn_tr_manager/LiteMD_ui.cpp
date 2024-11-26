@@ -16,7 +16,7 @@ void LiteMD::update_ui()
 	editorWindow->setTitle(tr("Editor"));
 	viewerWindow->setTitle(tr("Viewer"));
 	workProgressCap->setText(tr("work in progress"));
-	setWindowTitle(tr("LiteMD alpha 0.0.0 build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))/* + tr("[MAX FILE SIZE 65K]")*/);
+	setWindowTitle(tr("LiteMD") + APP_STAGE + APP_VERSION + tr(" build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))/* + tr("[MAX FILE SIZE 65K]")*/);
 
 	//Обновляем перевод меню
 	mFile->setTitle(tr("&File"));
@@ -38,5 +38,6 @@ void LiteMD::update_ui()
 	actPlaceAltUrl->setText(tr("Make alt&enate URL"));
 	actSetTextFormat->setText(tr("Te&xt Format"));
 	actHelp->setText(tr("&Help"));
+	actBugReport->setText(tr("&Bug!"));
 	//------------------------
 }

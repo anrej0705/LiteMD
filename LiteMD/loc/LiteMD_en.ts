@@ -128,11 +128,11 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation>[WORK IN PROGRESS]LiteMD alpha 0.2.1 build </translation>
+        <translation type="vanished">[WORK IN PROGRESS]LiteMD alpha 0.2.1 build </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.2.1 build </translation>
+        <translation type="vanished">Ver. alpha 0.2.1 build </translation>
     </message>
     <message>
         <source>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</source>
@@ -229,6 +229,22 @@ I hope u like my app :D</translation>
     <message>
         <source>Github repo: </source>
         <translation>Github repo: </translation>
+    </message>
+    <message>
+        <source>&amp;Bug!</source>
+        <translation>&amp;Bug!</translation>
+    </message>
+    <message>
+        <source>LiteMD</source>
+        <translation>LiteMD</translation>
+    </message>
+    <message>
+        <source> build </source>
+        <translation> build </translation>
+    </message>
+    <message>
+        <source>Ver.</source>
+        <translation>Ver.</translation>
     </message>
 </context>
 <context>
@@ -373,6 +389,30 @@ Programm will close</translation>
         <source>reloadHint</source>
         <translation>The settings will take effect after the document is reloaded</translation>
     </message>
+    <message>
+        <source>clearLog</source>
+        <translation>Clear logs</translation>
+    </message>
+    <message>
+        <source>saveLog</source>
+        <translation>Save logs</translation>
+    </message>
+    <message>
+        <source>logHint</source>
+        <translation>Logs</translation>
+    </message>
+    <message>
+        <source>Logs</source>
+        <translation>Logs</translation>
+    </message>
+    <message>
+        <source>Save logs</source>
+        <translation>Save logs</translation>
+    </message>
+    <message>
+        <source>*.txt</source>
+        <translation>*.txt</translation>
+    </message>
 </context>
 <context>
     <name>currentChangelog</name>
@@ -383,6 +423,33 @@ Programm will close</translation>
     <message>
         <source>Current_ver.md отсутствует</source>
         <translation>Current_ver.md not found</translation>
+    </message>
+</context>
+<context>
+    <name>logger</name>
+    <message>
+        <source>logTitle</source>
+        <translation>Logs</translation>
+    </message>
+    <message>
+        <source>clearLog</source>
+        <translation>Clear logs</translation>
+    </message>
+    <message>
+        <source>saveLog</source>
+        <translation>Save logs</translation>
+    </message>
+    <message>
+        <source>logHint</source>
+        <translation>Logs</translation>
+    </message>
+    <message>
+        <source>Save logs</source>
+        <translation>Save logs</translation>
+    </message>
+    <message>
+        <source>*.txt</source>
+        <translation>*.txt</translation>
     </message>
 </context>
 <context>

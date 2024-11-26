@@ -2,14 +2,17 @@
 #include <boost/container/string.hpp>
 #include "global_definitions.h"
 #include "exceptionHandler.h"
+#include "logger_backend.h"
 
 //boost::container::string* head_lvl_url_output;
 std::string* head_lvl_url_output;
 
 std::string headerLvlParser(std::string& rawInput)
 {
+	boost::container::string* log_out = new boost::container::string;
+
 	uint32_t* buffer_size = (uint32_t*)malloc(sizeof(uint32_t));
-	*buffer_size = rawInput.size();	//Создаём переменную с количеством символов
+	*buffer_size = rawInput.size();	//РЎРѕР·РґР°С‘Рј РїРµСЂРµРјРµРЅРЅСѓСЋ СЃ РєРѕР»РёС‡РµСЃС‚РІРѕРј СЃРёРјРІРѕР»РѕРІ
 
 	head_lvl_url_output = new std::string;
 	//head_lvl_url_output = new boost::container::string;
@@ -19,16 +22,16 @@ std::string headerLvlParser(std::string& rawInput)
 	uint8_t header_size = 0;
 
 	char* buffer = (char*)calloc(*buffer_size + 1, sizeof(char));
-	strcpy(buffer, rawInput.c_str());	//Медленно, //Создаём буфер с размером входящего блока и копируем его туда
+	strcpy(buffer, rawInput.c_str());	//РњРµРґР»РµРЅРЅРѕ, //РЎРѕР·РґР°С‘Рј Р±СѓС„РµСЂ СЃ СЂР°Р·РјРµСЂРѕРј РІС…РѕРґСЏС‰РµРіРѕ Р±Р»РѕРєР° Рё РєРѕРїРёСЂСѓРµРј РµРіРѕ С‚СѓРґР°
 
 	head_lvl_url_output->assign(buffer);
 
 	for (volatile int32_t _index = *buffer_size; _index >= 0; --_index)
 	{
-		//Если найден символ переноса то считаем за конец строки
+		//Р•СЃР»Рё РЅР°Р№РґРµРЅ СЃРёРјРІРѕР» РїРµСЂРµРЅРѕСЃР° С‚Рѕ СЃС‡РёС‚Р°РµРј Р·Р° РєРѕРЅРµС† СЃС‚СЂРѕРєРё
 		if (buffer[_index] == '\n')
 		{
-			//Поиск окончания служебных символов
+			//РџРѕРёСЃРє РѕРєРѕРЅС‡Р°РЅРёСЏ СЃР»СѓР¶РµР±РЅС‹С… СЃРёРјРІРѕР»РѕРІ
 			for (volatile int32_t _idx = _index; _idx >= 0; --_idx)
 			{
 				if ((buffer[_idx] != '\r') && (buffer[_idx] != '\n') && (buffer[_idx] != '\0'))
@@ -37,19 +40,19 @@ std::string headerLvlParser(std::string& rawInput)
 					break;
 				}
 			}
-			//Начинаем искать начало строки
+			//РќР°С‡РёРЅР°РµРј РёСЃРєР°С‚СЊ РЅР°С‡Р°Р»Рѕ СЃС‚СЂРѕРєРё
 			for (volatile int32_t _idx = stroke_end; _idx >= 0; --_idx)
 			{
 				if ((buffer[_idx] == '\n') || (_idx == 0))
 				{
-					//Если найдено начало или индекст дошёл до нуля то сохраняем
+					//Р•СЃР»Рё РЅР°Р№РґРµРЅРѕ РЅР°С‡Р°Р»Рѕ РёР»Рё РёРЅРґРµРєСЃС‚ РґРѕС€С‘Р» РґРѕ РЅСѓР»СЏ С‚Рѕ СЃРѕС…СЂР°РЅСЏРµРј
 					(buffer[_idx] == '\n') ? stroke_start = _idx + 1 : stroke_start = 0;
 					break;
 				}
 			}
 
-			//Проверяем первые 5 символов, если символов решётки не найдено или ряд сбит то сохраняется
-			//количество символов до сбития ряда или 0
+			//РџСЂРѕРІРµСЂСЏРµРј РїРµСЂРІС‹Рµ 5 СЃРёРјРІРѕР»РѕРІ, РµСЃР»Рё СЃРёРјРІРѕР»РѕРІ СЂРµС€С‘С‚РєРё РЅРµ РЅР°Р№РґРµРЅРѕ РёР»Рё СЂСЏРґ СЃР±РёС‚ С‚Рѕ СЃРѕС…СЂР°РЅСЏРµС‚СЃСЏ
+			//РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРёРјРІРѕР»РѕРІ РґРѕ СЃР±РёС‚РёСЏ СЂСЏРґР° РёР»Рё 0
 			for (volatile int32_t _idx = stroke_start; _idx < stroke_start + 5; ++_idx)
 			{
 				if (buffer[_idx] == '#')
@@ -58,21 +61,27 @@ std::string headerLvlParser(std::string& rawInput)
 					break;
 			}
 
-			//Если символы не найдены то считается что строка не содержит символов заголовка
-			//индекс начала сохраняется как индекс конца и цикл идёт дальше
+			//Р•СЃР»Рё СЃРёРјРІРѕР»С‹ РЅРµ РЅР°Р№РґРµРЅС‹ С‚Рѕ СЃС‡РёС‚Р°РµС‚СЃСЏ С‡С‚Рѕ СЃС‚СЂРѕРєР° РЅРµ СЃРѕРґРµСЂР¶РёС‚ СЃРёРјРІРѕР»РѕРІ Р·Р°РіРѕР»РѕРІРєР°
+			//РёРЅРґРµРєСЃ РЅР°С‡Р°Р»Р° СЃРѕС…СЂР°РЅСЏРµС‚СЃСЏ РєР°Рє РёРЅРґРµРєСЃ РєРѕРЅС†Р° Рё С†РёРєР» РёРґС‘С‚ РґР°Р»СЊС€Рµ
 			if ((header_size == 0) && (_index > 0))
 				_index = stroke_start - 1;
 			else
-			{	//Строится заголовок из данных header_size;
+			{	//РЎС‚СЂРѕРёС‚СЃСЏ Р·Р°РіРѕР»РѕРІРѕРє РёР· РґР°РЅРЅС‹С… header_size;
 				switch (header_size)
 				{
 					case 1:
 					{
-						//Вставка тега в конце
+						//Р’СЃС‚Р°РІРєР° С‚РµРіР° РІ РєРѕРЅС†Рµ
+						log_out->append("[headerLvlParser]Р’СЃС‚Р°РІРєР° С‚РµРіР° <H1>(");
+						log_out->append(std::to_string(stroke_start).c_str());
+						log_out->append(")->(");
+						log_out->append(std::to_string(stroke_end).c_str());
+						log_out->append(")");
+						push_log(log_out->c_str());
 						head_lvl_url_output->insert(stroke_end + 1, header_lvl_icloselvl);
 						head_lvl_url_output->insert(stroke_end + 1, "1");
 						head_lvl_url_output->insert(stroke_end + 1, header_lvl_iclosetext);
-						//Вставка тега в начале
+						//Р’СЃС‚Р°РІРєР° С‚РµРіР° РІ РЅР°С‡Р°Р»Рµ
 						//head_lvl_url_output->insert(stroke_start, header_lvl_icloselvl);
 						head_lvl_url_output->replace(stroke_start, 1, header_lvl_icloselvl);
 						head_lvl_url_output->insert(stroke_start, "1");
@@ -82,11 +91,17 @@ std::string headerLvlParser(std::string& rawInput)
 					}
 					case 2:
 					{
-						//Вставка тега в конце
+						//Р’СЃС‚Р°РІРєР° С‚РµРіР° РІ РєРѕРЅС†Рµ
+						log_out->append("[headerLvlParser]Р’СЃС‚Р°РІРєР° С‚РµРіР° <H2>(");
+						log_out->append(std::to_string(stroke_start).c_str());
+						log_out->append(")->(");
+						log_out->append(std::to_string(stroke_end).c_str());
+						log_out->append(")");
+						push_log(log_out->c_str());
 						head_lvl_url_output->insert(stroke_end + 1, header_lvl_icloselvl);
 						head_lvl_url_output->insert(stroke_end + 1, "2");
 						head_lvl_url_output->insert(stroke_end + 1, header_lvl_iclosetext);
-						//Вставка тега в начале
+						//Р’СЃС‚Р°РІРєР° С‚РµРіР° РІ РЅР°С‡Р°Р»Рµ
 						//head_lvl_url_output->insert(stroke_start, header_lvl_icloselvl);
 						head_lvl_url_output->replace(stroke_start, 2, header_lvl_icloselvl);
 						head_lvl_url_output->insert(stroke_start, "2");
@@ -96,11 +111,17 @@ std::string headerLvlParser(std::string& rawInput)
 					}
 					case 3:
 					{
-						//Вставка тега в конце
+						//Р’СЃС‚Р°РІРєР° С‚РµРіР° РІ РєРѕРЅС†Рµ
+						log_out->append("[headerLvlParser]Р’СЃС‚Р°РІРєР° С‚РµРіР° <H3>(");
+						log_out->append(std::to_string(stroke_start).c_str());
+						log_out->append(")->(");
+						log_out->append(std::to_string(stroke_end).c_str());
+						log_out->append(")");
+						push_log(log_out->c_str());
 						head_lvl_url_output->insert(stroke_end + 1, header_lvl_icloselvl);
 						head_lvl_url_output->insert(stroke_end + 1, "3");
 						head_lvl_url_output->insert(stroke_end + 1, header_lvl_iclosetext);
-						//Вставка тега в начале
+						//Р’СЃС‚Р°РІРєР° С‚РµРіР° РІ РЅР°С‡Р°Р»Рµ
 						//head_lvl_url_output->insert(stroke_start, header_lvl_icloselvl);
 						head_lvl_url_output->replace(stroke_start, 3, header_lvl_icloselvl);
 						head_lvl_url_output->insert(stroke_start, "3");
@@ -110,11 +131,17 @@ std::string headerLvlParser(std::string& rawInput)
 					}
 					case 4:
 					{
-						//Вставка тега в конце
+						//Р’СЃС‚Р°РІРєР° С‚РµРіР° РІ РєРѕРЅС†Рµ
+						log_out->append("[headerLvlParser]Р’СЃС‚Р°РІРєР° С‚РµРіР° <H4>(");
+						log_out->append(std::to_string(stroke_start).c_str());
+						log_out->append(")->(");
+						log_out->append(std::to_string(stroke_end).c_str());
+						log_out->append(")");
+						push_log(log_out->c_str());
 						head_lvl_url_output->insert(stroke_end + 1, header_lvl_icloselvl);
 						head_lvl_url_output->insert(stroke_end + 1, "4");
 						head_lvl_url_output->insert(stroke_end + 1, header_lvl_iclosetext);
-						//Вставка тега в начале
+						//Р’СЃС‚Р°РІРєР° С‚РµРіР° РІ РЅР°С‡Р°Р»Рµ
 						//head_lvl_url_output->insert(stroke_start, header_lvl_icloselvl);
 						head_lvl_url_output->replace(stroke_start, 4, header_lvl_icloselvl);
 						head_lvl_url_output->insert(stroke_start, "4");
@@ -124,11 +151,17 @@ std::string headerLvlParser(std::string& rawInput)
 					}
 					case 5:
 					{
-						//Вставка тега в конце
+						//Р’СЃС‚Р°РІРєР° С‚РµРіР° РІ РєРѕРЅС†Рµ
+						log_out->append("[headerLvlParser]Р’СЃС‚Р°РІРєР° С‚РµРіР° <H5>(");
+						log_out->append(std::to_string(stroke_start).c_str());
+						log_out->append(")->(");
+						log_out->append(std::to_string(stroke_end).c_str());
+						log_out->append(")");
+						push_log(log_out->c_str());
 						head_lvl_url_output->insert(stroke_end + 1, header_lvl_icloselvl);
 						head_lvl_url_output->insert(stroke_end + 1, "5");
 						head_lvl_url_output->insert(stroke_end + 1, header_lvl_iclosetext);
-						//Вставка тега в начале
+						//Р’СЃС‚Р°РІРєР° С‚РµРіР° РІ РЅР°С‡Р°Р»Рµ
 						//head_lvl_url_output->insert(stroke_start, header_lvl_icloselvl);
 						head_lvl_url_output->replace(stroke_start, 5, header_lvl_icloselvl);
 						head_lvl_url_output->insert(stroke_start, "5");
@@ -138,18 +171,21 @@ std::string headerLvlParser(std::string& rawInput)
 					}
 				}
 			}
-			//Сброс для работы со следующей строкой
+			//РЎР±СЂРѕСЃ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃРѕ СЃР»РµРґСѓСЋС‰РµР№ СЃС‚СЂРѕРєРѕР№
 			header_size = 0;
-			//Перемещение указателя на позицию строки с которой шла работа
+			//РџРµСЂРµРјРµС‰РµРЅРёРµ СѓРєР°Р·Р°С‚РµР»СЏ РЅР° РїРѕР·РёС†РёСЋ СЃС‚СЂРѕРєРё СЃ РєРѕС‚РѕСЂРѕР№ С€Р»Р° СЂР°Р±РѕС‚Р°
 			_index = stroke_start;
-			//Сброс значений так как новая строчка и пока ничего не понятно
+			//РЎР±СЂРѕСЃ Р·РЅР°С‡РµРЅРёР№ С‚Р°Рє РєР°Рє РЅРѕРІР°СЏ СЃС‚СЂРѕС‡РєР° Рё РїРѕРєР° РЅРёС‡РµРіРѕ РЅРµ РїРѕРЅСЏС‚РЅРѕ
 			stroke_start = -1;
 			stroke_end = 1;
+			log_out->clear();
 		}
 	}
 
 	free(buffer_size);
 	free(buffer);
+
+	delete(log_out);
 
 	return head_lvl_url_output->c_str();
 }
