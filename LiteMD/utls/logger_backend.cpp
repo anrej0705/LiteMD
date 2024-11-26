@@ -68,9 +68,6 @@ void logger_backend::insert_log(const char* log, uint32_t log_size)
 	else
 		throw(exceptionHandler(exceptionHandler::WARNING, "Не удалось выделить память в контейнере логов(указатель зашкварился)"));
 
-	if (log_str_counter > 1)
-		testpoint2 = log_container[0];
-
 	//Выделяем память для занесения строчки логов
 	new_l_ptr = (char*)calloc(log_str->size() , sizeof(char));
 	if (new_l_ptr != NULL)
@@ -80,7 +77,6 @@ void logger_backend::insert_log(const char* log, uint32_t log_size)
 
 	//Слепляем смску в лог
 	strncpy(log_container[log_str_counter - 1], log_str->c_str(), sssize);
-	testpoint2 = log_container[log_str_counter - 1];
 	log_str->clear();
 }
 
