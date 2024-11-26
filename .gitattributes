@@ -4,11 +4,6 @@
 * text=auto
 
 ###############################################################################
-# Set default codepage to cp1251
-###############################################################################
-*.*	working-tree-encoding=cp1251	eol=crlf
-
-###############################################################################
 # Set default behavior for command prompt diff.
 #
 # This is need for earlier builds of msysgit that does not have it on by

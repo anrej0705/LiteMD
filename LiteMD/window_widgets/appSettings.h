@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <QtWidgets>
 #include <map>
 #include "ui_update_event.h"
@@ -71,7 +71,7 @@ class appSettings : public QDialog
 
 		//Вкладка "Логи"
 		QLabel* logHint;			//Подпись окна с логами
-		QTextEdit* logBox;			//Контейнер для отображения логов
+		QPlainTextEdit* logBox;			//Контейнер для отображения логов
 		QPushButton* clearLog;		//Кнопка "Очистить лог"
 		QPushButton* saveLog;		//Кнопка "Сохранить лог"
 		//-------------------------
@@ -97,6 +97,7 @@ class appSettings : public QDialog
 		void slot_switch_simple_url_parser(int);
 		void slot_switch_adv_url_parser(int);
 		void slot_switch_header_lvl_parser(int);
+		void slot_tab_changed(int);
 	signals:
 		void signalTitleChanged(const QString&);
 };

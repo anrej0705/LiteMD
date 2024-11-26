@@ -18,7 +18,7 @@ class logger : public QDialog
 		QVBoxLayout* frameFix;
 
 		//Поле логов
-		QTextEdit* logFrame;
+		QPlainTextEdit* logFrame;
 
 		//Менеджеры компоновки
 		QHBoxLayout* buttonLay;
@@ -28,4 +28,6 @@ class logger : public QDialog
 		void update_ui();
 	public:
 		logger(QWidget* log = 0);
+	public slots:
+		void slot_read_n_show();
 };

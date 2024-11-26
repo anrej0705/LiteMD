@@ -1,4 +1,6 @@
 #include "logger.h"
+#include "logger_backend.h"
+#include <boost/container/vector.hpp>
 
 logger::logger(QWidget* log) : QDialog(log)
 {
@@ -24,7 +26,7 @@ logger::logger(QWidget* log) : QDialog(log)
 	//Всякая приблуда из tab_logs.cpp
 	clearLog = new QPushButton(tr("clearLog"));
 	saveLog = new QPushButton(tr("saveLog"));
-	logFrame = new QTextEdit;
+	logFrame = new QPlainTextEdit;
 
 	//Делаем кнопки побольше чтобы тыкать проще
 	clearLog->setFixedHeight(48);
@@ -52,4 +54,14 @@ logger::logger(QWidget* log) : QDialog(log)
 
 	//Всякие настройки
 	logFrame->setReadOnly(1);		//Отключение возможности писать в окно логов
+}
+
+void logger::slot_read_n_show()
+{
+	boost::container::vector<QString> container = logger_backend::getInstance().get_logs();
+	for (uint32_t _index = 0; _index < container.size(); ++_index)
+	{
+		logFrame->appendPlainText(container.at(_index));
+	}
+	this->show();
 }

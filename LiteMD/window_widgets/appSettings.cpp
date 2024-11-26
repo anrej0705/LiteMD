@@ -3,7 +3,9 @@
 #include "event_id_constructor.h"
 #include "global_definitions.h"
 #include "exceptionHandler.h"
+#include "logger_backend.h"
 #include <QtWidgets>
+#include <boost/container/vector.hpp>
 extern "C"
 {
 	#include "globalFlags.h"
@@ -79,6 +81,8 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	if (!connect(depFunc, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_deprecated(int))))
 		QErrorMessage::qtHandler();
 	if (!connect(devFunc, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_features(int))))
+		QErrorMessage::qtHandler();
+	if (!connect(settingsLister, SIGNAL(currentChanged(int)), this, SLOT(slot_tab_changed(int))))
 		QErrorMessage::qtHandler();
 	
 
@@ -158,4 +162,16 @@ void appSettings::slot_switch_features(int bit)
 		}
 	}
 	enableIndevFeatures = static_cast<bool>(bit);
+}
+
+void appSettings::slot_tab_changed(int tab_index)
+{
+	if (tab_index == 3)
+	{
+		boost::container::vector<QString> container = logger_backend::getInstance().get_logs();
+		for (uint32_t _index = 0; _index < container.size(); ++_index)
+		{
+			logBox->appendPlainText(container.at(_index));
+		}
+	}
 }

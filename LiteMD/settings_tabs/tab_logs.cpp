@@ -25,7 +25,7 @@ void appSettings::configureLogsTab()
 	clearLog = new QPushButton(tr("clearLog"));
 	saveLog = new QPushButton(tr("saveLog"));
 	logHint = new QLabel(tr("logHint"));
-	logBox = new QTextEdit;
+	logBox = new QPlainTextEdit;
 
 	//Настройка текстового поля
 	logBox->setReadOnly(1);
