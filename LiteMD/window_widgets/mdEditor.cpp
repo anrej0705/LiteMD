@@ -1,6 +1,8 @@
 #include <QtWidgets>
 #include "mdEditor.h"
 #include "dialogBoxes.h"
+#include <boost/container/string.hpp>
+#include "logger_backend.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -41,7 +43,11 @@ void mdEditor::slotTextChanged()
 }
 //Открытие файла
 void mdEditor::slotOpen()
-{
+{	//Контейнер для строчки лога перед отправкой в ядро
+	boost::container::string* log_stroke = new boost::container::string;
+
+	log_stroke->append("[mdEditor]Открываю файл ");
+
 	//Если файл был изменём(проверяем по флагу "*") то предлагаем сохранить
 	if (appTitleUpdated)
 		if (confirmSave())
@@ -50,6 +56,8 @@ void mdEditor::slotOpen()
 	mdFileName = QFileDialog::getOpenFileName(0, tr("Open Text/Markdown"), "", tr("*.md ;; *.txt"));
 	if (mdFileName.isEmpty())
 		return;
+	log_stroke->append(mdFileName.toLocal8Bit());
+	push_log(log_stroke->c_str());
 	//Присваиваем имя файла к обработчику который будет открывать его
 	mdObject.setFileName(mdFileName);
 	//Если размер больше 64 килобайт то файл не откроется
@@ -75,6 +83,8 @@ void mdEditor::slotOpen()
 	//Сбрасываем флаги
 	fileChangedState = 0;
 	appTitleUpdated = 0;
+
+	delete(log_stroke);
 }
 //Сохранение файла
 void mdEditor::slotSave()
