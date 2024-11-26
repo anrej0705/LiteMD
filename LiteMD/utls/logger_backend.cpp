@@ -4,8 +4,8 @@
 logger_backend* logger_backend::log_bcknd = 0;
 singlet_remover logger_backend::remv;
 
-int testpoint1;
-std::string testpoint2;
+//int testpoint1;
+//std::string testpoint2;
 
 std::mutex t_mut;
 
@@ -30,7 +30,7 @@ logger_backend::~logger_backend()
 {
 	//Подчищаем за собой
 	for (uint32_t _index = 0; _index < log_str_counter; ++_index)
-		delete(log_container[_index]);
+		free(log_container[_index]);
 	free(log_container);
 	delete(log_str);
 }
@@ -50,34 +50,28 @@ void logger_backend::insert_log(const char* log, uint32_t log_size)
 	static char** new_lc_ptr;	//Указатель на новый блок, для проверки на зашкварность
 	static char* new_l_ptr;		//То же самое но для строчки
 
-	static uint8_t sssize = 0;
-
-	//Достаём значение системного таймера
-	log_str->append("[");
-	log_str->append(boost::posix_time::to_iso_extended_string(boost::posix_time::microsec_clock::universal_time()).substr(11, 25).c_str());
-	log_str->append("]");
-	log_str->append(log);
-	log_str->append("\n");
-	sssize = log_str->size();
-
 	//Выделяем память для указателя на строчку логов
 	++log_str_counter;
 	new_lc_ptr = (char**)realloc(log_container, sizeof(char*) * (log_str_counter + 1));
 	if (new_lc_ptr != NULL)
+	{
 		log_container = new_lc_ptr;
+		//Выделяем память для занесения строчки логов
+		new_l_ptr = (char*)calloc(16 + log_size, sizeof(char));
+		if (new_l_ptr != NULL)
+		{
+			log_container[log_str_counter - 1] = new_l_ptr;
+			log_container[log_str_counter - 1][0] = '[';
+			//Достаём значение системного таймера
+			strncpy(&log_container[log_str_counter - 1][1], boost::posix_time::to_iso_extended_string(boost::posix_time::microsec_clock::universal_time()).substr(11, 25).c_str(), 14);
+			log_container[log_str_counter - 1][15] = ']';
+			strncpy(&log_container[log_str_counter - 1][16], log, log_size);
+		}
+		else
+			throw(exceptionHandler(exceptionHandler::WARNING, "Не удалось выделить память для строчки лога(указатель зашкварился)"));
+	}
 	else
 		throw(exceptionHandler(exceptionHandler::WARNING, "Не удалось выделить память в контейнере логов(указатель зашкварился)"));
-
-	//Выделяем память для занесения строчки логов
-	new_l_ptr = (char*)calloc(log_str->size() , sizeof(char));
-	if (new_l_ptr != NULL)
-		log_container[log_str_counter - 1] = new_l_ptr;
-	else
-		throw(exceptionHandler(exceptionHandler::WARNING, "Не удалось выделить память для строчки лога(указатель зашкварился)"));
-
-	//Слепляем смску в лог
-	strncpy(log_container[log_str_counter - 1], log_str->c_str(), sssize);
-	log_str->clear();
 }
 
 void push_log(const char* log)	//По идее это должно без проблем вызываться из сей
