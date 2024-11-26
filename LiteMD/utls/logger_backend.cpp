@@ -52,7 +52,7 @@ void logger_backend::insert_log(const char* log, uint32_t log_size)
 
 	//Выделяем память для указателя на строчку логов
 	++log_str_counter;
-	new_lc_ptr = (char**)realloc(log_container, sizeof(char*) * (log_str_counter + 1));
+	new_lc_ptr = (char**)realloc(log_container, sizeof(char*)*log_str_counter);
 	if (new_lc_ptr != NULL)
 	{
 		log_container = new_lc_ptr;
