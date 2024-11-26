@@ -1,6 +1,6 @@
 README.MD
 
-# LiteMD alpha 0.2.1
+# LiteMD alpha 0.2.2
 
 ![Qt](https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white)
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
@@ -57,8 +57,8 @@ README.MD
 - :white_check_mark:0.1.9 - [Списки изменений от версии к версии](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1225)
 - :white_check_mark:0.2.0 - [**Дополнительное форматирование текста и помощь**](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1554)
 - :white_check_mark:0.2.1 - [Уровни заголовков](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1683)
-- :arrow_forward:0.2.2 - Окно логов
-- :x:0.2.3 - Импорт старых конфигов
+- :white_check_mark:0.2.2 - [Окно логов](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1746)
+- :arrow_forward:0.2.3 - Импорт старых конфигов
 - :x:0.2.4 - Зачеркнутый текст
 - :x:0.2.5 - Подчеркнутый текст 
 - :x:0.2.6 - Курсив
