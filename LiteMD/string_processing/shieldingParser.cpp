@@ -1,10 +1,18 @@
-﻿#include "shieldingParser.h"
+#include "shieldingParser.h"
+#include "logger_backend.h"
+#include <boost/container/string.hpp>
 
 boost::container::string* shielding_buffer;
 boost::container::string* replaceSymbol;
 
 std::string shieldingParser(std::string& rawInput)
-{
+{	//Контейнер для строчки лога перед отправкой в ядро
+	boost::container::string* log_stroke = new boost::container::string;
+
+	uint32_t shielding_found = 0;
+
+	push_log("[shieldingParser]Поиск знаков экранирования символов");
+
 	//Создаем буффер в котором будем проводить обработку
 	shielding_buffer = new boost::container::string(rawInput.c_str());
 
@@ -25,10 +33,19 @@ std::string shieldingParser(std::string& rawInput)
 			{
 				replaceSymbol[0] = shieldingSymbols.at(shieldingSymbolsSrc.find(replaceSymbol[0])).c_str();
 				shielding_buffer->replace(index, 2, replaceSymbol[0]);
+				++shielding_found;
 			}
 		}
 	}
 
+	//Отправляем лог
+	log_stroke->append("[shieldingParser]Поиск завершён, найдено и экранировано ");
+	log_stroke->append(std::to_string(shielding_found).c_str());
+	log_stroke->append(" символов");
+
+	push_log(log_stroke->c_str());
+
+	delete(log_stroke);
 	//Возвращаем буффер с дриснёй
 	return shielding_buffer->c_str();
 }

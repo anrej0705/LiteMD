@@ -1,5 +1,6 @@
 #include "xmlWriter.h"
 #include "exceptionHandler.h"
+#include "logger_backend.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -20,6 +21,7 @@ void xmlWriter::writeConfig()
 {
 	//delete lmdFileSet;
 	//delete lmdSet;
+	push_log("[XML]Запись конфига");
 	lmdFileSet = new QDomDocument("LMD");
 	lmdSet = new QDomElement(lmdFileSet->createElement(appSign));
 	lmdFileSet->appendChild(*lmdSet);

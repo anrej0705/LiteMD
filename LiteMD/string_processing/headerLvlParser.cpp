@@ -1,13 +1,16 @@
-﻿#include "headerLvlParser.h"
+#include "headerLvlParser.h"
 #include <boost/container/string.hpp>
 #include "global_definitions.h"
 #include "exceptionHandler.h"
+#include "logger_backend.h"
 
 //boost::container::string* head_lvl_url_output;
 std::string* head_lvl_url_output;
 
 std::string headerLvlParser(std::string& rawInput)
 {
+	boost::container::string* log_out = new boost::container::string;
+
 	uint32_t* buffer_size = (uint32_t*)malloc(sizeof(uint32_t));
 	*buffer_size = rawInput.size();	//Создаём переменную с количеством символов
 
@@ -69,6 +72,12 @@ std::string headerLvlParser(std::string& rawInput)
 					case 1:
 					{
 						//Вставка тега в конце
+						log_out->append("[headerLvlParser]Вставка тега <H1>(");
+						log_out->append(std::to_string(stroke_start).c_str());
+						log_out->append(")->(");
+						log_out->append(std::to_string(stroke_end).c_str());
+						log_out->append(")");
+						push_log(log_out->c_str());
 						head_lvl_url_output->insert(stroke_end + 1, header_lvl_icloselvl);
 						head_lvl_url_output->insert(stroke_end + 1, "1");
 						head_lvl_url_output->insert(stroke_end + 1, header_lvl_iclosetext);
@@ -83,6 +92,12 @@ std::string headerLvlParser(std::string& rawInput)
 					case 2:
 					{
 						//Вставка тега в конце
+						log_out->append("[headerLvlParser]Вставка тега <H2>(");
+						log_out->append(std::to_string(stroke_start).c_str());
+						log_out->append(")->(");
+						log_out->append(std::to_string(stroke_end).c_str());
+						log_out->append(")");
+						push_log(log_out->c_str());
 						head_lvl_url_output->insert(stroke_end + 1, header_lvl_icloselvl);
 						head_lvl_url_output->insert(stroke_end + 1, "2");
 						head_lvl_url_output->insert(stroke_end + 1, header_lvl_iclosetext);
@@ -97,6 +112,12 @@ std::string headerLvlParser(std::string& rawInput)
 					case 3:
 					{
 						//Вставка тега в конце
+						log_out->append("[headerLvlParser]Вставка тега <H3>(");
+						log_out->append(std::to_string(stroke_start).c_str());
+						log_out->append(")->(");
+						log_out->append(std::to_string(stroke_end).c_str());
+						log_out->append(")");
+						push_log(log_out->c_str());
 						head_lvl_url_output->insert(stroke_end + 1, header_lvl_icloselvl);
 						head_lvl_url_output->insert(stroke_end + 1, "3");
 						head_lvl_url_output->insert(stroke_end + 1, header_lvl_iclosetext);
@@ -111,6 +132,12 @@ std::string headerLvlParser(std::string& rawInput)
 					case 4:
 					{
 						//Вставка тега в конце
+						log_out->append("[headerLvlParser]Вставка тега <H4>(");
+						log_out->append(std::to_string(stroke_start).c_str());
+						log_out->append(")->(");
+						log_out->append(std::to_string(stroke_end).c_str());
+						log_out->append(")");
+						push_log(log_out->c_str());
 						head_lvl_url_output->insert(stroke_end + 1, header_lvl_icloselvl);
 						head_lvl_url_output->insert(stroke_end + 1, "4");
 						head_lvl_url_output->insert(stroke_end + 1, header_lvl_iclosetext);
@@ -125,6 +152,12 @@ std::string headerLvlParser(std::string& rawInput)
 					case 5:
 					{
 						//Вставка тега в конце
+						log_out->append("[headerLvlParser]Вставка тега <H5>(");
+						log_out->append(std::to_string(stroke_start).c_str());
+						log_out->append(")->(");
+						log_out->append(std::to_string(stroke_end).c_str());
+						log_out->append(")");
+						push_log(log_out->c_str());
 						head_lvl_url_output->insert(stroke_end + 1, header_lvl_icloselvl);
 						head_lvl_url_output->insert(stroke_end + 1, "5");
 						head_lvl_url_output->insert(stroke_end + 1, header_lvl_iclosetext);
@@ -145,11 +178,14 @@ std::string headerLvlParser(std::string& rawInput)
 			//Сброс значений так как новая строчка и пока ничего не понятно
 			stroke_start = -1;
 			stroke_end = 1;
+			log_out->clear();
 		}
 	}
 
 	free(buffer_size);
 	free(buffer);
+
+	delete(log_out);
 
 	return head_lvl_url_output->c_str();
 }

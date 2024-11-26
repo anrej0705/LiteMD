@@ -1,6 +1,7 @@
 #include "symbolCleaner.h"
 #include "regex.h"
 #include "exceptionHandler.h"
+#include "logger_backend.h"
 #include <boost/thread/thread.hpp>
 #include <boost/container/string.hpp>
 #include <boost/container/vector.hpp>
@@ -56,7 +57,9 @@ service_tags* new_list;
 #define NOTIFY_ALL_THREAD condition.notify_all();
 
 std::string symbolCleaner(std::string& rawInput)
-{
+{	//Контейнер для строчки лога перед отправкой в ядро
+	boost::container::string* log_stroke = new boost::container::string;
+
 	uint32_t* buffer_size = (uint32_t*)malloc(sizeof(uint32_t));
 	*buffer_size = rawInput.size();	//Создаём переменную с количеством символов
 
@@ -82,6 +85,8 @@ std::string symbolCleaner(std::string& rawInput)
 	/*register */ char compare_char;
 
 	tag_list = (service_tags*)calloc(tag_list_size + 1, sizeof(service_tags));
+
+	push_log("[symbolCleaner]Фильтрация дубликатов");
 
 	//Проход с конца. Ищётся закрывающая скобка, запоминается, ищется открывающая
 	//в интервале ищутся повторы обоих символов, после завершения ищется следующая пара
@@ -226,21 +231,34 @@ std::string symbolCleaner(std::string& rawInput)
 		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в symbolCleaner.cpp -> 88:217")));
 	}
 	
-	/*testpoint1.clear();
-	std::vector<std::string> testpoint_str;
+	push_log("[symbolCleaner]Обнаружены следующие теги");
+	//testpoint1.clear();
+	//std::vector<std::string> testpoint_str;
 	for (uint8_t _idx = 0; _idx < tag_list_size; ++_idx)
 	{
-		testpoint3 = tag_list[_idx].first_entry;
-		testpoint3 = tag_list[_idx].last_entry;
-		testpoint3 = tag_list[_idx].size;
-		for (uint16_t a = tag_list[_idx].first_entry; a < tag_list[_idx].last_entry; ++a)
+		log_stroke->append("[symbolCleaner]Тег (");
+		log_stroke->append(std::to_string(tag_list[_idx].first_entry).c_str());
+		log_stroke->append("-");
+		log_stroke->append(std::to_string(tag_list[_idx].last_entry).c_str());
+		log_stroke->append(") ");
+		//testpoint3 = tag_list[_idx].first_entry;
+		//testpoint3 = tag_list[_idx].last_entry;
+		//testpoint3 = tag_list[_idx].size;
+		for (uint16_t a = tag_list[_idx].first_entry; a <= tag_list[_idx].last_entry; ++a)
 		{
-			testpoint2 = clean_buffer->at(a);
-			testpoint1.append(1, testpoint2);
+			//testpoint2 = clean_buffer->at(a);
+			log_stroke->append(1, clean_buffer->at(a));
+			//testpoint1.append(1, testpoint2);
 		}
-		testpoint_str.push_back(testpoint1);
-		testpoint1.clear();
-	}*/
+		push_log(log_stroke->c_str());
+		log_stroke->clear();
+		//testpoint_str.push_back(testpoint1);
+		//testpoint1.clear();
+	}
+
+	uint32_t cleans = 0;
+
+	push_log("[symbolCleaner]Проход и очистка дубликатов и неправильных тегов");
 
 	try
 	{
@@ -261,6 +279,7 @@ std::string symbolCleaner(std::string& rawInput)
 						_index = tag_list[rb_cache_ptr].first_entry - 1;
 						if (rb_cache_ptr < tag_list_size)
 							++rb_cache_ptr;
+						++cleans;
 						break;
 					}
 					case 3:
@@ -285,6 +304,7 @@ std::string symbolCleaner(std::string& rawInput)
 							_index = tag_list[rb_cache_ptr].first_entry - 1;
 							if (rb_cache_ptr < tag_list_size)
 								++rb_cache_ptr;
+							++cleans;
 							break;
 						}
 					}
@@ -300,11 +320,17 @@ std::string symbolCleaner(std::string& rawInput)
 		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью при фильтрации служебных символов(symbolCleaner.cpp 245:297)")));
 	}
 
+	log_stroke->append("[symbolCleaner]Очистка завершена, очищено ");
+	log_stroke->append(std::to_string(cleans).c_str());
+	log_stroke->append(" символов");
+	push_log(log_stroke->c_str());
+
 	//testpoint1 = clean_buffer->c_str();
 
 	//Чистка памяти
 	free(tag_list);
 	free(buffer_size);
+	delete(log_stroke);
 
 	return clean_buffer->c_str();
 }

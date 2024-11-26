@@ -1,10 +1,12 @@
 #include "frameChangelog.h"
+#include "logger_backend.h"
 extern "C"
 {
 	#include "globalFlags.h"
 }
 currentChangelog::currentChangelog(QWidget* qwgt) : QDialog(qwgt)
 {
+	push_log("[CHANGELOG]Загрука сведений о текущей версии");
 	QScrollArea* mdsArea = new QScrollArea;
 	compositionManager = new QVBoxLayout;
 	renderComposeManager = new QVBoxLayout;

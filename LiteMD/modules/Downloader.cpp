@@ -3,6 +3,8 @@
 #include <qnetworkaccessmanager.h>
 #include <qnetworkreply.h>
 #include "Downloader.h"
+#include "logger_backend.h"
+#include <boost/container/string.hpp>
 //Базовый конструктор, создает объект загрузчика
 Downloader::Downloader(QObject* dobj) : QObject(dobj)
 {
@@ -14,7 +16,13 @@ Downloader::Downloader(QObject* dobj) : QObject(dobj)
 }
 //Инициатор закачки
 void Downloader::download(const QUrl& url)
-{
+{	//Контейнер для строчки лога перед отправкой в ядро
+	boost::container::string* log_stroke = new boost::container::string;
+
+	log_stroke->append("[HTTP ЗАГРУЗЧИК]Загрузка по URL ");
+	log_stroke->append(url.toString().toLocal8Bit());
+	push_log(log_stroke->c_str());
+
 	//Создаем объект загрузчика и передаем ссылку по которой будем качать
 	QNetworkRequest netreq(url);
 	//Формируем объект ответа сети и сохраняем там указатель для получения сигнало прогресса
@@ -22,6 +30,8 @@ void Downloader::download(const QUrl& url)
 	//Подключем сигнал прогресса загрузки нашего файла из сети к слоту который будет отображать на индикаторе загрузки
 	if (!QObject::connect(netrep, SIGNAL(downloadProgress(qint64, qint64)), this, SIGNAL(downloadProgress(qint64, qint64))))
 		QErrorMessage::qtHandler();
+
+	delete(log_stroke);
 }
 //Слот, вызываемый по завершению загрузки
 void Downloader::slotFinished(QNetworkReply* netrep)

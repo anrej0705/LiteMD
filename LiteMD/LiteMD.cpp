@@ -4,7 +4,9 @@
 #include "GuiDownloader.h"
 #include "dialogBoxes.h"
 #include "exceptionHandler.h"
+#include "logger_backend.h"
 #include <QtWidgets>
+#include <boost/container/string.hpp>
 extern "C"
 {
 	#include "globalFlags.h"
@@ -12,7 +14,10 @@ extern "C"
 }
 extern struct parser_switchers parswitch;
 LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
-{
+{	//Контейнер для строчки лога перед отправкой в ядро
+	boost::container::string* log_stroke = new boost::container::string;
+
+	push_log("[QT]Настройка интерфейса QMainWindow");
 	//Настройка флагов по умолчанию
 	parswitch.en_simple_url = 1;
 	parswitch.en_adv_url = 1;
@@ -201,6 +206,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	menuBar()->addMenu(mHelp);
 	//------------------
 
+	push_log("[QT]Установка связей сигнал-слот");
 	//Блок сигнально-слотовых связей
 	if (!connect(mde, SIGNAL(textEdited(const QString&)), mds, SLOT(slotSetText(const QString&))))
 		QErrorMessage::qtHandler(); //Соединяем сигнал от редактора к слоту изменения текста
@@ -240,13 +246,21 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler();	//Таймер на вызов окна
 	if (!connect(actOpenChangelog, SIGNAL(triggered()), cLog, SLOT(slotShowWindow())))
 		QErrorMessage::qtHandler();	//Вызов окна ченжлога
-	if (!connect(actBugReport, SIGNAL(triggered()), logWindow, SLOT(show())))
+	if (!connect(actBugReport, SIGNAL(triggered()), logWindow, SLOT(slot_read_n_show())))
 		QErrorMessage::qtHandler();	//Вызов окна логов
 	//------------------------------
 
 	//Рабочий долгосрочный костыль. Создаем пустой виджет и помещаем все в него
 	mainWgt->setLayout(mainWindowHorizontalSetup);
 	setCentralWidget(mainWgt);
+
+	log_stroke->append("[VESRION]Версия приложения ");
+	log_stroke->append(APP_STAGE);
+	log_stroke->append(APP_VERSION);
+	log_stroke->append(" ");
+	log_stroke->append(std::to_string(BUILD_NUMBER).c_str());
+	push_log(log_stroke->c_str());
+	log_stroke->clear();
 
 	//Устанавливаем заголовок окна
 	setWindowTitle(tr("LiteMD") + APP_STAGE + APP_VERSION + tr(" build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))/* + tr("[MAX FILE SIZE 65K]")*/);
@@ -273,6 +287,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 
 	//Показываем сообщение готовности к работе
 	statusBar()->showMessage(tr("Ready"), 3000);
+
+	delete(log_stroke);
 }
 //О программе
 void LiteMD::slotAbout()
@@ -318,7 +334,7 @@ void LiteMD::slotFileEdited()
 //Перехватчик события закрытия
 void LiteMD::closeEvent(QCloseEvent* ce)
 {
-	//1
+	push_log("[QT]Вызвано событие закрытия приложения");
 	//Если файл редактировался то спрашиваем нужно ли сохранить
 	if (fileChangedState)
 	{
