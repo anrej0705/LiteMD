@@ -254,7 +254,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mainWgt->setLayout(mainWindowHorizontalSetup);
 	setCentralWidget(mainWgt);
 
-	log_stroke->append("[VESRION]Версия приложения ");
+	log_stroke->append("[VESRION]Версия приложения");
 	log_stroke->append(APP_STAGE);
 	log_stroke->append(APP_VERSION);
 	log_stroke->append(" ");
