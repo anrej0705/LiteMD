@@ -1,6 +1,5 @@
 #include "logger_backend.h"
 #include "exceptionHandler.h"
-#include <sstream>
 
 logger_backend* logger_backend::log_bcknd = 0;
 singlet_remover logger_backend::remv;
@@ -24,14 +23,16 @@ logger_backend::logger_backend()
 {
 	log_str_counter = 0;	//Выделяем память на один указатель больше, на всякий
 	log_container = (char**)calloc(log_str_counter + 1, sizeof(char*));
+	log_str = new boost::container::string;
 }
 
 logger_backend::~logger_backend()
 {
 	//Подчищаем за собой
 	for (uint32_t _index = 0; _index < log_str_counter + 1; ++_index)
-		free(log_container[_index]);
+		delete(log_container[_index]);
 	free(log_container);
+	delete(log_str);
 }
 
 logger_backend& logger_backend::getInstance()
@@ -52,11 +53,12 @@ void logger_backend::insert_log(const char* log, uint32_t log_size)
 	static uint8_t sssize = 0;
 
 	//Достаём значение системного таймера
-	boost::posix_time::time_facet* facet = new boost::posix_time::time_facet("%H:%M:%S.%f");
-	std::stringstream date_stream;
-	date_stream.imbue(std::locale(date_stream.getloc(), facet));
-	date_stream << boost::posix_time::microsec_clock::universal_time();
-	sssize = date_stream.str().size();
+	log_str->append("[");
+	log_str->append(boost::posix_time::to_iso_extended_string(boost::posix_time::microsec_clock::universal_time()).substr(11, 25).c_str());
+	log_str->append("]");
+	log_str->append(log);
+	sssize = log_str->size();
+	//testpoint2 = log_str->c_str();;
 
 	//Выделяем память для указателя на строчку логов
 	++log_str_counter;
@@ -67,19 +69,16 @@ void logger_backend::insert_log(const char* log, uint32_t log_size)
 		throw(exceptionHandler(exceptionHandler::WARNING, "Не удалось выделить память в контейнере логов(указатель зашкварился)"));
 
 	//Выделяем память для занесения строчки логов
-	new_l_ptr = (char*)calloc(log_size + sssize + 3, sizeof(char));
+	new_l_ptr = (char*)calloc(log_str->size() , sizeof(char));
 	if (new_l_ptr != NULL)
 		log_container[log_str_counter - 1] = new_l_ptr;
 	else
 		throw(exceptionHandler(exceptionHandler::WARNING, "Не удалось выделить память для строчки лога(указатель зашкварился)"));
 
 	//Слепляем смску в лог
-	testpoint1 = log_size;
-	testpoint2 = log;
-	log_container[log_str_counter - 1][0] = '[';
-	strncpy(&log_container[log_str_counter - 1][1], date_stream.str().c_str(), sssize);
-	log_container[log_str_counter - 1][sssize + 1] = ']';
-	strncpy(&log_container[log_str_counter - 1][sssize + 2], log, log_size);
+	strncpy(log_container[log_str_counter - 1], log_str->c_str(), sssize);
+	testpoint2 = log_container[log_str_counter - 1];
+	log_str->clear();
 }
 
 void push_log(const char* log)	//По идее это должно без проблем вызываться из сей
@@ -87,4 +86,11 @@ void push_log(const char* log)	//По идее это должно без про
 	t_mut.lock();	//Эта тема будет вызываться из разных потоков поэтому надо выстроить очередь
 	logger_backend::getInstance().insert_log(log, strlen(log));
 	t_mut.unlock();
+}
+
+boost::container::vector<QString> get_logs()
+{
+	boost::container::vector<QString> container;
+
+	return container;
 }
