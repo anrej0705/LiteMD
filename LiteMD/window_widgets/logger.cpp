@@ -57,6 +57,8 @@ logger::logger(QWidget* log) : QDialog(log)
 
 	if (!connect(clearLog, SIGNAL(clicked()), this, SLOT(slot_clear_logs())))
 		QErrorMessage::qtHandler();	//Подключаем кнопку очистки логов
+	if (!connect(saveLog, SIGNAL(clicked()), this, SLOT(slot_save_logs())))
+		QErrorMessage::qtHandler();	//Подключаем кнопку сохранения логов
 }
 
 void logger::slot_read_n_show()
@@ -74,3 +76,30 @@ void logger::slot_clear_logs()
 	logger_backend::getInstance().clear_logs();
 	logFrame->clear();
 }
+
+void logger::slot_save_logs()
+{
+	QFile mdObject;
+	QString mdFileName;
+	//Если пусто то выходим
+	/*if (this->toPlainText() == "")
+	{
+		fileChangedState = 0;
+		return;
+	}*/
+	//Вызываем диалоговое окно сохранения
+	mdFileName = QFileDialog::getSaveFileName(0, tr("Save logs"), "log", tr("*.txt"));
+	//Присваиваем хандлеру имя файла
+	mdObject.setFileName(mdFileName);
+	//Если удалось открыть файл на запись то выполняем
+	if (mdObject.open(QIODevice::WriteOnly))
+	{
+		//Присваиваем выходному потоку указатель на хандлер и задаем юникод и затем сохраняем
+		QTextStream out(&mdObject);
+		out.setCodec("UTF-8");
+		out << logFrame->toPlainText();
+		//Закрываем файл, сбрасываем файл и отсылаем сигнал
+		mdObject.close();
+	}
+}
+

@@ -31,4 +31,5 @@ class logger : public QDialog
 	public slots:
 		void slot_read_n_show();
 		void slot_clear_logs();
+		void slot_save_logs();
 };

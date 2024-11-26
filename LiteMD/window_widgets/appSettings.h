@@ -99,6 +99,7 @@ class appSettings : public QDialog
 		void slot_switch_header_lvl_parser(int);
 		void slot_tab_changed(int);
 		void slot_clear_logs();
+		void slot_save_logs();
 	signals:
 		void signalTitleChanged(const QString&);
 };
