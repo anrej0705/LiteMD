@@ -57,7 +57,7 @@ void logger_backend::insert_log(const char* log, uint32_t log_size)
 	{
 		log_container = new_lc_ptr;
 		//Выделяем память для занесения строчки логов
-		new_l_ptr = (char*)calloc(16 + log_size, sizeof(char));
+		new_l_ptr = (char*)calloc(16 + log_size + 2, sizeof(char));
 		if (new_l_ptr != NULL)
 		{
 			log_container[log_str_counter - 1] = new_l_ptr;
@@ -66,6 +66,7 @@ void logger_backend::insert_log(const char* log, uint32_t log_size)
 			strncpy(&log_container[log_str_counter - 1][1], &boost::posix_time::to_iso_extended_string(boost::posix_time::microsec_clock::universal_time()).c_str()[11], 14);
 			log_container[log_str_counter - 1][15] = ']';
 			strncpy(&log_container[log_str_counter - 1][16], log, log_size);
+			log_container[log_str_counter - 1][log_size + 16] = '\0';
 		}
 		else
 			throw(exceptionHandler(exceptionHandler::WARNING, "Не удалось выделить память для строчки лога(указатель зашкварился)"));
@@ -84,7 +85,7 @@ void push_log(const char* log)	//По идее это должно без про
 boost::container::vector<QString> logger_backend::get_logs()
 {
 	boost::container::vector<QString> container;
-	for (uint32_t _index = 0; _index < log_str_counter + 1; ++_index)
-		container.push_back(QString(log_container[_index]));
+	for (uint32_t _index = 0; _index < log_str_counter; ++_index)
+		container.push_back(QString::fromUtf8(log_container[_index]));
 	return container;
 }

@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {
-	logger_backend::getInstance().insert_log("[ЛОГ]Инициализация системы логов", sizeof("[ЛОГ]Инициализация системы логов"));
+	push_log("[Р›РћР“]РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРёСЃС‚РµРјС‹ Р»РѕРіРѕРІ");
     QApplication mdApp(argc, argv);
 	QApplication::setQuitOnLastWindowClosed(1);
 	LiteMD sdiEditor;
