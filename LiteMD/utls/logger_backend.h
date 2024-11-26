@@ -5,12 +5,12 @@
 #include <string>
 #include <QString>
 
-//РћРїРµСЂРµР¶Р°СЋС‰РёРµ РѕР±СЉСЏРІР»РµРЅРёСЏ
-//РџРёР·Р¶РµРЅРѕ РёР· РїСЂРѕРµРєС‚Р° semaphor_multithread https://github.com/anrej0705/semaphor_multithread
+//Опережающие объявления
+//Пизжено из проекта semaphor_multithread https://github.com/anrej0705/semaphor_multithread
 class logger_backend;
 
-//РљР»Р°СЃСЃ, РіР°СЂР°РЅС‚РёСЂСѓСЋС‰РёР№ СѓРґР°Р»РµРЅРёРµ СЃРёРЅРіР»РµС‚Р° РїРѕСЃР»Рµ Р·Р°РєСЂС‹С‚РёСЏ РїСЂРѕРіРё
-//РџРёР·Р¶РµРЅРѕ РёР· РїСЂРѕРµРєС‚Р° semaphor_multithread https://github.com/anrej0705/semaphor_multithread
+//Класс, гарантирующий удаление синглета после закрытия проги
+//Пизжено из проекта semaphor_multithread https://github.com/anrej0705/semaphor_multithread
 class singlet_remover
 {
 	private:
@@ -35,6 +35,7 @@ class logger_backend
 		static logger_backend& getInstance();
 		void insert_log(const char* log, uint32_t log_size);
 		boost::container::vector<QString> get_logs();
+		void clear_logs();
 };
 
 void push_log(const char* log);
