@@ -68,6 +68,9 @@
     <QtMoc Include="modules\frameChangelog.h">
       <Filter>Модули</Filter>
     </QtMoc>
+    <QtMoc Include="window_widgets\logger.h">
+      <Filter>Интерфейс\Окна</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -133,9 +136,6 @@
     <ClCompile Include="modules\exceptionHandler.cpp">
       <Filter>Модули</Filter>
     </ClCompile>
-    <ClCompile Include="string_processing\crlfParser.cpp">
-      <Filter>String processing\Парсеры</Filter>
-    </ClCompile>
     <ClCompile Include="string_processing\urlBasicSimplifiedParser.cpp">
       <Filter>String processing\Парсеры</Filter>
     </ClCompile>
@@ -177,6 +177,21 @@
     </ClCompile>
     <ClCompile Include="string_processing\headerLvlParser.cpp">
       <Filter>String processing\Парсеры</Filter>
+    </ClCompile>
+    <ClCompile Include="settings_tabs\tab_logs.cpp">
+      <Filter>Интерфейс\Окна\Вкладки</Filter>
+    </ClCompile>
+    <ClCompile Include="window_widgets\logger.cpp">
+      <Filter>Интерфейс\Окна</Filter>
+    </ClCompile>
+    <ClCompile Include="dyn_tr_manager\logger_ui.cpp">
+      <Filter>Модули\Динамический перевод</Filter>
+    </ClCompile>
+    <ClCompile Include="utls\logger_backend.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="string_processing\crlfParser.cpp">
+      <Filter>Устаревшее</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -254,6 +269,9 @@
     <Image Include="ress\icon_exception_warning.png">
       <Filter>Resource Files\Иконки док панели</Filter>
     </Image>
+    <Image Include="ress\icon_bug.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ress\buildInfo.rc">
@@ -305,9 +323,6 @@
     <ClInclude Include="modules\exceptionHandler.h">
       <Filter>Модули</Filter>
     </ClInclude>
-    <ClInclude Include="string_processing\crlfParser.h">
-      <Filter>String processing\Парсеры</Filter>
-    </ClInclude>
     <ClInclude Include="string_processing\urlBasicSimplifiedParser.h">
       <Filter>String processing\Парсеры</Filter>
     </ClInclude>
@@ -337,6 +352,12 @@
     </ClInclude>
     <ClInclude Include="string_processing\headerLvlParser.h">
       <Filter>String processing\Парсеры</Filter>
+    </ClInclude>
+    <ClInclude Include="utls\logger_backend.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\crlfParser.h">
+      <Filter>Устаревшее</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

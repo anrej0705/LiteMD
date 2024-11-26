@@ -405,6 +405,14 @@ Programm will close</translation>
         <source>Logs</source>
         <translation>Logs</translation>
     </message>
+    <message>
+        <source>Save logs</source>
+        <translation>Save logs</translation>
+    </message>
+    <message>
+        <source>*.txt</source>
+        <translation>*.txt</translation>
+    </message>
 </context>
 <context>
     <name>currentChangelog</name>
@@ -434,6 +442,14 @@ Programm will close</translation>
     <message>
         <source>logHint</source>
         <translation>Logs</translation>
+    </message>
+    <message>
+        <source>Save logs</source>
+        <translation>Save logs</translation>
+    </message>
+    <message>
+        <source>*.txt</source>
+        <translation>*.txt</translation>
     </message>
 </context>
 <context>
