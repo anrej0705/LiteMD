@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <QtWidgets>
 #include "ui_update_event.h"
 #include "appSettings.h"
@@ -7,20 +7,20 @@ class logger : public QDialog
 {
 	Q_OBJECT
 	private:
-		//Кнопки
+		//РљРЅРѕРїРєРё
 		QPushButton* clearLog;
 		QPushButton* saveLog;
 
-		//Рамка для крЫсоты
+		//РљСЂР°СЃРёРІР°СЏ СЂР°РјРєР°
 		QGroupBox* frame;
 
-		//Костыль для помещения рамки
+		//РљРѕСЃС‚С‹Р»СЊ РґР»СЏ СЂР°РјРєРё
 		QVBoxLayout* frameFix;
 
-		//Поле логов
+		//РћРєРЅРѕ Р»РѕРіРѕРІ
 		QPlainTextEdit* logFrame;
 
-		//Менеджеры компоновки
+		//РњРµРЅРµРґР¶РµСЂС‹ РєРѕРјРїРѕРЅРѕРІРєРё
 		QHBoxLayout* buttonLay;
 		QVBoxLayout* builder;
 	protected:
@@ -30,4 +30,5 @@ class logger : public QDialog
 		logger(QWidget* log = 0);
 	public slots:
 		void slot_read_n_show();
+		void slot_clear_logs();
 };

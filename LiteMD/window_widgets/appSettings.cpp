@@ -84,6 +84,8 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 		QErrorMessage::qtHandler();
 	if (!connect(settingsLister, SIGNAL(currentChanged(int)), this, SLOT(slot_tab_changed(int))))
 		QErrorMessage::qtHandler();
+	if (!connect(clearLog, SIGNAL(clicked()), this, SLOT(slot_clear_logs())))
+		QErrorMessage::qtHandler();
 	
 
 	//Ставим заглушку
@@ -174,4 +176,10 @@ void appSettings::slot_tab_changed(int tab_index)
 			logBox->appendPlainText(container.at(_index));
 		}
 	}
+}
+
+void appSettings::slot_clear_logs()
+{	//Чистка логов
+	logger_backend::getInstance().clear_logs();
+	logBox->clear();
 }

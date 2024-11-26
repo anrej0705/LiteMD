@@ -54,6 +54,9 @@ logger::logger(QWidget* log) : QDialog(log)
 
 	//Всякие настройки
 	logFrame->setReadOnly(1);		//Отключение возможности писать в окно логов
+
+	if (!connect(clearLog, SIGNAL(clicked()), this, SLOT(slot_clear_logs())))
+		QErrorMessage::qtHandler();	//Подключаем кнопку очистки логов
 }
 
 void logger::slot_read_n_show()
@@ -64,4 +67,10 @@ void logger::slot_read_n_show()
 		logFrame->appendPlainText(container.at(_index));
 	}
 	this->show();
+}
+
+void logger::slot_clear_logs()
+{	//Чистим логи по запросу
+	logger_backend::getInstance().clear_logs();
+	logFrame->clear();
 }

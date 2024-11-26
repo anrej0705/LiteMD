@@ -98,6 +98,7 @@ class appSettings : public QDialog
 		void slot_switch_adv_url_parser(int);
 		void slot_switch_header_lvl_parser(int);
 		void slot_tab_changed(int);
+		void slot_clear_logs();
 	signals:
 		void signalTitleChanged(const QString&);
 };
