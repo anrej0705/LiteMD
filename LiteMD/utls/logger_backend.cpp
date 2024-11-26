@@ -63,7 +63,7 @@ void logger_backend::insert_log(const char* log, uint32_t log_size)
 			log_container[log_str_counter - 1] = new_l_ptr;
 			log_container[log_str_counter - 1][0] = '[';
 			//Достаём значение системного таймера
-			strncpy(&log_container[log_str_counter - 1][1], boost::posix_time::to_iso_extended_string(boost::posix_time::microsec_clock::universal_time()).substr(11, 25).c_str(), 14);
+			strncpy(&log_container[log_str_counter - 1][1], &boost::posix_time::to_iso_extended_string(boost::posix_time::microsec_clock::universal_time()).c_str()[11], 14);
 			log_container[log_str_counter - 1][15] = ']';
 			strncpy(&log_container[log_str_counter - 1][16], log, log_size);
 		}
