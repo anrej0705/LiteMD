@@ -60,7 +60,10 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 
 	//Устанавливаем менеджер как основной виджет
 	setLayout(dialogWindow);
-	
+
+	uint8_t connected_signals = 0;
+
+	push_log("[QT->appSettings]Установка связей сигнал-слот");
 	//Устанавливаем связи кнопок
 	if (!connect(btnOk, SIGNAL(clicked()), this, SLOT(slot_apply_settings())))
 		QErrorMessage::qtHandler();	//Кнопка применить изменения
@@ -90,6 +93,7 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 		QErrorMessage::qtHandler();	//Кнопка очистки логов
 	if (!connect(saveLog, SIGNAL(clicked()), this, SLOT(slot_save_logs())))
 		QErrorMessage::qtHandler();	//Кнопка сохранения логов
+	push_log(std::string("[QT->appSettings]Образовано " + std::to_string(connected_signals) + " связей"));
 	
 
 	//Ставим заглушку
