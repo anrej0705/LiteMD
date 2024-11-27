@@ -75,13 +75,13 @@ std::string advancedUrlParser(std::string& rawInput)
 		squ_entry_list = (uint32_t*)realloc(squ_entry_list, sizeof(uint32_t) * (squ_brackets_entry + 1));
 		squ_entry_list[squ_brackets_entry] = *buffer_size + 1;	//Костыль с фиксом последнего символа
 
-		if (entry_list[0] != 0)	//Если первое вхождение не является началом блока то отмечаем 0 как смещение
+		if (squ_entry_list[0] != 0)	//Если первое вхождение не является началом блока то отмечаем 0 как смещение
 		{
 			log_stroke->append("[urlAdvancedParser]Добавлена зона поиска повторов (0-");
 			++squ_brackets_offset;
 			squ_offsets = (uint32_t*)realloc(squ_offsets, sizeof(uint32_t) * (squ_brackets_offset + 1) + sizeof(uint32_t));
 			squ_offsets[squ_brackets_offset - 1] = 0;
-			log_stroke->append(std::to_string(squ_offsets[squ_brackets_offset - 1]).c_str());
+			log_stroke->append(std::to_string(squ_offsets[squ_brackets_offset]).c_str());
 			log_stroke->append(")");
 			push_log(log_stroke->c_str());
 			log_stroke->clear();
