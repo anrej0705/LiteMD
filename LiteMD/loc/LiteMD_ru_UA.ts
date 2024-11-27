@@ -393,7 +393,7 @@ Programm will close</source>
     </message>
     <message>
         <source>Will be added in future</source>
-        <translation>Будет добавлено в будущем</translation>
+        <translation type="vanished">Будет добавлено в будущем</translation>
     </message>
     <message>
         <source>Parse URL links</source>
@@ -474,6 +474,10 @@ Programm will close</source>
     <message>
         <source>NaN</source>
         <translation>NaN</translation>
+    </message>
+    <message>
+        <source>XML</source>
+        <translation>XML</translation>
     </message>
 </context>
 <context>

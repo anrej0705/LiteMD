@@ -126,7 +126,7 @@ void appSettings::configureBasicSettingsTab()
 	//Отключаем элементы, механика которых не реализована
 	colorTheme->addItem(tr("Default"));
 	themeList->addItem(tr("Default"));
-	saveSettings->addItem("XML");
+	saveSettings->addItem(tr("XML"));
 	saveFreq->addItem(tr("NaN"));
 	autoSave->setChecked(0);
 	themeList->setDisabled(1);

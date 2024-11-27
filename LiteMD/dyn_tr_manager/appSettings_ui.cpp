@@ -34,9 +34,10 @@ void appSettings::update_ui()
 	settingsLister->setTabText(2, tr("Downloader"));
 	settingsLister->setTabText(3, tr("Logs"));
 	settingsLister->setTabText(4, tr("Cap"));
-	themeList->setItemText(0, tr("Will be added in future"));
-	saveSettings->setItemText(0, tr("Will be added in future"));
-	saveFreq->setItemText(0, tr("Will be added in future"));
+	themeList->setItemText(0, tr("Default"));
+	colorTheme->setItemText(0, tr("Default"));
+	saveSettings->setItemText(0, tr("XML"));
+	saveFreq->setItemText(0, tr("NaN"));
 	themeHint->setText(tr("UI Theme"));
 	saveSettingsHint->setText(tr("Settings save type"));
 	autoSaveHint->setText(tr("Autosave"));
@@ -49,6 +50,7 @@ void appSettings::update_ui()
 	parseHeaderLvlHint->setText(tr("parseHeaderLvlHint"));
 	allowWarningsHint->setText(tr("Show one-time deprecated warning"));
 	allowCacheHint->setText(tr("Enable content caching"));
+	colorThemeHint->setText(tr("colorThemeHint"));
 	clearLog->setText(tr("clearLog"));
 	saveLog->setText(tr("saveLog"));
 	logHint->setText(tr("logHint"));
