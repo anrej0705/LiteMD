@@ -50,6 +50,10 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	cLog = new currentChangelog;
 	showTim = new QTimer;
 	logWindow = new logger;
+	headersMenu = new QMenu(tr("Set headers"));
+	formatStyle = new QMenu(tr("Set format style"));
+	actPlaceHeader = new QToolButton;
+	actSetTextFormat = new QToolButton;
 	//-------------------------
 
 	//Блок конфигурации элементов интерфейса
@@ -105,14 +109,41 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	actNew = new QAction(QPixmap("ress/icon_new_document.png"), tr("&New"));
 	actPlaceUrl = new QAction(QPixmap("ress/icon_place_url.png"), tr("Make &URL"));
 	actPlaceAltUrl = new QAction(QPixmap("ress/icon_place_url_alternate.png"), tr("Make alt&enate URL"));
-	actSetTextFormat = new QAction(QPixmap("ress/icon_set_text_format.png"), tr("Te&xt Format"));
 	actHelp = new QAction(QPixmap("ress/icon_help.png"), tr("&Help"));
 	actOpenChangelog = new QAction(QPixmap("ress/icon_show_changelog.png"), tr("Sh&ow changelog"));
 	actBugReport = new QAction(QPixmap("ress/icon_bug.png"), tr("&Bug!"));
-	actPlaceHeader = new QAction(QPixmap("ress/icon_set_header.png"), tr("S&et header"));
+	actSetH1 = new QAction(QPixmap("ress/icon_set_header.png"), tr("Set H1"));
+	actSetH2 = new QAction(QPixmap("ress/icon_set_header.png"), tr("Set H2"));
+	actSetH3 = new QAction(QPixmap("ress/icon_set_header.png"), tr("Set H3"));
+	actSetH4 = new QAction(QPixmap("ress/icon_set_header.png"), tr("Set H4"));
+	actSetH5 = new QAction(QPixmap("ress/icon_set_header.png"), tr("Set H5"));
 	actShieldSymbol = new QAction(QPixmap("ress/icon_set_shielding.png"), tr("Es&cape character"));
+	setBold = new QAction(QPixmap("ress/icon_set_text_format.png"), tr("Set bold"));
+	setItalic = new QAction(QPixmap("ress/icon_set_text_format.png"), tr("Set italic"));
+	setUnderlined = new QAction(QPixmap("ress/icon_set_text_format.png"), tr("Set underlined"));
+	setStrikethrough = new QAction(QPixmap("ress/icon_set_text_format.png"), tr("Set strikethrough"));
 	//----------------
 	
+	//Настройка выпадающих менюшек
+	actPlaceHeader->setIcon(QPixmap("ress/icon_set_header.png"));
+	actPlaceHeader->setMenu(headersMenu);
+	actPlaceHeader->setPopupMode(QToolButton::InstantPopup);
+	actPlaceHeader->setArrowType(Qt::NoArrow);
+	headersMenu->addAction(actSetH1);
+	headersMenu->addAction(actSetH2);
+	headersMenu->addAction(actSetH3);
+	headersMenu->addAction(actSetH4);
+	headersMenu->addAction(actSetH5);
+	actSetTextFormat->setIcon(QPixmap("ress/icon_set_text_format.png"));
+	actSetTextFormat->setMenu(formatStyle);
+	actSetTextFormat->setPopupMode(QToolButton::InstantPopup);
+	actSetTextFormat->setArrowType(Qt::NoArrow);
+	formatStyle->addAction(setBold);
+	formatStyle->addAction(setItalic);
+	formatStyle->addAction(setUnderlined);
+	formatStyle->addAction(setStrikethrough);
+	//----------------------------
+
 	//Установка обработчика события смены языка
 	qApp->installEventFilter(this);
 
@@ -135,8 +166,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	quick_tb->addSeparator();
 	quick_tb->addAction(actPlaceUrl);
 	quick_tb->addAction(actPlaceAltUrl);
-	quick_tb->addAction(actSetTextFormat);
-	quick_tb->addAction(actPlaceHeader);
+	quick_tb->addWidget(actSetTextFormat);
+	quick_tb->addWidget(actPlaceHeader);
 	quick_tb->addAction(actShieldSymbol);
 	quick_tb->addSeparator();
 	serv_tb->addAction(actBugReport);
@@ -196,8 +227,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mFile->addAction(actQuit);
 	mEdit->addAction(actPlaceUrl);
 	mEdit->addAction(actPlaceAltUrl);
-	mEdit->addAction(actSetTextFormat);
-	mEdit->addAction(actPlaceHeader);
+	mEdit->addMenu(formatStyle);
+	mEdit->addMenu(headersMenu);
 	mEdit->addAction(actShieldSymbol);
 	mSettings->addAction(actDownloader);
 	mSettings->addSeparator();

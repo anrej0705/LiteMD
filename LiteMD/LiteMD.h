@@ -42,6 +42,8 @@ class LiteMD : public QMainWindow
 		xmlReader* xmlR;				//Читалка настроек
 		QTimer* showTim;				//Таймер на отображение окна
 		logger* logWindow;				//Окно логов которое появляется нажатием на жука
+		QToolButton* actPlaceHeader;	//Кнопка "превратить в заголовок"
+		QToolButton* actSetTextFormat;	//Выбрать форматирование выделенного текста
 
 		//Действия всякие, в меню и в док
 		QAction* actAbout;				//Пункт меню о программе
@@ -54,12 +56,27 @@ class LiteMD : public QMainWindow
 		QAction* actNew;				//Кнопка создания нового документа
 		QAction* actPlaceUrl;			//Преобразовать в (ссылку)
 		QAction* actPlaceAltUrl;		//Преобразовать в [альтернативную](ссылку)
-		QAction* actSetTextFormat;		//Выбрать форматирование выделенного текста
 		QAction* actHelp;				//Открывает справку
 		QAction* actOpenChangelog;		//Открывает список изменений текущей версии
 		QAction* actBugReport;			//Кнопка открытия окна логов
-		QAction* actPlaceHeader;		//Кнопка "превратить в заголовок"
 		QAction* actShieldSymbol;		//Кнопка экранирования символа на котором стоит курсор
+
+		//Действия менюшки заголовков
+		QAction* actSetH1;				//H1
+		QAction* actSetH2;				//H2
+		QAction* actSetH3;				//H3
+		QAction* actSetH4;				//H4
+		QAction* actSetH5;				//H5
+
+		//Действия менюшки форматирования
+		QAction* setBold;				//Жирный
+		QAction* setItalic;				//Курсив
+		QAction* setUnderlined;			//Подчёркнутый
+		QAction* setStrikethrough;		//Зачёркнутый
+
+		//Выпадающие менюшки из тулбара
+		QMenu* headersMenu;				//Выпадающая менюшка выбора заголовков
+		QMenu* formatStyle;				//Выпадающая менюшка выбора стиля форматирования
 	protected:
 		bool eventFilter(QObject* pobj, QEvent* event);
 		void update_ui();
