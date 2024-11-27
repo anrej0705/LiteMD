@@ -1,11 +1,28 @@
 #include "LiteMD.h"
 #include "global_definitions.h"
+#include "logger_backend.h"
 
 bool LiteMD::eventFilter(QObject* pobj, QEvent* p_event)
 {
 	if (p_event->type() == static_cast<QEvent::Type>(QEvent::User + APP_EVENT_LiteMD_UPDATE_EVENT))
 	{
 		update_ui();
+		return 1;
+	}
+	if (p_event->type() == static_cast<QEvent::Type>(QEvent::User + APP_EVENT_enable_dev_func_EVENT))
+	{
+		if (enableIndevFeatures)
+		{	//Включаем отключённые для разработки фичи
+			actSetTextFormat->setEnabled(1);
+			actHelp->setEnabled(1);
+			push_log("[QMainWindow]Фичи {actSetTextFormat,actHelp} активны");
+		}
+		else
+		{	//Отключаем фичи
+			actSetTextFormat->setDisabled(1);
+			actHelp->setDisabled(1);
+			push_log("[QMainWindow]Фичи {actSetTextFormat,actHelp} отключены");
+		}
 		return 1;
 	}
 	return QWidget::eventFilter(pobj, p_event);

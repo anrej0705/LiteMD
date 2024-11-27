@@ -21,10 +21,10 @@ class appSettings : public QDialog
 		QTranslator lmd_lng;
 
 		QTabWidget* settingsLister;	//Менеджер вкладок
-		QLabel* workprogress;	//Заглушка
-		QPushButton* btnOk;		//Кнопка подтверждения
-		QPushButton* btnCancel;	//Кнопка отмены
-		QPushButton* btnApply;	//Кнопка применить изменения
+		QLabel* workprogress;		//Заглушка
+		QPushButton* btnOk;			//Кнопка подтверждения
+		QPushButton* btnCancel;		//Кнопка отмены
+		QPushButton* btnApply;		//Кнопка применить изменения
 		QHBoxLayout* controlBtnLay;	//Менеджеры размещения кнопок снизу
 		QVBoxLayout* dialogWindow;	//Менеджер общего размещения элементов
 
@@ -34,6 +34,9 @@ class appSettings : public QDialog
 
 		QLabel* themeHint;		//Описание выпадающего списка для смены темы
 		QComboBox* themeList;	//Выпадающий список для смены темы
+
+		QLabel* colorThemeHint;	//Описание выпадающего списка для цветовой схемы
+		QComboBox* colorTheme;	//Выпадающий список для смены цветовой схемы
 
 		QLabel* saveSettingsHint;//Описание выпадающего списка для выбора способа сохранения настроек
 		QComboBox* saveSettings;//Выпадающий список для сохранения настроек

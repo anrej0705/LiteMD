@@ -18,6 +18,9 @@ extern bool enableDeprFeatures;
 extern bool enableIndevFeatures;
 extern int langCode;
 
+//Список файлов
+extern char** lastFiles;
+
 //Настройки битов парсинга - биты по умолчанию заданы в appSettings.cpp
 struct parser_switchers
 {

@@ -9,6 +9,7 @@
 #include "xmlWriter.h"
 #include "xmlReader.h"
 #include "logger.h"
+#include "event_id_constructor.h"
 extern "C"
 {
 	#include "globalFlags.h"

@@ -1,9 +1,9 @@
 #include "appSettings.h"
-#include "global_definitions.h"
 #include "ui_update_event.h"
 extern "C"
 {
-#include "globalFlags.h"
+	#include "global_definitions.h"
+	#include "globalFlags.h"
 }
 extern struct parser_switchers parswitch;
 bool appSettings::eventFilter(QObject* pobj, QEvent* p_event)
