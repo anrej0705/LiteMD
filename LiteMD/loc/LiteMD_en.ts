@@ -244,7 +244,7 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>Ver.</source>
-        <translation>Ver.</translation>
+        <translation type="vanished">Ver.</translation>
     </message>
     <message>
         <source>Set headers</source>
@@ -293,6 +293,10 @@ I hope u like my app :D</translation>
     <message>
         <source>Set strikethrough</source>
         <translation>Set strikethrough</translation>
+    </message>
+    <message>
+        <source>Ver </source>
+        <translation>Ver </translation>
     </message>
 </context>
 <context>

@@ -246,7 +246,7 @@ github.com/anrej0705
     </message>
     <message>
         <source>Ver.</source>
-        <translation>версия.</translation>
+        <translation type="vanished">версия.</translation>
     </message>
     <message>
         <source>Set headers</source>
@@ -295,6 +295,10 @@ github.com/anrej0705
     <message>
         <source>Set strikethrough</source>
         <translation>Сделать зачёркнутым</translation>
+    </message>
+    <message>
+        <source>Ver </source>
+        <translation>версия </translation>
     </message>
 </context>
 <context>
