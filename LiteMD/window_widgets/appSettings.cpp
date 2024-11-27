@@ -1,17 +1,17 @@
 #include "appSettings.h"
 #include "ui_update_event.h"
 #include "event_id_constructor.h"
-#include "global_definitions.h"
 #include "exceptionHandler.h"
 #include "logger_backend.h"
 #include <QtWidgets>
 #include <boost/container/vector.hpp>
 extern "C"
 {
+	#include "global_definitions.h"
 	#include "globalFlags.h"
 }
 struct parser_switchers parswitch;
-extern struct depr_paerser_switchers dparswitch;
+struct depr_paerser_switchers dparswitch;
 appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 {
 	push_log("[QT]Инициализация окна настроек");
