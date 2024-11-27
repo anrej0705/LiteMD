@@ -13,6 +13,7 @@ extern "C"
 struct parser_switchers parswitch;
 appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 {
+	push_log("[QT]Инициализация окна настроек");
 	//Окно настроек, будет переписано
 	setModal(1);
 	setWindowTitle(tr("LiteMD Settings"));
@@ -130,32 +131,42 @@ void appSettings::slot_apply_settings()
 void appSettings::slot_switch_simple_url_parser(int bit)
 {
 	parswitch.en_simple_url = static_cast<bool>(bit);
+	parswitch.en_simple_url == 0 ? push_log("[НАСТРОЙКИ]Парсер простых ссылок отключён") : push_log("[НАСТРОЙКИ]Парсер простых ссылок включён");
 }
 
 void appSettings::slot_switch_adv_url_parser(int bit)
 {
 	parswitch.en_adv_url = static_cast<bool>(bit);
+	parswitch.en_adv_url == 0 ? push_log("[НАСТРОЙКИ]Парсер форматированных ссылок отключён") : push_log("[НАСТРОЙКИ]Парсер форматированных ссылок включён");
 }
 
 void appSettings::slot_switch_header_lvl_parser(int bit)
 {
 	parswitch.en_header_lvl = static_cast<bool>(bit);
+	parswitch.en_header_lvl == 0 ? push_log("[НАСТРОЙКИ]Парсер заголовков отключён") : push_log("[НАСТРОЙКИ]Парсер заголовков включён");
 }
 
 void appSettings::slot_switch_warn_allow(int bit)
 {
 	allowHttpWarn = static_cast<bool>(bit);
+	allowHttpWarn  == 0 ? push_log("[НАСТРОЙКИ]Парсер заголовков отключён") : push_log("[НАСТРОЙКИ]Парсер заголовков включён");
 }
 
 void appSettings::slot_switch_deprecated(int bit)
 {
 	enableDeprFeatures = static_cast<bool>(bit);
+	if (::enableDeprFeatures)
+	{
+		push_log("[НАСТРОЙКИ]Переключение на устаревший функционал");
+	}
 }
 
 void appSettings::slot_switch_features(int bit)
 {
+	enableIndevFeatures = static_cast<bool>(bit);
 	if (!enableIndevFeatures)
 	{
+		push_log("[НАСТРОЙКИ]Активирован функционал находящийся в разработке, возможна нестабильная работа");
 		try
 		{
 			newRecentFilesArray();
@@ -165,11 +176,11 @@ void appSettings::slot_switch_features(int bit)
 			(exceptionHandler(exceptionHandler::FATAL));
 		}
 	}
-	enableIndevFeatures = static_cast<bool>(bit);
 }
 
 void appSettings::slot_tab_changed(int tab_index)
 {
+	push_log(std::string("[НАСТРОЙКИ]Смена индекса активной вкладки на " + std::to_string(tab_index)).c_str());
 	if (tab_index == 3)
 	{
 		boost::container::vector<QString> container = logger_backend::getInstance().get_logs();
