@@ -7,6 +7,7 @@ extern "C"
 	#include "global_definitions.h"
 }
 extern struct parser_switchers parswitch;
+extern struct depr_paerser_switchers dparswitch;
 xmlWriter::xmlWriter()
 {
 	fileName = "config.xml";
@@ -34,6 +35,11 @@ void xmlWriter::writeConfig()
 	QDomElement enBasicUrlParse = attrib(*lmdFileSet, "enBasicUrlParse", parswitch.en_simple_url);
 	QDomElement enAdvUrlParse = attrib(*lmdFileSet, "enAdvUrlParse", parswitch.en_adv_url);
 	QDomElement enHeaderLvlParse = attrib(*lmdFileSet, "enHeaderLvlParse", parswitch.en_header_lvl);
+	QDomElement en_t_post = attrib(*lmdFileSet, "depr_en_t_post", dparswitch.en_t_post);
+	QDomElement en_t_prep = attrib(*lmdFileSet, "depr_en_t_prep", dparswitch.en_t_prep);
+	QDomElement en_url_adv = attrib(*lmdFileSet, "depr_en_url_adv", dparswitch.en_url_adv);
+	QDomElement en_url_bas = attrib(*lmdFileSet, "depr_en_url_bas", dparswitch.en_url_bas);
+	QDomElement en_url_bas_simple = attrib(*lmdFileSet, "depr_en_url_bas_simple", dparswitch.en_url_bas_simple);
 	lmdSet->appendChild(build);
 	lmdSet->appendChild(patchNoteRead);
 	lmdSet->appendChild(indevFeatures);
@@ -42,6 +48,11 @@ void xmlWriter::writeConfig()
 	lmdSet->appendChild(enBasicUrlParse);
 	lmdSet->appendChild(enAdvUrlParse);
 	lmdSet->appendChild(enHeaderLvlParse);
+	lmdSet->appendChild(en_t_post);
+	lmdSet->appendChild(en_t_prep);
+	lmdSet->appendChild(en_url_adv);
+	lmdSet->appendChild(en_url_bas);
+	lmdSet->appendChild(en_url_bas_simple);
 	QFile settingsFile(fileName);
 	if (settingsFile.open(QIODevice::WriteOnly))
 	{
