@@ -92,7 +92,7 @@ std::string advancedUrlParser(std::string& rawInput)
 		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlAdvancedParser.cpp 58:72")));
 	}
 
-	push_log("[urlAdvancedParser]Поиск закрыющего знака ']'");
+	push_log("[urlAdvancedParser]Поиск закрывающего знака ']'");
 
 	try
 	{
