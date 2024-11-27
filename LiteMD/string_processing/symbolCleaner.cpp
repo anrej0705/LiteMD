@@ -167,7 +167,7 @@ std::string symbolCleaner(std::string& rawInput)
 						{																//Если наход то проверяем из чего сделан кокс
 							//testpoint2 = clean_buffer->at(_idx);
 							//testpoint1.insert(0, 1, testpoint2);
-							if ((compare_char == clean_buffer->at(_idx)) && (clean_buffer->at(_idx - 1) == ']'))
+							if ((_idx > 0) && (compare_char == clean_buffer->at(_idx)) && (clean_buffer->at(_idx - 1) == ']'))
 							{
 								compare_char = forward_bump.at(1);						//Снова кешируется но уже для пары '[]'
 								brackets_entry = _idx;									//Кешируется начало скобок
