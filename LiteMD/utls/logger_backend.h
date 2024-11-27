@@ -41,5 +41,6 @@ class logger_backend
 };
 
 void dump_crash_log();
-void push_log(const char* log);
-
+void push_log(const char* log);			//Лог формата char*
+void push_log(const std::string& log);	//Лог формата std::string
+void push_log(const QString& log);		//Лог формата QString

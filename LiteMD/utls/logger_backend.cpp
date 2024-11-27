@@ -84,6 +84,20 @@ void push_log(const char* log)	//По идее это должно без про
 	t_mut.unlock();
 }
 
+void push_log(const std::string& log)	//Лог формата std::string
+{
+	t_mut.lock();	//Эта тема будет вызываться из разных потоков поэтому надо выстроить очередь
+	logger_backend::getInstance().insert_log(log.c_str(), log.size());
+	t_mut.unlock();
+}
+
+void push_log(const QString& log)		//Лог формата QString
+{
+	t_mut.lock();	//Эта тема будет вызываться из разных потоков поэтому надо выстроить очередь
+	logger_backend::getInstance().insert_log(log.toLocal8Bit(), log.size());
+	t_mut.unlock();
+}
+
 boost::container::vector<QString> logger_backend::get_logs()
 {
 	boost::container::vector<QString> container;
