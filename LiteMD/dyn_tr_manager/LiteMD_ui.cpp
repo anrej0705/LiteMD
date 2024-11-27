@@ -40,6 +40,8 @@ void LiteMD::update_ui()
 	mEdit->setTitle(tr("&Edit"));
 	mSettings->setTitle(tr("&Service"));
 	mHelp->setTitle(tr("&Help"));
+	headersMenu->setTitle(tr("Set headers"));
+	formatStyle->setTitle(tr("Set format style"));
 	//----------------------
 
 	//Обновляем перевод кнопок
@@ -56,5 +58,15 @@ void LiteMD::update_ui()
 	actSetTextFormat->setText(tr("Te&xt Format"));
 	actHelp->setText(tr("&Help"));
 	actBugReport->setText(tr("&Bug!"));
+	actSetH1->setText(tr("Set H1"));
+	actSetH2->setText(tr("Set H2"));
+	actSetH3->setText(tr("Set H3"));
+	actSetH4->setText(tr("Set H4"));
+	actSetH5->setText(tr("Set H5"));
+	actShieldSymbol->setText(tr("Es&cape character"));
+	setBold->setText(tr("Set bold"));
+	setItalic->setText(tr("Set italic"));
+	setUnderlined->setText(tr("Set underlined"));
+	setStrikethrough->setText(tr("Set strikethrough"));
 	//------------------------
 }
