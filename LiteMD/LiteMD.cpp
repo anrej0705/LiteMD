@@ -109,6 +109,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	actHelp = new QAction(QPixmap("ress/icon_help.png"), tr("&Help"));
 	actOpenChangelog = new QAction(QPixmap("ress/icon_show_changelog.png"), tr("Sh&ow changelog"));
 	actBugReport = new QAction(QPixmap("ress/icon_bug.png"), tr("&Bug!"));
+	actPlaceHeader = new QAction(QPixmap("ress/icon_set_header.png"), tr("S&et header"));
+	actShieldSymbol = new QAction(QPixmap("ress/icon_set_shielding.png"), tr("Es&cape character"));
 	//----------------
 	
 	//Установка обработчика события смены языка
@@ -134,6 +136,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	quick_tb->addAction(actPlaceUrl);
 	quick_tb->addAction(actPlaceAltUrl);
 	quick_tb->addAction(actSetTextFormat);
+	quick_tb->addAction(actPlaceHeader);
+	quick_tb->addAction(actShieldSymbol);
 	quick_tb->addSeparator();
 	serv_tb->addAction(actBugReport);
 	serv_tb->addSeparator();
@@ -193,6 +197,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	mEdit->addAction(actPlaceUrl);
 	mEdit->addAction(actPlaceAltUrl);
 	mEdit->addAction(actSetTextFormat);
+	mEdit->addAction(actPlaceHeader);
+	mEdit->addAction(actShieldSymbol);
 	mSettings->addAction(actDownloader);
 	mSettings->addSeparator();
 	mSettings->addAction(actSet);

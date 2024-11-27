@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <QtWidgets>
 //#include "ui_LiteMD.h"
 #include "mdEditor.h"
@@ -58,6 +58,8 @@ class LiteMD : public QMainWindow
 		QAction* actHelp;				//Открывает справку
 		QAction* actOpenChangelog;		//Открывает список изменений текущей версии
 		QAction* actBugReport;			//Кнопка открытия окна логов
+		QAction* actPlaceHeader;		//Кнопка "превратить в заголовок"
+		QAction* actShieldSymbol;		//Кнопка экранирования символа на котором стоит курсор
 	protected:
 		bool eventFilter(QObject* pobj, QEvent* event);
 		void update_ui();
