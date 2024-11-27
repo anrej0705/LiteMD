@@ -13,6 +13,7 @@ extern "C"
 	#include "global_definitions.h"
 }
 extern struct parser_switchers parswitch;
+extern struct depr_paerser_switchers dparswitch;
 LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 {	//Контейнер для строчки лога перед отправкой в ядро
 	boost::container::string* log_stroke = new boost::container::string;
@@ -22,6 +23,12 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	parswitch.en_simple_url = 1;
 	parswitch.en_adv_url = 1;
 	parswitch.en_header_lvl = 1;
+
+	dparswitch.en_t_post = 0;
+	dparswitch.en_t_prep = 0;
+	dparswitch.en_url_adv = 0;
+	dparswitch.en_url_bas = 0;
+	dparswitch.en_url_bas_simple = 0;
 
 	//Инициализация окон редактора и рендера текста
 	mde = new mdEditor;

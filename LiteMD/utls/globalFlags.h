@@ -30,6 +30,15 @@ struct parser_switchers
 	bool en_header_lvl;
 };
 
+struct depr_paerser_switchers
+{
+	bool en_t_prep;
+	bool en_t_post;
+	bool en_url_bas_simple;
+	bool en_url_bas;
+	bool en_url_adv
+};
+
 //Хранилище последних открытых файлов(коммит SilverWolf2k20)
 #define NUMBER_OF_FILES	4	//Строки
 #define FILENAME_SIZE	256	//Столбцы

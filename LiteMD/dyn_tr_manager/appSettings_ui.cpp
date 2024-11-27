@@ -54,6 +54,11 @@ void appSettings::update_ui()
 	clearLog->setText(tr("clearLog"));
 	saveLog->setText(tr("saveLog"));
 	logHint->setText(tr("logHint"));
+	deprSyntaxPrepHint->setText(tr("deprSyntaxPrepHint"));
+	deprSyntaxPostHint->setText(tr("deprSyntaxPostHint"));
+	deprUrlSimplParserHint->setText(tr("deprUrlSimplParserHint"));
+	deprUrlAdvParserHint->setText(tr("deprUrlAdvParserHint"));
+	deprUrlBasParserHint->setText(tr("deprUrlBasParserHint"));
 }
 
 void appSettings::update_interactive()

@@ -62,6 +62,16 @@ class appSettings : public QDialog
 		QCheckBox* parseSimplLinks;	//Галка обработки ссылок <url>
 		QCheckBox* parseAdvLinksl;	//Галка обработки [link](url)
 		QCheckBox* parseHeaderLvl;	//Галка обработки заголовков #...#####
+		QLabel* deprSyntaxPrepHint;	//Подпись к чекбоксу устаревшего препроцессора
+		QLabel* deprSyntaxPostHint;	//Подпись к чекбоксу устаревшего пост процессора
+		QLabel* deprUrlSimplParserHint;//Подпись к чекбоксу упрощённого парсера 1
+		QLabel* deprUrlAdvParserHint;//Подпись к чекбоксу парсера форматированных ссылок
+		QLabel* deprUrlBasParserHint;//Подпись к чекбоксу упрощённого парсера 2
+		QCheckBox* deprSyntaxPrep;	//Чекбоксс устаревшего препроцессора
+		QCheckBox* deprSyntaxPost;	//Чекбоксс устаревшего пост процессора
+		QCheckBox* deprUrlSimplParser;//Чекбокс упрощённого парсера 1
+		QCheckBox* deprUrlAdvParser;//Чекбокс парсера форматированных ссылок
+		QCheckBox* deprUrlBasParser;//Чекбокс упрощённого парсера 2
 		//-------------------------
 
 		//Вкладка "Загрузчик"
@@ -103,6 +113,11 @@ class appSettings : public QDialog
 		void slot_tab_changed(int);
 		void slot_clear_logs();
 		void slot_save_logs();
+		void slot_dparswitch_en_t_prep(int);
+		void slot_en_t_post(int);
+		void slot_en_url_bas_simple(int);
+		void slot_en_url_bas(int);
+		void slot_en_url_adv(int);
 	signals:
 		void signalTitleChanged(const QString&);
 };

@@ -11,6 +11,7 @@ extern "C"
 	#include "globalFlags.h"
 }
 struct parser_switchers parswitch;
+extern struct depr_paerser_switchers dparswitch;
 appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 {
 	push_log("[QT]Инициализация окна настроек");
@@ -165,6 +166,36 @@ void appSettings::slot_switch_deprecated(int bit)
 	{
 		push_log("[НАСТРОЙКИ]Переключение на устаревший функционал");
 	}
+}
+void appSettings::slot_dparswitch_en_t_prep(int bit)
+{
+	settingChanged = 1;
+	dparswitch.en_t_prep = static_cast<bool>(bit);
+	dparswitch.en_t_prep == 0 ? push_log("[НАСТРОЙКИ]Препроцессор(устаревший) отключён") : push_log("[НАСТРОЙКИ]Препроцессор(устаревший) включён");
+}
+void appSettings::slot_en_t_post(int bit)
+{
+	settingChanged = 1;
+	dparswitch.en_t_post = static_cast<bool>(bit);
+	dparswitch.en_t_post == 0 ? push_log("[НАСТРОЙКИ]Постпроцессор(устаревший) отключён") : push_log("[НАСТРОЙКИ]Постпроцессор(устаревший) включён");
+}
+void appSettings::slot_en_url_bas_simple(int bit)
+{
+	settingChanged = 1;
+	dparswitch.en_url_bas_simple = static_cast<bool>(bit);
+	dparswitch.en_url_bas_simple == 0 ? push_log("[НАСТРОЙКИ]Парсер <www.url.com>(устаревший) отключён") : push_log("[НАСТРОЙКИ]Парсер <www.url.com>(устаревший) включён");
+}
+void appSettings::slot_en_url_bas(int bit)
+{
+	settingChanged = 1;
+	dparswitch.en_url_bas = static_cast<bool>(bit);
+	dparswitch.en_url_bas == 0 ? push_log("[НАСТРОЙКИ]Парсер <http://www.url.com>(устаревший) отключён") : push_log("[НАСТРОЙКИ]Парсер <http://www.url.com>(устаревший) включён");
+}
+void appSettings::slot_en_url_adv(int bit)
+{
+	settingChanged = 1;
+	dparswitch.en_url_adv = static_cast<bool>(bit);
+	dparswitch.en_url_adv == 0 ? push_log("[НАСТРОЙКИ]Парсер форматированных ссылок(устаревший) отключён") : push_log("[НАСТРОЙКИ]Парсер форматированных ссылок(устаревший) включён");
 }
 
 void appSettings::slot_switch_features(int bit)
