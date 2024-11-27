@@ -196,11 +196,11 @@ void mdEditor::convToAltUrl()
 	QTextCursor tCursor = this->textCursor();
 
 	//Вставляем тег альтернативной ссылки
-	procBuf.insert(0, "(");
-	procBuf.insert(procBuf.size(), ")");
+	procBuf.insert(0, "[");
+	procBuf.insert(procBuf.size(), "]");
 
 	//Вставляем шаблон имени ссылки
-	procBuf.insert(0, tr("[TYPE_NAME]"));
+	procBuf.insert(procBuf.size(), tr("(TYPE_NAME)"));
 
 	//Получаем позицию конца шаблона
 	int bumpEnd = 0;
