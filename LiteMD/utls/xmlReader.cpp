@@ -1,13 +1,15 @@
 #include "xmlReader.h"
-#include "global_definitions.h"
 #include "exceptionHandler.h"
 #include "event_id_constructor.h"
 #include "logger_backend.h"
+#include <boost/container/vector.hpp>
 extern "C"
 {
+	#include "global_definitions.h"
 	#include "globalFlags.h"
 }
 extern struct parser_switchers parswitch;
+extern struct depr_paerser_switchers dparswitch;
 xmlReader::xmlReader()
 {
 	fileName = "config.xml";
@@ -26,16 +28,55 @@ bool xmlReader::checkFileExisting()
 		return 1;
 	return 0;
 }
+//Счётчик количества успешно прочитанных параметров
+//если всё гуд то должен ровняться макросу PARAM_CNT из global_definitions.h
+uint8_t paramReadedCnt = 0;
+
+//Списочек на выдрачивание из конфига, будет пополняться
+boost::container::vector<QString> xml_tags{
+	QString("patchNoteRead"),
+	QString("enableIndevFeatures"),
+	QString("enableDeprFeatures"),
+	QString("langCode"),
+	QString("enBasicUrlParse"),
+	QString("enAdvUrlParse"),
+	QString("enHeaderLvlParse"),
+	QString("depr_en_t_post"),
+	QString("depr_en_t_prep"),
+	QString("depr_en_url_adv"),
+	QString("depr_en_url_bas"),
+	QString("depr_en_url_bas_simple"),
+};
 
 bool xmlReader::readConfig()
 {
 	push_log("[XML]Чтение конфига");
+
+	//"Просто поверь мне" - говорил Ферми, запуская свой первый ядерный реактор
+	static boost::container::vector<void*> _xml_ptr;	//Ебанёт? Не должно по идее
+	_xml_ptr.push_back(reinterpret_cast<void*>(&logReadState));
+	_xml_ptr.push_back(reinterpret_cast<void*>(&enableIndevFeatures));
+	_xml_ptr.push_back(reinterpret_cast<void*>(&enableDeprFeatures));
+	_xml_ptr.push_back(reinterpret_cast<void*>(&langCode));
+	_xml_ptr.push_back(reinterpret_cast<void*>(&parswitch.en_simple_url));
+	_xml_ptr.push_back(reinterpret_cast<void*>(&parswitch.en_adv_url));
+	_xml_ptr.push_back(reinterpret_cast<void*>(&parswitch.en_header_lvl));
+	_xml_ptr.push_back(reinterpret_cast<void*>(&dparswitch.en_t_post));
+	_xml_ptr.push_back(reinterpret_cast<void*>(&dparswitch.en_t_prep));
+	_xml_ptr.push_back(reinterpret_cast<void*>(&dparswitch.en_url_adv));
+	_xml_ptr.push_back(reinterpret_cast<void*>(&dparswitch.en_url_bas));
+	_xml_ptr.push_back(reinterpret_cast<void*>(&dparswitch.en_url_bas_simple));
+
+	int* _int_ptr;
+	bool* _bool_ptr;
+
 	QString value;
 	QFile settings(fileName);
 	bool readSuccess = 0;
 	if (settings.open(QIODevice::ReadOnly))
 	{
 		QXmlStreamReader settingsReader(&settings);
+		QXmlStreamAttributes attr = settingsReader.attributes();
 		settingsReader.readNext();
 		settingsReader.readNext();
 		//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
@@ -55,160 +96,64 @@ bool xmlReader::readConfig()
 						settingsReader.readNext();
 						//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
 						value = settingsReader.text().toString();
-						if (value.toInt() != BUILD_NUMBER)
-							return 0;	//Обновляем конфиг из-за разницы в версиях
+						if (value.toInt() < BUILD_NUMBER)
+						{
+							push_log(std::string("[XML]Обнаружена устаревшая версия конфига " + std::to_string(value.toInt()) + "(текущая версия " + std::to_string(BUILD_NUMBER)).c_str());
+							push_log("[XML]Будет проведена попытка импорта некоторых настроек в новый конфиг");
+						}
+						for (uint8_t _xml_index = 0; _xml_index < PARAM_CNT; ++_xml_index)
+						{
+							settingsReader.readNext();
+							settingsReader.readNext();
+							settingsReader.readNext();
+							settingsReader.readNext();
+							settingsReader.readNext();
+							if (settingsReader.tokenString() == "StartElement")
+							{
+								if (settingsReader.name().toString() == xml_tags[_xml_index])
+								{
+									settingsReader.readNext();
+									settingsReader.readNext();
+									attr = settingsReader.attributes();
+									//qDebug() << attr[0].value();;
+									settingsReader.readNext();
+									value = settingsReader.text().toString();
 
+									//Типа свич но не свич потому string видимо
+									//евреи писали, я доложил гитлеру что кейс тут не работает
+									if (attr[0].value() == "bool")
+									{
+										_bool_ptr = reinterpret_cast<bool*>(_xml_ptr[_xml_index]);
+										if (value == QString("true"))
+											*_bool_ptr = 1;
+										else
+											*_bool_ptr = 0;
+									}
+									else if (attr[0].value() == "int")
+									{
+										_int_ptr = reinterpret_cast<int*>(_xml_ptr[_xml_index]);
+										*_int_ptr = value.toInt();
+									}
+									++paramReadedCnt;
+									readSuccess = 1;
+								}
+								else
+								{	//Если прочитанный параметр не равен параметру из ветора
+									//считаем что структура повреждена и тiкаем отсюда
+									readSuccess = 0;
+									break;
+								}
+							}
+							//Если внезапно закончились теги то считаем что часть прочитана
+							else
+							{
+								readSuccess = 0;
+								break;
+							}
+						}
 					}
 					else
 						readSuccess = 0;
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-
-					if (settingsReader.tokenString() == "StartElement" && settingsReader.name() == "patchNoteRead")
-					{
-						settingsReader.readNext();
-						settingsReader.readNext();
-						settingsReader.readNext();
-						//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
-						value = settingsReader.text().toString();
-						if (value == QString("true"))
-							logReadState = 1;
-						else if (value == QString("false"))
-							logReadState = 0;
-						else
-							return 0;	//Здесь и далее - возвращаем 0 если есть ошибки в чтении
-					}
-					else
-						readSuccess = 0;
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-
-					if (settingsReader.tokenString() == "StartElement" && settingsReader.name() == "enableIndevFeatures")
-					{
-						settingsReader.readNext();
-						settingsReader.readNext();
-						settingsReader.readNext();
-						//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
-						value = settingsReader.text().toString();
-						if (value == QString("true"))
-							enableIndevFeatures = 1;
-						else if (value == QString("false"))
-							enableIndevFeatures = 0;
-						else
-							return 0;
-					}
-					else
-						readSuccess = 0;
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-
-					if (settingsReader.tokenString() == "StartElement" && settingsReader.name() == "enableDeprFeatures")
-					{
-						settingsReader.readNext();
-						settingsReader.readNext();
-						settingsReader.readNext();
-						//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
-						value = settingsReader.text().toString();
-						if (value == QString("true"))
-							enableDeprFeatures = 1;
-						else if (value == QString("false"))
-							enableDeprFeatures = 0;
-						else
-							return 0;
-					}
-					else
-						readSuccess = 0;
-
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-
-					if (settingsReader.tokenString() == "StartElement" && settingsReader.name() == "langCode")
-					{
-						settingsReader.readNext();
-						settingsReader.readNext();
-						settingsReader.readNext();
-						//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
-						value = settingsReader.text().toString();
-						langCode = value.toInt();
-					}
-					else
-						readSuccess = 0;
-
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-
-					if (settingsReader.tokenString() == "StartElement" && settingsReader.name() == "enBasicUrlParse")
-					{
-						settingsReader.readNext();
-						settingsReader.readNext();
-						settingsReader.readNext();
-						//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
-						value = settingsReader.text().toString();
-						if (value == QString("true"))
-							parswitch.en_simple_url = 1;
-						else if (value == QString("false"))
-							parswitch.en_simple_url = 0;
-					}
-					else
-						readSuccess = 0;
-
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-
-					if (settingsReader.tokenString() == "StartElement" && settingsReader.name() == "enAdvUrlParse")
-					{
-						settingsReader.readNext();
-						settingsReader.readNext();
-						settingsReader.readNext();
-						//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
-						value = settingsReader.text().toString();
-						if (value == QString("true"))
-							parswitch.en_adv_url = 1;
-						else if (value == QString("false"))
-							parswitch.en_adv_url = 0;
-					}
-					else
-						readSuccess = 0;
-
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-					settingsReader.readNext();
-
-					if (settingsReader.tokenString() == "StartElement" && settingsReader.name() == "enHeaderLvlParse")
-					{
-						settingsReader.readNext();
-						settingsReader.readNext();
-						settingsReader.readNext();
-						//qDebug() << settingsReader.tokenString() << settingsReader.name() << settingsReader.text();
-						value = settingsReader.text().toString();
-						if (value == QString("true"))
-							parswitch.en_header_lvl = 1;
-						else if (value == QString("false"))
-							parswitch.en_header_lvl = 0;
-					}
-					else
-						readSuccess = 0;
-
 					break;
 
 				} while (!settingsReader.atEnd());
@@ -218,6 +163,12 @@ bool xmlReader::readConfig()
 	else
 		throw(exceptionHandler(exceptionHandler::WARNING, QObject::tr("Cannot open config file!")));
 	settings.close();	//Закрываем файл чтобы освободить дескриптор
+	push_log(std::string("[XML]Прочитано " + std::to_string(paramReadedCnt) + " параметров из " + std::to_string(PARAM_CNT)).c_str());
+	if (paramReadedCnt != PARAM_CNT)
+	{
+		push_log("[XML]Недостающие параметры будут записаны со значением по умолчанию");
+		readSuccess = 0;
+	}
 	if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_UI_UPDATE_USER_SETTINGS)))
 		QErrorMessage::qtHandler();//Отправка события на обновление визуала - галочек, радиокнопок и прочего
 	return readSuccess;

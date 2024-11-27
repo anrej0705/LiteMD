@@ -36,7 +36,7 @@ struct depr_paerser_switchers
 	bool en_t_post;
 	bool en_url_bas_simple;
 	bool en_url_bas;
-	bool en_url_adv
+	bool en_url_adv;
 };
 
 //Хранилище последних открытых файлов(коммит SilverWolf2k20)
