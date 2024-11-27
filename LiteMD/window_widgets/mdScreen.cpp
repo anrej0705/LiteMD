@@ -75,7 +75,7 @@ void mdScreen::slotSetText(const QString& str)
 		push_log("[РЕНДЕР]Обработка переноса строки");
 		mdInput = crlfProcessor(mdInput);					//5 -> 6|Обработка переноса строки
 
-		push_log("[РЕНДЕР][УСТАРЕВШИЙ]Конвертация в QString");
+		push_log("[РЕНДЕР]Конвертация в QString");
 		//Преобразуем в QString
 		mdFormatted = QString::fromStdString(mdInput);
 		balamut.unlock();
