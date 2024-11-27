@@ -250,48 +250,71 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	menuBar()->addMenu(mHelp);
 	//------------------
 
-	push_log("[QT]Установка связей сигнал-слот");
+	uint8_t connected_signals = 0;
+
+	push_log("[QT->LiteMD]Установка связей сигнал-слот");
 	//Блок сигнально-слотовых связей
 	if (!connect(mde, SIGNAL(textEdited(const QString&)), mds, SLOT(slotSetText(const QString&))))
-		QErrorMessage::qtHandler(); //Соединяем сигнал от редактора к слоту изменения текста
+		QErrorMessage::qtHandler(); ++connected_signals;//Соединяем сигнал от редактора к слоту изменения текста
 	if (!connect(mde, SIGNAL(titleChanged(const QString&)), this, SLOT(slotTitleChanged(const QString&))))
-		QErrorMessage::qtHandler();	//Соединяем сигнал открытия файла со слотом изменения заголовка под файл
+		QErrorMessage::qtHandler();	++connected_signals;//Соединяем сигнал открытия файла со слотом изменения заголовка под файл
 	if (!connect(mdlSet, SIGNAL(signalTitleChanged(const QString&)), this, SLOT(slotTitleChanged(const QString&))))
-		QErrorMessage::qtHandler();	//Соединяем сигнал из окна настроек со слотом изменения заголовка под файл
+		QErrorMessage::qtHandler();	++connected_signals;//Соединяем сигнал из окна настроек со слотом изменения заголовка под файл
 	if (!connect(actAbout, SIGNAL(triggered()), this, SLOT(slotAbout())))
-		QErrorMessage::qtHandler();	//Соединяем сигнал со слотом вызова окна о программе
+		QErrorMessage::qtHandler();	++connected_signals;//Соединяем сигнал со слотом вызова окна о программе
 	if (!connect(actOpen, SIGNAL(triggered()), mde, SLOT(slotOpen())))
-		QErrorMessage::qtHandler();	//Соединяем сигнал со слотом открытия нового файла
+		QErrorMessage::qtHandler();	++connected_signals;//Соединяем сигнал со слотом открытия нового файла
 	if (!connect(actSave, SIGNAL(triggered()), mde, SLOT(slotSave())))
-		QErrorMessage::qtHandler();	//Соединяем сигнал со слотом сохранения файла
+		QErrorMessage::qtHandler();	++connected_signals;//Соединяем сигнал со слотом сохранения файла
 	if (!connect(actSaveAs, SIGNAL(triggered()), mde, SLOT(slotSaveAs())))
-		QErrorMessage::qtHandler();	//Соединяем сигнал со слотом набора имени для сохранения
+		QErrorMessage::qtHandler();	++connected_signals;//Соединяем сигнал со слотом набора имени для сохранения
 	if (!connect(actQuit, SIGNAL(triggered()), qApp, SLOT(quit())))
-		QErrorMessage::qtHandler();	//Соединяем сигнал выхода из приложения
+		QErrorMessage::qtHandler();	++connected_signals;//Соединяем сигнал выхода из приложения
 	if (!connect(mde, SIGNAL(statusString(QString)), this, SLOT(slot_mbar_send_string(QString))))
-		QErrorMessage::qtHandler();	//Соединяем сигнал изменения строки состояния
+		QErrorMessage::qtHandler();	++connected_signals;//Соединяем сигнал изменения строки состояния
 	if (!connect(actDownloader, SIGNAL(triggered()), this, SLOT(httpModuleShow())))
-		QErrorMessage::qtHandler(); //Соединяем сигнал срабатывания кнопки на метод отображения
+		QErrorMessage::qtHandler(); ++connected_signals;//Соединяем сигнал срабатывания кнопки на метод отображения
 	if (!connect(actNew, SIGNAL(triggered()), mde, SLOT(slotNew())))
-		QErrorMessage::qtHandler();	//Команда создания нового документа
+		QErrorMessage::qtHandler();	++connected_signals;//Команда создания нового документа
 	if (!connect(mde, SIGNAL(changeTitle()), this, SLOT(slotFileEdited())))
-		QErrorMessage::qtHandler();	//Вешаем звездочку в начале заголовка если документ изменялс
+		QErrorMessage::qtHandler();	++connected_signals;//Вешаем звездочку в начале заголовка если документ изменялс
 	if (!connect(mde, SIGNAL(resetTitle()), this, SLOT(slotTitleReset())))
-		QErrorMessage::qtHandler();	//Сбрасываем заголовок при создании нового файла
+		QErrorMessage::qtHandler();	++connected_signals;//Сбрасываем заголовок при создании нового файла
 	if (!connect(this, SIGNAL(saveFile()), mde, SLOT(slotSave())))
-		QErrorMessage::qtHandler();	//Спрашиваем сохранить ли перед закрытием
+		QErrorMessage::qtHandler();	++connected_signals;//Спрашиваем сохранить ли перед закрытием
 	if (!connect(actSet, SIGNAL(triggered()), mdlSet, SLOT(show())))
-		QErrorMessage::qtHandler();	//Открытие окна настроек
+		QErrorMessage::qtHandler();	++connected_signals;//Открытие окна настроек
 	if (!connect(actPlaceUrl, SIGNAL(triggered()), mde, SLOT(convertToUrl())))
-		QErrorMessage::qtHandler();	//Конвертация в (ссылку)
+		QErrorMessage::qtHandler();	++connected_signals;//Конвертация в (ссылку)
 	if (!connect(actPlaceAltUrl, SIGNAL(triggered()), mde, SLOT(convToAltUrl())))
-		QErrorMessage::qtHandler();	//Конвертация в [альтернативную](ссылку)
+		QErrorMessage::qtHandler();	++connected_signals;//Конвертация в [альтернативную](ссылку)
 	if (!connect(showTim, SIGNAL(timeout()), cLog, SLOT(slotShowWindow())))
-		QErrorMessage::qtHandler();	//Таймер на вызов окна
+		QErrorMessage::qtHandler();	++connected_signals;//Таймер на вызов окна
 	if (!connect(actOpenChangelog, SIGNAL(triggered()), cLog, SLOT(slotShowWindow())))
-		QErrorMessage::qtHandler();	//Вызов окна ченжлога
+		QErrorMessage::qtHandler();	++connected_signals;//Вызов окна ченжлога
 	if (!connect(actBugReport, SIGNAL(triggered()), logWindow, SLOT(slot_read_n_show())))
-		QErrorMessage::qtHandler();	//Вызов окна логов
+		QErrorMessage::qtHandler();	++connected_signals;//Вызов окна логов
+	if (!connect(actSetH1, SIGNAL(triggered()), mde, SLOT(slotSetH1())))
+		QErrorMessage::qtHandler();	++connected_signals;//Установка заголовка H1
+	if (!connect(actSetH2, SIGNAL(triggered()), mde, SLOT(slotSetH2())))
+		QErrorMessage::qtHandler();	++connected_signals;//Установка заголовка H2
+	if (!connect(actSetH3, SIGNAL(triggered()), mde, SLOT(slotSetH3())))
+		QErrorMessage::qtHandler();	++connected_signals;//Установка заголовка H3
+	if (!connect(actSetH4, SIGNAL(triggered()), mde, SLOT(slotSetH4())))
+		QErrorMessage::qtHandler();	++connected_signals;//Установка заголовка H4
+	if (!connect(actSetH5, SIGNAL(triggered()), mde, SLOT(slotSetH5())))
+		QErrorMessage::qtHandler();	++connected_signals;//Установка заголовка H5
+	if (!connect(setBold, SIGNAL(triggered()), mde, SLOT(slotSetBold())))
+		QErrorMessage::qtHandler();	++connected_signals;//Жирный текст
+	if (!connect(setItalic, SIGNAL(triggered()), mde, SLOT(slotSetItalic())))
+		QErrorMessage::qtHandler();	++connected_signals;//Курсив
+	if (!connect(setUnderlined, SIGNAL(triggered()), mde, SLOT(slotSetUnrderline())))
+		QErrorMessage::qtHandler();	++connected_signals;//Подчёркнутый
+	if (!connect(setStrikethrough, SIGNAL(triggered()), mde, SLOT(slotSetStrikethrough())))
+		QErrorMessage::qtHandler();	++connected_signals;//Зачёркнутый
+	if (!connect(actShieldSymbol, SIGNAL(triggered()), mde, SLOT(slotSetEscape())))
+		QErrorMessage::qtHandler();	++connected_signals;//Экранировать
+	push_log(std::string("[QT->LiteMD]Образовано " + std::to_string(connected_signals) + " связей"));
 	//------------------------------
 
 	//Рабочий долгосрочный костыль. Создаем пустой виджет и помещаем все в него
