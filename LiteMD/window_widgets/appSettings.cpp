@@ -125,35 +125,41 @@ void appSettings::slot_apply_settings()
 	qApp->installTranslator(&lmd_lng);
 	if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_UI_UPDATE_EVENT)))	//Постим событие изменения интерфейса
 		QErrorMessage::qtHandler();
-	xmlw->writeConfig();	//Сохраняем в XML
+	if(settingChanged)
+		xmlw->writeConfig();	//Сохраняем в XML
 }
 
 void appSettings::slot_switch_simple_url_parser(int bit)
 {
+	settingChanged = 1;
 	parswitch.en_simple_url = static_cast<bool>(bit);
 	parswitch.en_simple_url == 0 ? push_log("[НАСТРОЙКИ]Парсер простых ссылок отключён") : push_log("[НАСТРОЙКИ]Парсер простых ссылок включён");
 }
 
 void appSettings::slot_switch_adv_url_parser(int bit)
 {
+	settingChanged = 1;
 	parswitch.en_adv_url = static_cast<bool>(bit);
 	parswitch.en_adv_url == 0 ? push_log("[НАСТРОЙКИ]Парсер форматированных ссылок отключён") : push_log("[НАСТРОЙКИ]Парсер форматированных ссылок включён");
 }
 
 void appSettings::slot_switch_header_lvl_parser(int bit)
 {
+	settingChanged = 1;
 	parswitch.en_header_lvl = static_cast<bool>(bit);
 	parswitch.en_header_lvl == 0 ? push_log("[НАСТРОЙКИ]Парсер заголовков отключён") : push_log("[НАСТРОЙКИ]Парсер заголовков включён");
 }
 
 void appSettings::slot_switch_warn_allow(int bit)
 {
+	settingChanged = 1;
 	allowHttpWarn = static_cast<bool>(bit);
 	allowHttpWarn  == 0 ? push_log("[НАСТРОЙКИ]Парсер заголовков отключён") : push_log("[НАСТРОЙКИ]Парсер заголовков включён");
 }
 
 void appSettings::slot_switch_deprecated(int bit)
 {
+	settingChanged = 1;
 	enableDeprFeatures = static_cast<bool>(bit);
 	if (::enableDeprFeatures)
 	{
@@ -163,11 +169,12 @@ void appSettings::slot_switch_deprecated(int bit)
 
 void appSettings::slot_switch_features(int bit)
 {
+	settingChanged = 1;
 	enableIndevFeatures = static_cast<bool>(bit);
 	if (enableIndevFeatures)
 	{
 		//Посылаем событие в LiteMD.cpp
-		push_log("[НАСТРОЙКИ]Активирован функционал находящийся в разработке, возможна нестабильная работа");
+		push_log("[НАСТРОЙКИ]Активирован функционал находящийся в разработке, возможна нестабильная работа, пожалуйста сохраните лог");
 		if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_enable_dev_func_EVENT)))
 			QErrorMessage::qtHandler();
 		themeHint->setEnabled(1);
@@ -201,6 +208,14 @@ void appSettings::slot_switch_features(int bit)
 		saveFreq->setDisabled(1);
 		colorThemeHint->setDisabled(1);
 		colorTheme->setDisabled(1);
+		try
+		{
+			deleteOnExit();
+		}
+		catch (exceptionHandler)
+		{
+			(exceptionHandler(exceptionHandler::FATAL));
+		} 
 	}
 }
 

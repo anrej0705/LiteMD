@@ -47,6 +47,7 @@ void xmlWriter::writeConfig()
 	{
 		QTextStream(&settingsFile) << lmdFileSet->toString();
 		settingsFile.close();
+		settingChanged = 0;
 	}
 	else
 		throw(exceptionHandler(exceptionHandler::FATAL));

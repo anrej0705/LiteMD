@@ -130,9 +130,14 @@ void appSettings::configureBasicSettingsTab()
 	saveFreq->addItem(tr("NaN"));
 	autoSave->setChecked(0);
 	themeList->setDisabled(1);
+	colorTheme->setDisabled(1);
 	saveSettings->setDisabled(1);
 	saveFreq->setDisabled(1);
-	autoSave->setDisabled(1);
+	themeHint->setDisabled(1);
+	colorThemeHint->setDisabled(1);
+	saveSettingsHint->setDisabled(1);
+	autoSaveHint->setDisabled(1);
+	saveFreqHint->setDisabled(1);
 
 	//Настраиваем высоту(подгон высоты текста к элементам управления)
 	langListHint->setFixedHeight(SETTINGS_HEIGH);
@@ -179,6 +184,7 @@ QString localeNameConverter(QString lang_string_name, QString file_loc_name)
 }
 void appSettings::slot_lang_selected(int lIndx)
 {
+	settingChanged = 1;
 	if (emptyMapDet)
 	{
 		emit signalTitleChanged("[Локали не найдены!]");
