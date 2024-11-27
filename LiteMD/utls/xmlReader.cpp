@@ -50,7 +50,9 @@ boost::container::vector<QString> xml_tags{
 
 bool xmlReader::readConfig()
 {
-	push_log("[XML]Чтение конфига");
+	static bool read_retry;
+
+	read_retry == 0 ? push_log("[XML]Чтение конфига") : push_log("[XML]Чтение конфига, повторная попытка");
 
 	//"Просто поверь мне" - говорил Ферми, запуская свой первый ядерный реактор
 	static boost::container::vector<void*> _xml_ptr;	//Ебанёт? Не должно по идее
@@ -167,9 +169,11 @@ bool xmlReader::readConfig()
 	if (paramReadedCnt != PARAM_CNT)
 	{
 		push_log("[XML]Недостающие параметры будут записаны со значением по умолчанию");
+		read_retry = 1;
 		readSuccess = 0;
 	}
 	if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_UI_UPDATE_USER_SETTINGS)))
 		QErrorMessage::qtHandler();//Отправка события на обновление визуала - галочек, радиокнопок и прочего
+	paramReadedCnt = 0;
 	return readSuccess;
 }
