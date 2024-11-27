@@ -11,6 +11,7 @@ extern struct parser_switchers parswitch;
 xmlReader::xmlReader()
 {
 	fileName = "config.xml";
+	push_log(std::string("[XML]Задано имя файла конфига для записи " + fileName.toStdString()).c_str());
 }
 
 xmlReader::xmlReader(QString fName)

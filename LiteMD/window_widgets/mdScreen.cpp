@@ -22,6 +22,7 @@ std::mutex balamut;
 
 mdScreen::mdScreen(QWidget* scrWgt) : QLabel(scrWgt)
 {
+	push_log("[QT]Инициализация монитора");
 	//Задаем формат отображения как html
 	setTextFormat(Qt::RichText);
 	//Задаем выравниваем на вверх и лево

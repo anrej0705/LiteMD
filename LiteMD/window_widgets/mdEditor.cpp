@@ -12,6 +12,7 @@ extern "C"
 
 mdEditor::mdEditor(QWidget* mdWgt) : QTextEdit(mdWgt)
 {
+	push_log("[QT]Инициализация окна редактора");
 	setAcceptRichText(0);
 	//Соединяем базовый сигнал со слотом который будет формировать сигнал высылки текста
 	if (!connect(this, SIGNAL(textChanged()), this, SLOT(slotTextChanged())))

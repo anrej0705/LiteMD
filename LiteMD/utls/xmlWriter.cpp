@@ -10,6 +10,7 @@ extern struct parser_switchers parswitch;
 xmlWriter::xmlWriter()
 {
 	fileName = "config.xml";
+	push_log(std::string("[XML]Задано имя файла конфига для чтения " + fileName.toStdString()).c_str());
 }
 
 xmlWriter::xmlWriter(QString fName)

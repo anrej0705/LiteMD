@@ -2,6 +2,7 @@
 #include <qurl.h>
 #include "Downloader.h"
 #include "GuiDownloader.h"
+#include "logger_backend.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -9,6 +10,7 @@ extern "C"
 //Базовый конструктор
 DownloaderGui::DownloaderGui(QWidget* dwgt) : QWidget(dwgt)
 {
+	push_log("[HTTP ЗАГРУЗЧИК]Инициализация фронтенда");
 	warned = 0;
 	//Устанавливаем заголовок окна модуля
 	setWindowTitle(tr("HTTP Download module GUI(Deprecated)"));
@@ -85,6 +87,10 @@ void DownloaderGui::slotDone(const QUrl& url, const QByteArray& ba)
 	QString strFileName = url.path().section('/', -1);
 	//Создаем объект файла
 	QFile file(url.path().section('/', -1));
+
+	//Пишем в логи что всё хорошо
+	push_log(std::string("[HTTP ЗАГРУЗЧИК]Завершена загрузка файла " + file.fileName().toStdString()).c_str());
+
 	//Если объект создался и открыт то выполняем
 	if (file.open(QIODevice::WriteOnly))
 	{
