@@ -5,12 +5,12 @@
 #include <string>
 #include <QString>
 
-//Опережающие объявления
-//Пизжено из проекта semaphor_multithread https://github.com/anrej0705/semaphor_multithread
+//РћРїРµСЂРµР¶Р°СЋС‰РёРµ РѕР±СЉСЏРІР»РµРЅРёСЏ
+//РџРёР·Р¶РµРЅРѕ РёР· РїСЂРѕРµРєС‚Р° semaphor_multithread https://github.com/anrej0705/semaphor_multithread
 class logger_backend;
 
-//Класс, гарантирующий удаление синглета после закрытия проги
-//Пизжено из проекта semaphor_multithread https://github.com/anrej0705/semaphor_multithread
+//РљР»Р°СЃСЃ, РіР°СЂР°РЅС‚РёСЂСѓСЋС‰РёР№ СѓРґР°Р»РµРЅРёРµ СЃРёРЅРіР»РµС‚Р° РїРѕСЃР»Рµ Р·Р°РєСЂС‹С‚РёСЏ РїСЂРѕРіРё
+//РџРёР·Р¶РµРЅРѕ РёР· РїСЂРѕРµРєС‚Р° semaphor_multithread https://github.com/anrej0705/semaphor_multithread
 class singlet_remover
 {
 	private:
