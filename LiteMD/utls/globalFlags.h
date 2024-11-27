@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef GLOBALFLAGS_H_
 #define GLOBALFLAGS_H_
 #include <stdbool.h>
