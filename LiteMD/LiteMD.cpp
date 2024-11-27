@@ -410,5 +410,5 @@ void LiteMD::httpModuleShow()
 }
 LiteMD::~LiteMD()
 {
-	//deleteOnExit();
+	deleteOnExit();
 }
