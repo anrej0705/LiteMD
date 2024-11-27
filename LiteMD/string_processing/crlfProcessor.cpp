@@ -40,6 +40,12 @@ std::string crlfProcessor(std::string& rawInput)
 			//Если в кусочке есть нужный тег то обрабатываем
 			if (str_piece->find("</H") != -1)
 			{
+				//Кидаем в лог
+				log_stroke->append("[crlfProcessor]Обнаружен признак заголовка на индексе ");
+				log_stroke->append(std::to_string(index).c_str());
+				log_stroke->append(", замена не проводится");
+				push_log(log_stroke->c_str());
+				log_stroke->clear();
 				findPos = index - 10 + str_piece->find("</H") ;
 				testpoint1 = buffer->c_str();
 				buffer->erase(findPos + 5, 2);
@@ -50,13 +56,20 @@ std::string crlfProcessor(std::string& rawInput)
 					//Как только наткнулись на начало строки - чистим знаки переноса
 					if ((_index >= 1) && (buffer->at(_index) == '\n'))
 					{
+						//Кидаем в лог
+						log_stroke->append("[crlfProcessor]Удалены знаки переноса на индексах ");
+						log_stroke->append(std::to_string(index).c_str());
+						log_stroke->append(" и ");
 						buffer->erase(_index - 1, 2);
 						index = _index;
+						log_stroke->append(std::to_string(_index).c_str());
+						push_log(log_stroke->c_str());
+						log_stroke->clear();
 						break;
 					}
 					//Если ничего не нашли то индекс ровняем с текущей позицией
 					if (_index == 0)
-						index = _index + 1;
+						index = _index + 1; log_stroke->clear();
 				}
 			}
 			else
