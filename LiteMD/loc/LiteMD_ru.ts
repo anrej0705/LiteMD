@@ -479,6 +479,26 @@ Programm will close</source>
         <source>XML</source>
         <translation>XML</translation>
     </message>
+    <message>
+        <source>deprSyntaxPrepHint</source>
+        <translation>Включить устаревший препроцессор</translation>
+    </message>
+    <message>
+        <source>deprSyntaxPostHint</source>
+        <translation>Включить устаревший постпроцессор</translation>
+    </message>
+    <message>
+        <source>deprUrlSimplParserHint</source>
+        <translation>Включить устаревший парсер простых ссылок</translation>
+    </message>
+    <message>
+        <source>deprUrlAdvParserHint</source>
+        <translation>Включить устаревший парсер форматированных ссылок</translation>
+    </message>
+    <message>
+        <source>deprUrlBasParserHint</source>
+        <translation>Включить парсер ссылок &lt;https://url&gt;</translation>
+    </message>
 </context>
 <context>
     <name>currentChangelog</name>

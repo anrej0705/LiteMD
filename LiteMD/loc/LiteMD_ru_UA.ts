@@ -479,6 +479,26 @@ Programm will close</source>
         <source>XML</source>
         <translation>XML</translation>
     </message>
+    <message>
+        <source>deprSyntaxPrepHint</source>
+        <translation>Enable deprecated preprocessor</translation>
+    </message>
+    <message>
+        <source>deprSyntaxPostHint</source>
+        <translation>Enable deprecated postprocessor</translation>
+    </message>
+    <message>
+        <source>deprUrlSimplParserHint</source>
+        <translation>Enable deprecated simple url parser</translation>
+    </message>
+    <message>
+        <source>deprUrlAdvParserHint</source>
+        <translation>Enable deprecated advanced url parser</translation>
+    </message>
+    <message>
+        <source>deprUrlBasParserHint</source>
+        <translation>Enable deprecated basic url pasrser</translation>
+    </message>
 </context>
 <context>
     <name>currentChangelog</name>
