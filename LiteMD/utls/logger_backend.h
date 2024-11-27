@@ -36,7 +36,10 @@ class logger_backend
 		void insert_log(const char* log, uint32_t log_size);
 		boost::container::vector<QString> get_logs();
 		void clear_logs();
+		char* get_stroke(uint32_t);
+		uint32_t get_size();
 };
 
+void dump_crash_log();
 void push_log(const char* log);
 
