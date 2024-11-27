@@ -11,6 +11,7 @@ extern bool appClose;
 //Deprecated
 extern bool allowHttpWarn;
 extern bool httpDerpWarned;
+extern bool settingChanged;
 
 //Настройки
 extern bool logReadState;

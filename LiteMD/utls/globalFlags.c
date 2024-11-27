@@ -13,6 +13,7 @@ int langCode = 0;
 //Deprecated
 bool allowHttpWarn = 1;
 bool httpDerpWarned = 0;
+bool settingChanged = 0;
 
 //Настрйоки, они же настройки по умолчанию. Значения подменяются из файла конфига при чтении, если последний существует
 bool logReadState = 0;
@@ -32,11 +33,14 @@ void newRecentFilesArray()
 void deleteOnExit()
 {
 	//Удаляем массив
-	for (uint8_t index = 0; index < NUMBER_OF_FILES; ++index)
+	if (lastFiles != NULL)
 	{
-		free(lastFiles[index]);
+		for (uint8_t index = 0; index < NUMBER_OF_FILES; ++index)
+		{
+			free(lastFiles[index]);
+		}
+		free(lastFiles);
 	}
-	free(lastFiles);
 }
 
 void deleteName(uint8_t pos)
