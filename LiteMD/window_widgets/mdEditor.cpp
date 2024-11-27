@@ -56,7 +56,7 @@ void mdEditor::slotOpen()
 	mdFileName = QFileDialog::getOpenFileName(0, tr("Open Text/Markdown"), "", tr("*.md ;; *.txt"));
 	if (mdFileName.isEmpty())
 		return;
-	log_stroke->append(mdFileName.toLocal8Bit());
+	log_stroke->append(mdFileName.toUtf8());
 	push_log(log_stroke->c_str());
 	//Присваиваем имя файла к обработчику который будет открывать его
 	mdObject.setFileName(mdFileName);
