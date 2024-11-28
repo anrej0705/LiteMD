@@ -66,33 +66,43 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	push_log("[QT->appSettings]Установка связей сигнал-слот");
 	//Устанавливаем связи кнопок
 	if (!connect(btnOk, SIGNAL(clicked()), this, SLOT(slot_apply_settings())))
-		QErrorMessage::qtHandler();	//Кнопка применить изменения
+		QErrorMessage::qtHandler();	++connected_signals;//Кнопка применить изменения
 	if (!connect(btnOk, SIGNAL(clicked()), this, SLOT(hide())))
-		QErrorMessage::qtHandler();	//Кнопка "ок"
+		QErrorMessage::qtHandler();	++connected_signals;//Кнопка "ок"
 	if (!connect(btnCancel, SIGNAL(clicked()), this, SLOT(hide())))
-		QErrorMessage::qtHandler();	//Кнопка закрыть
+		QErrorMessage::qtHandler();	++connected_signals;//Кнопка закрыть
 	if (!connect(langList, SIGNAL(currentIndexChanged(int)), this, SLOT(slot_lang_selected(int))))
-		QErrorMessage::qtHandler();	//Сигнал смены номера локали
+		QErrorMessage::qtHandler();	++connected_signals;//Сигнал смены номера локали
 	if (!connect(btnApply, SIGNAL(clicked()), this, SLOT(slot_apply_settings())))
-		QErrorMessage::qtHandler();	//Кнопка применить настройки
+		QErrorMessage::qtHandler();	++connected_signals;//Кнопка применить настройки
 	if (!connect(allowWarnings, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_warn_allow(int))))
-		QErrorMessage::qtHandler();	//Переключатель предупреждений из устаревшего HTTP
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель предупреждений из устаревшего HTTP
 	if (!connect(parseSimplLinks, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_simple_url_parser(int))))
-		QErrorMessage::qtHandler();	//Переключатель активации парсера <www.url.com>
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера <www.url.com>
 	if (!connect(parseAdvLinksl, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_adv_url_parser(int))))
-		QErrorMessage::qtHandler();	//Переключатель активации парсера (url)[www.url.com]
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера (url)[www.url.com]
 	if (!connect(parseHeaderLvl, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_header_lvl_parser(int))))
-		QErrorMessage::qtHandler();	//Переключатель активации парсера заголовко
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера заголовко
 	if (!connect(depFunc, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_deprecated(int))))
-		QErrorMessage::qtHandler();	//Переключатель устаревших функций
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель устаревших функций
 	if (!connect(devFunc, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_features(int))))
-		QErrorMessage::qtHandler();	//Переключатель функций в разработке
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель функций в разработке
 	if (!connect(settingsLister, SIGNAL(currentChanged(int)), this, SLOT(slot_tab_changed(int))))
-		QErrorMessage::qtHandler();	//Сигнал о выборе определенной вкладки
+		QErrorMessage::qtHandler();	++connected_signals;//Сигнал о выборе определенной вкладки
 	if (!connect(clearLog, SIGNAL(clicked()), this, SLOT(slot_clear_logs())))
-		QErrorMessage::qtHandler();	//Кнопка очистки логов
+		QErrorMessage::qtHandler();	++connected_signals;//Кнопка очистки логов
 	if (!connect(saveLog, SIGNAL(clicked()), this, SLOT(slot_save_logs())))
-		QErrorMessage::qtHandler();	//Кнопка сохранения логов
+		QErrorMessage::qtHandler();	++connected_signals;//Кнопка сохранения логов
+	if (!connect(deprSyntaxPrep, SIGNAL(stateChanged(int)), this, SLOT(slot_dparswitch_en_t_prep(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера <www.url.com>
+	if (!connect(deprSyntaxPost, SIGNAL(stateChanged(int)), this, SLOT(slot_en_t_post(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера <www.url.com>
+	if (!connect(deprUrlSimplParser, SIGNAL(stateChanged(int)), this, SLOT(slot_en_url_bas_simple(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера <www.url.com>
+	if (!connect(deprUrlAdvParser, SIGNAL(stateChanged(int)), this, SLOT(slot_en_url_bas(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера <www.url.com>
+	if (!connect(deprUrlBasParser, SIGNAL(stateChanged(int)), this, SLOT(slot_en_url_adv(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера <www.url.com>
 	push_log(std::string("[QT->appSettings]Образовано " + std::to_string(connected_signals) + " связей"));
 	
 
@@ -170,6 +180,7 @@ void appSettings::slot_switch_deprecated(int bit)
 	{
 		push_log("[НАСТРОЙКИ]Переключение на устаревший функционал");
 	}
+	update_interactive();
 }
 void appSettings::slot_dparswitch_en_t_prep(int bit)
 {
@@ -251,6 +262,7 @@ void appSettings::slot_switch_features(int bit)
 			(exceptionHandler(exceptionHandler::FATAL));
 		} 
 	}
+	update_interactive();
 }
 
 void appSettings::slot_tab_changed(int tab_index)

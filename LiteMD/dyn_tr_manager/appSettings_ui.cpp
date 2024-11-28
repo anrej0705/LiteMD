@@ -76,4 +76,13 @@ void appSettings::update_interactive()
 	dparswitch.en_url_adv == 0 ? deprUrlSimplParser->setChecked(0) : deprUrlSimplParser->setChecked(1);
 	dparswitch.en_url_bas == 0 ? deprUrlAdvParser->setChecked(0) : deprUrlAdvParser->setChecked(1);
 	dparswitch.en_url_bas_simple == 0 ? deprUrlBasParser->setChecked(0) : deprUrlBasParser->setChecked(1);
+
+	enableDeprFeatures == 0 ? parseSimplLinks->setEnabled(1) : parseSimplLinks->setDisabled(1);
+	enableDeprFeatures == 0 ? parseAdvLinksl->setEnabled(1) : parseAdvLinksl->setDisabled(1);
+	enableDeprFeatures == 0 ? parseHeaderLvl->setEnabled(1) : parseHeaderLvl->setDisabled(1);
+	enableDeprFeatures == 0 ? deprSyntaxPrep->setDisabled(0) : deprSyntaxPrep->setEnabled(1);
+	enableDeprFeatures == 0 ? deprSyntaxPost->setDisabled(0) : deprSyntaxPost->setEnabled(1);
+	enableDeprFeatures == 0 ? deprUrlSimplParser->setDisabled(0) : deprUrlSimplParser->setEnabled(1);
+	enableDeprFeatures == 0 ? deprUrlAdvParser->setDisabled(0) : deprUrlAdvParser->setEnabled(1);
+	enableDeprFeatures == 0 ? deprUrlBasParser->setDisabled(0) : deprUrlBasParser->setEnabled(1);
 }

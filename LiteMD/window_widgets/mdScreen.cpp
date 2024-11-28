@@ -12,6 +12,7 @@
 #include "shieldingParser.h"
 #include "crlfProcessor.h"
 #include "logger_backend.h"
+#include "exceptionHandler.h"
 #include <string>
 #include <regex>
 extern "C"
@@ -85,6 +86,7 @@ void mdScreen::slotSetText(const QString& str)
 		std::wstring mdInputDepr(str.toStdWString());
 		push_log("[РЕНДЕР]Выбрана устаревшая цепочка парсеров, возможны ошибки");
 		push_log("[РЕНДЕР]Пожалуйста сохраните лог");
+		initializeDeprecatedVars();
 		balamut.lock();
 		if (dparswitch.en_t_prep)
 		{
@@ -100,7 +102,7 @@ void mdScreen::slotSetText(const QString& str)
 		{
 			push_log("[РЕНДЕР][УСТАРЕВШИЙ]Обработка <http://www.url.com>, возможны ошибки");
 			mdInputDepr = hyperlinkParser(mdInputDepr);
-		}
+	}
 		if (dparswitch.en_url_adv)
 		{
 			push_log("[РЕНДЕР][УСТАРЕВШИЙ]Обработка [name](url), возможны ошибки");
