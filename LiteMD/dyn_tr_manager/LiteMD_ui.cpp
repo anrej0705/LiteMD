@@ -7,22 +7,7 @@ bool LiteMD::eventFilter(QObject* pobj, QEvent* p_event)
 	if (p_event->type() == static_cast<QEvent::Type>(QEvent::User + APP_EVENT_LiteMD_UPDATE_EVENT))
 	{
 		update_ui();
-		return 1;
-	}
-	if (p_event->type() == static_cast<QEvent::Type>(QEvent::User + APP_EVENT_enable_dev_func_EVENT))
-	{
-		if (enableIndevFeatures)
-		{	//Включаем отключённые для разработки фичи
-			actSetTextFormat->setEnabled(1);
-			actHelp->setEnabled(1);
-			push_log("[QMainWindow]Фичи {actSetTextFormat,actHelp} активны");
-		}
-		else
-		{	//Отключаем фичи
-			actSetTextFormat->setDisabled(1);
-			actHelp->setDisabled(1);
-			push_log("[QMainWindow]Фичи {actSetTextFormat,actHelp} отключены");
-		}
+		update_interactive();
 		return 1;
 	}
 	return QWidget::eventFilter(pobj, p_event);
@@ -35,7 +20,7 @@ void LiteMD::update_ui()
 	workProgressCap->setText(tr("work in progress"));
 	setWindowTitle(tr("LiteMD") + APP_STAGE + APP_VERSION + tr(" build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))/* + tr("[MAX FILE SIZE 65K]")*/);
 
-	//Обновляем перевод меню
+	//РћР±РЅРѕРІР»СЏРµРј РїРµСЂРµРІРѕРґ РјРµРЅСЋ
 	mFile->setTitle(tr("&File"));
 	mEdit->setTitle(tr("&Edit"));
 	mSettings->setTitle(tr("&Service"));
@@ -44,7 +29,7 @@ void LiteMD::update_ui()
 	formatStyle->setTitle(tr("Set format style"));
 	//----------------------
 
-	//Обновляем перевод кнопок
+	//РћР±РЅРѕРІР»СЏРµРј РїРµСЂРµРІРѕРґ РєРЅРѕРїРѕРє
 	actAbout->setText(tr("&About"));
 	actOpen->setText(tr("&Open..."));
 	actSave->setText(tr("&Save"));
@@ -69,4 +54,17 @@ void LiteMD::update_ui()
 	setUnderlined->setText(tr("Set underlined"));
 	setStrikethrough->setText(tr("Set strikethrough"));
 	//------------------------
+}
+
+void LiteMD::update_interactive()
+{
+	//РўРµСЂРЅР°СЂРєР°РјРё РѕР±РЅРѕРІР»СЏРµРј РјРµРЅСЋС€РєРё
+	enableIndevFeatures == 0 ? actSetTextFormat->setDisabled(1) : actSetTextFormat->setEnabled(1);
+	enableIndevFeatures == 0 ? actHelp->setDisabled(1) : actHelp->setEnabled(1);
+	enableIndevFeatures == 0 ? setBold->setDisabled(1) : setBold->setEnabled(1);
+	enableIndevFeatures == 0 ? setItalic->setDisabled(1) : setItalic->setEnabled(1);
+	enableIndevFeatures == 0 ? actHelp->setDisabled(1) : actHelp->setEnabled(1);
+	enableIndevFeatures == 0 ? setStrikethrough->setDisabled(1) : setStrikethrough->setEnabled(1);
+	enableIndevFeatures == 0 ? formatStyle->setDisabled(1) : formatStyle->setEnabled(1);
+	enableIndevFeatures == 0 ? actSetTextFormat->setDisabled(1) : actSetTextFormat->setEnabled(1);
 }
