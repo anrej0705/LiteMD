@@ -246,7 +246,59 @@ github.com/anrej0705
     </message>
     <message>
         <source>Ver.</source>
-        <translation>версия.</translation>
+        <translation type="vanished">версия.</translation>
+    </message>
+    <message>
+        <source>Set headers</source>
+        <translation>Установить уровень заголовка</translation>
+    </message>
+    <message>
+        <source>Set format style</source>
+        <translation>Задать форматирование</translation>
+    </message>
+    <message>
+        <source>Set H1</source>
+        <translation>Установить заголовок H1</translation>
+    </message>
+    <message>
+        <source>Set H2</source>
+        <translation>Установить заголовок H2</translation>
+    </message>
+    <message>
+        <source>Set H3</source>
+        <translation>Установить заголовок H3</translation>
+    </message>
+    <message>
+        <source>Set H4</source>
+        <translation>Установить заголовок H4</translation>
+    </message>
+    <message>
+        <source>Set H5</source>
+        <translation>Установить заголовок H5</translation>
+    </message>
+    <message>
+        <source>Es&amp;cape character</source>
+        <translation>&amp;Экранировать символ</translation>
+    </message>
+    <message>
+        <source>Set bold</source>
+        <translation>Сделать жирным</translation>
+    </message>
+    <message>
+        <source>Set italic</source>
+        <translation>Сделать курсив</translation>
+    </message>
+    <message>
+        <source>Set underlined</source>
+        <translation>Сделать подчёркнутым</translation>
+    </message>
+    <message>
+        <source>Set strikethrough</source>
+        <translation>Сделать зачёркнутым</translation>
+    </message>
+    <message>
+        <source>Ver </source>
+        <translation>версия </translation>
     </message>
 </context>
 <context>
@@ -345,7 +397,7 @@ Programm will close</source>
     </message>
     <message>
         <source>Will be added in future</source>
-        <translation>Будет добавлено в будущем</translation>
+        <translation type="vanished">Будет добавлено в будущем</translation>
     </message>
     <message>
         <source>Parse URL links</source>
@@ -414,6 +466,42 @@ Programm will close</source>
     <message>
         <source>*.txt</source>
         <translation>*.txt</translation>
+    </message>
+    <message>
+        <source>colorThemeHint</source>
+        <translation>Цветовая схема</translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <translation>По умолчанию</translation>
+    </message>
+    <message>
+        <source>NaN</source>
+        <translation>NaN</translation>
+    </message>
+    <message>
+        <source>XML</source>
+        <translation>XML</translation>
+    </message>
+    <message>
+        <source>deprSyntaxPrepHint</source>
+        <translation>Включить устаревший препроцессор</translation>
+    </message>
+    <message>
+        <source>deprSyntaxPostHint</source>
+        <translation>Включить устаревший постпроцессор</translation>
+    </message>
+    <message>
+        <source>deprUrlSimplParserHint</source>
+        <translation>Включить устаревший парсер простых ссылок</translation>
+    </message>
+    <message>
+        <source>deprUrlAdvParserHint</source>
+        <translation>Включить устаревший парсер форматированных ссылок</translation>
+    </message>
+    <message>
+        <source>deprUrlBasParserHint</source>
+        <translation>Включить парсер ссылок &lt;https://url&gt;</translation>
     </message>
 </context>
 <context>
@@ -490,7 +578,11 @@ Programm will close</source>
     </message>
     <message>
         <source>[TYPE_NAME]</source>
-        <translation>[ссылка]</translation>
+        <translation type="vanished">[ссылка]</translation>
+    </message>
+    <message>
+        <source>(TYPE_NAME)</source>
+        <translation>(введи_название)</translation>
     </message>
 </context>
 </TS>

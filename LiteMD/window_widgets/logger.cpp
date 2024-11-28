@@ -9,7 +9,7 @@ logger::logger(QWidget* log) : QDialog(log)
 	this->setWindowTitle(tr("logTitle"));
 
 	//Задаём пока что фиксированный размер окна
-	setFixedSize(800, 600);
+	setFixedSize(960, 600);
 
 	//Менеджер размещения кнопок
 	buttonLay = new QHBoxLayout;

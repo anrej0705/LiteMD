@@ -1,18 +1,20 @@
 #include "appSettings.h"
 #include "ui_update_event.h"
 #include "event_id_constructor.h"
-#include "global_definitions.h"
 #include "exceptionHandler.h"
 #include "logger_backend.h"
 #include <QtWidgets>
 #include <boost/container/vector.hpp>
 extern "C"
 {
+	#include "global_definitions.h"
 	#include "globalFlags.h"
 }
 struct parser_switchers parswitch;
+struct depr_paerser_switchers dparswitch;
 appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 {
+	push_log("[QT]Инициализация окна настроек");
 	//Окно настроек, будет переписано
 	setModal(1);
 	setWindowTitle(tr("LiteMD Settings"));
@@ -58,36 +60,50 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 
 	//Устанавливаем менеджер как основной виджет
 	setLayout(dialogWindow);
-	
+
+	uint8_t connected_signals = 0;
+
+	push_log("[QT->appSettings]Установка связей сигнал-слот");
 	//Устанавливаем связи кнопок
 	if (!connect(btnOk, SIGNAL(clicked()), this, SLOT(slot_apply_settings())))
-		QErrorMessage::qtHandler();	//Кнопка применить изменения
+		QErrorMessage::qtHandler();	++connected_signals;//Кнопка применить изменения
 	if (!connect(btnOk, SIGNAL(clicked()), this, SLOT(hide())))
-		QErrorMessage::qtHandler();	//Кнопка "ок"
+		QErrorMessage::qtHandler();	++connected_signals;//Кнопка "ок"
 	if (!connect(btnCancel, SIGNAL(clicked()), this, SLOT(hide())))
-		QErrorMessage::qtHandler();	//Кнопка закрыть
+		QErrorMessage::qtHandler();	++connected_signals;//Кнопка закрыть
 	if (!connect(langList, SIGNAL(currentIndexChanged(int)), this, SLOT(slot_lang_selected(int))))
-		QErrorMessage::qtHandler();	//Сигнал смены номера локали
+		QErrorMessage::qtHandler();	++connected_signals;//Сигнал смены номера локали
 	if (!connect(btnApply, SIGNAL(clicked()), this, SLOT(slot_apply_settings())))
-		QErrorMessage::qtHandler();	//Кнопка применить настройки
+		QErrorMessage::qtHandler();	++connected_signals;//Кнопка применить настройки
 	if (!connect(allowWarnings, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_warn_allow(int))))
-		QErrorMessage::qtHandler();	//Переключатель предупреждений из устаревшего HTTP
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель предупреждений из устаревшего HTTP
 	if (!connect(parseSimplLinks, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_simple_url_parser(int))))
-		QErrorMessage::qtHandler();	//Переключатель активации парсера <www.url.com>
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера <www.url.com>
 	if (!connect(parseAdvLinksl, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_adv_url_parser(int))))
-		QErrorMessage::qtHandler();	//Переключатель активации парсера (url)[www.url.com]
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера (url)[www.url.com]
 	if (!connect(parseHeaderLvl, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_header_lvl_parser(int))))
-		QErrorMessage::qtHandler();	//Переключатель активации парсера заголовко
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера заголовко
 	if (!connect(depFunc, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_deprecated(int))))
-		QErrorMessage::qtHandler();	//Переключатель устаревших функций
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель устаревших функций
 	if (!connect(devFunc, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_features(int))))
-		QErrorMessage::qtHandler();	//Переключатель функций в разработке
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель функций в разработке
 	if (!connect(settingsLister, SIGNAL(currentChanged(int)), this, SLOT(slot_tab_changed(int))))
-		QErrorMessage::qtHandler();	//Сигнал о выборе определенной вкладки
+		QErrorMessage::qtHandler();	++connected_signals;//Сигнал о выборе определенной вкладки
 	if (!connect(clearLog, SIGNAL(clicked()), this, SLOT(slot_clear_logs())))
-		QErrorMessage::qtHandler();	//Кнопка очистки логов
+		QErrorMessage::qtHandler();	++connected_signals;//Кнопка очистки логов
 	if (!connect(saveLog, SIGNAL(clicked()), this, SLOT(slot_save_logs())))
-		QErrorMessage::qtHandler();	//Кнопка сохранения логов
+		QErrorMessage::qtHandler();	++connected_signals;//Кнопка сохранения логов
+	if (!connect(deprSyntaxPrep, SIGNAL(stateChanged(int)), this, SLOT(slot_dparswitch_en_t_prep(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера <www.url.com>
+	if (!connect(deprSyntaxPost, SIGNAL(stateChanged(int)), this, SLOT(slot_en_t_post(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера <www.url.com>
+	if (!connect(deprUrlSimplParser, SIGNAL(stateChanged(int)), this, SLOT(slot_en_url_bas_simple(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера <www.url.com>
+	if (!connect(deprUrlAdvParser, SIGNAL(stateChanged(int)), this, SLOT(slot_en_url_bas(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера <www.url.com>
+	if (!connect(deprUrlBasParser, SIGNAL(stateChanged(int)), this, SLOT(slot_en_url_adv(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера <www.url.com>
+	push_log(std::string("[QT->appSettings]Образовано " + std::to_string(connected_signals) + " связей"));
 	
 
 	//Ставим заглушку
@@ -124,38 +140,98 @@ void appSettings::slot_apply_settings()
 	qApp->installTranslator(&lmd_lng);
 	if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_UI_UPDATE_EVENT)))	//Постим событие изменения интерфейса
 		QErrorMessage::qtHandler();
-	xmlw->writeConfig();	//Сохраняем в XML
+	if(settingChanged)
+		xmlw->writeConfig();	//Сохраняем в XML
 }
 
 void appSettings::slot_switch_simple_url_parser(int bit)
 {
+	settingChanged = 1;
 	parswitch.en_simple_url = static_cast<bool>(bit);
+	parswitch.en_simple_url == 0 ? push_log("[НАСТРОЙКИ]Парсер простых ссылок отключён") : push_log("[НАСТРОЙКИ]Парсер простых ссылок включён");
 }
 
 void appSettings::slot_switch_adv_url_parser(int bit)
 {
+	settingChanged = 1;
 	parswitch.en_adv_url = static_cast<bool>(bit);
+	parswitch.en_adv_url == 0 ? push_log("[НАСТРОЙКИ]Парсер форматированных ссылок отключён") : push_log("[НАСТРОЙКИ]Парсер форматированных ссылок включён");
 }
 
 void appSettings::slot_switch_header_lvl_parser(int bit)
 {
+	settingChanged = 1;
 	parswitch.en_header_lvl = static_cast<bool>(bit);
+	parswitch.en_header_lvl == 0 ? push_log("[НАСТРОЙКИ]Парсер заголовков отключён") : push_log("[НАСТРОЙКИ]Парсер заголовков включён");
 }
 
 void appSettings::slot_switch_warn_allow(int bit)
 {
+	settingChanged = 1;
 	allowHttpWarn = static_cast<bool>(bit);
+	allowHttpWarn  == 0 ? push_log("[НАСТРОЙКИ]Парсер заголовков отключён") : push_log("[НАСТРОЙКИ]Парсер заголовков включён");
 }
 
 void appSettings::slot_switch_deprecated(int bit)
 {
+	settingChanged = 1;
 	enableDeprFeatures = static_cast<bool>(bit);
+	if (::enableDeprFeatures)
+	{
+		push_log("[НАСТРОЙКИ]Переключение на устаревший функционал");
+	}
+	update_interactive();
+}
+void appSettings::slot_dparswitch_en_t_prep(int bit)
+{
+	settingChanged = 1;
+	dparswitch.en_t_prep = static_cast<bool>(bit);
+	dparswitch.en_t_prep == 0 ? push_log("[НАСТРОЙКИ]Препроцессор(устаревший) отключён") : push_log("[НАСТРОЙКИ]Препроцессор(устаревший) включён");
+}
+void appSettings::slot_en_t_post(int bit)
+{
+	settingChanged = 1;
+	dparswitch.en_t_post = static_cast<bool>(bit);
+	dparswitch.en_t_post == 0 ? push_log("[НАСТРОЙКИ]Постпроцессор(устаревший) отключён") : push_log("[НАСТРОЙКИ]Постпроцессор(устаревший) включён");
+}
+void appSettings::slot_en_url_bas_simple(int bit)
+{
+	settingChanged = 1;
+	dparswitch.en_url_bas_simple = static_cast<bool>(bit);
+	dparswitch.en_url_bas_simple == 0 ? push_log("[НАСТРОЙКИ]Парсер <www.url.com>(устаревший) отключён") : push_log("[НАСТРОЙКИ]Парсер <www.url.com>(устаревший) включён");
+}
+void appSettings::slot_en_url_bas(int bit)
+{
+	settingChanged = 1;
+	dparswitch.en_url_bas = static_cast<bool>(bit);
+	dparswitch.en_url_bas == 0 ? push_log("[НАСТРОЙКИ]Парсер <http://www.url.com>(устаревший) отключён") : push_log("[НАСТРОЙКИ]Парсер <http://www.url.com>(устаревший) включён");
+}
+void appSettings::slot_en_url_adv(int bit)
+{
+	settingChanged = 1;
+	dparswitch.en_url_adv = static_cast<bool>(bit);
+	dparswitch.en_url_adv == 0 ? push_log("[НАСТРОЙКИ]Парсер форматированных ссылок(устаревший) отключён") : push_log("[НАСТРОЙКИ]Парсер форматированных ссылок(устаревший) включён");
 }
 
 void appSettings::slot_switch_features(int bit)
 {
-	if (!enableIndevFeatures)
+	settingChanged = 1;
+	enableIndevFeatures = static_cast<bool>(bit);
+	if (enableIndevFeatures)
 	{
+		//Посылаем событие в LiteMD.cpp
+		push_log("[НАСТРОЙКИ]Активирован функционал находящийся в разработке, возможна нестабильная работа");
+		push_log("[НАСТРОЙКИ]Пожалуйста сохраните лог");
+		themeHint->setEnabled(1);
+		saveSettingsHint->setEnabled(1);
+		autoSaveHint->setEnabled(1);
+		saveFreqHint->setEnabled(1);
+		themeList->setEnabled(1);
+		saveSettings->setEnabled(1);
+		autoSave->setEnabled(1);
+		saveFreq->setEnabled(1);
+		colorThemeHint->setEnabled(1);
+		colorTheme->setEnabled(1);
 		try
 		{
 			newRecentFilesArray();
@@ -165,11 +241,33 @@ void appSettings::slot_switch_features(int bit)
 			(exceptionHandler(exceptionHandler::FATAL));
 		}
 	}
-	enableIndevFeatures = static_cast<bool>(bit);
+	else
+	{
+		themeHint->setDisabled(1);
+		saveSettingsHint->setDisabled(1);
+		autoSaveHint->setDisabled(1);
+		saveFreqHint->setDisabled(1);
+		themeList->setDisabled(1);
+		saveSettings->setDisabled(1);
+		autoSave->setDisabled(1);
+		saveFreq->setDisabled(1);
+		colorThemeHint->setDisabled(1);
+		colorTheme->setDisabled(1);
+		try
+		{
+			deleteOnExit();
+		}
+		catch (exceptionHandler)
+		{
+			(exceptionHandler(exceptionHandler::FATAL));
+		} 
+	}
+	update_interactive();
 }
 
 void appSettings::slot_tab_changed(int tab_index)
 {
+	push_log(std::string("[НАСТРОЙКИ]Смена индекса активной вкладки на " + std::to_string(tab_index)).c_str());
 	if (tab_index == 3)
 	{
 		boost::container::vector<QString> container = logger_backend::getInstance().get_logs();

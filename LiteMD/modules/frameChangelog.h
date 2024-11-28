@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <QtWidgets>
 #include "ui_update_event.h"
 #include "mdScreen.h"

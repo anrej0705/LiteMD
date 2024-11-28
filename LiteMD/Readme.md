@@ -1,6 +1,6 @@
 README.MD
 
-# LiteMD alpha 0.2.2
+# LiteMD alpha 0.2.3
 
 ![Qt](https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white)
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
@@ -12,8 +12,8 @@ README.MD
 | MSVC 2019 
 | GPL v2 license |**
 
-Этот файл был создан в LiteMD alpha 0.1.7 build 1006
-Исходный код на [GitHub](https://github.com/anrej0705/LiteMD/tree/LiteMD_alpha782)
+Этот файл был создан в LiteMD alpha 0.2.3 build 1829
+Исходный код на [GitHub](https://github.com/anrej0705/LiteMD)
 
 Релизы: <https://github.com/anrej0705/LiteMD/releases>
 
@@ -24,14 +24,14 @@ README.MD
 - Редактирование Text-Markdown(*.txt) файлов
 - Парсинг простых ссылок по типу <https://www.google.com>
 - Парсинг альтернативных ссылок, как пример [google](www.google.com)
+- Парсинг заголовков H1-H5 `#`-`#####`
+- Гибкая настройка обработки текста
 - Загрузка картинок по протоколу HTTP
 - Динамическая смена языка
 - Просмотр списка изменений в текущей версии
 
 Существующие на данный момент баги:
-- :x:Снижение скорости работы в документах размером больше 2500 символов
-- :x:Искажение, пропадание и замещение ссылок в окне просмотра(закройте и откройте заново для исправления)
-- :x:В сложных документах с неподдерживаемыми тегами ломаются ссылки
+- :x:Ошибки и вылеты при работе с устаревшими парсерами(просто не используйте их)
 
 #### **Roadmap**:
 
@@ -58,8 +58,8 @@ README.MD
 - :white_check_mark:0.2.0 - [**Дополнительное форматирование текста и помощь**](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1554)
 - :white_check_mark:0.2.1 - [Уровни заголовков](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1683)
 - :white_check_mark:0.2.2 - [Окно логов](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1746)
-- :arrow_forward:0.2.3 - Импорт старых конфигов
-- :x:0.2.4 - Зачеркнутый текст
+- :white_check_mark:0.2.3 - [Импорт старых конфигов](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1829)
+- :arrow_forward:0.2.4 - Зачеркнутый текст
 - :x:0.2.5 - Подчеркнутый текст 
 - :x:0.2.6 - Курсив
 - :x:0.2.7 - Жирный текст

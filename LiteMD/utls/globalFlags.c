@@ -13,31 +13,34 @@ int langCode = 0;
 //Deprecated
 bool allowHttpWarn = 1;
 bool httpDerpWarned = 0;
+bool settingChanged = 0;
 
 //Настрйоки, они же настройки по умолчанию. Значения подменяются из файла конфига при чтении, если последний существует
 bool logReadState = 0;
 
-//Последние использованные файлы, под патч SilverWolf2k20 -> Последние файлы
 char** lastFiles = NULL;
+//Последние использованные файлы, под патч SilverWolf2k20 -> Последние файлы
 void newRecentFilesArray()
 {
-	lastFiles = (char**)malloc(NUMBER_OF_FILES * sizeof(char*));	//Инициализируем строки
+	//lastFiles = (char**)malloc(NUMBER_OF_FILES * sizeof(char*));	//Инициализируем строки
+	lastFiles = (char**)calloc(NUMBER_OF_FILES, sizeof(char*));
 	for (uint8_t index = 0; index < NUMBER_OF_FILES; ++index)	//Инициализируем ячейки в строках
 	{
-		lastFiles[index] = (char*)malloc(FILENAME_SIZE * sizeof(char));
-		for (uint16_t colIndex = 0; colIndex < FILENAME_SIZE; ++colIndex)
-			lastFiles[index][colIndex] = (char)NULL;  //Чистим от мусора
+		lastFiles[index] = (char*)calloc(FILENAME_SIZE * sizeof(char));
 	}
 }
 
 void deleteOnExit()
 {
 	//Удаляем массив
-	for (uint8_t index = 0; index < NUMBER_OF_FILES; ++index)
+	if (lastFiles != NULL)
 	{
-		free(lastFiles[index]);
+		for (uint8_t index = 0; index < NUMBER_OF_FILES; ++index)
+		{
+			free(lastFiles[index]);
+		}
+		free(lastFiles);
 	}
-	free(lastFiles);
 }
 
 void deleteName(uint8_t pos)

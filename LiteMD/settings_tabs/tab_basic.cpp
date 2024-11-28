@@ -22,6 +22,7 @@ void appSettings::configureBasicSettingsTab()
 	saveFreqHint = new QLabel(tr("Autosave frequency"));
 	depFuncHint = new QLabel(tr("Enable deprecated features"));
 	inDevFuncHint = new QLabel(tr("Enable in-dev features"));
+	colorThemeHint = new QLabel(tr("colorThemeHint"));
 
 	//Инициализируем элементы взаимодействий
 	langList = new QComboBox;
@@ -31,13 +32,14 @@ void appSettings::configureBasicSettingsTab()
 	saveFreq = new QComboBox;
 	depFunc = new QCheckBox;
 	devFunc = new QCheckBox;
+	colorTheme = new QComboBox;
 
 	//Инициализируем вкладку
 	basicSettings = new QWidget;
 
 	//Пока что отключено
-	devFunc->setDisabled(1);
-	devFunc->setChecked(0);
+	//devFunc->setDisabled(1);
+	//devFunc->setChecked(0);
 
 	//Инициализируем рамку
 	QGroupBox* basic_box = new QGroupBox;
@@ -104,6 +106,7 @@ void appSettings::configureBasicSettingsTab()
 	//Добавляем элементы в левую половину(подсказки)
 	lbl_lay->addWidget(langListHint);
 	lbl_lay->addWidget(themeHint);
+	lbl_lay->addWidget(colorThemeHint);
 	lbl_lay->addWidget(saveSettingsHint);
 	lbl_lay->addWidget(autoSaveHint);
 	lbl_lay->addWidget(saveFreqHint);
@@ -113,6 +116,7 @@ void appSettings::configureBasicSettingsTab()
 	//Добавляем элементы в правую половину(взаимодействие)
 	interact_lay->addWidget(langList);
 	interact_lay->addWidget(themeList);
+	interact_lay->addWidget(colorTheme);
 	interact_lay->addWidget(saveSettings);
 	interact_lay->addWidget(autoSave);
 	interact_lay->addWidget(saveFreq);
@@ -120,16 +124,20 @@ void appSettings::configureBasicSettingsTab()
 	interact_lay->addWidget(devFunc);
 
 	//Отключаем элементы, механика которых не реализована
-	themeList->addItem(tr("Will be added in future"));
-	saveSettings->addItem("XML");
-	saveFreq->addItem(tr("Will be added in future"));
+	colorTheme->addItem(tr("Default"));
+	themeList->addItem(tr("Default"));
+	saveSettings->addItem(tr("XML"));
+	saveFreq->addItem(tr("NaN"));
 	autoSave->setChecked(0);
 	themeList->setDisabled(1);
+	colorTheme->setDisabled(1);
 	saveSettings->setDisabled(1);
 	saveFreq->setDisabled(1);
-	autoSave->setDisabled(1);
-	depFunc->setDisabled(1);
-	devFunc->setDisabled(1);
+	themeHint->setDisabled(1);
+	colorThemeHint->setDisabled(1);
+	saveSettingsHint->setDisabled(1);
+	autoSaveHint->setDisabled(1);
+	saveFreqHint->setDisabled(1);
 
 	//Настраиваем высоту(подгон высоты текста к элементам управления)
 	langListHint->setFixedHeight(SETTINGS_HEIGH);
@@ -176,6 +184,7 @@ QString localeNameConverter(QString lang_string_name, QString file_loc_name)
 }
 void appSettings::slot_lang_selected(int lIndx)
 {
+	settingChanged = 1;
 	if (emptyMapDet)
 	{
 		emit signalTitleChanged("[Локали не найдены!]");

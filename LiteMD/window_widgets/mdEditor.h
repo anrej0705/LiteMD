@@ -8,6 +8,8 @@ class mdEditor : public QTextEdit
 		QString mdFileName;
 		QString processText;	//Буфер текста для обработки
 		QFile mdObject;
+	protected:
+		void insertLattice(uint8_t);
 	public:
 		mdEditor(QWidget* mdWgt = 0);
 	signals:
@@ -27,6 +29,16 @@ class mdEditor : public QTextEdit
 		void slotNew();		//Очищает поле ввода
 		void convertToUrl();//Преобразует в <ссылку>
 		void convToAltUrl();//Преобразует в [альтернативную]<ссылку>
+		void slotSetH1();	//Вставляет '#' слева от курсора
+		void slotSetH2();	//Вставляет '##' слева от курсора
+		void slotSetH3();	//Вставляет '###' слева от курсора
+		void slotSetH4();	//Вставляет '####' слева от курсора
+		void slotSetH5();	//Вставляет '#####' слева от курсора
+		void slotSetEscape();//Вставляет '/' слева от курсора
+		void slotSetBold();	//Вставляет ** слева и справа от выделенной области
+		void slotSetItalic();//Вставляет * слева и справа от выделенной области
+		void slotSetUnrderline();//Пока без действия
+		void slotSetStrikethrough();//Пока без действия
 };
 
 class mdEditor_filter : public QObject

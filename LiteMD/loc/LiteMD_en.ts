@@ -244,7 +244,59 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>Ver.</source>
-        <translation>Ver.</translation>
+        <translation type="vanished">Ver.</translation>
+    </message>
+    <message>
+        <source>Set headers</source>
+        <translation>Set header level</translation>
+    </message>
+    <message>
+        <source>Set format style</source>
+        <translation>Set format style</translation>
+    </message>
+    <message>
+        <source>Set H1</source>
+        <translation>Set H1</translation>
+    </message>
+    <message>
+        <source>Set H2</source>
+        <translation>Set H2</translation>
+    </message>
+    <message>
+        <source>Set H3</source>
+        <translation>Set H3</translation>
+    </message>
+    <message>
+        <source>Set H4</source>
+        <translation>Set H4</translation>
+    </message>
+    <message>
+        <source>Set H5</source>
+        <translation>Set H5</translation>
+    </message>
+    <message>
+        <source>Es&amp;cape character</source>
+        <translation>Set es&amp;cape character</translation>
+    </message>
+    <message>
+        <source>Set bold</source>
+        <translation>Set bold</translation>
+    </message>
+    <message>
+        <source>Set italic</source>
+        <translation>Set italic</translation>
+    </message>
+    <message>
+        <source>Set underlined</source>
+        <translation>Set underlined</translation>
+    </message>
+    <message>
+        <source>Set strikethrough</source>
+        <translation>Set strikethrough</translation>
+    </message>
+    <message>
+        <source>Ver </source>
+        <translation>Ver </translation>
     </message>
 </context>
 <context>
@@ -343,7 +395,7 @@ Programm will close</translation>
     </message>
     <message>
         <source>Will be added in future</source>
-        <translation>Will be added in future</translation>
+        <translation type="vanished">Will be added in future</translation>
     </message>
     <message>
         <source>Parse URL links</source>
@@ -412,6 +464,42 @@ Programm will close</translation>
     <message>
         <source>*.txt</source>
         <translation>*.txt</translation>
+    </message>
+    <message>
+        <source>colorThemeHint</source>
+        <translation>Color theme</translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <translation>Default</translation>
+    </message>
+    <message>
+        <source>NaN</source>
+        <translation>NaN</translation>
+    </message>
+    <message>
+        <source>XML</source>
+        <translation>XML</translation>
+    </message>
+    <message>
+        <source>deprSyntaxPrepHint</source>
+        <translation>Включить устаревший препроцессор</translation>
+    </message>
+    <message>
+        <source>deprSyntaxPostHint</source>
+        <translation>Включить устаревший постпроцессор</translation>
+    </message>
+    <message>
+        <source>deprUrlSimplParserHint</source>
+        <translation>Включить устаревший парсер простых ссылок</translation>
+    </message>
+    <message>
+        <source>deprUrlAdvParserHint</source>
+        <translation>Включить устаревший парсер форматированных ссылок</translation>
+    </message>
+    <message>
+        <source>deprUrlBasParserHint</source>
+        <translation>Включить парсер ссылок &lt;https://url&gt;</translation>
     </message>
 </context>
 <context>
@@ -489,7 +577,11 @@ Programm will close</translation>
     </message>
     <message>
         <source>[TYPE_NAME]</source>
-        <translation>[my_link]</translation>
+        <translation type="vanished">[my_link]</translation>
+    </message>
+    <message>
+        <source>(TYPE_NAME)</source>
+        <translation>(type_name)</translation>
     </message>
 </context>
 </TS>

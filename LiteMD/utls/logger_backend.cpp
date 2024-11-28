@@ -1,5 +1,7 @@
 #include "logger_backend.h"
 #include "exceptionHandler.h"
+#include <fstream>
+#include <iostream>
 
 logger_backend* logger_backend::log_bcknd = 0;
 singlet_remover logger_backend::remv;
@@ -82,6 +84,20 @@ void push_log(const char* log)	//По идее это должно без про
 	t_mut.unlock();
 }
 
+void push_log(const std::string& log)	//Лог формата std::string
+{
+	t_mut.lock();	//Эта тема будет вызываться из разных потоков поэтому надо выстроить очередь
+	logger_backend::getInstance().insert_log(log.c_str(), log.size());
+	t_mut.unlock();
+}
+
+void push_log(const QString& log)		//Лог формата QString
+{
+	t_mut.lock();	//Эта тема будет вызываться из разных потоков поэтому надо выстроить очередь
+	logger_backend::getInstance().insert_log(log.toLocal8Bit(), log.size());
+	t_mut.unlock();
+}
+
 boost::container::vector<QString> logger_backend::get_logs()
 {
 	boost::container::vector<QString> container;
@@ -98,4 +114,32 @@ void logger_backend::clear_logs()
 	free(log_container);	//Чистим массив и пересоздаём указатель
 	log_container = (char**)calloc(log_str_counter + 1, sizeof(char*));
 	log_str_counter = 0;
+}
+
+char* logger_backend::get_stroke(uint32_t _index)
+{
+	if (_index < log_str_counter)
+		return log_container[_index];
+	else
+		return log_container[log_str_counter - 1];
+}
+
+uint32_t logger_backend::get_size() {return log_str_counter;}
+
+void dump_crash_log()
+{
+	//Если вдруг случился крит который роняет прогу то сохраняем лог в файл
+	::push_log("[LOG]Попытка сохранить лог в файл...");
+	std::string filename("crash.");
+	filename.append(&boost::posix_time::to_iso_extended_string(boost::posix_time::microsec_clock::universal_time()).c_str()[0], 19);
+	std::replace(filename.begin(), filename.end(), ':', '-');
+	std::replace(filename.begin(), filename.end(), 'T', '_');
+	filename.append(".log");
+	std::ofstream crash_log(filename);
+	for (uint32_t _index = 0; _index < logger_backend::getInstance().get_size(); ++_index)
+	{
+		filename = QString::fromUtf8(logger_backend::getInstance().get_stroke(_index)).toStdString() + '\n';
+		crash_log.write(filename.c_str(), filename.size());
+	}
+	crash_log.close();
 }

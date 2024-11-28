@@ -12,6 +12,7 @@ extern "C"
 
 mdEditor::mdEditor(QWidget* mdWgt) : QTextEdit(mdWgt)
 {
+	push_log("[QT]Инициализация окна редактора");
 	setAcceptRichText(0);
 	//Соединяем базовый сигнал со слотом который будет формировать сигнал высылки текста
 	if (!connect(this, SIGNAL(textChanged()), this, SLOT(slotTextChanged())))
@@ -56,7 +57,7 @@ void mdEditor::slotOpen()
 	mdFileName = QFileDialog::getOpenFileName(0, tr("Open Text/Markdown"), "", tr("*.md ;; *.txt"));
 	if (mdFileName.isEmpty())
 		return;
-	log_stroke->append(mdFileName.toLocal8Bit());
+	log_stroke->append(mdFileName.toUtf8());
 	push_log(log_stroke->c_str());
 	//Присваиваем имя файла к обработчику который будет открывать его
 	mdObject.setFileName(mdFileName);
@@ -196,11 +197,11 @@ void mdEditor::convToAltUrl()
 	QTextCursor tCursor = this->textCursor();
 
 	//Вставляем тег альтернативной ссылки
-	procBuf.insert(0, "(");
-	procBuf.insert(procBuf.size(), ")");
+	procBuf.insert(0, "[");
+	procBuf.insert(procBuf.size(), "]");
 
 	//Вставляем шаблон имени ссылки
-	procBuf.insert(0, tr("[TYPE_NAME]"));
+	procBuf.insert(procBuf.size(), tr("(TYPE_NAME)"));
 
 	//Получаем позицию конца шаблона
 	int bumpEnd = 0;
@@ -229,6 +230,101 @@ void mdEditor::convToAltUrl()
 
 	//Отмечаем текст выделенным
 	this->setTextCursor(tCursor);
+}
+//Вставляет '#' слева от курсора
+void mdEditor::slotSetH1(){this->insertLattice(1);}
+//Вставляет '##' слева от курсора
+void mdEditor::slotSetH2(){this->insertLattice(2);}
+//Вставляет '###' слева от курсора
+void mdEditor::slotSetH3(){this->insertLattice(3);}
+//Вставляет '####' слева от курсора
+void mdEditor::slotSetH4(){this->insertLattice(4);}
+//Вставляет '#####' слева от курсора
+void mdEditor::slotSetH5(){this->insertLattice(5);}
+//Вставляет '/' слева от курсора
+void mdEditor::slotSetEscape()
+{
+	//Хандлер курсора
+	QTextCursor tCursor = this->textCursor();
+
+	//Получаем позицию курсора
+	int cursorPosition = this->textCursor().position();
+
+	//Вставляем символ экранирования
+	this->insertPlainText("\\");
+}
+//Вставляет ** слева и справа от выделенной области
+void mdEditor::slotSetBold()
+{
+	QString procBuf = this->textCursor().selectedText();
+	if (procBuf == "")
+		return;	//Если пользователь ничего не выделил - выходим
+
+	//Вставляем тег жирного текста по обоим концам выделенной области
+	procBuf.insert(0, "**");
+	procBuf.insert(procBuf.size(), "**");
+
+	//Заменяем выделенный текст ссылкой
+	this->textCursor().removeSelectedText();
+	this->textCursor().insertText(procBuf);
+
+	//Получаем позицию курсора
+	int cursorPosition = this->textCursor().position() - procBuf.size();
+	
+	//Шлём смску что текст изменился
+	emit textChanged();
+}
+//Вставляет * слева и справа от выделенной области
+void mdEditor::slotSetItalic()
+{
+	QString procBuf = this->textCursor().selectedText();
+	if (procBuf == "")
+		return;	//Если пользователь ничего не выделил - выходим
+
+	//Вставляем тег курсива по обоим концам выделенной области
+	procBuf.insert(0, "*");
+	procBuf.insert(procBuf.size(), "*");
+
+	//Заменяем выделенный текст ссылкой
+	this->textCursor().removeSelectedText();
+	this->textCursor().insertText(procBuf);
+
+	//Получаем позицию курсора
+	int cursorPosition = this->textCursor().position() - procBuf.size();
+
+	//Шлём смску что текст изменился
+	emit textChanged();
+}
+//Пока без действия
+void mdEditor::slotSetUnrderline(){return;}
+//Пока без действия
+void mdEditor::slotSetStrikethrough(){return;}
+//Вставляет литеру решётки в количестве заданным из аргумента
+void mdEditor::insertLattice(uint8_t count)
+{
+	//Хандлер курсора
+	QTextCursor tCursor = this->textCursor();
+
+	//Получаем позицию курсора
+	int cursorPosition = this->textCursor().position();
+
+	//Сюда будет собираться заголовок нужного размера
+	std::string _piece;
+
+	//Вставляем символ символ решётки столько раз сколько выбрал юзер
+	for (uint8_t _idx = 0; _idx < count; ++_idx)
+	{
+		_piece.append("#");
+	}
+
+	//Вставляем пробел как того требует стандарт
+	_piece.append(" ");
+
+	//Теперь просто вставляем
+	this->insertPlainText(_piece.c_str());
+
+	//Шлём смску что текст изменился
+	emit textChanged();
 }
 
 mdEditor_filter::mdEditor_filter(QObject* pobj) : QObject(pobj)

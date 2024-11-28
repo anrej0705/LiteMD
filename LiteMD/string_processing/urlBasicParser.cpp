@@ -86,7 +86,7 @@ std::string basicUrlParser(std::string &rawInput)
 		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlBasicParser.cpp 53:67")));
 	}
 
-	push_log("[urlBasicParser]Поиск закрыющего знака '>'");
+	push_log("[urlBasicParser]Поиск закрывающего знака '>'");
 
 	try
 	{

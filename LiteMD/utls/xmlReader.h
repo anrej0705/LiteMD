@@ -3,6 +3,7 @@
 #include <qfile.h>
 #include <qxmlstream.h>
 #include <qdebug.h>
+#include <QXmlStreamAttributes>
 
 class xmlReader
 {

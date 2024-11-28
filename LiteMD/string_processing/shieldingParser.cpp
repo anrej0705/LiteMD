@@ -26,7 +26,7 @@ std::string shieldingParser(std::string& rawInput)
 			break;
 		//Если находим то читаем символ в буфер, находим такой же в контейнере
 		//затем превращаем спецсимвол в дрисню и проливаем обратно в буфер
-		if (shielding_buffer->at(index) == '\\')
+		if ((index < shielding_buffer->size() - 1) && (shielding_buffer->at(index) == '\\'))
 		{
 			replaceSymbol[0] = shielding_buffer->at(index + 1);
 			if (shieldingSymbolsSrc.find(replaceSymbol[0]) != -1)
