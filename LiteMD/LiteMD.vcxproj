@@ -229,6 +229,7 @@
     <ClCompile Include="dyn_tr_manager\LiteMD_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\logger_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\ui_update_event.cpp" />
+    <ClCompile Include="modules\customToolButton.cpp" />
     <ClCompile Include="modules\Downloader.cpp" />
     <ClCompile Include="modules\exceptionHandler.cpp" />
     <ClCompile Include="modules\frameChangelog.cpp" />
@@ -245,7 +246,7 @@
     <ClCompile Include="string_processing\symbolCleaner.cpp" />
     <ClCompile Include="string_processing\urlAdvancedParser.cpp" />
     <ClCompile Include="string_processing\urlBasicParser.cpp" />
-    <ClCompile Include="string_processing\urlBasicSimplifiedParser.cpp" />
+    <ClCompile Include="string_processing\mdScreen__urlBasicSimplifiedParser.cpp" />
     <ClCompile Include="ui_primitives\dialogBoxes.cpp">
       <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">input</DynamicSource>
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).moc</QtMocFileName>
@@ -293,6 +294,8 @@
     <Image Include="ress\icon_save.png" />
     <Image Include="ress\icon_save_as.png" />
     <Image Include="ress\icon_settings.png" />
+    <Image Include="ress\icon_set_header.png" />
+    <Image Include="ress\icon_set_shielding.png" />
     <Image Include="ress\icon_set_text_format.png" />
     <Image Include="ress\work_progress_cap.png" />
   </ItemGroup>
@@ -311,6 +314,7 @@
     <ClInclude Include="dyn_tr_manager\ui_update_event.h" />
     <QtMoc Include="window_widgets\logger.h" />
     <QtMoc Include="modules\frameChangelog.h" />
+    <QtMoc Include="modules\customToolButton.h" />
     <ClInclude Include="modules\exceptionHandler.h" />
     <ClInclude Include="ress\resource.h" />
     <ClInclude Include="ress\resource1.h" />
