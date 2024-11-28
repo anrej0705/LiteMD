@@ -80,9 +80,18 @@ void appSettings::update_interactive()
 	enableDeprFeatures == 0 ? parseSimplLinks->setEnabled(1) : parseSimplLinks->setDisabled(1);
 	enableDeprFeatures == 0 ? parseAdvLinksl->setEnabled(1) : parseAdvLinksl->setDisabled(1);
 	enableDeprFeatures == 0 ? parseHeaderLvl->setEnabled(1) : parseHeaderLvl->setDisabled(1);
-	enableDeprFeatures == 0 ? deprSyntaxPrep->setDisabled(0) : deprSyntaxPrep->setEnabled(1);
-	enableDeprFeatures == 0 ? deprSyntaxPost->setDisabled(0) : deprSyntaxPost->setEnabled(1);
-	enableDeprFeatures == 0 ? deprUrlSimplParser->setDisabled(0) : deprUrlSimplParser->setEnabled(1);
-	enableDeprFeatures == 0 ? deprUrlAdvParser->setDisabled(0) : deprUrlAdvParser->setEnabled(1);
-	enableDeprFeatures == 0 ? deprUrlBasParser->setDisabled(0) : deprUrlBasParser->setEnabled(1);
+	enableDeprFeatures == 0 ? deprSyntaxPrep->setDisabled(1) : deprSyntaxPrep->setEnabled(1);
+	enableDeprFeatures == 0 ? deprSyntaxPost->setDisabled(1) : deprSyntaxPost->setEnabled(1);
+	enableDeprFeatures == 0 ? deprUrlSimplParser->setDisabled(1) : deprUrlSimplParser->setEnabled(1);
+	enableDeprFeatures == 0 ? deprUrlAdvParser->setDisabled(1) : deprUrlAdvParser->setEnabled(1);
+	enableDeprFeatures == 0 ? deprUrlBasParser->setDisabled(1) : deprUrlBasParser->setEnabled(1);
+
+	enableDeprFeatures == 0 ? parseSimplLinksHint->setEnabled(1) : parseSimplLinksHint->setDisabled(1);
+	enableDeprFeatures == 0 ? parseAdvLinksHint->setEnabled(1) : parseAdvLinksHint->setDisabled(1);
+	enableDeprFeatures == 0 ? parseHeaderLvlHint->setEnabled(1) : parseHeaderLvlHint->setDisabled(1);
+	enableDeprFeatures == 0 ? deprSyntaxPrepHint->setDisabled(1) : deprSyntaxPrepHint->setEnabled(1);
+	enableDeprFeatures == 0 ? deprSyntaxPostHint->setDisabled(1) : deprSyntaxPostHint->setEnabled(1);
+	enableDeprFeatures == 0 ? deprUrlSimplParserHint->setDisabled(1) : deprUrlSimplParserHint->setEnabled(1);
+	enableDeprFeatures == 0 ? deprUrlAdvParserHint->setDisabled(1) : deprUrlAdvParserHint->setEnabled(1);
+	enableDeprFeatures == 0 ? deprUrlBasParserHint->setDisabled(1) : deprUrlBasParserHint->setEnabled(1);
 }
