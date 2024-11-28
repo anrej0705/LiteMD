@@ -109,7 +109,7 @@ void mdScreen::slotSetText(const QString& str)
 			textProcessorDeprecated();
 		}
 		push_log("[РЕНДЕР][УСТАРЕВШИЙ]Конвертация в QString");
-		mdFormatted.fromStdWString(mdInputDepr);
+		mdFormatted = QString::fromStdWString(mdInputDepr);
 		if (dparswitch.en_t_post)
 		{
 			push_log("[РЕНДЕР][УСТАРЕВШИЙ]Постобработка, возможны ошибки");
