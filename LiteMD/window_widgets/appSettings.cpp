@@ -210,7 +210,7 @@ void appSettings::slot_switch_features(int bit)
 	{
 		//Посылаем событие в LiteMD.cpp
 		push_log("[НАСТРОЙКИ]Активирован функционал находящийся в разработке, возможна нестабильная работа");
-		push_log("[НАСТРОЙКИ]Пожалуйста сохраните лог")
+		push_log("[НАСТРОЙКИ]Пожалуйста сохраните лог");
 		themeHint->setEnabled(1);
 		saveSettingsHint->setEnabled(1);
 		autoSaveHint->setEnabled(1);
