@@ -1,6 +1,6 @@
 README.MD
 
-# LiteMD alpha 0.2.2
+# LiteMD alpha 0.2.3
 
 ![Qt](https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white)
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
@@ -12,8 +12,8 @@ README.MD
 | MSVC 2019 
 | GPL v2 license |**
 
-Этот файл был создан в LiteMD alpha 0.1.7 build 1006
-Исходный код на [GitHub](https://github.com/anrej0705/LiteMD/tree/LiteMD_alpha782)
+Этот файл был создан в LiteMD alpha 0.2.3 build 1829
+Исходный код на [GitHub](https://github.com/anrej0705/LiteMD)
 
 Релизы: <https://github.com/anrej0705/LiteMD/releases>
 
