@@ -1,11 +1,13 @@
 #include "appSettings.h"
 #include "ui_update_event.h"
+#include "event_id_constructor.h"
 extern "C"
 {
 	#include "global_definitions.h"
 	#include "globalFlags.h"
 }
 extern struct parser_switchers parswitch;
+extern struct depr_paerser_switchers dparswitch;
 bool appSettings::eventFilter(QObject* pobj, QEvent* p_event)
 {
 	if (p_event->type() == static_cast<QEvent::Type>(QEvent::User + APP_EVENT_appSettings_UPDATE_EVENT))
@@ -63,9 +65,15 @@ void appSettings::update_ui()
 
 void appSettings::update_interactive()
 {
+	//Меняем галочки в зависимости от полученных настроек
 	enableIndevFeatures == 0 ? devFunc->setChecked(0) : devFunc->setChecked(1);
 	enableDeprFeatures == 0 ? depFunc->setChecked(0) : depFunc->setChecked(1);
 	parswitch.en_simple_url == 0 ? parseSimplLinks->setChecked(0) : parseSimplLinks->setChecked(1);
 	parswitch.en_adv_url == 0 ? parseAdvLinksl->setChecked(0) : parseAdvLinksl->setChecked(1);
 	parswitch.en_header_lvl == 0 ? parseHeaderLvl->setChecked(0) : parseHeaderLvl->setChecked(1);
+	dparswitch.en_t_post == 0 ? deprSyntaxPrep->setChecked(0) : deprSyntaxPrep->setChecked(1);
+	dparswitch.en_t_prep == 0 ? deprSyntaxPost->setChecked(0) : deprSyntaxPost->setChecked(1);
+	dparswitch.en_url_adv == 0 ? deprUrlSimplParser->setChecked(0) : deprUrlSimplParser->setChecked(1);
+	dparswitch.en_url_bas == 0 ? deprUrlAdvParser->setChecked(0) : deprUrlAdvParser->setChecked(1);
+	dparswitch.en_url_bas_simple == 0 ? deprUrlBasParser->setChecked(0) : deprUrlBasParser->setChecked(1);
 }

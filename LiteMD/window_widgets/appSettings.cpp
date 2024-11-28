@@ -209,9 +209,8 @@ void appSettings::slot_switch_features(int bit)
 	if (enableIndevFeatures)
 	{
 		//Посылаем событие в LiteMD.cpp
-		push_log("[НАСТРОЙКИ]Активирован функционал находящийся в разработке, возможна нестабильная работа, пожалуйста сохраните лог");
-		if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_enable_dev_func_EVENT)))
-			QErrorMessage::qtHandler();
+		push_log("[НАСТРОЙКИ]Активирован функционал находящийся в разработке, возможна нестабильная работа");
+		push_log("[НАСТРОЙКИ]Пожалуйста сохраните лог")
 		themeHint->setEnabled(1);
 		saveSettingsHint->setEnabled(1);
 		autoSaveHint->setEnabled(1);

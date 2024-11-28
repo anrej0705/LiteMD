@@ -81,6 +81,7 @@ class LiteMD : public QMainWindow
 	protected:
 		bool eventFilter(QObject* pobj, QEvent* event);
 		void update_ui();
+		void update_interactive();
 		void localeDetector(void);
 	public:
 		void closeEvent(QCloseEvent*);		//Перехватчик закрытия приложения

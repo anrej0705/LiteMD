@@ -83,7 +83,8 @@ void mdScreen::slotSetText(const QString& str)
 	else
 	{
 		std::wstring mdInputDepr(str.toStdWString());
-		push_log("[РЕНДЕР]Выбрана устаревшая цепочка парсеров, возможны ошибки, пожалуйста сохраните лог");
+		push_log("[РЕНДЕР]Выбрана устаревшая цепочка парсеров, возможны ошибки");
+		push_log("[РЕНДЕР]Пожалуйста сохраните лог");
 		balamut.lock();
 		if (dparswitch.en_t_prep)
 		{
