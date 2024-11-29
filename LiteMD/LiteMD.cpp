@@ -59,8 +59,8 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	logWindow = new logger;
 	headersMenu = new QMenu(tr("Set headers"));
 	formatStyle = new QMenu(tr("Set format style"));
-	actPlaceHeader = new QToolButton;
-	actSetTextFormat = new QToolButton;
+	actPlaceHeader = new CustomToolButton;
+	actSetTextFormat = new CustomToolButton;
 	//-------------------------
 
 	//Блок конфигурации элементов интерфейса
@@ -119,11 +119,11 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	actHelp = new QAction(QPixmap("ress/icon_help.png"), tr("&Help"));
 	actOpenChangelog = new QAction(QPixmap("ress/icon_show_changelog.png"), tr("Sh&ow changelog"));
 	actBugReport = new QAction(QPixmap("ress/icon_bug.png"), tr("&Bug!"));
-	actSetH1 = new QAction(QPixmap("ress/icon_set_header.png"), tr("Set H1"));
-	actSetH2 = new QAction(QPixmap("ress/icon_set_header.png"), tr("Set H2"));
-	actSetH3 = new QAction(QPixmap("ress/icon_set_header.png"), tr("Set H3"));
-	actSetH4 = new QAction(QPixmap("ress/icon_set_header.png"), tr("Set H4"));
-	actSetH5 = new QAction(QPixmap("ress/icon_set_header.png"), tr("Set H5"));
+	actSetH1 = new QAction(QPixmap("ress/icon_set_h1.png"), tr("Set H1"));
+	actSetH2 = new QAction(QPixmap("ress/icon_set_h2.png"), tr("Set H2"));
+	actSetH3 = new QAction(QPixmap("ress/icon_set_h3.png"), tr("Set H3"));
+	actSetH4 = new QAction(QPixmap("ress/icon_set_h4.png"), tr("Set H4"));
+	actSetH5 = new QAction(QPixmap("ress/icon_set_h5.png"), tr("Set H5"));
 	actShieldSymbol = new QAction(QPixmap("ress/icon_set_shielding.png"), tr("Es&cape character"));
 	setBold = new QAction(QPixmap("ress/icon_set_text_format.png"), tr("Set bold"));
 	setItalic = new QAction(QPixmap("ress/icon_set_text_format.png"), tr("Set italic"));
