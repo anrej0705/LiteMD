@@ -5,7 +5,7 @@
 #include <string>
 
 int main(int argc, char *argv[])
-{
+{	//Впадлу описывать
 	std::string init_log;
 	push_log("[ЛОГ]Инициализация системы логов");
 	init_log.append("[MAIN]Получено аргументов: ");
