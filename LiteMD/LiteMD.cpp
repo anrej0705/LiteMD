@@ -14,7 +14,7 @@ extern "C"
 }
 extern struct parser_switchers parswitch;
 extern struct depr_paerser_switchers dparswitch;
-LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
+LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 {	//Контейнер для строчки лога перед отправкой в ядро
 	boost::container::string* log_stroke = new boost::container::string;
 
@@ -78,7 +78,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		{
 			xmlW->writeConfig();
 			if (!xmlR->readConfig())
-				throw(exceptionHandler(exceptionHandler::FATAL));
+				throw(exceptionHandler(exceptionHandler::FATAL), "Ошибка записи конфига");
 		}
 	}
 
@@ -350,7 +350,12 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 
 	//Устанавливаем язык
 	mdlSet->slot_lang_selected(langCode);
-	mdlSet->slot_apply_settings();
+	mdlSet->slot_apply_settings(); 
+
+	if (argc == 2)	//Если вторым аргументом файл то сразу открываем его
+	{
+		mde->openFileArg(argv[1]);
+	}
 
 	//Показываем сообщение готовности к работе
 	statusBar()->showMessage(tr("Ready"), 3000);

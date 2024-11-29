@@ -85,7 +85,7 @@ class LiteMD : public QMainWindow
 		void localeDetector(void);
 	public:
 		void closeEvent(QCloseEvent*);		//Перехватчик закрытия приложения
-		LiteMD(QWidget *parent = nullptr);	//Базовый конструкор
+		LiteMD(int, char**, QWidget* parent = nullptr);	//Конструктор для получения аргументов
 		~LiteMD();
 	signals:
 		void saveFile();		//Сохранение файла

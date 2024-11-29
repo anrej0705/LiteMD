@@ -12,6 +12,7 @@ class mdEditor : public QTextEdit
 		void insertLattice(uint8_t);
 	public:
 		mdEditor(QWidget* mdWgt = 0);
+		bool openFileArg(char* arg);
 	signals:
 		void textEdited(const QString&);	//Отправляется при изменении текста
 		void titleChanged(const QString&);	//Отправлятся при открытии/сохранении файла

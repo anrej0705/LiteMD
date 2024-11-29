@@ -8,7 +8,7 @@ extern "C"
 	#include "globalFlags.h"
 }
 
-#define MAX_FILESIZE 65536
+#define MAX_FILESIZE 4294967296	//Лимит 4Гб
 
 mdEditor::mdEditor(QWidget* mdWgt) : QTextEdit(mdWgt)
 {
@@ -42,6 +42,46 @@ void mdEditor::slotTextChanged()
 		emit resetTitle();
 	}
 }
+//Открытие файла полученного как аргумент
+bool mdEditor::openFileArg(char* arg)
+{	//Контейнер для строчки лога перед отправкой в ядро
+	boost::container::string* log_stroke = new boost::container::string;
+
+	//ПроцеДУРА аналогична слоту открытия только здесь сразу передаётся путь до файла
+
+	log_stroke->append("[mdEditor]Открываю файл ");
+
+	mdFileName = QString::fromLocal8Bit(arg);
+	//Отправляем в лог что собираемся открыть такой-то файл
+	log_stroke->append(mdFileName.toUtf8());
+	push_log(log_stroke->c_str());
+	//Присваиваем имя файла к обработчику который будет открывать его
+	mdObject.setFileName(mdFileName);
+	//Если размер больше 4 гигабайт то файл не откроется
+	if (mdObject.size() > MAX_FILESIZE)
+	{
+		QMessageBox::warning(this, tr("Oversize detected"), tr("Cannot open file because size of this is over ") + QString::number(MAX_FILESIZE) + tr(" bytes"));
+		return 0;
+	}
+	//Если удалось то открыть то начинаем чтение
+	if (mdObject.open(QIODevice::ReadOnly))
+	{
+		//Читаем в поток
+		QTextStream mdStream(&mdObject);
+		mdStream.setCodec("UTF-8");
+		//Читаем из потока в поле редактирования(дальше сигнал отсылает содержимое в поле рендера)
+		setPlainText(mdStream.readAll());
+		//Закрываем файл и освобождаем его дескриптор
+		mdObject.close();
+		//Отправляем сигналы
+		emit titleChanged(mdFileName);
+		emit statusString(tr("Opened ") + mdFileName);
+	}
+	//Сбрасываем флаги
+	fileChangedState = 0;
+	appTitleUpdated = 0;
+	return 1;
+}
 //Открытие файла
 void mdEditor::slotOpen()
 {	//Контейнер для строчки лога перед отправкой в ядро
@@ -57,11 +97,12 @@ void mdEditor::slotOpen()
 	mdFileName = QFileDialog::getOpenFileName(0, tr("Open Text/Markdown"), "", tr("*.md ;; *.txt"));
 	if (mdFileName.isEmpty())
 		return;
+	//Отправляем в лог что собираемся открыть такой-то файл
 	log_stroke->append(mdFileName.toUtf8());
 	push_log(log_stroke->c_str());
 	//Присваиваем имя файла к обработчику который будет открывать его
 	mdObject.setFileName(mdFileName);
-	//Если размер больше 64 килобайт то файл не откроется
+	//Если размер больше 4 гигабайт то файл не откроется
 	if (mdObject.size() > MAX_FILESIZE)
 	{
 		QMessageBox::warning(this,tr("Oversize detected"), tr("Cannot open file because size of this is over ") + QString::number(MAX_FILESIZE) + tr(" bytes"));
