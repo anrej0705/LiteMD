@@ -24,6 +24,8 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	configureRenderSettingsTab();
 	configureDownloaderSettingsTab();
 	configureLogsTab();
+	configureExtendedTab();
+	//configureHackTab(); 0.2.5
 
 	//Инициализируем указатели
 	xmlw = new xmlWriter;
@@ -126,6 +128,8 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	settingsLister->addTab(renderSettings, tr("Render"));
 	settingsLister->addTab(downloaderSettings, tr("Downloader"));
 	settingsLister->addTab(tabLogs, tr("Logs"));
+	settingsLister->addTab(tabLogs, tr("Extended"));
+	//settingsLister->addTab(tabLogs, tr("Hacks")); 0.2.5
 	settingsLister->addTab(capTab, tr("Cap"));
 
 	//Задаем фиксированный размер
@@ -308,4 +312,14 @@ void appSettings::slot_save_logs()
 		//Закрываем файл, сбрасываем файл и отсылаем сигнал
 		mdObject.close();
 	}
+}
+
+void appSettings::slot_switch_underlined(int)
+{
+
+}
+
+void appSettings::slot_switch_strikethrough(int)
+{
+
 }
