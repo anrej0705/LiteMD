@@ -72,6 +72,8 @@ bool xmlReader::readConfig()
 	int* _int_ptr;
 	bool* _bool_ptr;
 
+	bool old_ver = 0;
+
 	QString value;
 	QFile settings(fileName);
 	bool readSuccess = 0;
@@ -102,6 +104,7 @@ bool xmlReader::readConfig()
 						{
 							push_log(std::string("[XML]Обнаружена устаревшая версия конфига " + std::to_string(value.toInt()) + "(текущая версия " + std::to_string(BUILD_NUMBER)).c_str());
 							push_log("[XML]Будет проведена попытка импорта некоторых настроек в новый конфиг");
+							old_ver = 1;
 						}
 						for (uint8_t _xml_index = 0; _xml_index < PARAM_CNT; ++_xml_index)
 						{
@@ -172,6 +175,8 @@ bool xmlReader::readConfig()
 		read_retry = 1;
 		readSuccess = 0;
 	}
+	if (old_ver)
+		readSuccess = 0;
 	if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_UI_UPDATE_USER_SETTINGS)))
 		QErrorMessage::qtHandler();//Отправка события на обновление визуала - галочек, радиокнопок и прочего
 	paramReadedCnt = 0;
