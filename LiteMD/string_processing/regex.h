@@ -12,7 +12,8 @@ extern std::wregex simplifiedRegexHyperlink;
 extern std::wregex advRegexHyperlink;
 
 //Наборы символов для обработки и фильтрации
-extern std::wstring symbolCollection;
+extern std::string symbolCollection;
+
 extern std::wstring symbolClearanceBack;
 extern std::wstring symbolClearanceFront;
 extern std::vector<std::wstring> replaceSymbols;
