@@ -37,7 +37,8 @@ void deleteOnExit()
 	{
 		for (uint8_t index = 0; index < NUMBER_OF_FILES; ++index)
 		{
-			free(lastFiles[index]);
+			if(lastFiles[index] != NULL)	//Исправлена ошибка в журналах windows после закрытия
+				free(lastFiles[index]);
 		}
 		free(lastFiles);
 	}
