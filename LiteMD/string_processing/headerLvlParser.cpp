@@ -61,6 +61,31 @@ std::string headerLvlParser(std::string& rawInput)
 					break;
 			}
 
+			//Альтернативная проверка для ===...= и ---...-
+			//Последовательная проверка на наличие только определенного символа
+			// ======коммент=====, ------коммент----- и ===-=-===---- не прокатят
+			for (volatile int32_t _idx = stroke_start; _idx < stroke_end; ++_idx)
+			{
+				switch (buffer[_idx])
+				{
+					case '=':
+					{
+						header_size = 1;
+						break;
+					}
+					case '-':
+					{
+						header_size = 2;
+						break;
+					}
+				}
+				if (((buffer[_idx] == '=') || (buffer[_idx] == '-')) == 0)
+				{
+					header_size = 0;
+					break;
+				}
+			}
+
 			//Если символы не найдены то считается что строка не содержит символов заголовка
 			//индекс начала сохраняется как индекс конца и цикл идёт дальше
 			if ((header_size == 0) && (_index > 0))
