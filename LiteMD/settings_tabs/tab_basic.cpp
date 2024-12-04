@@ -1,8 +1,9 @@
 #include "appSettings.h"
 #include "ui_update_event.h"
-#include "global_definitions.h"
+#include "logger_backend.h"
 extern "C"
 {
+	#include "global_definitions.h"
 	#include "globalFlags.h"
 }
 
@@ -78,6 +79,8 @@ void appSettings::configureBasicSettingsTab()
 	{
 		loc_map = new std::map<uint8_t, QString>;
 
+		push_log(std::string("[LOCALE]Найдено " + std::to_string(static_cast<uint8_t>(available_langs.size())) + " файлов локализаций"));
+
 		for (uint8_t locales = 0; locales < static_cast<uint8_t>(available_langs.size()); ++locales)
 		{
 			QString locale_name = available_langs[locales];
@@ -86,6 +89,7 @@ void appSettings::configureBasicSettingsTab()
 			locale_name.remove(0, locale_name.indexOf("_", 0) + 1);
 			QString locale = localeNameConverter(QLocale::languageToString(QLocale(locale_name).language()), locale_name);
 			langList->addItem(locale);
+			push_log(std::string("[LOCALE]Загружена локаль " + locale.toStdString()));
 			/*if (current_lang == locale_name)
 				langList->setCurrentIndex(locales); */
 		}
@@ -95,6 +99,7 @@ void appSettings::configureBasicSettingsTab()
 	else
 	{
 		langList->addItem("Локали не найдены");
+		push_log("[LOCALE]Файлы языковых переводов не найдены! Не удалось настроить интерфейс");
 		langList->setDisabled(1);
 		emptyMapDet=!emptyMapDet;
 	}
@@ -196,7 +201,6 @@ void appSettings::slot_lang_selected(int lIndx)
 	auto it = loc_map->cbegin();
 	std::advance(it, lIndx);
 	QString lang_file = it->second;
-
 	if(!lmd_lng.load("loc/"+ lang_file, "."))
 		QErrorMessage::qtHandler();
 
