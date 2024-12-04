@@ -483,23 +483,35 @@ Programm will close</translation>
     </message>
     <message>
         <source>deprSyntaxPrepHint</source>
-        <translation>Включить устаревший препроцессор</translation>
+        <translation>Enable deprecated preprocessor</translation>
     </message>
     <message>
         <source>deprSyntaxPostHint</source>
-        <translation>Включить устаревший постпроцессор</translation>
+        <translation>Enable deprecated postprocessor</translation>
     </message>
     <message>
         <source>deprUrlSimplParserHint</source>
-        <translation>Включить устаревший парсер простых ссылок</translation>
+        <translation>Enable deprecated simple url parser</translation>
     </message>
     <message>
         <source>deprUrlAdvParserHint</source>
-        <translation>Включить устаревший парсер форматированных ссылок</translation>
+        <translation>Enable deprecated advanced url parser</translation>
     </message>
     <message>
         <source>deprUrlBasParserHint</source>
-        <translation>Включить парсер ссылок &lt;https://url&gt;</translation>
+        <translation>Enable deprecated basic url pasrser</translation>
+    </message>
+    <message>
+        <source>parseStrikethroughHint</source>
+        <translation>Enable parsing strikethrough text</translation>
+    </message>
+    <message>
+        <source>parseUnderlinedHint</source>
+        <translation>Enable parsing underlined text</translation>
+    </message>
+    <message>
+        <source>Extended</source>
+        <translation>Extended</translation>
     </message>
 </context>
 <context>

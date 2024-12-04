@@ -503,6 +503,18 @@ Programm will close</source>
         <source>deprUrlBasParserHint</source>
         <translation>Включить парсер ссылок &lt;https://url&gt;</translation>
     </message>
+    <message>
+        <source>parseStrikethroughHint</source>
+        <translation>Обрабатывать зачёркнутый текст</translation>
+    </message>
+    <message>
+        <source>parseUnderlinedHint</source>
+        <translation>Обрабатывать подчёркнутый текст</translation>
+    </message>
+    <message>
+        <source>Extended</source>
+        <translation>Расширенные</translation>
+    </message>
 </context>
 <context>
     <name>currentChangelog</name>
