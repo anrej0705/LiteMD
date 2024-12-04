@@ -70,6 +70,7 @@ bool xmlReader::readConfig()
 	_xml_ptr.push_back(reinterpret_cast<void*>(&dparswitch.en_url_adv));
 	_xml_ptr.push_back(reinterpret_cast<void*>(&dparswitch.en_url_bas));
 	_xml_ptr.push_back(reinterpret_cast<void*>(&dparswitch.en_url_bas_simple));
+	_xml_ptr.push_back(reinterpret_cast<void*>(&parswitch.en_ex_strkthg));
 
 	int* _int_ptr;
 	bool* _bool_ptr;
