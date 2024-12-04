@@ -28,6 +28,7 @@ struct parser_switchers
 	bool en_simple_url;
 	bool en_adv_url;
 	bool en_header_lvl;
+	bool en_ex_strkthg;
 };
 
 struct depr_paerser_switchers
