@@ -13,7 +13,9 @@ extern struct depr_paerser_switchers dparswitch;
 xmlReader::xmlReader()
 {
 	fileName = "config.xml";
-	push_log(std::string("[XML]Задано имя файла конфига для записи " + fileName.toStdString()).c_str());
+	boost::container::string* log_out = new boost::container::string("[XML]Задано имя файла конфига для записи ");
+	log_out->append(fileName.toLocal8Bit());
+	push_log(log_out->c_str());	//xmlWriter.cpp 17:20
 }
 
 xmlReader::xmlReader(QString fName)

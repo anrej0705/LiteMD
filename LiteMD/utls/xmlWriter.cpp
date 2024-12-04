@@ -1,6 +1,7 @@
 #include "xmlWriter.h"
 #include "exceptionHandler.h"
 #include "logger_backend.h"
+#include <boost/container/string.hpp>
 extern "C"
 {
 	#include "globalFlags.h"
@@ -11,7 +12,12 @@ extern struct depr_paerser_switchers dparswitch;
 xmlWriter::xmlWriter()
 {
 	fileName = "config.xml";
-	push_log(std::string("[XML]Задано имя файла конфига для чтения " + fileName.toStdString()).c_str());
+	boost::container::string* log_out = new boost::container::string("[XML]Задано имя файла конфига для чтения ");
+	log_out->append(fileName.toLocal8Bit());
+	push_log(log_out->c_str());	//Кароч я реально нихуя не понимаю почему std string ебёт мозга в дебаге
+								//каким-то критом, который я никогда в жизни не видел. Крит выбрасывается
+								//ещё до передачи аргумента в саму функцию логера. Вижла ебанулась, опять
+								//Бустовый string типа решил проблему
 }
 
 xmlWriter::xmlWriter(QString fName)
