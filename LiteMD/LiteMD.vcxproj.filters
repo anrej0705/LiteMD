@@ -205,6 +205,12 @@
     <ClCompile Include="string_processing\mdScreen__urlBasicSimplifiedParser.cpp">
       <Filter>Устаревшее</Filter>
     </ClCompile>
+    <ClCompile Include="settings_tabs\tab_extended.cpp">
+      <Filter>Интерфейс\Окна\Вкладки</Filter>
+    </ClCompile>
+    <ClCompile Include="settings_tabs\tab_hacks.cpp">
+      <Filter>Интерфейс\Окна\Вкладки</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">

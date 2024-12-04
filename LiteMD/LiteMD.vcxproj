@@ -129,10 +129,14 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
       <EnableModules>false</EnableModules>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>C:\boost\boost_1_84_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>-DBOOST_STACKTRACE_USE_ADDR2LINE %(AdditionalOptions)</AdditionalOptions>
+      <UACExecutionLevel>AsInvoker</UACExecutionLevel>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -167,6 +171,8 @@
     <Link>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>C:\boost\boost_1_84_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>-g -ldl -DBOOST_STACKTRACE_USE_ADDR2LINE %(AdditionalOptions)</AdditionalOptions>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -236,6 +242,8 @@
     <ClCompile Include="modules\GuiDownloader.cpp" />
     <ClCompile Include="settings_tabs\tab_basic.cpp" />
     <ClCompile Include="settings_tabs\tab_downloader.cpp" />
+    <ClCompile Include="settings_tabs\tab_extended.cpp" />
+    <ClCompile Include="settings_tabs\tab_hacks.cpp" />
     <ClCompile Include="settings_tabs\tab_logs.cpp" />
     <ClCompile Include="settings_tabs\tab_render.cpp" />
     <ClCompile Include="string_processing\crlfParser.cpp" />
