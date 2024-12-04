@@ -223,19 +223,6 @@ void appSettings::slot_switch_features(int bit)
 	enableIndevFeatures = static_cast<bool>(bit);
 	if (enableIndevFeatures)
 	{
-		//Посылаем событие в LiteMD.cpp
-		push_log("[НАСТРОЙКИ]Активирован функционал находящийся в разработке, возможна нестабильная работа");
-		push_log("[НАСТРОЙКИ]Пожалуйста сохраните лог");
-		themeHint->setEnabled(1);
-		saveSettingsHint->setEnabled(1);
-		autoSaveHint->setEnabled(1);
-		saveFreqHint->setEnabled(1);
-		themeList->setEnabled(1);
-		saveSettings->setEnabled(1);
-		autoSave->setEnabled(1);
-		saveFreq->setEnabled(1);
-		colorThemeHint->setEnabled(1);
-		colorTheme->setEnabled(1);
 		try
 		{
 			newRecentFilesArray();
@@ -247,16 +234,6 @@ void appSettings::slot_switch_features(int bit)
 	}
 	else
 	{
-		themeHint->setDisabled(1);
-		saveSettingsHint->setDisabled(1);
-		autoSaveHint->setDisabled(1);
-		saveFreqHint->setDisabled(1);
-		themeList->setDisabled(1);
-		saveSettings->setDisabled(1);
-		autoSave->setDisabled(1);
-		saveFreq->setDisabled(1);
-		colorThemeHint->setDisabled(1);
-		colorTheme->setDisabled(1);
 		try
 		{
 			deleteOnExit();
