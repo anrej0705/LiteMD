@@ -26,6 +26,7 @@ logger_backend::logger_backend()
 	log_str_counter = 0;	//Выделяем память на один указатель больше, на всякий
 	log_container = (char**)calloc(log_str_counter + 1, sizeof(char*));
 	log_str = new boost::container::string;
+	msg_limit = 0;	//По умолчанию параметр не задан
 }
 
 logger_backend::~logger_backend()
@@ -77,9 +78,24 @@ void logger_backend::insert_log(const char* log, uint32_t log_size)
 		throw(exceptionHandler(exceptionHandler::WARNING, "Не удалось выделить память в контейнере логов(указатель зашкварился)"));
 }
 
+uint32_t logger_backend::get_limit()
+{
+	return msg_limit;
+}
+
+void logger_backend::set_limit(uint32_t limit)
+{
+	msg_limit = limit;	//Из аргумента вхуяриваем ес чо
+}
+
 void push_log(const char* log)	//По идее это должно без проблем вызываться из сей
 {
 	t_mut.lock();	//Эта тема будет вызываться из разных потоков поэтому надо выстроить очередь
+	if (logger_backend::getInstance().get_limit() != 0)	//Предел задан то тогда проверяем достигнут ли
+	{													//если достигнут то чистим говнище вилкой
+		if (logger_backend::getInstance().get_size() == logger_backend::getInstance().get_limit())
+			logger_backend::getInstance().clear_logs();
+	}
 	logger_backend::getInstance().insert_log(log, strlen(log));
 	t_mut.unlock();
 }
@@ -87,6 +103,11 @@ void push_log(const char* log)	//По идее это должно без про
 void push_log(const std::string& log)	//Лог формата std::string
 {
 	t_mut.lock();	//Эта тема будет вызываться из разных потоков поэтому надо выстроить очередь
+	if (logger_backend::getInstance().get_limit() != 0)	//Предел задан то тогда проверяем достигнут ли
+	{													//если достигнут то чистим говнище вилкой
+		if (logger_backend::getInstance().get_size() == logger_backend::getInstance().get_limit())
+			logger_backend::getInstance().clear_logs();
+	}
 	logger_backend::getInstance().insert_log(log.c_str(), log.size());
 	t_mut.unlock();
 }
@@ -94,14 +115,19 @@ void push_log(const std::string& log)	//Лог формата std::string
 void push_log(const QString& log)		//Лог формата QString
 {
 	t_mut.lock();	//Эта тема будет вызываться из разных потоков поэтому надо выстроить очередь
+	if (logger_backend::getInstance().get_limit() != 0)	//Предел задан то тогда проверяем достигнут ли
+	{													//если достигнут то чистим говнище вилкой
+		if (logger_backend::getInstance().get_size() == logger_backend::getInstance().get_limit())
+			logger_backend::getInstance().clear_logs();
+	}
 	logger_backend::getInstance().insert_log(log.toLocal8Bit(), log.size());
 	t_mut.unlock();
 }
 
 boost::container::vector<QString> logger_backend::get_logs()
 {
-	boost::container::vector<QString> container;
-	for (uint32_t _index = 0; _index < log_str_counter; ++_index)
+	boost::container::vector<QString> container;	//Сюда будут копироваться логи из хранилища класса
+	for (uint32_t _index = 0; _index < log_str_counter; ++_index)	//Копируем логи все до последнего
 		container.push_back(QString::fromUtf8(log_container[_index]));
 	return container;
 }
@@ -117,7 +143,7 @@ void logger_backend::clear_logs()
 }
 
 char* logger_backend::get_stroke(uint32_t _index)
-{
+{	//Здесь всё просто - получаем специфическую строчку по индексу если он не больше log_str_counter - 1
 	if (_index < log_str_counter)
 		return log_container[_index];
 	else
@@ -142,4 +168,9 @@ void dump_crash_log()
 		crash_log.write(filename.c_str(), filename.size());
 	}
 	crash_log.close();
+}
+
+void set_log_limit(uint32_t limit)
+{
+	logger_backend::getInstance().set_limit(limit);
 }
