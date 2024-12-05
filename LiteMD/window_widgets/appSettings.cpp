@@ -105,15 +105,21 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	if (!connect(saveLog, SIGNAL(clicked()), this, SLOT(slot_save_logs())))
 		QErrorMessage::qtHandler();	++connected_signals;//Кнопка сохранения логов
 	if (!connect(deprSyntaxPrep, SIGNAL(stateChanged(int)), this, SLOT(slot_dparswitch_en_t_prep(int))))
-		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера <www.url.com>
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации препроцессора
 	if (!connect(deprSyntaxPost, SIGNAL(stateChanged(int)), this, SLOT(slot_en_t_post(int))))
-		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера <www.url.com>
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации постпроцессора
 	if (!connect(deprUrlSimplParser, SIGNAL(stateChanged(int)), this, SLOT(slot_en_url_bas_simple(int))))
 		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера <www.url.com>
 	if (!connect(deprUrlAdvParser, SIGNAL(stateChanged(int)), this, SLOT(slot_en_url_bas(int))))
-		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера <www.url.com>
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера [name](url)
 	if (!connect(deprUrlBasParser, SIGNAL(stateChanged(int)), this, SLOT(slot_en_url_adv(int))))
-		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера <www.url.com>
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсера <http://www.url.com>
+	if (!connect(limitSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slot_set_limit(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Сигнал на счётчик лимита колва логов
+	if (!connect(parseStrikethrough, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_strikethrough(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсер тильд
+	if (!connect(setDefault, SIGNAL(clicked()), this, SLOT(slot_reset_settings())))
+		QErrorMessage::qtHandler();	++connected_signals;//Кнопка "По умолчанию"
 	push_log(std::string("[QT->appSettings]Образовано " + std::to_string(connected_signals) + " связей"));
 	
 
@@ -323,7 +329,7 @@ void appSettings::slot_set_limit(int limit)
 
 	//Задаем лимит от юзера
 	if (limit > logger_backend::getInstance().get_size())
-		slot_set_limit(limit);
+		logger_backend::getInstance().set_limit(limit);
 	else
 		logger_backend::getInstance().set_limit(logger_backend::getInstance().get_size() + 1);
 }

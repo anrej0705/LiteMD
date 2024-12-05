@@ -110,33 +110,33 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	//---------------------------------
 
 	//Настройка кнопок
-	actAbout = new QAction(QPixmap("ress/icon_about.png"), tr("&About"), 0);
-	actOpen = new QAction(QPixmap("ress/icon_open_document.png"), tr("&Open..."));
-	actSave = new QAction(QPixmap("ress/icon_save.png"), tr("&Save"));
-	actSaveAs = new QAction(QPixmap("ress/icon_save_as.png"), tr("S&ave As..."));
-	actQuit = new QAction(QPixmap("ress/icon_quit.png"), tr("&Quit"));
-	actDownloader = new QAction(QPixmap("ress/icon_http_downloader.png"), tr("HTTP &Downloader module"));
-	actSet = new QAction(QPixmap("ress/icon_settings.png"), tr("&Settings"));
-	actNew = new QAction(QPixmap("ress/icon_new_document.png"), tr("&New"));
-	actPlaceUrl = new QAction(QPixmap("ress/icon_place_url.png"), tr("Make &URL"));
-	actPlaceAltUrl = new QAction(QPixmap("ress/icon_place_url_alternate.png"), tr("Make alt&enate URL"));
-	actHelp = new QAction(QPixmap("ress/icon_help.png"), tr("&Help"));
-	actOpenChangelog = new QAction(QPixmap("ress/icon_show_changelog.png"), tr("Sh&ow changelog"));
-	actBugReport = new QAction(QPixmap("ress/icon_bug.png"), tr("&Bug!"));
-	actSetH1 = new QAction(QPixmap("ress/icon_set_h1.png"), tr("Set H1"));
-	actSetH2 = new QAction(QPixmap("ress/icon_set_h2.png"), tr("Set H2"));
-	actSetH3 = new QAction(QPixmap("ress/icon_set_h3.png"), tr("Set H3"));
-	actSetH4 = new QAction(QPixmap("ress/icon_set_h4.png"), tr("Set H4"));
-	actSetH5 = new QAction(QPixmap("ress/icon_set_h5.png"), tr("Set H5"));
-	actShieldSymbol = new QAction(QPixmap("ress/icon_set_shielding.png"), tr("Es&cape character"));
-	setBold = new QAction(QPixmap("ress/icon_set_text_format.png"), tr("Set bold"));
-	setItalic = new QAction(QPixmap("ress/icon_set_text_format.png"), tr("Set italic"));
-	setUnderlined = new QAction(QPixmap("ress/icon_set_text_format.png"), tr("Set underlined"));
-	setStrikethrough = new QAction(QPixmap("ress/icon_set_text_format.png"), tr("Set strikethrough"));
+	actAbout = new QAction(QPixmap(appPath + "/ress/icon_about.png"), tr("&About"), 0);
+	actOpen = new QAction(QPixmap(appPath + "/ress/icon_open_document.png"), tr("&Open..."));
+	actSave = new QAction(QPixmap(appPath + "/ress/icon_save.png"), tr("&Save"));
+	actSaveAs = new QAction(QPixmap(appPath + "/ress/icon_save_as.png"), tr("S&ave As..."));
+	actQuit = new QAction(QPixmap(appPath + "/ress/icon_quit.png"), tr("&Quit"));
+	actDownloader = new QAction(QPixmap(appPath + "/ress/icon_http_downloader.png"), tr("HTTP &Downloader module"));
+	actSet = new QAction(QPixmap(appPath + "/ress/icon_settings.png"), tr("&Settings"));
+	actNew = new QAction(QPixmap(appPath + "/ress/icon_new_document.png"), tr("&New"));
+	actPlaceUrl = new QAction(QPixmap(appPath + "/ress/icon_place_url.png"), tr("Make &URL"));
+	actPlaceAltUrl = new QAction(QPixmap(appPath + "/ress/icon_place_url_alternate.png"), tr("Make alt&enate URL"));
+	actHelp = new QAction(QPixmap(appPath + "/ress/icon_help.png"), tr("&Help"));
+	actOpenChangelog = new QAction(QPixmap(appPath + "/ress/icon_show_changelog.png"), tr("Sh&ow changelog"));
+	actBugReport = new QAction(QPixmap(appPath + "/ress/icon_bug.png"), tr("&Bug!"));
+	actSetH1 = new QAction(QPixmap(appPath + "/ress/icon_set_h1.png"), tr("Set H1"));
+	actSetH2 = new QAction(QPixmap(appPath + "/ress/icon_set_h2.png"), tr("Set H2"));
+	actSetH3 = new QAction(QPixmap(appPath + "/ress/icon_set_h3.png"), tr("Set H3"));
+	actSetH4 = new QAction(QPixmap(appPath + "/ress/icon_set_h4.png"), tr("Set H4"));
+	actSetH5 = new QAction(QPixmap(appPath + "/ress/icon_set_h5.png"), tr("Set H5"));
+	actShieldSymbol = new QAction(QPixmap(appPath + "/ress/icon_set_shielding.png"), tr("Es&cape character"));
+	setBold = new QAction(QPixmap(appPath + "/ress/icon_set_text_format.png"), tr("Set bold"));
+	setItalic = new QAction(QPixmap(appPath + "/ress/icon_set_text_format.png"), tr("Set italic"));
+	setUnderlined = new QAction(QPixmap(appPath + "/ress/icon_set_text_format.png"), tr("Set underlined"));
+	setStrikethrough = new QAction(QPixmap(appPath + "/ress/icon_set_text_format.png"), tr("Set strikethrough"));
 	//----------------
 	
 	//Настройка выпадающих менюшек
-	actPlaceHeader->setIcon(QPixmap("ress/icon_set_header.png"));
+	actPlaceHeader->setIcon(QPixmap(appPath + "/ress/icon_set_header.png"));
 	actPlaceHeader->setMenu(headersMenu);
 	actPlaceHeader->setPopupMode(QToolButton::InstantPopup);
 	actPlaceHeader->setArrowType(Qt::NoArrow);
@@ -145,7 +145,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	headersMenu->addAction(actSetH3);
 	headersMenu->addAction(actSetH4);
 	headersMenu->addAction(actSetH5);
-	actSetTextFormat->setIcon(QPixmap("ress/icon_set_text_format.png"));
+	actSetTextFormat->setIcon(QPixmap(appPath + "/ress/icon_set_text_format.png"));
 	actSetTextFormat->setMenu(formatStyle);
 	actSetTextFormat->setPopupMode(QToolButton::InstantPopup);
 	actSetTextFormat->setArrowType(Qt::NoArrow);

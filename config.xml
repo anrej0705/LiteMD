@@ -1,6 +1,7 @@
 <!DOCTYPE LMD>
 <__Shani_basic>
  <build>
+  <parameter type="int">1878</parameter>
   <parameter type="int">1829</parameter>
  </build>
  <patchNoteRead>
@@ -39,4 +40,10 @@
  <depr_en_url_bas_simple>
   <parameter type="bool">false</parameter>
  </depr_en_url_bas_simple>
+ <enStrikethroughHintParse>
+  <parameter type="bool">true</parameter>
+ </enStrikethroughHintParse>
+ <logs_limit>
+  <parameter type="int">16384</parameter>
+ </logs_limit>
 </__Shani_basic>
