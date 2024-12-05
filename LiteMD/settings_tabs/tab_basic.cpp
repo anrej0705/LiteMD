@@ -24,6 +24,7 @@ void appSettings::configureBasicSettingsTab()
 	depFuncHint = new QLabel(tr("Enable deprecated features"));
 	inDevFuncHint = new QLabel(tr("Enable in-dev features"));
 	colorThemeHint = new QLabel(tr("colorThemeHint"));
+	msgLimitHint = new QLabel(tr("msgLimitHint"));
 
 	//Инициализируем элементы взаимодействий
 	langList = new QComboBox;
@@ -35,12 +36,20 @@ void appSettings::configureBasicSettingsTab()
 	devFunc = new QCheckBox;
 	colorTheme = new QComboBox;
 
+	//Инициализация крутилки
+	limitSpinBox = new QSpinBox;
+
 	//Инициализируем вкладку
 	basicSettings = new QWidget;
 
 	//Пока что отключено
-	//devFunc->setDisabled(1);
-	//devFunc->setChecked(0);
+	//
+
+	//Значения крутилки по умолчанию 8192(global_definitions.h:44)
+	limitSpinBox->setValue(LOGS_LIMIT);
+	limitSpinBox->setMaximum(LOGS_MAXIMUM);	//2^24
+	limitSpinBox->setMinimum(1);			//Чтобы 300IQ гений на юзере не уронил прогу по переполнению нуля
+	push_log(std::string("[НАСТРОЙКИ]Задан лимит сообщений лога в " + std::to_string(LOGS_LIMIT)));
 
 	//Инициализируем рамку
 	QGroupBox* basic_box = new QGroupBox;
@@ -117,6 +126,7 @@ void appSettings::configureBasicSettingsTab()
 	lbl_lay->addWidget(saveFreqHint);
 	lbl_lay->addWidget(depFuncHint);
 	lbl_lay->addWidget(inDevFuncHint);
+	lbl_lay->addWidget(msgLimitHint);
 
 	//Добавляем элементы в правую половину(взаимодействие)
 	interact_lay->addWidget(langList);
@@ -127,6 +137,7 @@ void appSettings::configureBasicSettingsTab()
 	interact_lay->addWidget(saveFreq);
 	interact_lay->addWidget(depFunc);
 	interact_lay->addWidget(devFunc);
+	interact_lay->addWidget(limitSpinBox);
 
 	//Отключаем элементы, механика которых не реализована
 	colorTheme->addItem(tr("Default"));
@@ -152,6 +163,7 @@ void appSettings::configureBasicSettingsTab()
 	saveFreqHint->setFixedHeight(SETTINGS_HEIGH);
 	depFuncHint->setFixedHeight(SETTINGS_HEIGH);
 	inDevFuncHint->setFixedHeight(SETTINGS_HEIGH);
+	msgLimitHint->setFixedHeight(SETTINGS_HEIGH);
 
 	langList->setFixedHeight(SETTINGS_HEIGH);
 	themeList->setFixedHeight(SETTINGS_HEIGH);
@@ -160,6 +172,7 @@ void appSettings::configureBasicSettingsTab()
 	saveFreq->setFixedHeight(SETTINGS_HEIGH);
 	depFunc->setFixedHeight(SETTINGS_HEIGH);
 	devFunc->setFixedHeight(SETTINGS_HEIGH);
+	limitSpinBox->setFixedHeight(SETTINGS_HEIGH);
 
 	//Привязываем менеджеры компоновки к виджетам
 	lbl_box->setLayout(lbl_lay);
