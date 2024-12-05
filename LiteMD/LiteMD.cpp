@@ -11,6 +11,7 @@ extern "C"
 	#include "globalFlags.h"
 	#include "global_definitions.h"
 }
+QString appPath;
 extern struct parser_switchers parswitch;
 extern struct depr_paerser_switchers dparswitch;
 LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
@@ -29,6 +30,9 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	dparswitch.en_url_adv = 0;
 	dparswitch.en_url_bas = 0;
 	dparswitch.en_url_bas_simple = 0;
+
+	appPath = QCoreApplication::applicationDirPath();
+	push_log(std::string("[MAIN]Задан каталог приложения " + appPath.toStdString()));
 
 	//Инициализация окон редактора и рендера текста
 	mde = new mdEditor;
@@ -446,4 +450,10 @@ void LiteMD::httpModuleShow()
 LiteMD::~LiteMD()
 {
 	deleteOnExit();
+}
+
+QString getAppPath()
+{
+	//Возвращаем QString каталог в котором запущена приложуха
+	return appPath;
 }

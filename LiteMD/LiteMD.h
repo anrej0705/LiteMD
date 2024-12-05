@@ -103,3 +103,5 @@ class LiteMD : public QMainWindow
 		void slotFileEdited();				//Слот для установки флага "*"
 		void slotTitleReset();				//Слот для сброса заголовка к дефолтному
 };
+//Простой, как сатиновые трусы, метод возвращает QString каталог
+QString getAppPath();

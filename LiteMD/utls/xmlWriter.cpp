@@ -2,6 +2,7 @@
 #include "exceptionHandler.h"
 #include "logger_backend.h"
 #include <boost/container/string.hpp>
+#include "LiteMD.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -11,7 +12,7 @@ extern struct parser_switchers parswitch;
 extern struct depr_paerser_switchers dparswitch;
 xmlWriter::xmlWriter()
 {
-	fileName = "config.xml";
+	fileName = getAppPath() + "/config.xml";
 	boost::container::string* log_out = new boost::container::string("[XML]Задано имя файла конфига для чтения ");
 	log_out->append(fileName.toLocal8Bit());
 	push_log(log_out->c_str());	//Кароч я реально нихуя не понимаю почему std string ебёт мозга в дебаге

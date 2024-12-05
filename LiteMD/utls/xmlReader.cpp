@@ -3,16 +3,18 @@
 #include "event_id_constructor.h"
 #include "logger_backend.h"
 #include <boost/container/vector.hpp>
+#include "LiteMD.h"
 extern "C"
 {
 	#include "global_definitions.h"
 	#include "globalFlags.h"
 }
+extern QString appPath;	//Каталог, в котором лежит исполняемый фаил приложения
 extern struct parser_switchers parswitch;
 extern struct depr_paerser_switchers dparswitch;
 xmlReader::xmlReader()
 {
-	fileName = "config.xml";
+	fileName = getAppPath() + "/config.xml";
 	boost::container::string* log_out = new boost::container::string("[XML]Задано имя файла конфига для записи ");
 	log_out->append(fileName.toLocal8Bit());
 	push_log(log_out->c_str());	//xmlWriter.cpp 17:20
