@@ -21,7 +21,8 @@
 //"Сигнатура" для настроек
 const char appSign[] = "__Shani_basic";
 
-#define PARAM_CNT	12
+//Количество читаемых параметров из конфига. Прибавлять каждый раз когда добавляется новая фича
+#define PARAM_CNT	14
 
 /*
 * Таблица событий для обновления интерфейса
@@ -40,6 +41,10 @@ const char appSign[] = "__Shani_basic";
 * | 40 |tab_basic.cpp       |
 * | 41 |frameChangelog.cpp  |
 */
+
+//Макисмум сообещений в логе, всё что выше вызовет очистку(tab_basic.cpp)
+#define LOGS_LIMIT										16384
+#define LOGS_MAXIMUM									16777216
 
 #define SETTINGS_HEIGH									20
 
