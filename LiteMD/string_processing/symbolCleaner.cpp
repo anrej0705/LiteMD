@@ -260,6 +260,7 @@ std::string symbolCleaner(std::string& rawInput)
 									tag_list[tag_list_size].size = opvars.sym_last - opvars.sym_entry;
 									tag_list[tag_list_size].type = 4 + char_type;	//+4 потому что первые 4 позиции - пары скобок
 									++tag_list_size;
+									_index = opvars.sym_entry - 1;
 									break;
 								}
 							}
