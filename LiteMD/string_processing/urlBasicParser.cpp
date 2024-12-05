@@ -29,6 +29,8 @@ std::string basicUrlParser(std::string &rawInput)
 	entry_list = (uint32_t*)calloc(1, sizeof(uint32_t));
 	entry_offset = (uint32_t*)calloc(1, sizeof(uint32_t));
 
+	push_log(std::string("[ПАРСЕР]Размер блока " + std::to_string(*buffer_size)));
+	
 	//Дальше будет поиск признаков тега, пока что нужно считать что признаки есть
 	//а объекта нет, здесь будет искаться выражение <url> где url - любой текст внутри
 	//который будет принят за ссылку неважно что это за текст

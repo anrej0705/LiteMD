@@ -16,6 +16,8 @@ std::string headerLvlParser(std::string& rawInput)
 	uint32_t* buffer_size = (uint32_t*)malloc(sizeof(uint32_t));
 	*buffer_size = rawInput.size();	//Создаём переменную с количеством символов
 
+	push_log(std::string("[ПАРСЕР]Размер блока " + std::to_string(*buffer_size)));
+
 	head_lvl_url_output = new std::string;
 	//head_lvl_url_output = new boost::container::string;
 
