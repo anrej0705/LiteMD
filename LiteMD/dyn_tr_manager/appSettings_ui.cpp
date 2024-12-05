@@ -64,6 +64,9 @@ void appSettings::update_ui()
 	deprUrlAdvParserHint->setText(tr("deprUrlAdvParserHint"));
 	deprUrlBasParserHint->setText(tr("deprUrlBasParserHint"));
 	parseStrikethroughHint->setText(tr("parseStrikethroughHint"));
+	msgLimitHint->setText(tr("msgLimitHint"));
+	limitSpinBox->setValue(log_limit);
+	setDefault->setText(tr("setDefault"));
 }
 
 void appSettings::update_interactive()
