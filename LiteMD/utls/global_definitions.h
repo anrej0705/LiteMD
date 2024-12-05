@@ -72,6 +72,9 @@ const char header_lvl_iopenlvl[] = "<H";
 const char header_lvl_icloselvl[] = ">";
 const char header_lvl_iclosetext[] = "</H";
 
+const char striked_txt_iopen[] = "<s>";
+const char striked_txt_iclose[] = "</s>";
+
 const uint8_t simple_url_iopenurl_size = 9;
 const uint8_t simple_url_icloseurl_size = 2;
 const uint8_t simple_url_iclosetext_size = 4;
@@ -79,4 +82,7 @@ const uint8_t simple_url_iclosetext_size = 4;
 const uint8_t header_lvl_iopenlvl_size = 2;
 const uint8_t header_lvl_icloselvl_size = 1;
 const uint8_t header_lvl_iclosetext_size = 3;
+
+const uint8_t striked_txt_iopen_size = 3;
+const uint8_t striked_txt_iclose_size = 4;
 #endif
