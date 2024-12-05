@@ -19,6 +19,9 @@ extern bool enableDeprFeatures;
 extern bool enableIndevFeatures;
 extern int langCode;
 
+//Настройки юзера в плане лимита логов
+extern int log_limit;
+
 //Список файлов
 extern char** lastFiles;
 
