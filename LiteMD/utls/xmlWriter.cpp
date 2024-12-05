@@ -47,6 +47,7 @@ void xmlWriter::writeConfig()
 	QDomElement en_url_bas = attrib(*lmdFileSet, "depr_en_url_bas", dparswitch.en_url_bas);
 	QDomElement en_url_bas_simple = attrib(*lmdFileSet, "depr_en_url_bas_simple", dparswitch.en_url_bas_simple);
 	QDomElement enStrikethroughHintParse = attrib(*lmdFileSet, "enStrikethroughHintParse", parswitch.en_ex_strkthg);
+	QDomElement logs_limit = attrib(*lmdFileSet, "logs_limit", log_limit);
 	lmdSet->appendChild(build);
 	lmdSet->appendChild(patchNoteRead);
 	lmdSet->appendChild(indevFeatures);
@@ -61,6 +62,7 @@ void xmlWriter::writeConfig()
 	lmdSet->appendChild(en_url_bas);
 	lmdSet->appendChild(en_url_bas_simple);
 	lmdSet->appendChild(enStrikethroughHintParse);
+	lmdSet->appendChild(logs_limit);
 	QFile settingsFile(fileName);
 	if (settingsFile.open(QIODevice::WriteOnly))
 	{
