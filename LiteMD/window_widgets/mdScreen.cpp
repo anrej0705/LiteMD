@@ -13,6 +13,7 @@
 #include "crlfProcessor.h"
 #include "logger_backend.h"
 #include "exceptionHandler.h"
+#include "extended_strikethroughParser.h"
 #include <string>
 #include <regex>
 extern "C"
@@ -42,7 +43,7 @@ mdScreen::mdScreen(QWidget* scrWgt) : QLabel(scrWgt)
 void mdScreen::slotSetText(const QString& str)
 {
 	push_log("[РЕНДЕР]Начата обработка текста в HTML формат");
-	//Преобразаем текст к 16 битному формату
+	//Преобразаем текст к 16 битному формату	//с 0.2.1 к 8 битному
 	mdInput = str.toStdString();
 
 	//Если чекбокс обработки устаревшего текста отключён
@@ -52,29 +53,31 @@ void mdScreen::slotSetText(const QString& str)
 		balamut.lock();
 		//Обрабатываем текст
 		push_log("[РЕНДЕР]Предварительная конвертация экранированных символов");
-		mdInput = shieldingParser(mdInput);					//0 -> 1|Предварительная конвертация экранированных символов
+		mdInput = shieldingParser(mdInput);						//0 -> 1|Предварительная конвертация экранированных символов
 		push_log("[РЕНДЕР]Фильтрация служебных символов не являющихся частью тега");
-		mdInput = symbolCleaner(mdInput);					//1 -> 2|Фильтрация служебных символов не являющихся частью тега
+		mdInput = symbolCleaner(mdInput);						//1 -> 2|Фильтрация служебных символов не являющихся частью тега
 		if (parswitch.en_simple_url)
 		{
 			push_log("[РЕНДЕР]Обработка <www.url.ru>");
-			mdInput = basicUrlParser(mdInput);				//2 -> 3|Обработка <www.url.ru>
-
+			mdInput = basicUrlParser(mdInput);					//2 -> 3|Обработка <www.url.ru>
 		}
 		if (parswitch.en_adv_url)
 		{
 			push_log("[РЕНДЕР]Обработка [name](url)");
-			mdInput = advancedUrlParser(mdInput);			//3 -> 4|Обработка [name](url)
-
+			mdInput = advancedUrlParser(mdInput);				//3 -> 4|Обработка [name](url)
 		}
 		if (parswitch.en_header_lvl)
 		{
 			push_log("[РЕНДЕР]Обработка уровня заголовков");
-			mdInput = headerLvlParser(mdInput);				//4 -> 5|Обработка уровня заголовков
-
+			mdInput = headerLvlParser(mdInput);					//4 -> 5|Обработка уровня заголовков
+		}
+		if (parswitch.en_ex_strkthg)
+		{
+			push_log("[РЕНДЕР]Обработка зачёркнутых строк");
+			mdInput = extended_strikethroughParser(mdInput);	//5 -> 6|Обработка зачёркнутых строк
 		}
 		push_log("[РЕНДЕР]Обработка переноса строки");
-		mdInput = crlfProcessor(mdInput);					//5 -> 6|Обработка переноса строки
+		mdInput = crlfProcessor(mdInput);						//6 -> 7|Обработка переноса строки
 
 		push_log("[РЕНДЕР]Конвертация в QString");
 		//Преобразуем в QString

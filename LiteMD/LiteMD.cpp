@@ -1,6 +1,5 @@
 #include "LiteMD.h"
 #include "ui_update_event.h"
-#include "OrientalPushButton.h"
 #include "GuiDownloader.h"
 #include "dialogBoxes.h"
 #include "exceptionHandler.h"
@@ -23,6 +22,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	parswitch.en_simple_url = 1;
 	parswitch.en_adv_url = 1;
 	parswitch.en_header_lvl = 1;
+	parswitch.en_ex_strkthg = 1;
 
 	dparswitch.en_t_post = 0;
 	dparswitch.en_t_prep = 0;
@@ -37,8 +37,8 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 
 	//Блок элементов интерфейса
 	QScrollArea* mdsArea = new QScrollArea;
-	OrientablePushButton* btnDown = new OrientablePushButton("--->", this);
-	OrientablePushButton* btnUp = new OrientablePushButton("--->", this);
+	btnDown = new OrientablePushButton("--->", this);
+	btnUp = new OrientablePushButton("--->", this);
 	editorWindow = new QGroupBox(tr("Editor"));
 	viewerWindow = new QGroupBox(tr("Viewer"));
 	QWidget* scrollDock = new QWidget;

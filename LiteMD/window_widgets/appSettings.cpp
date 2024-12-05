@@ -128,7 +128,7 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	settingsLister->addTab(renderSettings, tr("Render"));
 	settingsLister->addTab(downloaderSettings, tr("Downloader"));
 	settingsLister->addTab(tabLogs, tr("Logs"));
-	settingsLister->addTab(tabLogs, tr("Extended"));
+	settingsLister->addTab(extendedMd, tr("Extended"));
 	//settingsLister->addTab(tabLogs, tr("Hacks")); 0.2.5
 	settingsLister->addTab(capTab, tr("Cap"));
 

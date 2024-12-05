@@ -11,6 +11,7 @@
 #include "logger.h"
 #include "event_id_constructor.h"
 #include "customToolButton.h"
+#include "OrientalPushButton.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -24,6 +25,8 @@ class LiteMD : public QMainWindow
 {
     Q_OBJECT
 	private:
+		OrientablePushButton* btnDown;		//Пролистывание страницы вниз
+		OrientablePushButton* btnUp;		//Пролистывание страницы вверх
 		//Ui::LiteMDClass ui;				//Не используется
 		QToolBar* quick_tb;					//Тулбар для кнопок-ярлыков
 		QToolBar* serv_tb;					//Тулбар для кнопок помощи, о проге, Bug!
