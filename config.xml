@@ -2,6 +2,7 @@
 <__Shani_basic>
  <build>
   <parameter type="int">1878</parameter>
+  <parameter type="int">1829</parameter>
  </build>
  <patchNoteRead>
   <parameter type="bool">true</parameter>
