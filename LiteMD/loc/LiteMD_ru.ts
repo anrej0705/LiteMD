@@ -515,6 +515,14 @@ Programm will close</source>
         <source>Extended</source>
         <translation>Расширенные</translation>
     </message>
+    <message>
+        <source>msgLimitHint</source>
+        <translation>Предел количества логов</translation>
+    </message>
+    <message>
+        <source>setDefault</source>
+        <translation>По умолчанию</translation>
+    </message>
 </context>
 <context>
     <name>currentChangelog</name>
