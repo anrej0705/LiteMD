@@ -5,6 +5,7 @@
 #include "logger_backend.h"
 #include <QtWidgets>
 #include <boost/container/vector.hpp>
+#include "LiteMD.h"
 extern "C"
 {
 	#include "global_definitions.h"
@@ -67,7 +68,7 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	dialogWindow->addLayout(btnComposer);
 
 	//Иконка
-	this->setWindowIcon(QIcon("icon.ico"));
+	this->setWindowIcon(QIcon(getAppPath() + "/icon.ico"));
 
 	//Устанавливаем менеджер как основной виджет
 	setLayout(dialogWindow);
@@ -125,7 +126,7 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 
 	//Ставим заглушку
 	workprogress = new QLabel("<H1>"+tr("Work in progress, come later))")+"</H1>");
-	QPixmap workprg_cap("ress\\work_progress_cap.png");
+	QPixmap workprg_cap(getAppPath() + "\\ress\\work_progress_cap.png");
 	QLabel* pxmap = new QLabel;
 	capTab = new QWidget;
 	QVBoxLayout* vLay = new QVBoxLayout;

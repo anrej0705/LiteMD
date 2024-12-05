@@ -3,6 +3,7 @@
 #include "Downloader.h"
 #include "GuiDownloader.h"
 #include "logger_backend.h"
+#include "LiteMD.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -18,7 +19,7 @@ DownloaderGui::DownloaderGui(QWidget* dwgt) : QWidget(dwgt)
 	dw = new Downloader(this);
 	//Создаем объект
 	plbl = new QLabel;
-	plbl->setWindowIcon(QIcon("icon.ico"));
+	plbl->setWindowIcon(QIcon(getAppPath() + "/icon.ico"));
 	plbl->hide();
 	//Устанавливаем фильтр на отлов события смены языка
 	qApp->installEventFilter(this);

@@ -1,5 +1,6 @@
 #include "frameChangelog.h"
 #include "logger_backend.h"
+#include "LiteMD.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -17,12 +18,12 @@ currentChangelog::currentChangelog(QWidget* qwgt) : QDialog(qwgt)
 	xmlW = new xmlWriter;
 	this->setModal(1);
 	this->setWindowTitle(tr("New version changelog"));
-	this->setWindowIcon(QIcon("icon.ico"));
+	this->setWindowIcon(QIcon(getAppPath() + "/icon.ico"));
 
 	std::wstring temp;
 	QString qtemp;
 
-	QFile clogFile("docs/Current_ver.md");
+	QFile clogFile(getAppPath() + "/docs/Current_ver.md");
 	if (clogFile.open(QIODevice::ReadOnly))
 	{
 		QTextStream cLogStream(&clogFile);
