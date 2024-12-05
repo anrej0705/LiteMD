@@ -1,5 +1,6 @@
 #include "logger.h"
 #include "logger_backend.h"
+#include "LiteMD.h"
 #include <boost/container/vector.hpp>
 
 logger::logger(QWidget* log) : QDialog(log)
@@ -18,7 +19,7 @@ logger::logger(QWidget* log) : QDialog(log)
 	qApp->installEventFilter(this);
 
 	//Иконка
-	this->setWindowIcon(QIcon("icon.ico"));
+	this->setWindowIcon(QIcon(getAppPath() + "/icon.ico"));
 
 	//Менеджер размещения панели с кнопками и текстового поля
 	builder = new QVBoxLayout;
