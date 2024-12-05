@@ -60,6 +60,12 @@
     <Filter Include="Интерфейс\Кастомизация QT">
       <UniqueIdentifier>{8d776b83-cbc3-4a88-b928-337b591f67b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="String processing\Парсеры\Расширенные">
+      <UniqueIdentifier>{089dfa8b-50b1-469c-bab6-bc17f7e0372b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="String processing\Парсеры\Хаки">
+      <UniqueIdentifier>{c6e040fd-ece3-4957-a525-3f7dd68d25eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="LiteMD.h">
@@ -204,6 +210,15 @@
     </ClCompile>
     <ClCompile Include="string_processing\mdScreen__urlBasicSimplifiedParser.cpp">
       <Filter>Устаревшее</Filter>
+    </ClCompile>
+    <ClCompile Include="settings_tabs\tab_extended.cpp">
+      <Filter>Интерфейс\Окна\Вкладки</Filter>
+    </ClCompile>
+    <ClCompile Include="settings_tabs\tab_hacks.cpp">
+      <Filter>Интерфейс\Окна\Вкладки</Filter>
+    </ClCompile>
+    <ClCompile Include="string_processing\extended\extended_strikethroughParser.cpp">
+      <Filter>String processing\Парсеры\Расширенные</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -373,6 +388,9 @@
     </ClInclude>
     <ClInclude Include="string_processing\urlBasicSimplifiedParser.h">
       <Filter>Устаревшее</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\extended\extended_strikethroughParser.h">
+      <Filter>String processing\Парсеры\Расширенные</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

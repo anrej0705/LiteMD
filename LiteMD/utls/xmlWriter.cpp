@@ -1,6 +1,8 @@
 #include "xmlWriter.h"
 #include "exceptionHandler.h"
 #include "logger_backend.h"
+#include <boost/container/string.hpp>
+#include "LiteMD.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -10,8 +12,13 @@ extern struct parser_switchers parswitch;
 extern struct depr_paerser_switchers dparswitch;
 xmlWriter::xmlWriter()
 {
-	fileName = "config.xml";
-	push_log(std::string("[XML]Задано имя файла конфига для чтения " + fileName.toStdString()).c_str());
+	fileName = getAppPath() + "/config.xml";
+	boost::container::string* log_out = new boost::container::string("[XML]Задано имя файла конфига для чтения ");
+	log_out->append(fileName.toLocal8Bit());
+	push_log(log_out->c_str());	//Кароч я реально нихуя не понимаю почему std string ебёт мозга в дебаге
+								//каким-то критом, который я никогда в жизни не видел. Крит выбрасывается
+								//ещё до передачи аргумента в саму функцию логера. Вижла ебанулась, опять
+								//Бустовый string типа решил проблему
 }
 
 xmlWriter::xmlWriter(QString fName)
@@ -40,6 +47,8 @@ void xmlWriter::writeConfig()
 	QDomElement en_url_adv = attrib(*lmdFileSet, "depr_en_url_adv", dparswitch.en_url_adv);
 	QDomElement en_url_bas = attrib(*lmdFileSet, "depr_en_url_bas", dparswitch.en_url_bas);
 	QDomElement en_url_bas_simple = attrib(*lmdFileSet, "depr_en_url_bas_simple", dparswitch.en_url_bas_simple);
+	QDomElement enStrikethroughHintParse = attrib(*lmdFileSet, "enStrikethroughHintParse", parswitch.en_ex_strkthg);
+	QDomElement logs_limit = attrib(*lmdFileSet, "logs_limit", log_limit);
 	lmdSet->appendChild(build);
 	lmdSet->appendChild(patchNoteRead);
 	lmdSet->appendChild(indevFeatures);
@@ -53,6 +62,8 @@ void xmlWriter::writeConfig()
 	lmdSet->appendChild(en_url_adv);
 	lmdSet->appendChild(en_url_bas);
 	lmdSet->appendChild(en_url_bas_simple);
+	lmdSet->appendChild(enStrikethroughHintParse);
+	lmdSet->appendChild(logs_limit);
 	QFile settingsFile(fileName);
 	if (settingsFile.open(QIODevice::WriteOnly))
 	{

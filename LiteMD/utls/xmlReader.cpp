@@ -3,17 +3,21 @@
 #include "event_id_constructor.h"
 #include "logger_backend.h"
 #include <boost/container/vector.hpp>
+#include "LiteMD.h"
 extern "C"
 {
 	#include "global_definitions.h"
 	#include "globalFlags.h"
 }
+extern QString appPath;	//Каталог, в котором лежит исполняемый фаил приложения
 extern struct parser_switchers parswitch;
 extern struct depr_paerser_switchers dparswitch;
 xmlReader::xmlReader()
 {
-	fileName = "config.xml";
-	push_log(std::string("[XML]Задано имя файла конфига для записи " + fileName.toStdString()).c_str());
+	fileName = getAppPath() + "/config.xml";
+	boost::container::string* log_out = new boost::container::string("[XML]Задано имя файла конфига для записи ");
+	log_out->append(fileName.toLocal8Bit());
+	push_log(log_out->c_str());	//xmlWriter.cpp 17:20
 }
 
 xmlReader::xmlReader(QString fName)
@@ -46,6 +50,8 @@ boost::container::vector<QString> xml_tags{
 	QString("depr_en_url_adv"),
 	QString("depr_en_url_bas"),
 	QString("depr_en_url_bas_simple"),
+	QString("enStrikethroughHintParse"),
+	QString("logs_limit"),
 };
 
 bool xmlReader::readConfig()
@@ -68,9 +74,13 @@ bool xmlReader::readConfig()
 	_xml_ptr.push_back(reinterpret_cast<void*>(&dparswitch.en_url_adv));
 	_xml_ptr.push_back(reinterpret_cast<void*>(&dparswitch.en_url_bas));
 	_xml_ptr.push_back(reinterpret_cast<void*>(&dparswitch.en_url_bas_simple));
+	_xml_ptr.push_back(reinterpret_cast<void*>(&parswitch.en_ex_strkthg));
+	_xml_ptr.push_back(reinterpret_cast<void*>(&log_limit));
 
 	int* _int_ptr;
 	bool* _bool_ptr;
+
+	bool old_ver = 0;
 
 	QString value;
 	QFile settings(fileName);
@@ -102,6 +112,7 @@ bool xmlReader::readConfig()
 						{
 							push_log(std::string("[XML]Обнаружена устаревшая версия конфига " + std::to_string(value.toInt()) + "(текущая версия " + std::to_string(BUILD_NUMBER)).c_str());
 							push_log("[XML]Будет проведена попытка импорта некоторых настроек в новый конфиг");
+							old_ver = 1;
 						}
 						for (uint8_t _xml_index = 0; _xml_index < PARAM_CNT; ++_xml_index)
 						{
@@ -172,6 +183,8 @@ bool xmlReader::readConfig()
 		read_retry = 1;
 		readSuccess = 0;
 	}
+	if (old_ver)
+		readSuccess = 0;
 	if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_UI_UPDATE_USER_SETTINGS)))
 		QErrorMessage::qtHandler();//Отправка события на обновление визуала - галочек, радиокнопок и прочего
 	paramReadedCnt = 0;

@@ -1,8 +1,9 @@
 #include "appSettings.h"
 #include "ui_update_event.h"
-#include "global_definitions.h"
+#include "logger_backend.h"
 extern "C"
 {
+	#include "global_definitions.h"
 	#include "globalFlags.h"
 }
 
@@ -23,6 +24,7 @@ void appSettings::configureBasicSettingsTab()
 	depFuncHint = new QLabel(tr("Enable deprecated features"));
 	inDevFuncHint = new QLabel(tr("Enable in-dev features"));
 	colorThemeHint = new QLabel(tr("colorThemeHint"));
+	msgLimitHint = new QLabel(tr("msgLimitHint"));
 
 	//Инициализируем элементы взаимодействий
 	langList = new QComboBox;
@@ -34,12 +36,20 @@ void appSettings::configureBasicSettingsTab()
 	devFunc = new QCheckBox;
 	colorTheme = new QComboBox;
 
+	//Инициализация крутилки
+	limitSpinBox = new QSpinBox;
+
 	//Инициализируем вкладку
 	basicSettings = new QWidget;
 
 	//Пока что отключено
-	//devFunc->setDisabled(1);
-	//devFunc->setChecked(0);
+	//
+
+	//Значения крутилки по умолчанию 8192(global_definitions.h:44)
+	limitSpinBox->setValue(LOGS_LIMIT);
+	limitSpinBox->setMaximum(LOGS_MAXIMUM);	//2^24
+	limitSpinBox->setMinimum(1);			//Чтобы 300IQ гений на юзере не уронил прогу по переполнению нуля
+	push_log(std::string("[НАСТРОЙКИ]Задан лимит сообщений лога в " + std::to_string(LOGS_LIMIT)));
 
 	//Инициализируем рамку
 	QGroupBox* basic_box = new QGroupBox;
@@ -78,6 +88,8 @@ void appSettings::configureBasicSettingsTab()
 	{
 		loc_map = new std::map<uint8_t, QString>;
 
+		push_log(std::string("[LOCALE]Найдено " + std::to_string(static_cast<uint8_t>(available_langs.size())) + " файлов локализаций"));
+
 		for (uint8_t locales = 0; locales < static_cast<uint8_t>(available_langs.size()); ++locales)
 		{
 			QString locale_name = available_langs[locales];
@@ -86,6 +98,7 @@ void appSettings::configureBasicSettingsTab()
 			locale_name.remove(0, locale_name.indexOf("_", 0) + 1);
 			QString locale = localeNameConverter(QLocale::languageToString(QLocale(locale_name).language()), locale_name);
 			langList->addItem(locale);
+			push_log(std::string("[LOCALE]Загружена локаль " + locale.toStdString()));
 			/*if (current_lang == locale_name)
 				langList->setCurrentIndex(locales); */
 		}
@@ -95,6 +108,7 @@ void appSettings::configureBasicSettingsTab()
 	else
 	{
 		langList->addItem("Локали не найдены");
+		push_log("[LOCALE]Файлы языковых переводов не найдены! Не удалось настроить интерфейс");
 		langList->setDisabled(1);
 		emptyMapDet=!emptyMapDet;
 	}
@@ -112,6 +126,7 @@ void appSettings::configureBasicSettingsTab()
 	lbl_lay->addWidget(saveFreqHint);
 	lbl_lay->addWidget(depFuncHint);
 	lbl_lay->addWidget(inDevFuncHint);
+	lbl_lay->addWidget(msgLimitHint);
 
 	//Добавляем элементы в правую половину(взаимодействие)
 	interact_lay->addWidget(langList);
@@ -122,6 +137,7 @@ void appSettings::configureBasicSettingsTab()
 	interact_lay->addWidget(saveFreq);
 	interact_lay->addWidget(depFunc);
 	interact_lay->addWidget(devFunc);
+	interact_lay->addWidget(limitSpinBox);
 
 	//Отключаем элементы, механика которых не реализована
 	colorTheme->addItem(tr("Default"));
@@ -147,6 +163,7 @@ void appSettings::configureBasicSettingsTab()
 	saveFreqHint->setFixedHeight(SETTINGS_HEIGH);
 	depFuncHint->setFixedHeight(SETTINGS_HEIGH);
 	inDevFuncHint->setFixedHeight(SETTINGS_HEIGH);
+	msgLimitHint->setFixedHeight(SETTINGS_HEIGH);
 
 	langList->setFixedHeight(SETTINGS_HEIGH);
 	themeList->setFixedHeight(SETTINGS_HEIGH);
@@ -155,6 +172,7 @@ void appSettings::configureBasicSettingsTab()
 	saveFreq->setFixedHeight(SETTINGS_HEIGH);
 	depFunc->setFixedHeight(SETTINGS_HEIGH);
 	devFunc->setFixedHeight(SETTINGS_HEIGH);
+	limitSpinBox->setFixedHeight(SETTINGS_HEIGH);
 
 	//Привязываем менеджеры компоновки к виджетам
 	lbl_box->setLayout(lbl_lay);
@@ -196,7 +214,6 @@ void appSettings::slot_lang_selected(int lIndx)
 	auto it = loc_map->cbegin();
 	std::advance(it, lIndx);
 	QString lang_file = it->second;
-
 	if(!lmd_lng.load("loc/"+ lang_file, "."))
 		QErrorMessage::qtHandler();
 

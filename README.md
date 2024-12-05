@@ -1,16 +1,19 @@
 README.MD
 
-# LiteMD alpha 0.2.3
+# LiteMD alpha 0.2.4
 
 ![Qt](https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white)
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
+![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white)
 ![MSVC](https://img.shields.io/badge/Visual_Studio-5C2D91?style=for-the-badge&logo=visual%20studio&logoColor=white)
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 
 **| Qt 5.14.2 
 | C++17 
+| C11 
 | MSVC 2019 
-| GPL v2 license |**
+| GPL v2 license 
+| boost 1.84.00 |**
 
 Этот файл был создан в LiteMD alpha 0.2.3 build 1829
 Исходный код на [GitHub](https://github.com/anrej0705/LiteMD)
@@ -29,6 +32,7 @@ README.MD
 - Загрузка картинок по протоколу HTTP
 - Динамическая смена языка
 - Просмотр списка изменений в текущей версии
+- Обработка ~~зачёркнутого~~ текста
 
 Существующие на данный момент баги:
 - :x:Ошибки и вылеты при работе с устаревшими парсерами(просто не используйте их)
@@ -59,8 +63,8 @@ README.MD
 - :white_check_mark:0.2.1 - [Уровни заголовков](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1683)
 - :white_check_mark:0.2.2 - [Окно логов](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1746)
 - :white_check_mark:0.2.3 - [Импорт старых конфигов](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1829)
-- :arrow_forward:0.2.4 - Зачеркнутый текст
-- :x:0.2.5 - Подчеркнутый текст 
+- :white_check_mark:0.2.4 - [Зачеркнутый текст](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1878)
+- :arrow_forward:0.2.5 - Подчеркнутый текст 
 - :x:0.2.6 - Курсив
 - :x:0.2.7 - Жирный текст
 - :x:0.2.8 - Комбинирование форматирования текста
@@ -68,7 +72,7 @@ README.MD
 - :x:0.3.0 - **Списки и цитаты**
 - :x:0.3.1 - Списки
 - :x:0.3.2 - Цитирование текста
-- :x:0.3.3 - Юзер-бинды
+- :x:0.3.3 - Последний редактируемый фаил
 - :x:0.3.4 - Раздел справки
 - :x:0.3.5 - Режим читалки
 - :x:0.3.6 - Всплывающая подсказка и подсказка "Что это?"
@@ -108,6 +112,7 @@ README.MD
 - :x:0.7.0 - **Вставка кода и экспорт в PDF**
 - :x:0.7.1 - Вставка кода
 - :x:0.7.2 - Подсветка синтаксиса кода
+- :x:0.7.3 - Юзер-бинды
 - :x:0.7.9 - Новые иконки
 - :x:0.8.0 - **Бета**
 - :x:0.8.1 - Внешний дизайн

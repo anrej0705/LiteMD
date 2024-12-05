@@ -19,6 +19,9 @@ extern bool enableDeprFeatures;
 extern bool enableIndevFeatures;
 extern int langCode;
 
+//Настройки юзера в плане лимита логов
+extern int log_limit;
+
 //Список файлов
 extern char** lastFiles;
 
@@ -28,6 +31,7 @@ struct parser_switchers
 	bool en_simple_url;
 	bool en_adv_url;
 	bool en_header_lvl;
+	bool en_ex_strkthg;
 };
 
 struct depr_paerser_switchers

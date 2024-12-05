@@ -10,9 +10,9 @@
 //##[STAGE]
 #define APP_STAGE " alpha"
 //##[VER]
-#define APP_VERSION " 0.2.3"
+#define APP_VERSION " 0.2.4"
 //##[BUILD]
-#define BUILD_NUMBER 1829
+#define BUILD_NUMBER 1878
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
@@ -21,7 +21,8 @@
 //"Сигнатура" для настроек
 const char appSign[] = "__Shani_basic";
 
-#define PARAM_CNT	12
+//Количество читаемых параметров из конфига. Прибавлять каждый раз когда добавляется новая фича
+#define PARAM_CNT	14
 
 /*
 * Таблица событий для обновления интерфейса
@@ -40,6 +41,10 @@ const char appSign[] = "__Shani_basic";
 * | 40 |tab_basic.cpp       |
 * | 41 |frameChangelog.cpp  |
 */
+
+//Макисмум сообещений в логе, всё что выше вызовет очистку(tab_basic.cpp)
+#define LOGS_LIMIT										16384
+#define LOGS_MAXIMUM									16777216
 
 #define SETTINGS_HEIGH									20
 
@@ -72,6 +77,9 @@ const char header_lvl_iopenlvl[] = "<H";
 const char header_lvl_icloselvl[] = ">";
 const char header_lvl_iclosetext[] = "</H";
 
+const char striked_txt_iopen[] = "<s>";
+const char striked_txt_iclose[] = "</s>";
+
 const uint8_t simple_url_iopenurl_size = 9;
 const uint8_t simple_url_icloseurl_size = 2;
 const uint8_t simple_url_iclosetext_size = 4;
@@ -79,4 +87,7 @@ const uint8_t simple_url_iclosetext_size = 4;
 const uint8_t header_lvl_iopenlvl_size = 2;
 const uint8_t header_lvl_icloselvl_size = 1;
 const uint8_t header_lvl_iclosetext_size = 3;
+
+const uint8_t striked_txt_iopen_size = 3;
+const uint8_t striked_txt_iclose_size = 4;
 #endif

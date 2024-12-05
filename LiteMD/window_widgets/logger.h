@@ -28,8 +28,9 @@ class logger : public QDialog
 		void update_ui();
 	public:
 		logger(QWidget* log = 0);
+		void closeEvent(QCloseEvent*);		//Перехватчик закрытия окна
 	public slots:
-		void slot_read_n_show();
-		void slot_clear_logs();
-		void slot_save_logs();
+		void slot_read_n_show();			//Копирка текста из стека логов
+		void slot_clear_logs();				//Чистим логи
+		void slot_save_logs();				//Бекап логов в файл
 };

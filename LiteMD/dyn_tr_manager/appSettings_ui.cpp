@@ -35,7 +35,9 @@ void appSettings::update_ui()
 	settingsLister->setTabText(1, tr("Render"));
 	settingsLister->setTabText(2, tr("Downloader"));
 	settingsLister->setTabText(3, tr("Logs"));
-	settingsLister->setTabText(4, tr("Cap"));
+	settingsLister->setTabText(4, tr("Extended"));
+	//settingsLister->setTabText(5, tr("Logs")); 0.2.5
+	settingsLister->setTabText(5, tr("Cap"));
 	themeList->setItemText(0, tr("Default"));
 	colorTheme->setItemText(0, tr("Default"));
 	saveSettings->setItemText(0, tr("XML"));
@@ -61,6 +63,10 @@ void appSettings::update_ui()
 	deprUrlSimplParserHint->setText(tr("deprUrlSimplParserHint"));
 	deprUrlAdvParserHint->setText(tr("deprUrlAdvParserHint"));
 	deprUrlBasParserHint->setText(tr("deprUrlBasParserHint"));
+	parseStrikethroughHint->setText(tr("parseStrikethroughHint"));
+	msgLimitHint->setText(tr("msgLimitHint"));
+	limitSpinBox->setValue(log_limit);
+	setDefault->setText(tr("setDefault"));
 }
 
 void appSettings::update_interactive()
@@ -77,9 +83,12 @@ void appSettings::update_interactive()
 	dparswitch.en_url_bas == 0 ? deprUrlAdvParser->setChecked(0) : deprUrlAdvParser->setChecked(1);
 	dparswitch.en_url_bas_simple == 0 ? deprUrlBasParser->setChecked(0) : deprUrlBasParser->setChecked(1);
 
+	//Меняем доступность галочек
 	enableDeprFeatures == 0 ? parseSimplLinks->setEnabled(1) : parseSimplLinks->setDisabled(1);
 	enableDeprFeatures == 0 ? parseAdvLinksl->setEnabled(1) : parseAdvLinksl->setDisabled(1);
 	enableDeprFeatures == 0 ? parseHeaderLvl->setEnabled(1) : parseHeaderLvl->setDisabled(1);
+	enableDeprFeatures == 0 ? parseStrikethrough->setEnabled(1) : parseStrikethrough->setDisabled(1);
+	//enableDeprFeatures == 0 ? parseUnderlined->setEnabled(1) : parseUnderlined->setDisabled(1); 0.2.5
 	enableDeprFeatures == 0 ? deprSyntaxPrep->setDisabled(1) : deprSyntaxPrep->setEnabled(1);
 	enableDeprFeatures == 0 ? deprSyntaxPost->setDisabled(1) : deprSyntaxPost->setEnabled(1);
 	enableDeprFeatures == 0 ? deprUrlSimplParser->setDisabled(1) : deprUrlSimplParser->setEnabled(1);
@@ -89,9 +98,25 @@ void appSettings::update_interactive()
 	enableDeprFeatures == 0 ? parseSimplLinksHint->setEnabled(1) : parseSimplLinksHint->setDisabled(1);
 	enableDeprFeatures == 0 ? parseAdvLinksHint->setEnabled(1) : parseAdvLinksHint->setDisabled(1);
 	enableDeprFeatures == 0 ? parseHeaderLvlHint->setEnabled(1) : parseHeaderLvlHint->setDisabled(1);
+	enableDeprFeatures == 0 ? parseStrikethroughHint->setEnabled(1) : parseStrikethroughHint->setDisabled(1);
+	//enableDeprFeatures == 0 ? parseUnderlinedHint->setEnabled(1) : parseUnderlinedHint->setDisabled(1); 0.2.5
 	enableDeprFeatures == 0 ? deprSyntaxPrepHint->setDisabled(1) : deprSyntaxPrepHint->setEnabled(1);
 	enableDeprFeatures == 0 ? deprSyntaxPostHint->setDisabled(1) : deprSyntaxPostHint->setEnabled(1);
 	enableDeprFeatures == 0 ? deprUrlSimplParserHint->setDisabled(1) : deprUrlSimplParserHint->setEnabled(1);
 	enableDeprFeatures == 0 ? deprUrlAdvParserHint->setDisabled(1) : deprUrlAdvParserHint->setEnabled(1);
 	enableDeprFeatures == 0 ? deprUrlBasParserHint->setDisabled(1) : deprUrlBasParserHint->setEnabled(1);
+
+	enableIndevFeatures == 1 ? themeHint->setEnabled(1) : themeHint->setDisabled(1);
+	enableIndevFeatures == 1 ? saveSettingsHint->setEnabled(1) : saveSettingsHint->setDisabled(1);
+	enableIndevFeatures == 1 ? autoSaveHint->setEnabled(1) : autoSaveHint->setDisabled(1);
+	enableIndevFeatures == 1 ? saveFreqHint->setEnabled(1) : saveFreqHint->setDisabled(1);
+	enableIndevFeatures == 1 ? colorThemeHint->setEnabled(1) : colorThemeHint->setDisabled(1);
+	enableIndevFeatures == 1 ? allowCacheHint->setEnabled(1) : allowCacheHint->setDisabled(1);
+
+	enableIndevFeatures == 1 ? themeList->setEnabled(1) : themeList->setDisabled(1);
+	enableIndevFeatures == 1 ? saveSettings->setEnabled(1) : saveSettings->setDisabled(1);
+	enableIndevFeatures == 1 ? autoSave->setEnabled(1) : autoSave->setDisabled(1);
+	enableIndevFeatures == 1 ? saveFreq->setEnabled(1) : saveFreq->setDisabled(1);
+	enableIndevFeatures == 1 ? colorTheme->setEnabled(1) : colorTheme->setDisabled(1);
+	enableIndevFeatures == 1 ? allowCache->setEnabled(1) : allowCache->setDisabled(1);
 }

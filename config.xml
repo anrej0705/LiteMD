@@ -1,0 +1,42 @@
+<!DOCTYPE LMD>
+<__Shani_basic>
+ <build>
+  <parameter type="int">1829</parameter>
+ </build>
+ <patchNoteRead>
+  <parameter type="bool">true</parameter>
+ </patchNoteRead>
+ <enableIndevFeatures>
+  <parameter type="bool">false</parameter>
+ </enableIndevFeatures>
+ <enableDeprFeatures>
+  <parameter type="bool">false</parameter>
+ </enableDeprFeatures>
+ <langCode>
+  <parameter type="int">2</parameter>
+ </langCode>
+ <enBasicUrlParse>
+  <parameter type="bool">true</parameter>
+ </enBasicUrlParse>
+ <enAdvUrlParse>
+  <parameter type="bool">true</parameter>
+ </enAdvUrlParse>
+ <enHeaderLvlParse>
+  <parameter type="bool">true</parameter>
+ </enHeaderLvlParse>
+ <depr_en_t_post>
+  <parameter type="bool">false</parameter>
+ </depr_en_t_post>
+ <depr_en_t_prep>
+  <parameter type="bool">false</parameter>
+ </depr_en_t_prep>
+ <depr_en_url_adv>
+  <parameter type="bool">false</parameter>
+ </depr_en_url_adv>
+ <depr_en_url_bas>
+  <parameter type="bool">false</parameter>
+ </depr_en_url_bas>
+ <depr_en_url_bas_simple>
+  <parameter type="bool">false</parameter>
+ </depr_en_url_bas_simple>
+</__Shani_basic>

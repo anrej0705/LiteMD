@@ -67,4 +67,6 @@ void LiteMD::update_interactive()
 	enableIndevFeatures == 0 ? setStrikethrough->setDisabled(1) : setStrikethrough->setEnabled(1);
 	enableIndevFeatures == 0 ? formatStyle->setDisabled(1) : formatStyle->setEnabled(1);
 	enableIndevFeatures == 0 ? actSetTextFormat->setDisabled(1) : actSetTextFormat->setEnabled(1);
+	enableIndevFeatures == 0 ? btnUp->setDisabled(1) : btnUp->setEnabled(1);
+	enableIndevFeatures == 0 ? btnDown->setDisabled(1) : btnDown->setEnabled(1);
 }

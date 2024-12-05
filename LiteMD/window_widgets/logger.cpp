@@ -4,61 +4,61 @@
 
 logger::logger(QWidget* log) : QDialog(log)
 {
-	//Задаём модальный тип окна чтобы юзер случайно не скрыл его
+	//Р—Р°РґР°С‘Рј РјРѕРґР°Р»СЊРЅС‹Р№ С‚РёРї РѕРєРЅР° С‡С‚РѕР±С‹ СЋР·РµСЂ СЃР»СѓС‡Р°Р№РЅРѕ РЅРµ СЃРєСЂС‹Р» РµРіРѕ
 	setModal(1);
 	this->setWindowTitle(tr("logTitle"));
 
-	//Задаём пока что фиксированный размер окна
+	//Р—Р°РґР°С‘Рј РїРѕРєР° С‡С‚Рѕ С„РёРєСЃРёСЂРѕРІР°РЅРЅС‹Р№ СЂР°Р·РјРµСЂ РѕРєРЅР°
 	setFixedSize(960, 600);
 
-	//Менеджер размещения кнопок
+	//РњРµРЅРµРґР¶РµСЂ СЂР°Р·РјРµС‰РµРЅРёСЏ РєРЅРѕРїРѕРє
 	buttonLay = new QHBoxLayout;
 
-	//Фильтр событий чтобы ловить событие смены языка
+	//Р¤РёР»СЊС‚СЂ СЃРѕР±С‹С‚РёР№ С‡С‚РѕР±С‹ Р»РѕРІРёС‚СЊ СЃРѕР±С‹С‚РёРµ СЃРјРµРЅС‹ СЏР·С‹РєР°
 	qApp->installEventFilter(this);
 
-	//Иконка
+	//РРєРѕРЅРєР°
 	this->setWindowIcon(QIcon("icon.ico"));
 
-	//Менеджер размещения панели с кнопками и текстового поля
+	//РњРµРЅРµРґР¶РµСЂ СЂР°Р·РјРµС‰РµРЅРёСЏ РїР°РЅРµР»Рё СЃ РєРЅРѕРїРєР°РјРё Рё С‚РµРєСЃС‚РѕРІРѕРіРѕ РїРѕР»СЏ
 	builder = new QVBoxLayout;
 
-	//Всякая приблуда из tab_logs.cpp
+	//Р’СЃСЏРєР°СЏ РїСЂРёР±Р»СѓРґР° РёР· tab_logs.cpp
 	clearLog = new QPushButton(tr("clearLog"));
 	saveLog = new QPushButton(tr("saveLog"));
 	logFrame = new QPlainTextEdit;
 
-	//Делаем кнопки побольше чтобы тыкать проще
+	//Р”РµР»Р°РµРј РєРЅРѕРїРєРё РїРѕР±РѕР»СЊС€Рµ С‡С‚РѕР±С‹ С‚С‹РєР°С‚СЊ РїСЂРѕС‰Рµ
 	clearLog->setFixedHeight(48);
 	saveLog->setFixedHeight(48);
 
-	//Рамка и её костыль
+	//Р Р°РјРєР° Рё РµС‘ РєРѕСЃС‚С‹Р»СЊ
 	frame = new QGroupBox;
 	frameFix = new QVBoxLayout;
 
-	//Сборка кнопок
+	//РЎР±РѕСЂРєР° РєРЅРѕРїРѕРє
 	buttonLay->addWidget(saveLog);
 	buttonLay->addWidget(clearLog);
 
-	//Сборка окна
+	//РЎР±РѕСЂРєР° РѕРєРЅР°
 	builder->addWidget(logFrame);
 
-	//Костылинг
+	//РљРѕСЃС‚С‹Р»РёРЅРі
 	frame->setLayout(builder);
 	frame->setTitle(tr("logHint"));
 	frameFix->addWidget(frame);
 	frameFix->addLayout(buttonLay);
 
-	//Назначение менеджнера в виджет
+	//РќР°Р·РЅР°С‡РµРЅРёРµ РјРµРЅРµРґР¶РЅРµСЂР° РІ РІРёРґР¶РµС‚
 	this->setLayout(frameFix);
 
-	//Всякие настройки
-	logFrame->setReadOnly(1);		//Отключение возможности писать в окно логов
+	//Р’СЃСЏРєРёРµ РЅР°СЃС‚СЂРѕР№РєРё
+	logFrame->setReadOnly(1);		//РћС‚РєР»СЋС‡РµРЅРёРµ РІРѕР·РјРѕР¶РЅРѕСЃС‚Рё РїРёСЃР°С‚СЊ РІ РѕРєРЅРѕ Р»РѕРіРѕРІ
 
 	if (!connect(clearLog, SIGNAL(clicked()), this, SLOT(slot_clear_logs())))
-		QErrorMessage::qtHandler();	//Подключаем кнопку очистки логов
+		QErrorMessage::qtHandler();	//РџРѕРґРєР»СЋС‡Р°РµРј РєРЅРѕРїРєСѓ РѕС‡РёСЃС‚РєРё Р»РѕРіРѕРІ
 	if (!connect(saveLog, SIGNAL(clicked()), this, SLOT(slot_save_logs())))
-		QErrorMessage::qtHandler();	//Подключаем кнопку сохранения логов
+		QErrorMessage::qtHandler();	//РџРѕРґРєР»СЋС‡Р°РµРј РєРЅРѕРїРєСѓ СЃРѕС…СЂР°РЅРµРЅРёСЏ Р»РѕРіРѕРІ
 }
 
 void logger::slot_read_n_show()
@@ -72,7 +72,7 @@ void logger::slot_read_n_show()
 }
 
 void logger::slot_clear_logs()
-{	//Чистим логи по запросу
+{	//Р§РёСЃС‚РёРј Р»РѕРіРё РїРѕ Р·Р°РїСЂРѕСЃСѓ
 	logger_backend::getInstance().clear_logs();
 	logFrame->clear();
 }
@@ -81,25 +81,32 @@ void logger::slot_save_logs()
 {
 	QFile mdObject;
 	QString mdFileName;
-	//Если пусто то выходим
+	//Р•СЃР»Рё РїСѓСЃС‚Рѕ С‚Рѕ РІС‹С…РѕРґРёРј
 	/*if (this->toPlainText() == "")
 	{
 		fileChangedState = 0;
 		return;
 	}*/
-	//Вызываем диалоговое окно сохранения
+	//Р’С‹Р·С‹РІР°РµРј РґРёР°Р»РѕРіРѕРІРѕРµ РѕРєРЅРѕ СЃРѕС…СЂР°РЅРµРЅРёСЏ
 	mdFileName = QFileDialog::getSaveFileName(0, tr("Save logs"), "log", tr("*.txt"));
-	//Присваиваем хандлеру имя файла
+	//РџСЂРёСЃРІР°РёРІР°РµРј С…Р°РЅРґР»РµСЂСѓ РёРјСЏ С„Р°Р№Р»Р°
 	mdObject.setFileName(mdFileName);
-	//Если удалось открыть файл на запись то выполняем
+	//Р•СЃР»Рё СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р» РЅР° Р·Р°РїРёСЃСЊ С‚Рѕ РІС‹РїРѕР»РЅСЏРµРј
 	if (mdObject.open(QIODevice::WriteOnly))
 	{
-		//Присваиваем выходному потоку указатель на хандлер и задаем юникод и затем сохраняем
+		//РџСЂРёСЃРІР°РёРІР°РµРј РІС‹С…РѕРґРЅРѕРјСѓ РїРѕС‚РѕРєСѓ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° С…Р°РЅРґР»РµСЂ Рё Р·Р°РґР°РµРј СЋРЅРёРєРѕРґ Рё Р·Р°С‚РµРј СЃРѕС…СЂР°РЅСЏРµРј
 		QTextStream out(&mdObject);
 		out.setCodec("UTF-8");
 		out << logFrame->toPlainText();
-		//Закрываем файл, сбрасываем файл и отсылаем сигнал
+		//Р—Р°РєСЂС‹РІР°РµРј С„Р°Р№Р», СЃР±СЂР°СЃС‹РІР°РµРј С„Р°Р№Р» Рё РѕС‚СЃС‹Р»Р°РµРј СЃРёРіРЅР°Р»
 		mdObject.close();
 	}
+}
+//РџРµСЂРµС…РІР°С‚С‡РёРє СЃРѕР±С‹С‚РёСЏ Р·Р°РєСЂС‹С‚РёСЏ, РїРёР·Р¶РµРЅ РёР· LiteMD.cpp
+void logger::closeEvent(QCloseEvent* ce)
+{
+	push_log("[QT]Р’С‹Р·РІР°РЅРѕ СЃРѕР±С‹С‚РёРµ Р·Р°РєСЂС‹С‚РёСЏ РѕРєРЅР° Р»РѕРіРѕРІ");
+	logFrame->clear();	//Р§РёСЃС‚РєР° С‚РѕР»СЊРєРѕ UI С‡Р°СЃС‚Рё Р»РѕРіРѕРІ, РїСЂРё РїРѕРІС‚РѕСЂРЅРѕРј РІС‹Р·РѕРІРµ РїРѕСЏРІРёС‚СЃСЏ СЃРЅРѕРІР°
+	ce->accept();
 }
 

@@ -10,6 +10,7 @@ extern "C"
 	#include "global_definitions.h"
 	#include "globalFlags.h"
 }
+int log_limit = LOGS_LIMIT;
 struct parser_switchers parswitch;
 struct depr_paerser_switchers dparswitch;
 appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
@@ -24,6 +25,8 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	configureRenderSettingsTab();
 	configureDownloaderSettingsTab();
 	configureLogsTab();
+	configureExtendedTab();
+	//configureHackTab(); 0.2.5
 
 	//Инициализируем указатели
 	xmlw = new xmlWriter;
@@ -31,8 +34,11 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	btnOk = new QPushButton(tr("&Ok"));
 	btnCancel = new QPushButton(tr("&Cancel"));
 	btnApply = new QPushButton(tr("&Apply"));
+	setDefault = new QPushButton(tr("setDefault"));
 	controlBtnLay = new QHBoxLayout;
+	setDefBtnLay = new QHBoxLayout;
 	dialogWindow = new QVBoxLayout;
+	btnComposer = new QHBoxLayout;
 
 	//ui_event = new ui_update_event;
 
@@ -42,18 +48,23 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 
 	//Настройка компоновщиков
 	controlBtnLay->setAlignment(Qt::AlignRight);
+	setDefBtnLay->setAlignment(Qt::AlignLeft);
 
 	//Настройка кнопок
 	btnOk->setFixedWidth(120);
 	btnCancel->setFixedWidth(120);
 	btnApply->setFixedWidth(120);
+	setDefault->setFixedWidth(120);
 
-	//Добавляем виджет кнопок и вкладок
+	//Компонуем говнинку в красивое окошко
 	controlBtnLay->addWidget(btnOk);
 	controlBtnLay->addWidget(btnCancel);
 	controlBtnLay->addWidget(btnApply);
+	setDefBtnLay->addWidget(setDefault);
+	btnComposer->addLayout(setDefBtnLay);
+	btnComposer->addLayout(controlBtnLay);
 	dialogWindow->addWidget(settingsLister);
-	dialogWindow->addLayout(controlBtnLay);
+	dialogWindow->addLayout(btnComposer);
 
 	//Иконка
 	this->setWindowIcon(QIcon("icon.ico"));
@@ -126,6 +137,8 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	settingsLister->addTab(renderSettings, tr("Render"));
 	settingsLister->addTab(downloaderSettings, tr("Downloader"));
 	settingsLister->addTab(tabLogs, tr("Logs"));
+	settingsLister->addTab(extendedMd, tr("Extended"));
+	//settingsLister->addTab(tabLogs, tr("Hacks")); 0.2.5
 	settingsLister->addTab(capTab, tr("Cap"));
 
 	//Задаем фиксированный размер
@@ -219,19 +232,6 @@ void appSettings::slot_switch_features(int bit)
 	enableIndevFeatures = static_cast<bool>(bit);
 	if (enableIndevFeatures)
 	{
-		//Посылаем событие в LiteMD.cpp
-		push_log("[НАСТРОЙКИ]Активирован функционал находящийся в разработке, возможна нестабильная работа");
-		push_log("[НАСТРОЙКИ]Пожалуйста сохраните лог");
-		themeHint->setEnabled(1);
-		saveSettingsHint->setEnabled(1);
-		autoSaveHint->setEnabled(1);
-		saveFreqHint->setEnabled(1);
-		themeList->setEnabled(1);
-		saveSettings->setEnabled(1);
-		autoSave->setEnabled(1);
-		saveFreq->setEnabled(1);
-		colorThemeHint->setEnabled(1);
-		colorTheme->setEnabled(1);
 		try
 		{
 			newRecentFilesArray();
@@ -243,16 +243,6 @@ void appSettings::slot_switch_features(int bit)
 	}
 	else
 	{
-		themeHint->setDisabled(1);
-		saveSettingsHint->setDisabled(1);
-		autoSaveHint->setDisabled(1);
-		saveFreqHint->setDisabled(1);
-		themeList->setDisabled(1);
-		saveSettings->setDisabled(1);
-		autoSave->setDisabled(1);
-		saveFreq->setDisabled(1);
-		colorThemeHint->setDisabled(1);
-		colorTheme->setDisabled(1);
 		try
 		{
 			deleteOnExit();
@@ -275,6 +265,10 @@ void appSettings::slot_tab_changed(int tab_index)
 		{
 			logBox->appendPlainText(container.at(_index));
 		}
+	}
+	else//На всякий случай будем чистить поле логов
+	{
+		logBox->clear();
 	}
 }
 
@@ -308,4 +302,63 @@ void appSettings::slot_save_logs()
 		//Закрываем файл, сбрасываем файл и отсылаем сигнал
 		mdObject.close();
 	}
+}
+
+void appSettings::slot_switch_underlined(int bit)
+{
+	//settingChanged = 1; 0.2.5
+}
+
+void appSettings::slot_switch_strikethrough(int bit)
+{
+	settingChanged = 1;
+	parswitch.en_ex_strkthg = static_cast<bool>(bit);
+	parswitch.en_ex_strkthg == 0 ? push_log("[НАСТРОЙКИ]Обработка тильды отключена") : push_log("[НАСТРОЙКИ]Обработка тильды включена");
+}
+
+void appSettings::slot_set_limit(int limit)
+{
+	//Чтобы 200IQ гений на юзере не сломал прогу зададим минимум равный текущему размеру логов
+	limitSpinBox->setMinimum(logger_backend::getInstance().get_size());
+
+	//Задаем лимит от юзера
+	if (limit > logger_backend::getInstance().get_size())
+		slot_set_limit(limit);
+	else
+		logger_backend::getInstance().set_limit(logger_backend::getInstance().get_size() + 1);
+}
+
+//Сброс параметров в дефолтные настройки
+void appSettings::slot_reset_settings()
+{
+	settingChanged = 1;
+	parswitch.en_simple_url = 1;
+	parswitch.en_adv_url = 1;
+	parswitch.en_header_lvl = 1;
+	parswitch.en_ex_strkthg = 1;
+
+	enableDeprFeatures = 0;
+	enableIndevFeatures = 0;
+	try
+	{
+		deleteOnExit();
+	}
+	catch (exceptionHandler)
+	{
+		(exceptionHandler(exceptionHandler::FATAL));
+	}
+	allowHttpWarn = 1;
+
+	dparswitch.en_t_post = 0;
+	dparswitch.en_t_prep = 0;
+	dparswitch.en_url_adv = 0;
+	dparswitch.en_url_bas = 0;
+	dparswitch.en_url_bas_simple = 0;
+
+	limitSpinBox->setValue(LOGS_LIMIT);
+	log_limit = LOGS_LIMIT;
+	if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_UI_UPDATE_USER_SETTINGS)))
+		QErrorMessage::qtHandler();//Отправка события на обновление визуала - галочек, радиокнопок и прочего
+	update_interactive();
+	update_ui();
 }

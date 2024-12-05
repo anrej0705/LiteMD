@@ -28,6 +28,7 @@ class logger_backend
 		static singlet_remover remv;
 		char** log_container;
 		uint32_t log_str_counter;
+		uint32_t msg_limit;
 		friend class singlet_remover;
 	public:
 		logger_backend();
@@ -38,9 +39,12 @@ class logger_backend
 		void clear_logs();
 		char* get_stroke(uint32_t);
 		uint32_t get_size();
+		uint32_t get_limit();
+		void set_limit(uint32_t limit);
 };
 
 void dump_crash_log();
 void push_log(const char* log);			//Лог формата char*
 void push_log(const std::string& log);	//Лог формата std::string
 void push_log(const QString& log);		//Лог формата QString
+void set_log_limit(uint32_t limit);		//Установка лимита на количество сообщений

@@ -298,7 +298,7 @@ github.com/anrej0705
     </message>
     <message>
         <source>Ver </source>
-        <translation>версия</translation>
+        <translation>версия </translation>
     </message>
 </context>
 <context>
@@ -485,23 +485,43 @@ Programm will close</source>
     </message>
     <message>
         <source>deprSyntaxPrepHint</source>
-        <translation>Enable deprecated preprocessor</translation>
+        <translation>Включить устаревший парсер форматированных ссылок</translation>
     </message>
     <message>
         <source>deprSyntaxPostHint</source>
-        <translation>Enable deprecated postprocessor</translation>
+        <translation>Включить устаревший постпроцессор</translation>
     </message>
     <message>
         <source>deprUrlSimplParserHint</source>
-        <translation>Enable deprecated simple url parser</translation>
+        <translation>Включить устаревший парсер простых ссылок</translation>
     </message>
     <message>
         <source>deprUrlAdvParserHint</source>
-        <translation>Enable deprecated advanced url parser</translation>
+        <translation>Включить устаревший парсер форматированных ссылок</translation>
     </message>
     <message>
         <source>deprUrlBasParserHint</source>
-        <translation>Enable deprecated basic url pasrser</translation>
+        <translation>Включить парсер ссылок &lt;https://url&gt;</translation>
+    </message>
+    <message>
+        <source>parseStrikethroughHint</source>
+        <translation>Обрабатывать зачёркнутый текст</translation>
+    </message>
+    <message>
+        <source>parseUnderlinedHint</source>
+        <translation>Обрабатывать подчёркнутый текст</translation>
+    </message>
+    <message>
+        <source>Extended</source>
+        <translation>Расширенные</translation>
+    </message>
+    <message>
+        <source>msgLimitHint</source>
+        <translation>Logg messages limit</translation>
+    </message>
+    <message>
+        <source>setDefault</source>
+        <translation>Set default</translation>
     </message>
 </context>
 <context>

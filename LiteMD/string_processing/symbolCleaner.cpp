@@ -48,6 +48,16 @@ struct service_tags
 * 3 - ')'
 */
 
+struct operating_vars
+{
+	volatile int32_t squ_brackets_entry;
+	volatile int32_t squ_brackets_last;
+	volatile int32_t brackets_entry;
+	volatile int32_t brackets_last;
+	volatile int32_t sym_entry;
+	volatile int32_t sym_last;
+}opvars;
+
 //Список тегов в тексте
 service_tags* tag_list;
 service_tags* new_list;
@@ -156,13 +166,9 @@ std::string symbolCleaner(std::string& rawInput)
 					}
 					case 3:
 					{
-						volatile int32_t squ_brackets_entry = -1;
-						volatile int32_t squ_brackets_last = -1;
-						volatile int32_t brackets_entry = -1;
-						volatile int32_t brackets_last = -1;
 						//testpoint1.clear();
 						compare_char = forward_bump.at(char_type);						//Кешируется символ который ожидается встретить со стороны начала
-						brackets_last = _index;											//Текущая позиция записывается как конец тега
+						opvars.brackets_last = _index;									//Текущая позиция записывается как конец тега
 						for (volatile int32_t _idx = _index; _idx >= 0; --_idx)			//Ищется позиция начала
 						{																//Если наход то проверяем из чего сделан кокс
 							//testpoint2 = clean_buffer->at(_idx);
@@ -170,22 +176,22 @@ std::string symbolCleaner(std::string& rawInput)
 							if ((_idx > 0) && (compare_char == clean_buffer->at(_idx)) && (clean_buffer->at(_idx - 1) == ']'))
 							{
 								compare_char = forward_bump.at(1);						//Снова кешируется но уже для пары '[]'
-								brackets_entry = _idx;									//Кешируется начало скобок
-								squ_brackets_last = _idx - 1;
+								opvars.brackets_entry = _idx;							//Кешируется начало скобок
+								opvars.squ_brackets_last = _idx - 1;
 								for (volatile int32_t _squ_idx = _idx; _squ_idx >= 0; --_squ_idx)
 								{
 									//testpoint2 = clean_buffer->at(_squ_idx);
 									//testpoint1.insert(0, 1, testpoint2);
 									if (compare_char == clean_buffer->at(_squ_idx))		//Пора сворачиваться
 									{
-										squ_brackets_entry = _squ_idx;					//Сохраняется позиция начала
+										opvars.squ_brackets_entry = _squ_idx;			//Сохраняется позиция начала
 										new_list = reinterpret_cast<service_tags*>(realloc(tag_list, sizeof(service_tags) * (tag_list_size + 1)));
 										if (new_list != NULL)							//Проверка на карму
 											tag_list = new_list;
 										else
 											throw(exceptionHandler(exceptionHandler::WARNING, QString("Карма в говне! - new_list вернул NULL")));
-										tag_list[tag_list_size].last_entry = brackets_last;
-										tag_list[tag_list_size].first_entry = brackets_entry;
+										tag_list[tag_list_size].last_entry = opvars.brackets_last;
+										tag_list[tag_list_size].first_entry = opvars.brackets_entry;
 										tag_list[tag_list_size].size = tag_list[tag_list_size].last_entry - tag_list[tag_list_size].first_entry;
 										tag_list[tag_list_size].type = char_type;
 										++tag_list_size;
@@ -194,8 +200,8 @@ std::string symbolCleaner(std::string& rawInput)
 											tag_list = new_list;
 										else
 											throw(exceptionHandler(exceptionHandler::WARNING, QString("Карма в говне! - new_list вернул NULL")));
-										tag_list[tag_list_size].last_entry = squ_brackets_last;
-										tag_list[tag_list_size].first_entry = squ_brackets_entry;
+										tag_list[tag_list_size].last_entry = opvars.squ_brackets_last;
+										tag_list[tag_list_size].first_entry = opvars.squ_brackets_entry;
 										tag_list[tag_list_size].size = tag_list[tag_list_size].last_entry - tag_list[tag_list_size].first_entry;
 										++tag_list_size;								//Писать ещё раз char_type нет смысла
 										_index = _squ_idx;
@@ -212,7 +218,7 @@ std::string symbolCleaner(std::string& rawInput)
 									if (clean_buffer->at(_search) == ')')
 									{
 										//tag_list[tag_list_size].last_entry = _search + 1;
-										brackets_last = _search + 1;
+										opvars.brackets_last = _search + 1;
 										//testpoint1.clear();
 										break;
 									}
@@ -221,6 +227,47 @@ std::string symbolCleaner(std::string& rawInput)
 							}
 						}
 						break;
+					}
+				}
+			}
+			//Поиск непарных служебных символов
+			char_type = symbolCollection.find(clean_buffer->at(_index));
+			if (char_type != -1)
+			{
+				compare_char = clean_buffer->at(_index);
+				switch (char_type)
+				{
+					//Ищём ~
+					case 0:
+					{
+						//--_index;	//По правилам зачёркнутого тега тильды должно быть две и ледующая тоже должна быть тильда
+						if ((_index >= 1) && (clean_buffer->at(_index) == compare_char) && (clean_buffer->at(_index - 1) == compare_char))	
+						{	//Если удалось найти тильды то ищём следующие
+							opvars.sym_last = _index - 1;	//Смещение, так как тильды две
+							for (volatile int32_t _idx = opvars.sym_last; _idx >= 0; --_idx)
+							{	//По такому же сценарию
+								if (_idx > 0 && clean_buffer->at(_idx) == compare_char && clean_buffer->at(_idx - 1) == compare_char)
+								{
+									opvars.sym_entry = _idx;
+									//Если всё успешно то запоминаем
+									new_list = reinterpret_cast<service_tags*>(realloc(tag_list, sizeof(service_tags) * (tag_list_size + 1)));
+									if (new_list != NULL)							//Проверка на карму
+										tag_list = new_list;
+									else
+										throw(exceptionHandler(exceptionHandler::WARNING, QString("Карма в говне! - new_list вернул NULL")));
+									tag_list[tag_list_size].first_entry = opvars.sym_entry - 1;
+									tag_list[tag_list_size].last_entry = opvars.sym_last + 1;
+									tag_list[tag_list_size].size = opvars.sym_last - opvars.sym_entry;
+									tag_list[tag_list_size].type = 4 + char_type;	//+4 потому что первые 4 позиции - пары скобок
+									++tag_list_size;
+									_index = opvars.sym_entry - 1;
+									break;
+								}
+							}
+							break;
+						}
+						else
+							break;
 					}
 				}
 			}
@@ -307,6 +354,20 @@ std::string symbolCleaner(std::string& rawInput)
 							++cleans;
 							break;
 						}
+					}
+					//Отсюда начинаются уже непарные теги
+					case 4:
+					{	//Чистятся символы внутри тега чтобы исключить ложное срабатывание
+						for (volatile int32_t _idx = tag_list[rb_cache_ptr].last_entry - 2; _idx >= tag_list[rb_cache_ptr].first_entry + 2; --_idx)
+						{
+							if (bracketsSrc.find(clean_buffer->at(_idx)) != -1)
+								clean_buffer->replace(_idx, 1, bracketsTable.at(bracketsSrc.find(clean_buffer->at(_idx))).c_str());
+						}
+						_index = tag_list[rb_cache_ptr].first_entry - 1;
+						if (rb_cache_ptr < tag_list_size)
+							++rb_cache_ptr;
+						++cleans;
+						break;
 					}
 				}
 			}

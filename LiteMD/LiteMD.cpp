@@ -1,6 +1,5 @@
 #include "LiteMD.h"
 #include "ui_update_event.h"
-#include "OrientalPushButton.h"
 #include "GuiDownloader.h"
 #include "dialogBoxes.h"
 #include "exceptionHandler.h"
@@ -12,9 +11,10 @@ extern "C"
 	#include "globalFlags.h"
 	#include "global_definitions.h"
 }
+QString appPath;
 extern struct parser_switchers parswitch;
 extern struct depr_paerser_switchers dparswitch;
-LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
+LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 {	//Контейнер для строчки лога перед отправкой в ядро
 	boost::container::string* log_stroke = new boost::container::string;
 
@@ -23,12 +23,16 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	parswitch.en_simple_url = 1;
 	parswitch.en_adv_url = 1;
 	parswitch.en_header_lvl = 1;
+	parswitch.en_ex_strkthg = 1;
 
 	dparswitch.en_t_post = 0;
 	dparswitch.en_t_prep = 0;
 	dparswitch.en_url_adv = 0;
 	dparswitch.en_url_bas = 0;
 	dparswitch.en_url_bas_simple = 0;
+
+	appPath = QCoreApplication::applicationDirPath();
+	push_log(std::string("[MAIN]Задан каталог приложения " + appPath.toStdString()));
 
 	//Инициализация окон редактора и рендера текста
 	mde = new mdEditor;
@@ -37,8 +41,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 
 	//Блок элементов интерфейса
 	QScrollArea* mdsArea = new QScrollArea;
-	OrientablePushButton* btnDown = new OrientablePushButton("--->", this);
-	OrientablePushButton* btnUp = new OrientablePushButton("--->", this);
+	btnDown = new OrientablePushButton("--->", this);
+	btnUp = new OrientablePushButton("--->", this);
 	editorWindow = new QGroupBox(tr("Editor"));
 	viewerWindow = new QGroupBox(tr("Viewer"));
 	QWidget* scrollDock = new QWidget;
@@ -59,8 +63,8 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	logWindow = new logger;
 	headersMenu = new QMenu(tr("Set headers"));
 	formatStyle = new QMenu(tr("Set format style"));
-	actPlaceHeader = new QToolButton;
-	actSetTextFormat = new QToolButton;
+	actPlaceHeader = new CustomToolButton;
+	actSetTextFormat = new CustomToolButton;
 	//-------------------------
 
 	//Блок конфигурации элементов интерфейса
@@ -78,7 +82,7 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 		{
 			xmlW->writeConfig();
 			if (!xmlR->readConfig())
-				throw(exceptionHandler(exceptionHandler::FATAL));
+				throw(exceptionHandler(exceptionHandler::FATAL), "Ошибка записи конфига");
 		}
 	}
 
@@ -119,11 +123,11 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 	actHelp = new QAction(QPixmap("ress/icon_help.png"), tr("&Help"));
 	actOpenChangelog = new QAction(QPixmap("ress/icon_show_changelog.png"), tr("Sh&ow changelog"));
 	actBugReport = new QAction(QPixmap("ress/icon_bug.png"), tr("&Bug!"));
-	actSetH1 = new QAction(QPixmap("ress/icon_set_header.png"), tr("Set H1"));
-	actSetH2 = new QAction(QPixmap("ress/icon_set_header.png"), tr("Set H2"));
-	actSetH3 = new QAction(QPixmap("ress/icon_set_header.png"), tr("Set H3"));
-	actSetH4 = new QAction(QPixmap("ress/icon_set_header.png"), tr("Set H4"));
-	actSetH5 = new QAction(QPixmap("ress/icon_set_header.png"), tr("Set H5"));
+	actSetH1 = new QAction(QPixmap("ress/icon_set_h1.png"), tr("Set H1"));
+	actSetH2 = new QAction(QPixmap("ress/icon_set_h2.png"), tr("Set H2"));
+	actSetH3 = new QAction(QPixmap("ress/icon_set_h3.png"), tr("Set H3"));
+	actSetH4 = new QAction(QPixmap("ress/icon_set_h4.png"), tr("Set H4"));
+	actSetH5 = new QAction(QPixmap("ress/icon_set_h5.png"), tr("Set H5"));
 	actShieldSymbol = new QAction(QPixmap("ress/icon_set_shielding.png"), tr("Es&cape character"));
 	setBold = new QAction(QPixmap("ress/icon_set_text_format.png"), tr("Set bold"));
 	setItalic = new QAction(QPixmap("ress/icon_set_text_format.png"), tr("Set italic"));
@@ -350,7 +354,12 @@ LiteMD::LiteMD(QWidget *parent) : QMainWindow(parent)
 
 	//Устанавливаем язык
 	mdlSet->slot_lang_selected(langCode);
-	mdlSet->slot_apply_settings();
+	mdlSet->slot_apply_settings(); 
+
+	if (argc == 2)	//Если вторым аргументом файл то сразу открываем его
+	{
+		mde->openFileArg(argv[1]);
+	}
 
 	//Показываем сообщение готовности к работе
 	statusBar()->showMessage(tr("Ready"), 3000);
@@ -441,4 +450,10 @@ void LiteMD::httpModuleShow()
 LiteMD::~LiteMD()
 {
 	deleteOnExit();
+}
+
+QString getAppPath()
+{
+	//Возвращаем QString каталог в котором запущена приложуха
+	return appPath;
 }
