@@ -27,7 +27,10 @@ class appSettings : public QDialog
 		QPushButton* btnOk;				//Кнопка подтверждения
 		QPushButton* btnCancel;			//Кнопка отмены
 		QPushButton* btnApply;			//Кнопка применить изменения
+		QPushButton* setDefault;		//Кнопка "По умолчанию"
 		QHBoxLayout* controlBtnLay;		//Менеджеры размещения кнопок снизу
+		QHBoxLayout* setDefBtnLay;		//Для особенной кнопочки запуска ракет по америке
+		QHBoxLayout* btnComposer;		//Компонует два предыдущих - один для кнопки сброса настроек второй для остальных
 		QVBoxLayout* dialogWindow;		//Менеджер общего размещения элементов
 
 		//Вкладка "Основные"
@@ -60,6 +63,9 @@ class appSettings : public QDialog
 
 		QLabel* hacksHint;				//Описание для всяких взломов жопы стандарта
 		QCheckBox* hacksEnable;			//Чекпук для активации взлома жопы MD
+
+		QLabel* msgLimitHint;			//Описание поля максимума строк логов
+		QSpinBox* limitSpinBox;			//Крутилка для задания лимита - по умолчанию 8192
 		//-------------------------
 
 		//Вкладка "Рендер"
@@ -139,6 +145,8 @@ class appSettings : public QDialog
 		void slot_en_url_adv(int);
 		void slot_switch_underlined(int);
 		void slot_switch_strikethrough(int);
+		void slot_set_limit(int);
+		void slot_reset_settings();
 	signals:
 		void signalTitleChanged(const QString&);
 };
