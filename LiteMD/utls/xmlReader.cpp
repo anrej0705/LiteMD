@@ -48,6 +48,8 @@ boost::container::vector<QString> xml_tags{
 	QString("depr_en_url_adv"),
 	QString("depr_en_url_bas"),
 	QString("depr_en_url_bas_simple"),
+	QString("enStrikethroughHintParse"),
+	QString("logs_limit"),
 };
 
 bool xmlReader::readConfig()
@@ -71,6 +73,7 @@ bool xmlReader::readConfig()
 	_xml_ptr.push_back(reinterpret_cast<void*>(&dparswitch.en_url_bas));
 	_xml_ptr.push_back(reinterpret_cast<void*>(&dparswitch.en_url_bas_simple));
 	_xml_ptr.push_back(reinterpret_cast<void*>(&parswitch.en_ex_strkthg));
+	_xml_ptr.push_back(reinterpret_cast<void*>(&log_limit));
 
 	int* _int_ptr;
 	bool* _bool_ptr;
