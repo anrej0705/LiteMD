@@ -241,6 +241,8 @@
     <ClCompile Include="modules\exceptionHandler.cpp" />
     <ClCompile Include="modules\frameChangelog.cpp" />
     <ClCompile Include="modules\GuiDownloader.cpp" />
+    <ClCompile Include="modules\QMicroz\qmicroz.cpp" />
+    <ClCompile Include="modules\QMicroz\tools.cpp" />
     <ClCompile Include="settings_tabs\tab_basic.cpp" />
     <ClCompile Include="settings_tabs\tab_downloader.cpp" />
     <ClCompile Include="settings_tabs\tab_extended.cpp" />
@@ -326,6 +328,9 @@
     <QtMoc Include="modules\frameChangelog.h" />
     <QtMoc Include="modules\customToolButton.h" />
     <ClInclude Include="modules\exceptionHandler.h" />
+    <ClInclude Include="modules\QMicroz\qmicroz.h" />
+    <ClInclude Include="modules\QMicroz\qmicroz_global.h" />
+    <ClInclude Include="modules\QMicroz\tools.h" />
     <ClInclude Include="ress\resource.h" />
     <ClInclude Include="ress\resource1.h" />
     <ClInclude Include="string_processing\crlfParser.h" />
