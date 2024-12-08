@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.34301.259
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LiteMD", "LiteMD\LiteMD.vcxproj", "{DACC88FF-7485-4415-BBD6-6C6A06EDAF47}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9DE39547-DF87-30C3-8A8D-6F8B0E82C1DE} = {9DE39547-DF87-30C3-8A8D-6F8B0E82C1DE}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qmicroz", "qmicroz\qmicroz.vcxproj", "{9DE39547-DF87-30C3-8A8D-6F8B0E82C1DE}"
 EndProject
