@@ -131,7 +131,7 @@
       <EnableModules>false</EnableModules>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <AdditionalOptions>-DBOOST_STACKTRACE_USE_BACKTRACE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-DBOOST_STACKTRACE_USE_BACKTRACE /D_HAS_STD_BYTE=0 %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -238,6 +238,8 @@
     <ClCompile Include="dyn_tr_manager\LiteMD_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\logger_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\ui_update_event.cpp" />
+    <ClCompile Include="modules\cmd_wrapper\bridge.cpp" />
+    <ClCompile Include="modules\cmd_wrapper\gui.cpp" />
     <ClCompile Include="modules\customToolButton.cpp" />
     <ClCompile Include="modules\Downloader.cpp" />
     <ClCompile Include="modules\exceptionHandler.cpp" />
@@ -327,6 +329,8 @@
     <QtMoc Include="window_widgets\logger.h" />
     <QtMoc Include="modules\frameChangelog.h" />
     <QtMoc Include="modules\customToolButton.h" />
+    <ClInclude Include="modules\cmd_wrapper\bridge.h" />
+    <ClInclude Include="modules\cmd_wrapper\gui.h" />
     <ClInclude Include="modules\exceptionHandler.h" />
     <ClInclude Include="modules\QMicroz\qmicroz.h" />
     <ClInclude Include="ress\resource.h" />
