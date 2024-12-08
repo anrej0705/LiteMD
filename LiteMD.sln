@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.34301.259
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LiteMD", "LiteMD\LiteMD.vcxproj", "{DACC88FF-7485-4415-BBD6-6C6A06EDAF47}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qmicroz", "qmicroz-0.3\qmicroz.vcxproj", "{66D30EAB-F610-3D6A-B926-226330CFE8DD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qmicroz", "qmicroz\qmicroz.vcxproj", "{66D30EAB-F610-3D6A-B926-226330CFE8DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
