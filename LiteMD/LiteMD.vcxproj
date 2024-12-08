@@ -169,7 +169,8 @@
     <ClCompile>
       <AdditionalIncludeDirectories>$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing\extended;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)modules\QMicroz;$(ProjectDir)window_widgets;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_);C:\boost\boost_1_84_0</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <PreprocessorDefinitions>cl /DMINIZ_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>-DBOOST_STACKTRACE_USE_BACKTRACE /D_HAS_STD_BYTE=0 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>

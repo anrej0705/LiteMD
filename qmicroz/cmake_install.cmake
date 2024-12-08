@@ -1,4 +1,4 @@
-# Install script for directory: C:/git/LiteMD/qmicroz-0.3
+# Install script for directory: C:/git/LiteMD/qmicroz
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/git/LiteMD/qmicroz-0.3/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/git/LiteMD/qmicroz/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

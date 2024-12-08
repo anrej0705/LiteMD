@@ -1,17 +1,17 @@
 {
-	"BUILD_DIR" : "Q:/downloads/qmicroz-0.3/qmicroz-0.3/qmicroz_autogen",
-	"CMAKE_BINARY_DIR" : "Q:/downloads/qmicroz-0.3/qmicroz-0.3",
-	"CMAKE_CURRENT_BINARY_DIR" : "Q:/downloads/qmicroz-0.3/qmicroz-0.3",
-	"CMAKE_CURRENT_SOURCE_DIR" : "Q:/downloads/qmicroz-0.3/qmicroz-0.3",
+	"BUILD_DIR" : "C:/git/LiteMD/qmicroz/qmicroz_autogen",
+	"CMAKE_BINARY_DIR" : "C:/git/LiteMD/qmicroz",
+	"CMAKE_CURRENT_BINARY_DIR" : "C:/git/LiteMD/qmicroz",
+	"CMAKE_CURRENT_SOURCE_DIR" : "C:/git/LiteMD/qmicroz",
 	"CMAKE_EXECUTABLE" : "C:/Program Files/CMake/bin/cmake.exe",
 	"CMAKE_LIST_FILES" : 
 	[
-		"Q:/downloads/qmicroz-0.3/qmicroz-0.3/CMakeLists.txt",
-		"Q:/downloads/qmicroz-0.3/qmicroz-0.3/CMakeFiles/3.28.0-rc5/CMakeSystem.cmake",
+		"C:/git/LiteMD/qmicroz/CMakeLists.txt",
+		"C:/git/LiteMD/qmicroz/CMakeFiles/3.28.0-rc5/CMakeSystem.cmake",
 		"C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake",
 		"C:/Program Files/CMake/share/cmake-3.28/Modules/Platform/Windows-Initialize.cmake",
-		"Q:/downloads/qmicroz-0.3/qmicroz-0.3/CMakeFiles/3.28.0-rc5/CMakeCCompiler.cmake",
-		"Q:/downloads/qmicroz-0.3/qmicroz-0.3/CMakeFiles/3.28.0-rc5/CMakeCXXCompiler.cmake",
+		"C:/git/LiteMD/qmicroz/CMakeFiles/3.28.0-rc5/CMakeCCompiler.cmake",
+		"C:/git/LiteMD/qmicroz/CMakeFiles/3.28.0-rc5/CMakeCXXCompiler.cmake",
 		"C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake",
 		"C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeGenericSystem.cmake",
 		"C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake",
@@ -24,7 +24,7 @@
 		"C:/Program Files/CMake/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake",
 		"C:/Program Files/CMake/share/cmake-3.28/Modules/Platform/Windows-MSVC-C.cmake",
 		"C:/Program Files/CMake/share/cmake-3.28/Modules/Platform/Windows-MSVC.cmake",
-		"Q:/downloads/qmicroz-0.3/qmicroz-0.3/CMakeFiles/3.28.0-rc5/CMakeRCCompiler.cmake",
+		"C:/git/LiteMD/qmicroz/CMakeFiles/3.28.0-rc5/CMakeRCCompiler.cmake",
 		"C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeRCInformation.cmake",
 		"C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake",
 		"C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeCXXInformation.cmake",
@@ -47,42 +47,45 @@
 		"C:/Qt/Qt5.14.2/5.14.2/msvc2017/lib/cmake/Qt5Core/Qt5CoreMacros.cmake",
 		"C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeParseArguments.cmake"
 	],
-	"CMAKE_SOURCE_DIR" : "Q:/downloads/qmicroz-0.3/qmicroz-0.3",
+	"CMAKE_SOURCE_DIR" : "C:/git/LiteMD/qmicroz",
 	"DEP_FILE" : "",
 	"DEP_FILE_RULE_NAME" : "",
 	"HEADERS" : 
 	[
 		[
-			"Q:/downloads/qmicroz-0.3/qmicroz-0.3/miniz/miniz.h",
+			"C:/git/LiteMD/qmicroz/miniz/miniz.h",
 			"MU",
 			"BOHR2BOD6K/moc_miniz.cpp",
 			null
 		],
 		[
-			"Q:/downloads/qmicroz-0.3/qmicroz-0.3/src/qmicroz.h",
+			"C:/git/LiteMD/qmicroz/src/qmicroz.h",
 			"MU",
 			"UVLADIE3JM/moc_qmicroz.cpp",
 			null
 		],
 		[
-			"Q:/downloads/qmicroz-0.3/qmicroz-0.3/src/qmicroz_global.h",
+			"C:/git/LiteMD/qmicroz/src/qmicroz_global.h",
 			"MU",
 			"UVLADIE3JM/moc_qmicroz_global.cpp",
 			null
 		],
 		[
-			"Q:/downloads/qmicroz-0.3/qmicroz-0.3/src/tools.h",
+			"C:/git/LiteMD/qmicroz/src/tools.h",
 			"MU",
 			"UVLADIE3JM/moc_tools.cpp",
 			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
-	"INCLUDE_DIR" : "Q:/downloads/qmicroz-0.3/qmicroz-0.3/qmicroz_autogen/include",
-	"INCLUDE_DIR_Release" : "Q:/downloads/qmicroz-0.3/qmicroz-0.3/qmicroz_autogen/include_Release",
-	"MOC_COMPILATION_FILE" : "Q:/downloads/qmicroz-0.3/qmicroz-0.3/qmicroz_autogen/mocs_compilation.cpp",
-	"MOC_COMPILATION_FILE_Release" : "Q:/downloads/qmicroz-0.3/qmicroz-0.3/qmicroz_autogen/mocs_compilation_Release.cpp",
+	"INCLUDE_DIR" : "C:/git/LiteMD/qmicroz/qmicroz_autogen/include",
+	"INCLUDE_DIR_Debug" : "C:/git/LiteMD/qmicroz/qmicroz_autogen/include_Debug",
+	"INCLUDE_DIR_Release" : "C:/git/LiteMD/qmicroz/qmicroz_autogen/include_Release",
+	"MOC_COMPILATION_FILE" : "C:/git/LiteMD/qmicroz/qmicroz_autogen/mocs_compilation.cpp",
+	"MOC_COMPILATION_FILE_Debug" : "C:/git/LiteMD/qmicroz/qmicroz_autogen/mocs_compilation_Debug.cpp",
+	"MOC_COMPILATION_FILE_Release" : "C:/git/LiteMD/qmicroz/qmicroz_autogen/mocs_compilation_Release.cpp",
 	"MOC_DEFINITIONS" : [],
+	"MOC_DEFINITIONS_Debug" : [ "QMICROZ_LIBRARY", "QT_CORE_LIB", "WIN32", "qmicroz_EXPORTS" ],
 	"MOC_DEFINITIONS_Release" : 
 	[
 		"QMICROZ_LIBRARY",
@@ -99,10 +102,18 @@
 		]
 	],
 	"MOC_INCLUDES" : [],
+	"MOC_INCLUDES_Debug" : 
+	[
+		"C:/git/LiteMD/qmicroz/src",
+		"C:/git/LiteMD/qmicroz/miniz",
+		"C:/Qt/Qt5.14.2/5.14.2/msvc2017/include",
+		"C:/Qt/Qt5.14.2/5.14.2/msvc2017/include/QtCore",
+		"C:/Qt/Qt5.14.2/5.14.2/msvc2017/mkspecs/win32-msvc"
+	],
 	"MOC_INCLUDES_Release" : 
 	[
-		"Q:/downloads/qmicroz-0.3/qmicroz-0.3/src",
-		"Q:/downloads/qmicroz-0.3/qmicroz-0.3/miniz",
+		"C:/git/LiteMD/qmicroz/src",
+		"C:/git/LiteMD/qmicroz/miniz",
 		"C:/Qt/Qt5.14.2/5.14.2/msvc2017/include",
 		"C:/Qt/Qt5.14.2/5.14.2/msvc2017/include/QtCore",
 		"C:/Qt/Qt5.14.2/5.14.2/msvc2017/mkspecs/win32-msvc"
@@ -116,19 +127,21 @@
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : true,
 	"PARALLEL" : 12,
-	"PARSE_CACHE_FILE" : "Q:/downloads/qmicroz-0.3/qmicroz-0.3/CMakeFiles/qmicroz_autogen.dir/ParseCache.txt",
-	"PARSE_CACHE_FILE_Release" : "Q:/downloads/qmicroz-0.3/qmicroz-0.3/CMakeFiles/qmicroz_autogen.dir/ParseCache_Release.txt",
+	"PARSE_CACHE_FILE" : "C:/git/LiteMD/qmicroz/CMakeFiles/qmicroz_autogen.dir/ParseCache.txt",
+	"PARSE_CACHE_FILE_Debug" : "C:/git/LiteMD/qmicroz/CMakeFiles/qmicroz_autogen.dir/ParseCache_Debug.txt",
+	"PARSE_CACHE_FILE_Release" : "C:/git/LiteMD/qmicroz/CMakeFiles/qmicroz_autogen.dir/ParseCache_Release.txt",
 	"QT_MOC_EXECUTABLE" : "C:/Qt/Qt5.14.2/5.14.2/msvc2017/bin/moc.exe",
 	"QT_UIC_EXECUTABLE" : "",
 	"QT_VERSION_MAJOR" : 5,
 	"QT_VERSION_MINOR" : 14,
-	"SETTINGS_FILE" : "Q:/downloads/qmicroz-0.3/qmicroz-0.3/CMakeFiles/qmicroz_autogen.dir/AutogenUsed.txt",
-	"SETTINGS_FILE_Release" : "Q:/downloads/qmicroz-0.3/qmicroz-0.3/CMakeFiles/qmicroz_autogen.dir/AutogenUsed_Release.txt",
+	"SETTINGS_FILE" : "C:/git/LiteMD/qmicroz/CMakeFiles/qmicroz_autogen.dir/AutogenUsed.txt",
+	"SETTINGS_FILE_Debug" : "C:/git/LiteMD/qmicroz/CMakeFiles/qmicroz_autogen.dir/AutogenUsed_Debug.txt",
+	"SETTINGS_FILE_Release" : "C:/git/LiteMD/qmicroz/CMakeFiles/qmicroz_autogen.dir/AutogenUsed_Release.txt",
 	"SOURCES" : 
 	[
-		[ "Q:/downloads/qmicroz-0.3/qmicroz-0.3/miniz/miniz.c", "MU", null ],
-		[ "Q:/downloads/qmicroz-0.3/qmicroz-0.3/src/qmicroz.cpp", "MU", null ],
-		[ "Q:/downloads/qmicroz-0.3/qmicroz-0.3/src/tools.cpp", "MU", null ]
+		[ "C:/git/LiteMD/qmicroz/miniz/miniz.c", "MU", null ],
+		[ "C:/git/LiteMD/qmicroz/src/qmicroz.cpp", "MU", null ],
+		[ "C:/git/LiteMD/qmicroz/src/tools.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],

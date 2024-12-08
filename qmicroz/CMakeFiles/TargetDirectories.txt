@@ -1,3 +1,3 @@
-Q:/downloads/qmicroz-0.3/qmicroz-0.3/CMakeFiles/qmicroz.dir
-Q:/downloads/qmicroz-0.3/qmicroz-0.3/CMakeFiles/ALL_BUILD.dir
-Q:/downloads/qmicroz-0.3/qmicroz-0.3/CMakeFiles/ZERO_CHECK.dir
+C:/git/LiteMD/qmicroz/CMakeFiles/qmicroz.dir
+C:/git/LiteMD/qmicroz/CMakeFiles/ALL_BUILD.dir
+C:/git/LiteMD/qmicroz/CMakeFiles/ZERO_CHECK.dir
