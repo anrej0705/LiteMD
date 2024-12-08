@@ -132,6 +132,7 @@
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <AdditionalOptions>-DBOOST_STACKTRACE_USE_BACKTRACE %(AdditionalOptions)</AdditionalOptions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
@@ -168,6 +169,7 @@
     <ClCompile>
       <AdditionalIncludeDirectories>$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing\extended;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)modules\QMicroz;$(ProjectDir)window_widgets;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_);C:\boost\boost_1_84_0</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PreprocessorDefinitions>cl /DMINIZ_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
@@ -241,9 +243,6 @@
     <ClCompile Include="modules\exceptionHandler.cpp" />
     <ClCompile Include="modules\frameChangelog.cpp" />
     <ClCompile Include="modules\GuiDownloader.cpp" />
-    <ClCompile Include="modules\QMicroz\miniz.c" />
-    <ClCompile Include="modules\QMicroz\qmicroz.cpp" />
-    <ClCompile Include="modules\QMicroz\tools.cpp" />
     <ClCompile Include="settings_tabs\tab_basic.cpp" />
     <ClCompile Include="settings_tabs\tab_downloader.cpp" />
     <ClCompile Include="settings_tabs\tab_extended.cpp" />
@@ -329,10 +328,7 @@
     <QtMoc Include="modules\frameChangelog.h" />
     <QtMoc Include="modules\customToolButton.h" />
     <ClInclude Include="modules\exceptionHandler.h" />
-    <ClInclude Include="modules\QMicroz\miniz.h" />
     <ClInclude Include="modules\QMicroz\qmicroz.h" />
-    <ClInclude Include="modules\QMicroz\qmicroz_global.h" />
-    <ClInclude Include="modules\QMicroz\tools.h" />
     <ClInclude Include="ress\resource.h" />
     <ClInclude Include="ress\resource1.h" />
     <ClInclude Include="string_processing\crlfParser.h" />

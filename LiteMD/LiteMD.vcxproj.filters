@@ -69,9 +69,6 @@
     <Filter Include="Модули\QMicroz">
       <UniqueIdentifier>{11ddb99c-0cfd-4f4d-a5dc-7761f5e20a5f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Модули\miniz">
-      <UniqueIdentifier>{a9054cd3-bf4c-46a7-9dd9-b4b01ee1df05}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="LiteMD.h">
@@ -225,15 +222,6 @@
     </ClCompile>
     <ClCompile Include="string_processing\extended\extended_strikethroughParser.cpp">
       <Filter>String processing\Парсеры\Расширенные</Filter>
-    </ClCompile>
-    <ClCompile Include="modules\QMicroz\qmicroz.cpp">
-      <Filter>Модули\QMicroz</Filter>
-    </ClCompile>
-    <ClCompile Include="modules\QMicroz\tools.cpp">
-      <Filter>Модули\QMicroz</Filter>
-    </ClCompile>
-    <ClCompile Include="modules\QMicroz\miniz.c">
-      <Filter>Модули\miniz</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -409,15 +397,6 @@
     </ClInclude>
     <ClInclude Include="modules\QMicroz\qmicroz.h">
       <Filter>Модули\QMicroz</Filter>
-    </ClInclude>
-    <ClInclude Include="modules\QMicroz\qmicroz_global.h">
-      <Filter>Модули\QMicroz</Filter>
-    </ClInclude>
-    <ClInclude Include="modules\QMicroz\tools.h">
-      <Filter>Модули\QMicroz</Filter>
-    </ClInclude>
-    <ClInclude Include="modules\QMicroz\miniz.h">
-      <Filter>Модули\miniz</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

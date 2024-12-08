@@ -1,0 +1,37 @@
+EXPORTS
+    _ZN7QMicroz10extractAllEv @1
+    _ZN7QMicroz10setZipFileERK7QString @2
+    _ZN7QMicroz11extractFileERK7QStringb @3
+    _ZN7QMicroz12closeArchiveEv @4
+    _ZN7QMicroz12compress_bufERK10QByteArrayRK7QStringS5_ @5
+    _ZN7QMicroz12compress_bufERK4QMapI7QString10QByteArrayERKS1_ @6
+    _ZN7QMicroz12extractIndexEib @7
+    _ZN7QMicroz12outputFolderEv @8
+    _ZN7QMicroz12setZipBufferERK10QByteArray @9
+    _ZN7QMicroz13compress_fileERK7QString @10
+    _ZN7QMicroz13compress_fileERK7QStringS2_ @11
+    _ZN7QMicroz13compress_listERK11QStringListRK7QString @12
+    _ZN7QMicroz15compress_folderERK7QString @13
+    _ZN7QMicroz15compress_folderERK7QStringS2_ @14
+    _ZN7QMicroz15setOutputFolderERK7QString @15
+    _ZN7QMicroz17updateZipContentsEv @16
+    _ZN7QMicroz19extract_to_ram_fileERK7QString @17
+    _ZN7QMicroz7extractERK7QString @18
+    _ZN7QMicroz7extractERK7QStringS2_ @19
+    _ZN7QMicroz8contentsEv @20
+    _ZN7QMicroz9compress_ERK11QStringList @21
+    _ZN7QMicroz9compress_ERK7QString @22
+    _ZN7QMicroz9findIndexERK7QString @23
+    _ZN7QMicroz9s_zip_extE @24 DATA
+    _ZN7QMicrozC1EPKc @25
+    _ZN7QMicrozC1ERK10QByteArray @26
+    _ZN7QMicrozC1ERK7QString @27
+    _ZN7QMicrozC1Ev @28
+    _ZN7QMicrozC2EPKc @29
+    _ZN7QMicrozC2ERK10QByteArray @30
+    _ZN7QMicrozC2ERK7QString @31
+    _ZN7QMicrozC2Ev @32
+    _ZN7QMicrozD1Ev @33
+    _ZN7QMicrozD2Ev @34
+    _ZNK7QMicroz14extract_to_ramEi @35
+    _ZNK7QMicroz14extract_to_ramEv @36
