@@ -15,7 +15,7 @@ exceptionHandler::exceptionHandler(exceptType type)
 		case WARNING:
 		{
 			error << boost::stacktrace::stacktrace();
-			returnCode = QMessageBox::warning(0, QObject::tr("Warning"), QObject::tr("Exception throwed!"), QMessageBox::Ok);
+			returnCode = QMessageBox::warning(0, QObject::tr("Warning"), QObject::tr("Exception throwed!") + ("\n\nStacktrace:\n\n") + QString::fromStdString(error.str()), QMessageBox::Ok);
 			push_log("[WARNING]Обнаружен сбой в работе, в возможно нестабильная работа программы");
 			//Формируем stacktrace в лог
 			while (std::getline(error, err_str, '\n'))
@@ -62,7 +62,7 @@ exceptionHandler::exceptionHandler(exceptType type, QString reason)
 		case WARNING:
 		{
 			error << boost::stacktrace::stacktrace();
-			returnCode = QMessageBox::warning(0, QObject::tr("Warning"), reason, QMessageBox::Ok);
+			returnCode = QMessageBox::warning(0, QObject::tr("Warning") + ("\n\nStacktrace:\n\n") + QString::fromStdString(error.str()), reason, QMessageBox::Ok);
 			push_log("[WARNING]Обнаружен сбой в работе, в возможно нестабильная работа программы");
 			//Формируем stacktrace в лог
 			while (std::getline(error, err_str, '\n'))
