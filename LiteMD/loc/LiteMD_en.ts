@@ -298,6 +298,10 @@ I hope u like my app :D</translation>
         <source>Ver </source>
         <translation>Ver </translation>
     </message>
+    <message>
+        <source>checkUpdates</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>

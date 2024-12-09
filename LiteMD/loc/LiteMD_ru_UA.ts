@@ -300,6 +300,10 @@ github.com/anrej0705
         <source>Ver </source>
         <translation>версия </translation>
     </message>
+    <message>
+        <source>checkUpdates</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
