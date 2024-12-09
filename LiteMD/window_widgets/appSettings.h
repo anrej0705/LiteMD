@@ -110,7 +110,9 @@ class appSettings : public QDialog
 
 		//Вкладка "Хаки"
 		QLabel* parseUnderlinedHint;	//Подсказка к чекбоксу парсинга подчёркивания
+		QLabel* compatilibtyUndrHint;	//Подсказка к чекбоксу совместимости с Qt5
 		QCheckBox* parseUnderlined;		//Чекбокс парсинга подчёркивания
+		QCheckBox* combatilibtyUndr;	//Чекбокс совместимости с рендером Qt5
 		//--------------
 
 		void configureBasicSettingsTab();
@@ -147,6 +149,7 @@ class appSettings : public QDialog
 		void slot_switch_strikethrough(int);
 		void slot_set_limit(int);
 		void slot_reset_settings();
+		void slot_switch_compat(int);
 	signals:
 		void signalTitleChanged(const QString&);
 };
