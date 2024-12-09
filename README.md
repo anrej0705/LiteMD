@@ -65,7 +65,7 @@ README.MD
 - :white_check_mark:0.2.2 - [Окно логов](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1746)
 - :white_check_mark:0.2.3 - [Импорт старых конфигов](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1829)
 - :white_check_mark:0.2.4 - [Зачеркнутый текст](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1878)
-- :white_check_mark:0.2.5 - [Подчеркнутый текст](введи_название) 
+- :white_check_mark:0.2.5 - [Подчеркнутый текст]((https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1908) 
 - :arrow_forward:0.2.6 - Курсив
 - :x:0.2.7 - Жирный текст
 - :x:0.2.8 - Комбинирование форматирования текста
