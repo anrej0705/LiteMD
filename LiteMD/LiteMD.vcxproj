@@ -124,7 +124,7 @@
       <BuildAction>false</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)window_widgets;$(ProjectDir)modules\QMicroz;$(ProjectDir)string_processing\extended;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_);C:\boost\boost_1_84_0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)window_widgets;$(ProjectDir)modules\QMicroz;$(ProjectDir)string_processing\hacks;$(ProjectDir)string_processing\extended;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_);C:\boost\boost_1_84_0</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
@@ -167,7 +167,7 @@
       <BuildAction>lupdate_lrelease</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing\extended;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)modules\QMicroz;$(ProjectDir)window_widgets;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_);C:\boost\boost_1_84_0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing\hacks;$(ProjectDir)string_processing\extended;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)modules\QMicroz;$(ProjectDir)window_widgets;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_);C:\boost\boost_1_84_0</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>-DBOOST_STACKTRACE_USE_BACKTRACE /D_HAS_STD_BYTE=0 %(AdditionalOptions)</AdditionalOptions>
@@ -255,6 +255,7 @@
     <ClCompile Include="string_processing\crlfParser.cpp" />
     <ClCompile Include="string_processing\crlfProcessor.cpp" />
     <ClCompile Include="string_processing\extended\extended_strikethroughParser.cpp" />
+    <ClCompile Include="string_processing\hacks\hack_compat_parser.cpp" />
     <ClCompile Include="string_processing\headerLvlParser.cpp" />
     <ClCompile Include="string_processing\regex.cpp" />
     <ClCompile Include="string_processing\shieldingParser.cpp" />
@@ -339,6 +340,7 @@
     <ClInclude Include="string_processing\crlfParser.h" />
     <ClInclude Include="string_processing\crlfProcessor.h" />
     <ClInclude Include="string_processing\extended\extended_strikethroughParser.h" />
+    <ClInclude Include="string_processing\hacks\hack_compat_parser.h" />
     <ClInclude Include="string_processing\headerLvlParser.h" />
     <ClInclude Include="string_processing\regex.h" />
     <ClInclude Include="string_processing\shieldingParser.h" />

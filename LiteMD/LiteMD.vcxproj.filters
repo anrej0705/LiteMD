@@ -232,6 +232,9 @@
     <ClCompile Include="modules\cmd_wrapper\gui.cpp">
       <Filter>Модули\CMD</Filter>
     </ClCompile>
+    <ClCompile Include="string_processing\hacks\hack_compat_parser.cpp">
+      <Filter>String processing\Парсеры\Хаки</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">
@@ -412,6 +415,9 @@
     </ClInclude>
     <ClInclude Include="modules\cmd_wrapper\gui.h">
       <Filter>Модули\CMD</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\hacks\hack_compat_parser.h">
+      <Filter>String processing\Парсеры\Хаки</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

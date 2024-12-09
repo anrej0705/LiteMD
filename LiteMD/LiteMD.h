@@ -65,6 +65,7 @@ class LiteMD : public QMainWindow
 		QAction* actOpenChangelog;			//Открывает список изменений текущей версии
 		QAction* actBugReport;				//Кнопка открытия окна логов
 		QAction* actShieldSymbol;			//Кнопка экранирования символа на котором стоит курсор
+		QAction* checkUpdates;				//Пункт меню проверки обновлений
 
 		//Действия менюшки заголовков
 		QAction* actSetH1;					//H1
@@ -102,6 +103,7 @@ class LiteMD : public QMainWindow
 		void slotTitleChanged(const QString&);	//Слот для изменения заголовка
 		void slotFileEdited();				//Слот для установки флага "*"
 		void slotTitleReset();				//Слот для сброса заголовка к дефолтному
+		void slotCheckUpdates();			//Слот для проверки обновлений
 };
 //Простой, как сатиновые трусы, метод возвращает QString каталог
 QString getAppPath();
