@@ -24,6 +24,8 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	parswitch.en_adv_url = 1;
 	parswitch.en_header_lvl = 1;
 	parswitch.en_ex_strkthg = 1;
+	parswitch.en_underlined = 1;
+	parswitch.en_compat_undr = 1;
 
 	dparswitch.en_t_post = 0;
 	dparswitch.en_t_prep = 0;
@@ -129,10 +131,11 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	actSetH4 = new QAction(QPixmap(appPath + "/ress/icon_set_h4.png"), tr("Set H4"));
 	actSetH5 = new QAction(QPixmap(appPath + "/ress/icon_set_h5.png"), tr("Set H5"));
 	actShieldSymbol = new QAction(QPixmap(appPath + "/ress/icon_set_shielding.png"), tr("Es&cape character"));
-	setBold = new QAction(QPixmap(appPath + "/ress/icon_set_text_format.png"), tr("Set bold"));
-	setItalic = new QAction(QPixmap(appPath + "/ress/icon_set_text_format.png"), tr("Set italic"));
-	setUnderlined = new QAction(QPixmap(appPath + "/ress/icon_set_text_format.png"), tr("Set underlined"));
-	setStrikethrough = new QAction(QPixmap(appPath + "/ress/icon_set_text_format.png"), tr("Set strikethrough"));
+	setBold = new QAction(QPixmap(appPath + "/ress/icon_set_bold.png"), tr("Set bold"));
+	setItalic = new QAction(QPixmap(appPath + "/ress/icon_set_italic.png"), tr("Set italic"));
+	setUnderlined = new QAction(QPixmap(appPath + "/ress/icon_set_under.png"), tr("Set underlined"));
+	setStrikethrough = new QAction(QPixmap(appPath + "/ress/icon_set_strike.png"), tr("Set strikethrough"));
+	checkUpdates = new QAction(QPixmap(appPath + "/ress/icon_check_updates.png"), tr("checkUpdates"));
 	//----------------
 	
 	//Настройка выпадающих менюшек
@@ -159,8 +162,10 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	qApp->installEventFilter(this);
 
 	//Отключенные механики
-	actSetTextFormat->setDisabled(1);
+	setItalic->setDisabled(1);
+	setBold->setDisabled(1);
 	actHelp->setDisabled(1);
+	checkUpdates->setDisabled(1);
 	//--------------------
 
 	//Настройка тулбаров
@@ -184,6 +189,9 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	serv_tb->addAction(actBugReport);
 	serv_tb->addSeparator();
 	serv_tb->addAction(actHelp);
+	serv_tb->addSeparator();
+	serv_tb->addAction(checkUpdates);
+	serv_tb->addSeparator();
 	serv_tb->addAction(actAbout);
 	serv_tb->addAction(actOpenChangelog);
 	serv_tb->addSeparator();
@@ -247,6 +255,9 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mSettings->addAction(actBugReport);
 	mHelp->addAction(actHelp);
 	mHelp->addAction(actAbout);
+	mHelp->addSeparator();
+	mHelp->addAction(checkUpdates);
+	mHelp->addSeparator();
 	mHelp->addAction(actOpenChangelog);
 	menuBar()->addMenu(mFile);
 	menuBar()->addMenu(mEdit);
@@ -318,6 +329,8 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler();	++connected_signals;//Зачёркнутый
 	if (!connect(actShieldSymbol, SIGNAL(triggered()), mde, SLOT(slotSetEscape())))
 		QErrorMessage::qtHandler();	++connected_signals;//Экранировать
+	if (!connect(checkUpdates, SIGNAL(triggered()), this, SLOT(slotCheckUpdates())))
+		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
 	push_log(std::string("[QT->LiteMD]Образовано " + std::to_string(connected_signals) + " связей"));
 	//------------------------------
 
@@ -456,4 +469,9 @@ QString getAppPath()
 {
 	//Возвращаем QString каталог в котором запущена приложуха
 	return appPath;
+}
+
+void LiteMD::slotCheckUpdates()
+{
+	throw(exceptionHandler(exceptionHandler::WARNING), "patch");	//0.3.7
 }
