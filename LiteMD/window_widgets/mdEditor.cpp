@@ -336,10 +336,48 @@ void mdEditor::slotSetItalic()
 	//Шлём смску что текст изменился
 	emit textChanged();
 }
-//Пока без действия
-void mdEditor::slotSetUnrderline(){return;}
-//Пока без действия
-void mdEditor::slotSetStrikethrough(){return;}
+//Вставляет подчёркивание в текст
+void mdEditor::slotSetUnrderline()
+{
+	QString procBuf = this->textCursor().selectedText();
+	if (procBuf == "")
+		return;	//Если пользователь ничего не выделил - выходим
+
+	//Вставляем подчёркивание
+	procBuf.insert(0, "<ins>*");
+	procBuf.insert(procBuf.size(), "</ins>");
+
+	//Заменяем выделенный текст ссылкой
+	this->textCursor().removeSelectedText();
+	this->textCursor().insertText(procBuf);
+
+	//Получаем позицию курсора
+	int cursorPosition = this->textCursor().position() - procBuf.size();
+
+	//Шлём смску что текст изменился
+	emit textChanged();
+}
+//Отмечает тегом зачёркнутого текста
+void mdEditor::slotSetStrikethrough()
+{
+	QString procBuf = this->textCursor().selectedText();
+	if (procBuf == "")
+		return;	//Если пользователь ничего не выделил - выходим
+
+	//Вставляем тег зачёркнутого текста
+	procBuf.insert(0, "~~");
+	procBuf.insert(procBuf.size(), "~~");
+
+	//Заменяем выделенный текст ссылкой
+	this->textCursor().removeSelectedText();
+	this->textCursor().insertText(procBuf);
+
+	//Получаем позицию курсора
+	int cursorPosition = this->textCursor().position() - procBuf.size();
+
+	//Шлём смску что текст изменился
+	emit textChanged();
+}
 //Вставляет литеру решётки в количестве заданным из аргумента
 void mdEditor::insertLattice(uint8_t count)
 {
