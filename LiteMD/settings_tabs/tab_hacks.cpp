@@ -41,11 +41,9 @@ void appSettings::configureHackTab()
 	QHBoxLayout* manager = new QHBoxLayout;
 
 	//Добавляем в компоновку
-	lbl_lay->addWidget(allowWarningsHint);
-	lbl_lay->addWidget(allowCacheHint);
+	lbl_lay->addWidget(parseUnderlinedHint);
 
-	interact_lay->addWidget(allowWarnings);
-	interact_lay->addWidget(allowCache);
+	interact_lay->addWidget(parseUnderlined);
 
 	//Настраиваем порядок размещения элементов - сверху
 	lbl_lay->setAlignment(Qt::AlignTop);
