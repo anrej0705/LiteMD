@@ -1,7 +1,5 @@
 #include "extended_strikethroughParser.h"
 #include <boost/container/string.hpp>
-#include <boost/stacktrace/stacktrace.hpp>
-#include <qdebug.h>
 #include "exceptionHandler.h"
 #include "logger_backend.h"
 extern "C"
