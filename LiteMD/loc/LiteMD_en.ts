@@ -515,11 +515,19 @@ Programm will close</translation>
     </message>
     <message>
         <source>msgLimitHint</source>
-        <translation>Предел количества логов</translation>
+        <translation>Logg messages limit</translation>
     </message>
     <message>
         <source>setDefault</source>
         <translation>По умолчанию</translation>
+    </message>
+    <message>
+        <source>Hacks</source>
+        <translation>Hacks</translation>
+    </message>
+    <message>
+        <source>compatilibtyUndrHint</source>
+        <translation>Switch to compatibility tag</translation>
     </message>
 </context>
 <context>

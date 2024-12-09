@@ -523,6 +523,14 @@ Programm will close</source>
         <source>setDefault</source>
         <translation>По умолчанию</translation>
     </message>
+    <message>
+        <source>Hacks</source>
+        <translation>Хаки</translation>
+    </message>
+    <message>
+        <source>compatilibtyUndrHint</source>
+        <translation>Переключить на совместимый тег</translation>
+    </message>
 </context>
 <context>
     <name>currentChangelog</name>
