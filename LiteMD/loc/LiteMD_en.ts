@@ -300,7 +300,7 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>checkUpdates</source>
-        <translation type="unfinished"></translation>
+        <translation>Check updates</translation>
     </message>
 </context>
 <context>

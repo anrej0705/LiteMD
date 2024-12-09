@@ -302,7 +302,7 @@ github.com/anrej0705
     </message>
     <message>
         <source>checkUpdates</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверить обновления</translation>
     </message>
 </context>
 <context>
