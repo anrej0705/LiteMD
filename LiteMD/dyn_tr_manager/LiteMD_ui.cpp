@@ -59,14 +59,11 @@ void LiteMD::update_ui()
 void LiteMD::update_interactive()
 {
 	//Тернарками обновляем менюшки
-	enableIndevFeatures == 0 ? actSetTextFormat->setDisabled(1) : actSetTextFormat->setEnabled(1);
 	enableIndevFeatures == 0 ? actHelp->setDisabled(1) : actHelp->setEnabled(1);
 	enableIndevFeatures == 0 ? setBold->setDisabled(1) : setBold->setEnabled(1);
 	enableIndevFeatures == 0 ? setItalic->setDisabled(1) : setItalic->setEnabled(1);
 	enableIndevFeatures == 0 ? actHelp->setDisabled(1) : actHelp->setEnabled(1);
-	enableIndevFeatures == 0 ? setStrikethrough->setDisabled(1) : setStrikethrough->setEnabled(1);
-	enableIndevFeatures == 0 ? formatStyle->setDisabled(1) : formatStyle->setEnabled(1);
-	enableIndevFeatures == 0 ? actSetTextFormat->setDisabled(1) : actSetTextFormat->setEnabled(1);
 	enableIndevFeatures == 0 ? btnUp->setDisabled(1) : btnUp->setEnabled(1);
 	enableIndevFeatures == 0 ? btnDown->setDisabled(1) : btnDown->setEnabled(1);
+	enableIndevFeatures == 0 ? checkUpdates->setDisabled(1) : checkUpdates->setEnabled(1);
 }
