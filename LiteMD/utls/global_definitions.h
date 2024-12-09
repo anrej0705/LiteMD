@@ -47,6 +47,8 @@ const char appSign[] = "__Shani_basic";
 #define LOGS_MAXIMUM									16777216
 
 #define SETTINGS_HEIGH									20
+#define HINTS_WIDTH										400
+#define INTERACT_WIDTH									200
 
 //События смены языка
 #define APP_EVENT_UI_UPDATE_EVENT						33
