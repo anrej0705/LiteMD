@@ -10,9 +10,9 @@
 //##[STAGE]
 #define APP_STAGE " alpha"
 //##[VER]
-#define APP_VERSION " 0.2.4"
+#define APP_VERSION " 0.2.5"
 //##[BUILD]
-#define BUILD_NUMBER 1878
+#define BUILD_NUMBER 1908
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
