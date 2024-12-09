@@ -32,6 +32,8 @@ struct parser_switchers
 	bool en_adv_url;
 	bool en_header_lvl;
 	bool en_ex_strkthg;
+	bool en_underlined;
+	bool en_compat_undr;
 };
 
 struct depr_paerser_switchers
