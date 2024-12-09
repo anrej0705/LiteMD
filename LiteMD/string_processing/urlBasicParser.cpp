@@ -52,6 +52,8 @@ std::string basicUrlParser(std::string &rawInput)
 
 	push_log("[urlBasicParser]Поиск вхождения по знаку '<'");
 
+	uint32_t entrs_cnt = 0;
+
 	try
 	{
 		//Ищем вхождения по знаку '<'
@@ -97,14 +99,15 @@ std::string basicUrlParser(std::string &rawInput)
 				}
 				if (!valid)
 				{
-					log_stroke->append("[urlBasicParser]Найдено вхождение в позиции ");
-					log_stroke->append(std::to_string(_index + 1).c_str());
-					push_log(log_stroke->c_str());
+					//log_stroke->append("[urlBasicParser]Найдено вхождение в позиции ");
+					//log_stroke->append(std::to_string(_index + 1).c_str());
+					//push_log(log_stroke->c_str());
+					++entrs_cnt;
 					++entrys;	//realloc требуемый размер + 1 чтобы не вылезать за пределы
 					//strncpy(test, buffer, _index);
 					entry_list = (uint32_t*)realloc(entry_list, sizeof(uint32_t) * (entrys + 1) + sizeof(uint32_t));
 					entry_list[entrys - 1] = _index + 1;
-					log_stroke->clear();
+					//log_stroke->clear();
 				}
 			}
 		}
@@ -113,6 +116,9 @@ std::string basicUrlParser(std::string &rawInput)
 	{
 		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlBasicParser.cpp 34:47")));
 	}
+
+	push_log(std::string("[urlBasicParser]Найдено " + std::to_string(entrs_cnt) + " вхождений"));
+	entrs_cnt = 0;
 
 	try
 	{
@@ -128,7 +134,7 @@ std::string basicUrlParser(std::string &rawInput)
 			++offsets;
 			entry_offset = (uint32_t*)realloc(entry_offset, sizeof(uint32_t) * (offsets + 1) + sizeof(uint32_t));
 			entry_offset[offsets - 1] = 0;
-			log_stroke->append(std::to_string(entry_offset[offsets]).c_str());
+			log_stroke->append(std::to_string(entry_list[0]).c_str());
 			log_stroke->append(")");
 			push_log(log_stroke->c_str());
 			log_stroke->clear();
@@ -157,13 +163,14 @@ std::string basicUrlParser(std::string &rawInput)
 			{
 				if (buffer[_index] == '>')
 				{
-					log_stroke->append("[urlBasicParser]Найдено вхождение в позиции ");
-					log_stroke->append(std::to_string(_index).c_str());
-					push_log(log_stroke->c_str());
+					//log_stroke->append("[urlBasicParser]Найдено вхождение в позиции ");
+					//log_stroke->append(std::to_string(_index).c_str());
+					//push_log(log_stroke->c_str());
+					++entrs_cnt;
 					++offsets;
 					entry_offset = (uint32_t*)realloc(entry_offset, sizeof(uint32_t) * (offsets + 1));
 					entry_offset[offsets - 1] = _index;
-					log_stroke->clear();
+					//log_stroke->clear();
 				}
 			}
 		}
@@ -172,6 +179,11 @@ std::string basicUrlParser(std::string &rawInput)
 	{
 		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlBasicParser.cpp 73:91")));
 	}
+
+	push_log(std::string("[urlBasicParser]Найдено " + std::to_string(entrs_cnt) + " вхождений"));
+	entrs_cnt = 0;
+
+	log_stroke->clear();
 
 	//Этап конвертации и сборки текста. Вместо символов '<' и '>' вставляется '<a href="'+текст+'">'+текст+'</a>'
 

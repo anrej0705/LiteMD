@@ -40,6 +40,8 @@ std::string advancedUrlParser(std::string& rawInput)
 
 	push_log(std::string("[ПАРСЕР]Размер блока " + std::to_string(*buffer_size)));
 
+	uint32_t entrs_cnt = 0;
+
 	//Дальше будет поиск признаков тега, пока что нужно считать что признаки есть
 	//а объекта нет, здесь будет искаться выражение <url> где url - любой текст внутри
 	//который будет принят за ссылку неважно что это за текст
@@ -54,13 +56,14 @@ std::string advancedUrlParser(std::string& rawInput)
 		{
 			if (buffer[_index] == '[')	//Любое найденое вхождение запоминаем на будущее
 			{
-				log_stroke->append("[urlAdvancedParser]Найдено вхождение в позиции ");
-				log_stroke->append(std::to_string(_index + 1).c_str());
-				push_log(log_stroke->c_str());
+				//log_stroke->append("[urlAdvancedParser]Найдено вхождение в позиции ");
+				++entrs_cnt;
+				//log_stroke->append(std::to_string(_index + 1).c_str());
+				//push_log(log_stroke->c_str());
 				++squ_brackets_entry;	//realloc требуемый размер + 1 чтобы не вылезать за пределы
 				squ_entry_list = (uint32_t*)realloc(squ_entry_list, sizeof(uint32_t) * (squ_brackets_entry + 1));
 				squ_entry_list[squ_brackets_entry - 1] = _index + 1;
-				log_stroke->clear();
+				//log_stroke->clear();
 			}
 		}
 	}
@@ -68,6 +71,9 @@ std::string advancedUrlParser(std::string& rawInput)
 	{
 		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlAdvancedParser.cpp 40:52")));
 	}
+
+	push_log(std::string("[urlAdvancedParser]Найдено " + std::to_string(entrs_cnt) + " вхождений"));
+	entrs_cnt = 0;
 
 	try
 	{
@@ -79,14 +85,14 @@ std::string advancedUrlParser(std::string& rawInput)
 
 		if (squ_entry_list[0] != 0)	//Если первое вхождение не является началом блока то отмечаем 0 как смещение
 		{
-			log_stroke->append("[urlAdvancedParser]Добавлена зона поиска повторов (0-");
+			//log_stroke->append("[urlAdvancedParser]Добавлена зона поиска повторов (0-");
 			++squ_brackets_offset;
 			squ_offsets = (uint32_t*)realloc(squ_offsets, sizeof(uint32_t) * (squ_brackets_offset + 1) + sizeof(uint32_t));
 			squ_offsets[squ_brackets_offset - 1] = 0;
-			log_stroke->append(std::to_string(squ_offsets[squ_brackets_offset]).c_str());
-			log_stroke->append(")");
-			push_log(log_stroke->c_str());
-			log_stroke->clear();
+			//log_stroke->append(std::to_string(squ_offsets[squ_brackets_offset]).c_str());
+			//log_stroke->append(")");
+			//push_log(log_stroke->c_str());
+			//log_stroke->clear();
 		}
 	}
 	catch (exceptionHandler)
@@ -108,13 +114,14 @@ std::string advancedUrlParser(std::string& rawInput)
 			{
 				if (buffer[_index] == ']')
 				{
-					log_stroke->append("[urlAdvancedParser]Найдено вхождение в позиции ");
-					log_stroke->append(std::to_string(_index).c_str());
-					push_log(log_stroke->c_str());
+					//log_stroke->append("[urlAdvancedParser]Найдено вхождение в позиции ");
+					++entrs_cnt;
+					//log_stroke->append(std::to_string(_index).c_str());
+					//push_log(log_stroke->c_str());
 					++squ_brackets_offset;
 					squ_offsets = (uint32_t*)realloc(squ_offsets, sizeof(uint32_t) * (squ_brackets_offset + 1));
 					squ_offsets[squ_brackets_offset - 1] = _index;
-					log_stroke->clear();
+					//log_stroke->clear();
 				}
 			}
 		}
@@ -123,6 +130,9 @@ std::string advancedUrlParser(std::string& rawInput)
 	{
 		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlAdvancedParser.cpp 78:96")));
 	}
+
+	push_log(std::string("[urlAdvancedParser]Найдено " + std::to_string(entrs_cnt) + " вхождений"));
+	entrs_cnt = 0;
 
 	push_log("[urlAdvancedParser]Поиск вхождения по знаку '('");
 
@@ -147,13 +157,14 @@ std::string advancedUrlParser(std::string& rawInput)
 			{
 				if (buffer[_index] == '(')
 				{
-					log_stroke->append("[urlAdvancedParser]Найдено вхождение в позиции ");
-					log_stroke->append(std::to_string(_index + 1).c_str());
-					push_log(log_stroke->c_str());
+					//log_stroke->append("[urlAdvancedParser]Найдено вхождение в позиции ");
+					++entrs_cnt;
+					//log_stroke->append(std::to_string(_index + 1).c_str());
+					//push_log(log_stroke->c_str());
 					++brackets_entry;
 					entry_list = (uint32_t*)realloc(entry_list, sizeof(uint32_t) * (brackets_entry + 1));
 					entry_list[brackets_entry - 1] = _index + 1;
-					log_stroke->clear();
+					//log_stroke->clear();
 				}
 			}
 		}
@@ -162,6 +173,9 @@ std::string advancedUrlParser(std::string& rawInput)
 	{
 		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlAdvancedParser.cpp 102:129")));
 	}
+
+	push_log(std::string("[urlAdvancedParser]Найдено " + std::to_string(entrs_cnt) + " вхождений"));
+	entrs_cnt = 0;
 
 	push_log("[urlAdvancedParser]Поиск закрыющего знака ')'");
 
@@ -181,13 +195,14 @@ std::string advancedUrlParser(std::string& rawInput)
 			{
 				if (buffer[_index] == ')')
 				{
-					log_stroke->append("[urlAdvancedParser]Найдено вхождение в позиции ");
-					log_stroke->append(std::to_string(_index).c_str());
-					push_log(log_stroke->c_str());
+					//log_stroke->append("[urlAdvancedParser]Найдено вхождение в позиции ");
+					++entrs_cnt;
+					//log_stroke->append(std::to_string(_index).c_str());
+					//push_log(log_stroke->c_str());
 					++brackets_offset;
 					offsets = (uint32_t*)realloc(offsets, sizeof(uint32_t) * (brackets_offset + 1));
 					offsets[brackets_offset - 1] = _index;
-					log_stroke->clear();
+					//log_stroke->clear();
 				}
 			}
 		}
@@ -197,12 +212,17 @@ std::string advancedUrlParser(std::string& rawInput)
 		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlAdvancedParser.cpp 135:157")));
 	}
 
+	push_log(std::string("[urlAdvancedParser]Найдено " + std::to_string(entrs_cnt) + " вхождений"));
+	entrs_cnt = 0;
+
 	//Этап конвертации и сборки текста. Вместо символов '<' и '>' вставляется '<a href="'+текст+'">'+текст+'</a>'
 
 	push_log("[urlAdvancedParser]Сборка документа со вставкой тегов");
 
 	uint32_t entrys_cnt = 0;
 	uint32_t blocks_cnt = 0;
+
+	log_stroke->clear();
 
 	try
 	{
