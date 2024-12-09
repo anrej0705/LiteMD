@@ -17,6 +17,7 @@ void appSettings::configureRenderSettingsTab()
 	deprUrlSimplParserHint = new QLabel(tr("deprUrlSimplParserHint"));
 	deprUrlAdvParserHint = new QLabel(tr("deprUrlAdvParserHint"));
 	deprUrlBasParserHint = new QLabel(tr("deprUrlBasParserHint"));
+	compatilibtyUndrHint = new QLabel(tr("compatilibtyUndrHint"));
 
 	//Подсказка для перезагрузки документа
 	reloadHint = new QLabel(tr("reloadHint"));
@@ -32,6 +33,7 @@ void appSettings::configureRenderSettingsTab()
 	deprUrlSimplParser = new QCheckBox;
 	deprUrlAdvParser = new QCheckBox;
 	deprUrlBasParser = new QCheckBox;
+	combatilibtyUndr = new QCheckBox;
 
 	//Устанавливаем высоту
 	parseSimplLinksHint->setFixedHeight(SETTINGS_HEIGH);
@@ -42,6 +44,7 @@ void appSettings::configureRenderSettingsTab()
 	deprUrlSimplParserHint->setFixedHeight(SETTINGS_HEIGH);
 	deprUrlAdvParserHint->setFixedHeight(SETTINGS_HEIGH);
 	deprUrlBasParserHint->setFixedHeight(SETTINGS_HEIGH);
+	compatilibtyUndrHint->setFixedHeight(SETTINGS_HEIGH);
 
 	parseSimplLinks->setFixedHeight(SETTINGS_HEIGH);
 	parseAdvLinksl->setFixedHeight(SETTINGS_HEIGH);
@@ -51,6 +54,7 @@ void appSettings::configureRenderSettingsTab()
 	deprUrlSimplParser->setFixedHeight(SETTINGS_HEIGH);
 	deprUrlAdvParser->setFixedHeight(SETTINGS_HEIGH);
 	deprUrlBasParser->setFixedHeight(SETTINGS_HEIGH);
+	combatilibtyUndr->setFixedHeight(SETTINGS_HEIGH);
 
 	//Настройки по умолчанию
 	enableDeprFeatures == 0 ? deprSyntaxPrep->setChecked(0) : deprSyntaxPrep->setChecked(1);
@@ -110,6 +114,7 @@ void appSettings::configureRenderSettingsTab()
 	lbl_lay->addWidget(deprUrlSimplParserHint);
 	lbl_lay->addWidget(deprUrlAdvParserHint);
 	lbl_lay->addWidget(deprUrlBasParserHint);
+	lbl_lay->addWidget(compatilibtyUndrHint);
 
 	interact_lay->addWidget(parseSimplLinks);
 	interact_lay->addWidget(parseAdvLinksl);
@@ -119,6 +124,7 @@ void appSettings::configureRenderSettingsTab()
 	interact_lay->addWidget(deprUrlSimplParser);
 	interact_lay->addWidget(deprUrlAdvParser);
 	interact_lay->addWidget(deprUrlBasParser);
+	interact_lay->addWidget(combatilibtyUndr);
 
 	//Настраиваем порядок размещения элементов - сверху
 	lbl_lay->setAlignment(Qt::AlignTop);
