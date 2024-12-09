@@ -27,7 +27,7 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	configureDownloaderSettingsTab();
 	configureLogsTab();
 	configureExtendedTab();
-	//configureHackTab(); 0.2.5
+	configureHackTab();
 
 	//Инициализируем указатели
 	xmlw = new xmlWriter;
@@ -119,8 +119,12 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 		QErrorMessage::qtHandler();	++connected_signals;//Сигнал на счётчик лимита колва логов
 	if (!connect(parseStrikethrough, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_strikethrough(int))))
 		QErrorMessage::qtHandler();	++connected_signals;//Переключатель активации парсер тильд
+	if (!connect(parseUnderlined, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_underlined(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель ДЕактивации парсинга подчёркнутого текста
 	if (!connect(setDefault, SIGNAL(clicked()), this, SLOT(slot_reset_settings())))
 		QErrorMessage::qtHandler();	++connected_signals;//Кнопка "По умолчанию"
+	if (!connect(combatilibtyUndr, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_compat(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
 	push_log(std::string("[QT->appSettings]Образовано " + std::to_string(connected_signals) + " связей"));
 	
 
@@ -145,7 +149,7 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	settingsLister->addTab(downloaderSettings, tr("Downloader"));
 	settingsLister->addTab(tabLogs, tr("Logs"));
 	settingsLister->addTab(extendedMd, tr("Extended"));
-	//settingsLister->addTab(tabLogs, tr("Hacks")); 0.2.5
+	settingsLister->addTab(hacks, tr("Hacks"));
 	settingsLister->addTab(capTab, tr("Cap"));
 
 	//Задаем фиксированный размер
@@ -313,7 +317,9 @@ void appSettings::slot_save_logs()
 
 void appSettings::slot_switch_underlined(int bit)
 {
-	//settingChanged = 1; 0.2.5
+	settingChanged = 1;
+	parswitch.en_underlined = static_cast<bool>(bit);
+	parswitch.en_underlined == 0 ? push_log("[НАСТРОЙКИ]Обработка подчёркивания отключена") : push_log("[НАСТРОЙКИ]Обработка подчёркивания включена");
 }
 
 void appSettings::slot_switch_strikethrough(int bit)
@@ -343,6 +349,8 @@ void appSettings::slot_reset_settings()
 	parswitch.en_adv_url = 1;
 	parswitch.en_header_lvl = 1;
 	parswitch.en_ex_strkthg = 1;
+	parswitch.en_underlined = 1;
+	parswitch.en_compat_undr = 1;
 
 	enableDeprFeatures = 0;
 	enableIndevFeatures = 0;
@@ -368,4 +376,11 @@ void appSettings::slot_reset_settings()
 		QErrorMessage::qtHandler();//Отправка события на обновление визуала - галочек, радиокнопок и прочего
 	update_interactive();
 	update_ui();
+}
+
+void appSettings::slot_switch_compat(int bit)
+{
+	settingChanged = 1;
+	parswitch.en_compat_undr = static_cast<bool>(bit);
+	parswitch.en_compat_undr == 0 ? push_log("[НАСТРОЙКИ]Режим совместимости отключён(обработка <ins>)") : push_log("[НАСТРОЙКИ]Режим совместимости включён(обработка <u>)");
 }

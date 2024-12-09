@@ -38,8 +38,8 @@ class mdEditor : public QTextEdit
 		void slotSetEscape();//Вставляет '/' слева от курсора
 		void slotSetBold();	//Вставляет ** слева и справа от выделенной области
 		void slotSetItalic();//Вставляет * слева и справа от выделенной области
-		void slotSetUnrderline();//Пока без действия
-		void slotSetStrikethrough();//Пока без действия
+		void slotSetUnrderline();//Вставляет подчёркивание в текст
+		void slotSetStrikethrough();//Отмечает тегом зачёркнутого текста
 };
 
 class mdEditor_filter : public QObject

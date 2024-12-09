@@ -66,6 +66,12 @@
     <Filter Include="String processing\Парсеры\Хаки">
       <UniqueIdentifier>{c6e040fd-ece3-4957-a525-3f7dd68d25eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Модули\QMicroz">
+      <UniqueIdentifier>{11ddb99c-0cfd-4f4d-a5dc-7761f5e20a5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Модули\CMD">
+      <UniqueIdentifier>{08d31ee9-c449-43a3-9f9e-ce5bd4c1fe41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="LiteMD.h">
@@ -219,6 +225,15 @@
     </ClCompile>
     <ClCompile Include="string_processing\extended\extended_strikethroughParser.cpp">
       <Filter>String processing\Парсеры\Расширенные</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\cmd_wrapper\bridge.cpp">
+      <Filter>Модули\CMD</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\cmd_wrapper\gui.cpp">
+      <Filter>Модули\CMD</Filter>
+    </ClCompile>
+    <ClCompile Include="string_processing\hacks\hack_compat_parser.cpp">
+      <Filter>String processing\Парсеры\Хаки</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -391,6 +406,18 @@
     </ClInclude>
     <ClInclude Include="string_processing\extended\extended_strikethroughParser.h">
       <Filter>String processing\Парсеры\Расширенные</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\QMicroz\qmicroz.h">
+      <Filter>Модули\QMicroz</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\cmd_wrapper\bridge.h">
+      <Filter>Модули\CMD</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\cmd_wrapper\gui.h">
+      <Filter>Модули\CMD</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\hacks\hack_compat_parser.h">
+      <Filter>String processing\Парсеры\Хаки</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

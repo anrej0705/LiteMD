@@ -14,6 +14,7 @@
 #include "logger_backend.h"
 #include "exceptionHandler.h"
 #include "extended_strikethroughParser.h"
+#include "hack_compat_parser.h"
 #include <string>
 #include <regex>
 extern "C"
@@ -76,9 +77,13 @@ void mdScreen::slotSetText(const QString& str)
 			push_log("[РЕНДЕР]Обработка зачёркнутых строк");
 			mdInput = extended_strikethroughParser(mdInput);	//5 -> 6|Обработка зачёркнутых строк
 		}
+		if (parswitch.en_compat_undr)
+		{
+			push_log("[РЕНДЕР]Обработка аттрибута подчёркивания");//6 -> 7|Обработка в обратной совместимости
+			mdInput = compatParser(mdInput);
+		}
 		push_log("[РЕНДЕР]Обработка переноса строки");
 		mdInput = crlfProcessor(mdInput);						//6 -> 7|Обработка переноса строки
-
 		push_log("[РЕНДЕР]Конвертация в QString");
 		//Преобразуем в QString
 		mdFormatted = QString::fromStdString(mdInput);

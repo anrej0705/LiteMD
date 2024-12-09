@@ -61,8 +61,8 @@ void appSettings::configureDownloaderSettingsTab()
 	interact_box->setLayout(interact_lay);
 
 	//Задаем ширину блока
-	lbl_box->setFixedWidth(300);
-	interact_box->setFixedWidth(300);
+	lbl_box->setFixedWidth(HINTS_WIDTH);
+	interact_box->setFixedWidth(INTERACT_WIDTH);
 
 	//Компонуем виджеты с подсказками и элемантами взаимодействия
 	//basic_box_lay->setAlignment(Qt::AlignLeft);

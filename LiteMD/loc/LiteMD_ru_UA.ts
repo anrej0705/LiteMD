@@ -300,6 +300,10 @@ github.com/anrej0705
         <source>Ver </source>
         <translation>версия </translation>
     </message>
+    <message>
+        <source>checkUpdates</source>
+        <translation>Проверить обновления</translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
@@ -517,11 +521,19 @@ Programm will close</source>
     </message>
     <message>
         <source>msgLimitHint</source>
-        <translation>Logg messages limit</translation>
+        <translation>Предел количества логов</translation>
     </message>
     <message>
         <source>setDefault</source>
         <translation>Set default</translation>
+    </message>
+    <message>
+        <source>Hacks</source>
+        <translation>Хаки</translation>
+    </message>
+    <message>
+        <source>compatilibtyUndrHint</source>
+        <translation>Переключить на совместимый тег</translation>
     </message>
 </context>
 <context>

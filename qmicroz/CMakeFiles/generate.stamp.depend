@@ -1,0 +1,34 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeCInformation.cmake
+C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeCXXInformation.cmake
+C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake
+C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeGenericSystem.cmake
+C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake
+C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake
+C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeParseArguments.cmake
+C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeRCInformation.cmake
+C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake
+C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake
+C:/Program Files/CMake/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake
+C:/Program Files/CMake/share/cmake-3.28/Modules/Compiler/MSVC-C.cmake
+C:/Program Files/CMake/share/cmake-3.28/Modules/Compiler/MSVC-CXX.cmake
+C:/Program Files/CMake/share/cmake-3.28/Modules/Compiler/MSVC.cmake
+C:/Program Files/CMake/share/cmake-3.28/Modules/Platform/Windows-Initialize.cmake
+C:/Program Files/CMake/share/cmake-3.28/Modules/Platform/Windows-MSVC-C.cmake
+C:/Program Files/CMake/share/cmake-3.28/Modules/Platform/Windows-MSVC-CXX.cmake
+C:/Program Files/CMake/share/cmake-3.28/Modules/Platform/Windows-MSVC.cmake
+C:/Program Files/CMake/share/cmake-3.28/Modules/Platform/Windows.cmake
+C:/Program Files/CMake/share/cmake-3.28/Modules/Platform/WindowsPaths.cmake
+C:/Qt/Qt5.14.2/5.14.2/msvc2017/lib/cmake/Qt5/Qt5Config.cmake
+C:/Qt/Qt5.14.2/5.14.2/msvc2017/lib/cmake/Qt5/Qt5ConfigVersion.cmake
+C:/Qt/Qt5.14.2/5.14.2/msvc2017/lib/cmake/Qt5/Qt5ModuleLocation.cmake
+C:/Qt/Qt5.14.2/5.14.2/msvc2017/lib/cmake/Qt5Core/Qt5CoreConfig.cmake
+C:/Qt/Qt5.14.2/5.14.2/msvc2017/lib/cmake/Qt5Core/Qt5CoreConfigExtras.cmake
+C:/Qt/Qt5.14.2/5.14.2/msvc2017/lib/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake
+C:/Qt/Qt5.14.2/5.14.2/msvc2017/lib/cmake/Qt5Core/Qt5CoreConfigVersion.cmake
+C:/Qt/Qt5.14.2/5.14.2/msvc2017/lib/cmake/Qt5Core/Qt5CoreMacros.cmake
+C:/git/LiteMD/qmicroz/CMakeFiles/3.28.0-rc5/CMakeCCompiler.cmake
+C:/git/LiteMD/qmicroz/CMakeFiles/3.28.0-rc5/CMakeCXXCompiler.cmake
+C:/git/LiteMD/qmicroz/CMakeFiles/3.28.0-rc5/CMakeRCCompiler.cmake
+C:/git/LiteMD/qmicroz/CMakeFiles/3.28.0-rc5/CMakeSystem.cmake
+C:/git/LiteMD/qmicroz/CMakeLists.txt

@@ -3,6 +3,7 @@
 #include <QtWidgets/QApplication>
 #include <regex>
 #include <string>
+#include "qmicroz.h"	//DLL!!!
 
 int main(int argc, char *argv[])
 {	//Впадлу описывать

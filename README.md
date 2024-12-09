@@ -1,6 +1,6 @@
 README.MD
 
-# LiteMD alpha 0.2.4
+# LiteMD alpha 0.2.5
 
 ![Qt](https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white)
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
@@ -33,6 +33,7 @@ README.MD
 - Динамическая смена языка
 - Просмотр списка изменений в текущей версии
 - Обработка ~~зачёркнутого~~ текста
+- Обработка <ins>подчёркнутого</ins> текста
 
 Существующие на данный момент баги:
 - :x:Ошибки и вылеты при работе с устаревшими парсерами(просто не используйте их)
@@ -59,13 +60,13 @@ README.MD
 - :white_check_mark:0.1.7 - [Базовые настройки](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1006)
 - :white_check_mark:0.1.8 - [Иконки на кнопках меню и дока](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1064)
 - :white_check_mark:0.1.9 - [Списки изменений от версии к версии](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1225)
-- :white_check_mark:0.2.0 - [**Дополнительное форматирование текста и помощь**](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1554)
+- :white_check_mark:0.2.0 - [**Дополнительное форматирование текста**](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1554)
 - :white_check_mark:0.2.1 - [Уровни заголовков](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1683)
 - :white_check_mark:0.2.2 - [Окно логов](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1746)
 - :white_check_mark:0.2.3 - [Импорт старых конфигов](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1829)
 - :white_check_mark:0.2.4 - [Зачеркнутый текст](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1878)
-- :arrow_forward:0.2.5 - Подчеркнутый текст 
-- :x:0.2.6 - Курсив
+- :white_check_mark:0.2.5 - [Подчеркнутый текст]((https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1908) 
+- :arrow_forward:0.2.6 - Курсив
 - :x:0.2.7 - Жирный текст
 - :x:0.2.8 - Комбинирование форматирования текста
 - :x:0.2.9 - Меню недавних файлов от [SilverWolf2020](https://github.com/anrej0705/LiteMD/pull/2)

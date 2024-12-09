@@ -1,6 +1,7 @@
 #include "appSettings.h"
 #include "ui_update_event.h"
 #include "logger_backend.h"
+#include "LiteMD.h"
 extern "C"
 {
 	#include "global_definitions.h"
@@ -179,8 +180,8 @@ void appSettings::configureBasicSettingsTab()
 	interact_box->setLayout(interact_lay);
 
 	//Задаем ширину блока
-	lbl_box->setFixedWidth(300);
-	interact_box->setFixedWidth(300);
+	lbl_box->setFixedWidth(HINTS_WIDTH);
+	interact_box->setFixedWidth(INTERACT_WIDTH);
 
 	//Компонуем виджеты с подсказками и элемантами взаимодействия
 	//basic_box_lay->setAlignment(Qt::AlignLeft);
@@ -214,8 +215,9 @@ void appSettings::slot_lang_selected(int lIndx)
 	auto it = loc_map->cbegin();
 	std::advance(it, lIndx);
 	QString lang_file = it->second;
-	if(!lmd_lng.load("loc/"+ lang_file, "."))
-		QErrorMessage::qtHandler();
+	push_log(std::string("[ЛОКАЛИЗАЦИЯ]Открываю файл локали " + getAppPath().toStdString() + "/loc/" + lang_file.toStdString()));
+	if (!lmd_lng.load("loc/" + lang_file, "."))
+		push_log("[ЛОКАЛИЗАЦИЯ]Возника проблема с открытием файла");
 
 	langList->setCurrentIndex(langCode);
 }

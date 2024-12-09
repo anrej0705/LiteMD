@@ -41,11 +41,9 @@ void appSettings::configureHackTab()
 	QHBoxLayout* manager = new QHBoxLayout;
 
 	//Добавляем в компоновку
-	lbl_lay->addWidget(allowWarningsHint);
-	lbl_lay->addWidget(allowCacheHint);
+	lbl_lay->addWidget(parseUnderlinedHint);
 
-	interact_lay->addWidget(allowWarnings);
-	interact_lay->addWidget(allowCache);
+	interact_lay->addWidget(parseUnderlined);
 
 	//Настраиваем порядок размещения элементов - сверху
 	lbl_lay->setAlignment(Qt::AlignTop);
@@ -56,8 +54,8 @@ void appSettings::configureHackTab()
 	interact_box->setLayout(interact_lay);
 
 	//Задаем ширину блока
-	lbl_box->setFixedWidth(300);
-	interact_box->setFixedWidth(300);
+	lbl_box->setFixedWidth(HINTS_WIDTH);
+	interact_box->setFixedWidth(INTERACT_WIDTH);
 
 	//Компонуем виджеты с подсказками и элемантами взаимодействия
 	//basic_box_lay->setAlignment(Qt::AlignLeft);

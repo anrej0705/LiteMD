@@ -1,8 +1,15 @@
 #include <boost/container/string.hpp>
 #include "urlBasicParser.h"
-#include "global_definitions.h"
 #include "exceptionHandler.h"
 #include "logger_backend.h"
+extern "C"
+{
+	#include "global_definitions.h"
+	#include "globalFlags.h"
+}
+
+//Пруф в globalFlags.h
+extern struct parser_switchers parswitch;
 
 //std::string *simple_url_output;
 boost::container::string *simple_url_output;
@@ -19,6 +26,8 @@ std::string basicUrlParser(std::string &rawInput)
 	
 	//simple_url_output = new std::string;
 	simple_url_output = new boost::container::string;
+
+	bool valid = 0;
 
 	uint32_t* buffer_size = (uint32_t*)malloc(sizeof(uint32_t));
 	*buffer_size = rawInput.size();	//Создаём переменную с количеством символов
@@ -38,7 +47,12 @@ std::string basicUrlParser(std::string &rawInput)
 
 	//std::string test;
 
+	if (parswitch.en_underlined)
+		push_log("[urlBasicParser]Разрешено применение хаков");
+
 	push_log("[urlBasicParser]Поиск вхождения по знаку '<'");
+
+	uint32_t entrs_cnt = 0;
 
 	try
 	{
@@ -47,14 +61,54 @@ std::string basicUrlParser(std::string &rawInput)
 		{
 			if (buffer[_index] == '<')	//Любое найденое вхождение запоминаем на будущее
 			{
-				log_stroke->append("[urlBasicParser]Найдено вхождение в позиции ");
-				log_stroke->append(std::to_string(_index + 1).c_str());
-				push_log(log_stroke->c_str());
-				++entrys;	//realloc требуемый размер + 1 чтобы не вылезать за пределы
-				//strncpy(test, buffer, _index);
-				entry_list = (uint32_t*)realloc(entry_list, sizeof(uint32_t) * (entrys + 1) + sizeof(uint32_t));
-				entry_list[entrys - 1] = _index + 1;
-				log_stroke->clear();
+				//Хак для открывающих тегов начинается здесь
+				if (parswitch.en_underlined)
+				{
+					for (volatile uint8_t _check = 0; _check < underlined_txt_iopen_size; ++_check)
+					{
+						if (buffer[_index + _check] == underlined_txt_iopen[_check])
+							valid = 1;
+						else
+							valid = 0;
+					}
+					if (valid)
+					{
+						valid = 0;
+						push_log(std::string("[urlBasicParser]Найден хак (" + std::to_string(_index) + "-" + std::to_string(_index + underlined_txt_iopen_size - 1) + ")"));
+						//Если ты здесь значит тег валидный и нужно найти закрывающий
+						for (volatile uint32_t _idx = _index + underlined_txt_iopen_size; _idx < *buffer_size; ++_idx)
+						{
+							if (buffer[_idx] == '<')
+							{
+								for (volatile uint8_t _check = 0; _check < underlined_txt_iclose_size; ++_check)
+								{
+									if (buffer[_idx + _check] == underlined_txt_iclose[_check])
+										valid = 1;
+									else
+										valid = 0;
+								}
+							}
+							if(valid)
+							{
+								push_log(std::string("[urlBasicParser]Найден хак (" + std::to_string(_idx) + "-" + std::to_string(_idx + underlined_txt_iclose_size - 1) + ")"));
+								_index += _idx += underlined_txt_iclose_size - 1;
+								break;
+							}
+						}
+					}
+				}
+				if (!valid)
+				{
+					//log_stroke->append("[urlBasicParser]Найдено вхождение в позиции ");
+					//log_stroke->append(std::to_string(_index + 1).c_str());
+					//push_log(log_stroke->c_str());
+					++entrs_cnt;
+					++entrys;	//realloc требуемый размер + 1 чтобы не вылезать за пределы
+					//strncpy(test, buffer, _index);
+					entry_list = (uint32_t*)realloc(entry_list, sizeof(uint32_t) * (entrys + 1) + sizeof(uint32_t));
+					entry_list[entrys - 1] = _index + 1;
+					//log_stroke->clear();
+				}
 			}
 		}
 	}
@@ -62,6 +116,9 @@ std::string basicUrlParser(std::string &rawInput)
 	{
 		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlBasicParser.cpp 34:47")));
 	}
+
+	push_log(std::string("[urlBasicParser]Найдено " + std::to_string(entrs_cnt) + " вхождений"));
+	entrs_cnt = 0;
 
 	try
 	{
@@ -77,7 +134,7 @@ std::string basicUrlParser(std::string &rawInput)
 			++offsets;
 			entry_offset = (uint32_t*)realloc(entry_offset, sizeof(uint32_t) * (offsets + 1) + sizeof(uint32_t));
 			entry_offset[offsets - 1] = 0;
-			log_stroke->append(std::to_string(entry_offset[offsets - 1]).c_str());
+			log_stroke->append(std::to_string(entry_list[0]).c_str());
 			log_stroke->append(")");
 			push_log(log_stroke->c_str());
 			log_stroke->clear();
@@ -88,7 +145,11 @@ std::string basicUrlParser(std::string &rawInput)
 		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlBasicParser.cpp 53:67")));
 	}
 
+	valid = 0;
+
 	push_log("[urlBasicParser]Поиск закрывающего знака '>'");
+
+	char testpoint;
 
 	try
 	{
@@ -102,13 +163,14 @@ std::string basicUrlParser(std::string &rawInput)
 			{
 				if (buffer[_index] == '>')
 				{
-					log_stroke->append("[urlBasicParser]Найдено вхождение в позиции ");
-					log_stroke->append(std::to_string(_index).c_str());
-					push_log(log_stroke->c_str());
+					//log_stroke->append("[urlBasicParser]Найдено вхождение в позиции ");
+					//log_stroke->append(std::to_string(_index).c_str());
+					//push_log(log_stroke->c_str());
+					++entrs_cnt;
 					++offsets;
 					entry_offset = (uint32_t*)realloc(entry_offset, sizeof(uint32_t) * (offsets + 1));
 					entry_offset[offsets - 1] = _index;
-					log_stroke->clear();
+					//log_stroke->clear();
 				}
 			}
 		}
@@ -117,6 +179,11 @@ std::string basicUrlParser(std::string &rawInput)
 	{
 		throw(exceptionHandler(exceptionHandler::FATAL, QString("Карма в говне! - Ошибка работы с памятью в urlBasicParser.cpp 73:91")));
 	}
+
+	push_log(std::string("[urlBasicParser]Найдено " + std::to_string(entrs_cnt) + " вхождений"));
+	entrs_cnt = 0;
+
+	log_stroke->clear();
 
 	//Этап конвертации и сборки текста. Вместо символов '<' и '>' вставляется '<a href="'+текст+'">'+текст+'</a>'
 
