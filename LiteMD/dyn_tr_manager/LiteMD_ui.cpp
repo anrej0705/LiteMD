@@ -53,6 +53,7 @@ void LiteMD::update_ui()
 	setItalic->setText(tr("Set italic"));
 	setUnderlined->setText(tr("Set underlined"));
 	setStrikethrough->setText(tr("Set strikethrough"));
+	checkUpdates->setText(tr("checkUpdates"));
 	//------------------------
 }
 
