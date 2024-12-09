@@ -22,7 +22,7 @@
 const char appSign[] = "__Shani_basic";
 
 //Количество читаемых параметров из конфига. Прибавлять каждый раз когда добавляется новая фича
-#define PARAM_CNT	14
+#define PARAM_CNT	16
 
 /*
 * Таблица событий для обновления интерфейса
@@ -82,6 +82,9 @@ const char header_lvl_iclosetext[] = "</H";
 const char striked_txt_iopen[] = "<s>";
 const char striked_txt_iclose[] = "</s>";
 
+const char underlined_txt_iopen[] = "<ins>";
+const char underlined_txt_iclose[] = "</ins>";
+
 const uint8_t simple_url_iopenurl_size = 9;
 const uint8_t simple_url_icloseurl_size = 2;
 const uint8_t simple_url_iclosetext_size = 4;
@@ -92,4 +95,7 @@ const uint8_t header_lvl_iclosetext_size = 3;
 
 const uint8_t striked_txt_iopen_size = 3;
 const uint8_t striked_txt_iclose_size = 4;
+
+const uint8_t underlined_txt_iopen_size = 5;
+const uint8_t underlined_txt_iclose_size = 6;
 #endif
