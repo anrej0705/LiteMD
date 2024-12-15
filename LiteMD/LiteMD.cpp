@@ -92,7 +92,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	qApp->installEventFilter(new ui_event_filter(qApp));
 
 	//Инициализируем контейнер настроек
-	if (enableIndevFeatures)
+	/*if (enableIndevFeatures)
 	{
 		try
 		{
@@ -102,7 +102,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 		{
 			(exceptionHandler(exceptionHandler::FATAL));
 		}
-	}
+	}*/
 	
 	//Блок менеджеров размещения кнопок
 	QVBoxLayout* editorLay = new QVBoxLayout;
@@ -462,7 +462,7 @@ void LiteMD::httpModuleShow()
 }
 LiteMD::~LiteMD()
 {
-	deleteOnExit();
+	//deleteOnExit();
 }
 
 QString getAppPath()

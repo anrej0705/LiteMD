@@ -91,7 +91,7 @@ std::string headerLvlParser(std::string& rawInput)
 						break;
 					}
 				}
-				if (((buffer[_idx] == '=') || (buffer[_idx] == '-')) == 0 && alternate)
+				if (((buffer[_idx] == '=') || (buffer[_idx] == '-')) == 0 && alternate || (stroke_end - stroke_start == 2))
 				{
 					header_size = 0;
 					alternate = 0;
