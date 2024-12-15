@@ -42,7 +42,7 @@ std::string crlfProcessor(std::string& rawInput)
 		if (index > 0 && buffer->at(index - 1) == '\n' && (shieldingSymbolsSrc.find(buffer->at(index)) != -1))
 		{
 			++strokes;
-			push_log(std::string("[crlfProcessor]Обнаружен служебный символ в начале строки " + std::to_string(++strokes)));
+			push_log(std::string("[crlfProcessor]Обнаружен служебный символ в начале строки " + std::to_string(strokes)));
 			buffer->replace(index - 1, 1, brTag);
 			index -= 1;
 		}
