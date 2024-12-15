@@ -344,7 +344,7 @@ void mdEditor::slotSetUnrderline()
 		return;	//Если пользователь ничего не выделил - выходим
 
 	//Вставляем подчёркивание
-	procBuf.insert(0, "<ins>*");
+	procBuf.insert(0, "<ins>");
 	procBuf.insert(procBuf.size(), "</ins>");
 
 	//Заменяем выделенный текст ссылкой
