@@ -83,7 +83,7 @@ void mdScreen::slotSetText(const QString& str)
 			mdInput = compatParser(mdInput);
 		}
 		push_log("[РЕНДЕР]Обработка переноса строки");
-		mdInput = crlfProcessor(mdInput);						//6 -> 7|Обработка переноса строки
+		mdInput = crlfProcessor(mdInput);						//7 -> 8|Обработка переноса строки
 		push_log("[РЕНДЕР]Конвертация в QString");
 		//Преобразуем в QString
 		mdFormatted = QString::fromStdString(mdInput);
