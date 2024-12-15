@@ -1,11 +1,13 @@
 #include "crlfProcessor.h"
 #include "logger_backend.h"
+#include "regex.h"
 #include <boost/container/string.hpp>
 
 boost::container::string* buffer;
 boost::container::string* str_piece;
 
 std::string testpoint1;
+char testpoint2;
 
 std::string crlfProcessor(std::string& rawInput)
 {	//Контейнер для строчки лога перед отправкой в ядро
@@ -19,6 +21,8 @@ std::string crlfProcessor(std::string& rawInput)
 	//Буфер для операций внутри функций
 	buffer = new boost::container::string(rawInput.c_str());
 
+	testpoint1 = buffer->c_str();
+
 	//Буфер для кусочков текста для поиска тега <H
 	str_piece = new boost::container::string;
 
@@ -28,10 +32,18 @@ std::string crlfProcessor(std::string& rawInput)
 	//Проходим с конца
 	for (volatile uint32_t index = buffer->size() - 1; index > 0; --index)
 	{
+		testpoint1 = buffer->c_str();
 		if (buffer->empty())
 			break;
-		if (buffer->at(index) == '\n')
+		testpoint2 = buffer->at(index);
+		if (index > 0 && buffer->at(index - 1) == '\n' && (shieldingSymbolsSrc.find(buffer->at(index)) != -1))
 		{
+			buffer->replace(index - 1, 1, brTag);
+			index -= 1;
+		}
+		else if (index > 0 && buffer->at(index) == '\n' && buffer->at(index - 1) == '\n')
+		{
+			testpoint1 = buffer->c_str();
 			//Копируем кусочек текста для анализа только в случае найденого символа переноса
 			if (buffer->size() > 10)
 				str_piece->assign(&rawInput.c_str()[index - 10], 10);
@@ -45,10 +57,11 @@ std::string crlfProcessor(std::string& rawInput)
 				log_stroke->append(std::to_string(index).c_str());
 				log_stroke->append(", замена не проводится");
 				push_log(log_stroke->c_str());
+				testpoint1 = buffer->c_str();
 				log_stroke->clear();
 				findPos = index - 10 + str_piece->find("</H") ;
 				testpoint1 = buffer->c_str();
-				buffer->erase(findPos + 5, 2);
+				buffer->erase(findPos + 5, 1);
 				testpoint1 = buffer->c_str();
 				//Теперь проход до начала строки
 				for (volatile int32_t _index = findPos; _index >= 0; --_index)
@@ -60,7 +73,8 @@ std::string crlfProcessor(std::string& rawInput)
 						log_stroke->append("[crlfProcessor]Удалены знаки переноса на индексах ");
 						log_stroke->append(std::to_string(index).c_str());
 						log_stroke->append(" и ");
-						buffer->erase(_index - 1, 2);
+						buffer->erase(_index, 1);
+						testpoint1 = buffer->c_str();
 						index = _index;
 						log_stroke->append(std::to_string(_index).c_str());
 						push_log(log_stroke->c_str());
@@ -75,8 +89,9 @@ std::string crlfProcessor(std::string& rawInput)
 			else
 			{
 				buffer->replace(index, 1, brTag);
-				if (index > 2)
-					index -= 2;
+				testpoint1 = buffer->c_str();
+				if (index > 1)
+					index -= 1;
 				++crlfs;
 			}
 
