@@ -216,7 +216,7 @@ void appSettings::slot_lang_selected(int lIndx)
 	std::advance(it, lIndx);
 	QString lang_file = it->second;
 	push_log(std::string("[ЛОКАЛИЗАЦИЯ]Открываю файл локали " + getAppPath().toStdString() + "/loc/" + lang_file.toStdString()));
-	if (!lmd_lng.load("loc/" + lang_file, "."))
+	if (!lmd_lng.load(getAppPath() + "/loc/" + lang_file, "."))
 		push_log("[ЛОКАЛИЗАЦИЯ]Возника проблема с открытием файла");
 
 	langList->setCurrentIndex(langCode);

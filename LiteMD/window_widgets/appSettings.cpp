@@ -241,7 +241,7 @@ void appSettings::slot_switch_features(int bit)
 {
 	settingChanged = 1;
 	enableIndevFeatures = static_cast<bool>(bit);
-	if (enableIndevFeatures)
+	/*if (enableIndevFeatures)
 	{
 		try
 		{
@@ -262,7 +262,7 @@ void appSettings::slot_switch_features(int bit)
 		{
 			(exceptionHandler(exceptionHandler::FATAL));
 		} 
-	}
+	}*/
 	update_interactive();
 }
 
