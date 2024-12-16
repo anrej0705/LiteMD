@@ -55,6 +55,7 @@ class LiteMD : public QMainWindow
 		QAction* actOpen;					//Пункт меню открыть
 		QAction* actSave;					//Пункт меню сохранить
 		QAction* actSaveAs;					//Пункт меню сохранить как
+		QAction* actClose;					//Пунктик закрытия файла(PS 1917 - давно уже пора было добавить)
 		QAction* actQuit;					//Пункт меню выход
 		QAction* actDownloader;				//Кнопка вызова загрузчика
 		QAction* actSet;					//Кнопка вызова настроек
@@ -89,6 +90,7 @@ class LiteMD : public QMainWindow
 		void update_interactive();
 		void localeDetector(void);
 	public:
+		std::string fileFullPath;			//Путь до файла
 		void closeEvent(QCloseEvent*);		//Перехватчик закрытия приложения
 		LiteMD(int, char**, QWidget* parent = nullptr);	//Конструктор для получения аргументов
 		~LiteMD();
@@ -104,6 +106,7 @@ class LiteMD : public QMainWindow
 		void slotFileEdited();				//Слот для установки флага "*"
 		void slotTitleReset();				//Слот для сброса заголовка к дефолтному
 		void slotCheckUpdates();			//Слот для проверки обновлений
+		void slotFileClose();				//Закрытие файла и очистка поля ввода
 };
 //Простой, как сатиновые трусы, метод возвращает QString каталог
 QString getAppPath();

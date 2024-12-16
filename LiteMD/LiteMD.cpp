@@ -117,6 +117,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	actOpen = new QAction(QPixmap(appPath + "/ress/icon_open_document.png"), tr("&Open..."));
 	actSave = new QAction(QPixmap(appPath + "/ress/icon_save.png"), tr("&Save"));
 	actSaveAs = new QAction(QPixmap(appPath + "/ress/icon_save_as.png"), tr("S&ave As..."));
+	actClose = new QAction(QPixmap(appPath + "/ress/icon_file_close.png"), tr("Close"));
 	actQuit = new QAction(QPixmap(appPath + "/ress/icon_quit.png"), tr("&Quit"));
 	actDownloader = new QAction(QPixmap(appPath + "/ress/icon_http_downloader.png"), tr("HTTP &Downloader module"));
 	actSet = new QAction(QPixmap(appPath + "/ress/icon_settings.png"), tr("&Settings"));
@@ -180,6 +181,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	quick_tb->addAction(actOpen);
 	quick_tb->addAction(actSave);
 	quick_tb->addAction(actSaveAs);
+	quick_tb->addAction(actClose);
 	quick_tb->addSeparator();
 	quick_tb->addAction(actPlaceUrl);
 	quick_tb->addAction(actPlaceAltUrl);
@@ -206,6 +208,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	actOpen->setShortcut(Qt::CTRL | Qt::Key_O);
 	actSave->setShortcut(Qt::CTRL | Qt::Key_S);
 	actSaveAs->setShortcut(Qt::ALT | Qt::Key_S);
+	actClose->setShortcut(Qt::CTRL | Qt::Key_W);
 	actQuit->setShortcut(Qt::CTRL | Qt::Key_Q);
 	actSet->setShortcut(Qt::CTRL | Qt::Key_H);
 	actNew->setShortcut(Qt::CTRL | Qt::Key_N);
@@ -243,6 +246,8 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mFile->addAction(actOpen);
 	mFile->addAction(actSave);
 	mFile->addAction(actSaveAs);
+	mFile->addSeparator();
+	mFile->addAction(actClose);
 	mFile->addSeparator();
 	mFile->addAction(actQuit);
 	mEdit->addAction(actPlaceUrl);
@@ -332,6 +337,8 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler();	++connected_signals;//Экранировать
 	if (!connect(checkUpdates, SIGNAL(triggered()), this, SLOT(slotCheckUpdates())))
 		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
+	if (!connect(actClose, SIGNAL(triggered()), this, SLOT(slotFileClose())))
+		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
 	push_log(std::string("[QT->LiteMD]Образовано " + std::to_string(connected_signals) + " связей"));
 	//------------------------------
 
@@ -348,7 +355,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	log_stroke->clear();
 
 	//Устанавливаем заголовок окна
-	setWindowTitle(tr("LiteMD") + APP_STAGE + APP_VERSION + tr(" build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))/* + tr("[MAX FILE SIZE 65K]")*/);
+	setWindowTitle(tr("LiteMD") + APP_STAGE + APP_VERSION + tr(" build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))/* + tr("[MAX FILE SIZE 65K]")*/ + " [" + tr("Untitled") + "]");
 
 	//Кешируем имя окна для возможности восстановления исходного заголовка
 	//defTitle = windowTitle();	//patch 0.2.2 исправление версии "0.0.0" при открытии файла
@@ -378,6 +385,8 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	//Показываем сообщение готовности к работе
 	statusBar()->showMessage(tr("Ready"), 3000);
 
+	defTitle.append(tr("LiteMD") + QString(APP_STAGE) + QString(APP_VERSION) + (" build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER)) + " [" + tr("Untitled") + "]");
+
 	delete(log_stroke);
 }
 //О программе
@@ -395,9 +404,12 @@ void LiteMD::slotTitleChanged(const QString& title)
 {
 	//Контейнеры для помещения элементов заголовка
 	std::string newTitle/* = defTitle.toStdString()*/;	//Патч 0.2.2 исправление заголовка
-	std::string fileFullPath = title.toStdString();
+	fileFullPath = title.toStdString();
+	if (title.isEmpty())
+		fileFullPath = QString(tr("Untitled")).toStdString();
 	//Формируем заголовок из контейнеров и устанавливаем в приложение
 	newTitle.append((tr("LiteMD") + APP_STAGE + APP_VERSION + tr(" build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))).toStdString() + " [" + fileFullPath.substr(fileFullPath.rfind('/') + 1, fileFullPath.size() - fileFullPath.rfind('/')) + "]");
+	//defTitle = QString::fromStdString(newTitle);
 	setWindowTitle(QString::fromStdString(newTitle));
 }
 //Сброс заголовка
@@ -475,4 +487,14 @@ QString getAppPath()
 void LiteMD::slotCheckUpdates()
 {
 	throw(exceptionHandler(exceptionHandler::WARNING), "patch");	//0.3.7
+}
+
+void LiteMD::slotFileClose()
+{
+	//Закрываем файл и чистим текст
+	mde->closeFile();
+	fileFullPath.clear();
+	
+	//Сбрасываем заголовок
+	setWindowTitle(defTitle);
 }
