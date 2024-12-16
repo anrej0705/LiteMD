@@ -69,6 +69,7 @@ void appSettings::update_ui()
 	setDefault->setText(tr("setDefault"));
 	parseUnderlinedHint->setText(tr("parseUnderlinedHint"));
 	compatilibtyUndrHint->setText(tr("compatilibtyUndrHint"));
+	parseItalicHint->setText(tr("parseItalicHint"));
 }
 
 void appSettings::update_interactive()
