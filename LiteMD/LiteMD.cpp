@@ -26,6 +26,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	parswitch.en_ex_strkthg = 1;
 	parswitch.en_underlined = 1;
 	parswitch.en_compat_undr = 1;
+	parswitch.en_italic = 1;
 
 	dparswitch.en_t_post = 0;
 	dparswitch.en_t_prep = 0;
