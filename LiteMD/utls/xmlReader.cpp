@@ -54,6 +54,7 @@ boost::container::vector<QString> xml_tags{
 	QString("logs_limit"),
 	QString("parseUnderlined"),
 	QString("combatilibtyUndr"),
+	QString("en_italic"),
 };
 
 bool xmlReader::readConfig()
@@ -80,6 +81,7 @@ bool xmlReader::readConfig()
 	_xml_ptr.push_back(reinterpret_cast<void*>(&log_limit));
 	_xml_ptr.push_back(reinterpret_cast<void*>(&parswitch.en_underlined));
 	_xml_ptr.push_back(reinterpret_cast<void*>(&parswitch.en_compat_undr));
+	_xml_ptr.push_back(reinterpret_cast<void*>(&parswitch.en_italic));
 
 	int* _int_ptr;
 	bool* _bool_ptr;
