@@ -269,7 +269,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\git\LiteMD\qmicroz\qmicroz_autogen\include_Release;C:\git\LiteMD\qmicroz\src;C:\git\LiteMD\qmicroz\miniz;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Qt/Qt5.14.2/5.14.2/msvc2017/include" /external:I "C:/Qt/Qt5.14.2/5.14.2/msvc2017/include/QtCore" /external:I "C:/Qt/Qt5.14.2/5.14.2/msvc2017/./mkspecs/win32-msvc"</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /experimental:external /external:I "C:/Qt/Qt5.14.2/5.14.2/msvc2017/include" /external:I "C:/Qt/Qt5.14.2/5.14.2/msvc2017/include/QtCore" /external:I "C:/Qt/Qt5.14.2/5.14.2/msvc2017/./mkspecs/win32-msvc"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
