@@ -41,10 +41,50 @@ std::string crlfProcessor(std::string& rawInput)
 		//testpoint2 = buffer->at(index);
 		if (index > 0 && buffer->at(index - 1) == '\n' && (shieldingSymbolsSrc.find(buffer->at(index)) != -1))
 		{
-			++strokes;
-			push_log(std::string("[crlfProcessor]Обнаружен служебный символ в начале строки " + std::to_string(strokes)));
-			buffer->replace(index - 1, 1, brTag);
-			index -= 1;
+			//++strokes;
+			//push_log(std::string("[crlfProcessor]Обнаружен служебный символ в начале строки " + std::to_string(strokes)));
+			switch (buffer->at(index))
+			{
+				case '!':
+				{
+					++strokes;
+					push_log(std::string("[crlfProcessor]Обнаружен признак изображения в начале строки"));
+					break;
+				}
+				case '*':
+				{
+					++strokes;
+					push_log(std::string("[crlfProcessor]Обнаружен признак тега форматирования в начале строки"));
+					break;
+				}
+				case '<':
+				{
+					++strokes;
+					push_log(std::string("[crlfProcessor]Обнаружен признак ссылки в начале строки"));
+					break;
+				}
+				case '[':
+				{
+					++strokes;
+					push_log(std::string("[crlfProcessor]Обнаружен признак ссылки в начале строки"));
+					break;
+				}
+				case '-':
+				{
+					++strokes;
+					push_log(std::string("[crlfProcessor]Обнаружен признак списка в начале строки"));
+					buffer->replace(index - 1, 1, brTag);
+					break;
+				}
+				default:
+				{
+					++strokes;
+					push_log(std::string("[crlfProcessor]Обнаружен служебный символ в начале строки " + std::to_string(strokes)));
+					buffer->replace(index - 1, 1, brTag);
+					index -= 1;
+					break;
+				}
+			}
 		}
 		else if (index > 0 && buffer->at(index) == '\n' && buffer->at(index - 1) == '\n')
 		{
