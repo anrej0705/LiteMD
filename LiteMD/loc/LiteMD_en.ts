@@ -533,6 +533,10 @@ Programm will close</translation>
         <source>compatilibtyUndrHint</source>
         <translation>Switch to compatibility tag</translation>
     </message>
+    <message>
+        <source>parseItalicHint</source>
+        <translation>Parse italit tags</translation>
+    </message>
 </context>
 <context>
     <name>currentChangelog</name>

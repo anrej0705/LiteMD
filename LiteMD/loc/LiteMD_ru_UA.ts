@@ -535,6 +535,10 @@ Programm will close</source>
         <source>compatilibtyUndrHint</source>
         <translation>Переключить на совместимый тег</translation>
     </message>
+    <message>
+        <source>parseItalicHint</source>
+        <translation>Обрабатывать курсив</translation>
+    </message>
 </context>
 <context>
     <name>currentChangelog</name>
