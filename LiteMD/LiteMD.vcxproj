@@ -257,6 +257,7 @@
     <ClCompile Include="string_processing\extended\extended_strikethroughParser.cpp" />
     <ClCompile Include="string_processing\hacks\hack_compat_parser.cpp" />
     <ClCompile Include="string_processing\headerLvlParser.cpp" />
+    <ClCompile Include="string_processing\italicParser.cpp" />
     <ClCompile Include="string_processing\regex.cpp" />
     <ClCompile Include="string_processing\shieldingParser.cpp" />
     <ClCompile Include="string_processing\symbolCleaner.cpp" />
@@ -342,6 +343,7 @@
     <ClInclude Include="string_processing\extended\extended_strikethroughParser.h" />
     <ClInclude Include="string_processing\hacks\hack_compat_parser.h" />
     <ClInclude Include="string_processing\headerLvlParser.h" />
+    <ClInclude Include="string_processing\italicParser.h" />
     <ClInclude Include="string_processing\regex.h" />
     <ClInclude Include="string_processing\shieldingParser.h" />
     <ClInclude Include="string_processing\symbolCleaner.h" />
