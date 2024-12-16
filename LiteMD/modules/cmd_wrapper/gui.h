@@ -1,7 +1,7 @@
 ﻿#pragma once
 //#pragma message("gui.h included")
 #include <WinSDKVer.h>
-#define _WIN32_WINNT 0x0501
+//#define _WIN32_WINNT 0x0501
 #include <SDKDDKVer.h>
 ///////////////////////////////////////////////
 //2023 Anrej0705
