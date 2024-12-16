@@ -51,6 +51,7 @@ void xmlWriter::writeConfig()
 	QDomElement logs_limit = attrib(*lmdFileSet, "logs_limit", log_limit);
 	QDomElement parseUnderlined = attrib(*lmdFileSet, "parseUnderlined", parswitch.en_underlined);
 	QDomElement combatilibtyUndr = attrib(*lmdFileSet, "combatilibtyUndr", parswitch.en_compat_undr);
+	QDomElement en_italic = attrib(*lmdFileSet, "en_italic", parswitch.en_italic);
 	lmdSet->appendChild(build);
 	lmdSet->appendChild(patchNoteRead);
 	lmdSet->appendChild(indevFeatures);
@@ -68,6 +69,7 @@ void xmlWriter::writeConfig()
 	lmdSet->appendChild(logs_limit);
 	lmdSet->appendChild(parseUnderlined);
 	lmdSet->appendChild(combatilibtyUndr);
+	lmdSet->appendChild(en_italic);
 	QFile settingsFile(fileName);
 	if (settingsFile.open(QIODevice::WriteOnly))
 	{
