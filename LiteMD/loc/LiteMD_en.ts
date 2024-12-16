@@ -302,6 +302,14 @@ I hope u like my app :D</translation>
         <source>checkUpdates</source>
         <translation>Check updates</translation>
     </message>
+    <message>
+        <source>Untitled</source>
+        <translation>Untitled</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Close</translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
@@ -533,6 +541,10 @@ Programm will close</translation>
         <source>compatilibtyUndrHint</source>
         <translation>Switch to compatibility tag</translation>
     </message>
+    <message>
+        <source>parseItalicHint</source>
+        <translation>Parse italit tags</translation>
+    </message>
 </context>
 <context>
     <name>currentChangelog</name>
@@ -613,7 +625,11 @@ Programm will close</translation>
     </message>
     <message>
         <source>(TYPE_NAME)</source>
-        <translation>(type_name)</translation>
+        <translation type="vanished">(type_name)</translation>
+    </message>
+    <message>
+        <source>TYPE_NAME</source>
+        <translation>LINK_NAME</translation>
     </message>
 </context>
 </TS>

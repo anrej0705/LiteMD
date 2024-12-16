@@ -34,6 +34,7 @@ struct parser_switchers
 	bool en_ex_strkthg;
 	bool en_underlined;
 	bool en_compat_undr;
+	bool en_italic;
 };
 
 struct depr_paerser_switchers

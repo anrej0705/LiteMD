@@ -125,6 +125,8 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 		QErrorMessage::qtHandler();	++connected_signals;//Кнопка "По умолчанию"
 	if (!connect(combatilibtyUndr, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_compat(int))))
 		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
+	if (!connect(parseItalic, SIGNAL(stateChanged(int)), this, SLOT(slot_en_italic(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
 	push_log(std::string("[QT->appSettings]Образовано " + std::to_string(connected_signals) + " связей"));
 	
 
@@ -241,7 +243,7 @@ void appSettings::slot_switch_features(int bit)
 {
 	settingChanged = 1;
 	enableIndevFeatures = static_cast<bool>(bit);
-	if (enableIndevFeatures)
+	/*if (enableIndevFeatures)
 	{
 		try
 		{
@@ -262,7 +264,7 @@ void appSettings::slot_switch_features(int bit)
 		{
 			(exceptionHandler(exceptionHandler::FATAL));
 		} 
-	}
+	}*/
 	update_interactive();
 }
 
@@ -327,6 +329,13 @@ void appSettings::slot_switch_strikethrough(int bit)
 	settingChanged = 1;
 	parswitch.en_ex_strkthg = static_cast<bool>(bit);
 	parswitch.en_ex_strkthg == 0 ? push_log("[НАСТРОЙКИ]Обработка тильды отключена") : push_log("[НАСТРОЙКИ]Обработка тильды включена");
+}
+
+void appSettings::slot_en_italic(int bit)
+{
+	settingChanged = 1;
+	parswitch.en_italic = static_cast<bool>(bit);
+	parswitch.en_italic == 0 ? push_log("[НАСТРОЙКИ]Обработка курсива отключена") : push_log("[НАСТРОЙКИ]Обработка курсива включена");
 }
 
 void appSettings::slot_set_limit(int limit)

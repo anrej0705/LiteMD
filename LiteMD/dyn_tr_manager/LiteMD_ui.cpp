@@ -18,7 +18,7 @@ void LiteMD::update_ui()
 	editorWindow->setTitle(tr("Editor"));
 	viewerWindow->setTitle(tr("Viewer"));
 	workProgressCap->setText(tr("work in progress"));
-	setWindowTitle(tr("LiteMD") + APP_STAGE + APP_VERSION + tr(" build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))/* + tr("[MAX FILE SIZE 65K]")*/);
+	setWindowTitle(tr("LiteMD") + APP_STAGE + APP_VERSION + tr(" build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))/* + tr("[MAX FILE SIZE 65K]")*/ + " [" + tr("Untitled") + "]");
 
 	//Обновляем перевод меню
 	mFile->setTitle(tr("&File"));
@@ -54,6 +54,7 @@ void LiteMD::update_ui()
 	setUnderlined->setText(tr("Set underlined"));
 	setStrikethrough->setText(tr("Set strikethrough"));
 	checkUpdates->setText(tr("checkUpdates"));
+	actClose->setText(tr("Close"));
 	//------------------------
 }
 

@@ -13,6 +13,7 @@ class mdEditor : public QTextEdit
 	public:
 		mdEditor(QWidget* mdWgt = 0);
 		bool openFileArg(char* arg);
+		void closeFile();
 	signals:
 		void textEdited(const QString&);	//Отправляется при изменении текста
 		void titleChanged(const QString&);	//Отправлятся при открытии/сохранении файла

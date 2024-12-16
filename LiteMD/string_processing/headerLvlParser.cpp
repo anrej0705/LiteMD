@@ -91,7 +91,7 @@ std::string headerLvlParser(std::string& rawInput)
 						break;
 					}
 				}
-				if (((buffer[_idx] == '=') || (buffer[_idx] == '-')) == 0 && alternate)
+				if (((buffer[_idx] == '=') || (buffer[_idx] == '-')) == 0 && alternate || (stroke_end - stroke_start == 2))
 				{
 					header_size = 0;
 					alternate = 0;
@@ -254,7 +254,7 @@ std::string headerLvlParser(std::string& rawInput)
 			//Сброс для работы со следующей строкой
 			header_size = 0;
 			//Перемещение указателя на позицию строки с которой шла работа
-			_index = stroke_start;
+			_index > 1 ? _index = stroke_start : _index = 0;
 			//Сброс значений так как новая строчка и пока ничего не понятно
 			stroke_start = -1;
 			stroke_end = 1;

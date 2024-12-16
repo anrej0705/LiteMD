@@ -304,6 +304,14 @@ github.com/anrej0705
         <source>checkUpdates</source>
         <translation>Проверить обновления</translation>
     </message>
+    <message>
+        <source>Untitled</source>
+        <translation>Безымянный</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Закрыть</translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
@@ -535,6 +543,10 @@ Programm will close</source>
         <source>compatilibtyUndrHint</source>
         <translation>Переключить на совместимый тег</translation>
     </message>
+    <message>
+        <source>parseItalicHint</source>
+        <translation>Обрабатывать курсив</translation>
+    </message>
 </context>
 <context>
     <name>currentChangelog</name>
@@ -614,7 +626,11 @@ Programm will close</source>
     </message>
     <message>
         <source>(TYPE_NAME)</source>
-        <translation>(введи_название)</translation>
+        <translation type="vanished">(введи_название)</translation>
+    </message>
+    <message>
+        <source>TYPE_NAME</source>
+        <translation>ИМЯ_ССЫЛКИ</translation>
     </message>
 </context>
 </TS>

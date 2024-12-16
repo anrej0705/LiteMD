@@ -212,37 +212,70 @@ void mdEditor::slotNew()
 //И возвращаем на место
 void mdEditor::convertToUrl()
 {
-	QString procBuf = this->textCursor().selectedText();
-	if (procBuf == "")
-		return;	//Если пользователь ничего не выделил - выходим
+	const QClipboard* clbd = QApplication::clipboard();
+	const QMimeData* mmd = clbd->mimeData();
 
-	//Вставляем тег простой ссылки
-	procBuf.insert(0, "<");
-	procBuf.insert(procBuf.size(), ">");
+	QString procBuf = this->textCursor().selectedText();
+
+	//Если юзер держит ссылку в буфере обмена(скопировал), то вставляем
+	if (procBuf == "" && mmd->hasText())
+	{
+		//Вставляем тег простой ссылки
+		procBuf.insert(0, "<");
+		procBuf.insert(1, mmd->text());
+		procBuf.insert(procBuf.size(), ">");
+	}
+	else//Иначе идём по старинке
+	{
+		if (procBuf == "")
+			return;	//Если пользователь ничего не выделил - выходим
+
+		//Вставляем тег простой ссылки
+		procBuf.insert(0, "<");
+		procBuf.insert(procBuf.size(), ">");
+	}
 
 	//Заменяем выделенный текст ссылкой
 	this->textCursor().removeSelectedText();
 	this->textCursor().insertText(procBuf);
 	emit textChanged();
+	emit titleChanged(mdFileName);
 }
 
 //Получаем выделенный пользователем текст, преобразуем в [альтернативную]<ссылку>
 //И возвращаем на место
 void mdEditor::convToAltUrl()
 {
-	QString procBuf = this->textCursor().selectedText();
-	if (procBuf == "")
-		return;	//Если пользователь ничего не выделил - выходим
+	const QClipboard* clbd = QApplication::clipboard();
+	const QMimeData* mmd = clbd->mimeData();
 
+	QString procBuf = this->textCursor().selectedText();
+
+	//Если юзер держит ссылку в буфере обмена(скопировал), то вставляем
+
+	if (procBuf == "" && mmd->hasText())
+	{
+		procBuf.insert(0, "[");
+		procBuf.insert(procBuf.size(), tr("TYPE_NAME"));
+		procBuf.insert(procBuf.size(), "]");
+		procBuf.insert(procBuf.size(), "(");
+		procBuf.insert(procBuf.size(), mmd->text());
+		procBuf.insert(procBuf.size(), ")");
+	}
+	else
+	{
+		if (procBuf == "")
+			return;	//Если пользователь ничего не выделил - выходим
+
+		//Вставляем тег альтернативной ссылки
+		procBuf.insert(0, "[");
+		procBuf.insert(procBuf.size(), "]");
+
+		//Вставляем шаблон имени ссылки
+		procBuf.insert(procBuf.size(), tr("TYPE_NAME"));
+	}
 	//Хандлер курсора
 	QTextCursor tCursor = this->textCursor();
-
-	//Вставляем тег альтернативной ссылки
-	procBuf.insert(0, "[");
-	procBuf.insert(procBuf.size(), "]");
-
-	//Вставляем шаблон имени ссылки
-	procBuf.insert(procBuf.size(), tr("(TYPE_NAME)"));
 
 	//Получаем позицию конца шаблона
 	int bumpEnd = 0;
@@ -271,6 +304,8 @@ void mdEditor::convToAltUrl()
 
 	//Отмечаем текст выделенным
 	this->setTextCursor(tCursor);
+	emit textChanged();
+	emit titleChanged(mdFileName);
 }
 //Вставляет '#' слева от курсора
 void mdEditor::slotSetH1(){this->insertLattice(1);}
@@ -344,7 +379,7 @@ void mdEditor::slotSetUnrderline()
 		return;	//Если пользователь ничего не выделил - выходим
 
 	//Вставляем подчёркивание
-	procBuf.insert(0, "<ins>*");
+	procBuf.insert(0, "<ins>");
 	procBuf.insert(procBuf.size(), "</ins>");
 
 	//Заменяем выделенный текст ссылкой
@@ -417,4 +452,21 @@ bool mdEditor_filter::eventFilter(QObject* podj, QEvent* p_event)
 	}
 	//ui_event_filter(p_event);
 	return 0;
+}
+
+//Слот, но как бы и не слот
+//Закрывает файл если он открыт и сбрасывает его имя и флаги
+void mdEditor::closeFile()
+{
+	if (mdObject.isOpen())
+		mdObject.close();
+	mdFileName.clear();
+	fileOpenedState = 0;
+	fileChangedState = 0;
+
+	//Чистим поле ввода
+	this->clear();
+
+	//Шлём смску что текст изменился(очистился)
+	emit textChanged();
 }

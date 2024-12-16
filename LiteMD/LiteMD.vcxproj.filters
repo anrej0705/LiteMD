@@ -235,6 +235,9 @@
     <ClCompile Include="string_processing\hacks\hack_compat_parser.cpp">
       <Filter>String processing\Парсеры\Хаки</Filter>
     </ClCompile>
+    <ClCompile Include="string_processing\italicParser.cpp">
+      <Filter>String processing\Парсеры</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">
@@ -418,6 +421,9 @@
     </ClInclude>
     <ClInclude Include="string_processing\hacks\hack_compat_parser.h">
       <Filter>String processing\Парсеры\Хаки</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\italicParser.h">
+      <Filter>String processing\Парсеры</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

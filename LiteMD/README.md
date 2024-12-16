@@ -1,6 +1,6 @@
 README.MD
 
-# LiteMD alpha 0.2.5
+# LiteMD alpha 0.2.6
 
 ![Qt](https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white)
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
@@ -9,11 +9,11 @@ README.MD
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 
 **| Qt 5.14.2 
-| C++17 
-| C11 
-| MSVC 2019 
-| GPL v2 license 
-| boost 1.84.00 |**
+\| C++17 
+\| C11 
+\| MSVC 2019 
+\| GPL v2 license 
+\| boost 1.84.00 |**
 
 Этот файл был создан в LiteMD alpha 0.2.3 build 1829
 Исходный код на [GitHub](https://github.com/anrej0705/LiteMD)
@@ -23,8 +23,8 @@ README.MD
 [CONTRIBUTING/Рекомендации по созданию пул реквестов](https://github.com/anrej0705/LiteMD/blob/master/CONTRIBUTING.md)
 
 Текущие возможности программы:
-- Редактирование Markdown(*.md) файлов
-- Редактирование Text-Markdown(*.txt) файлов
+- Редактирование Markdown(\*.md) файлов
+- Редактирование Text-Markdown(\*.txt) файлов
 - Парсинг простых ссылок по типу <https://www.google.com>
 - Парсинг альтернативных ссылок, как пример [google](www.google.com)
 - Парсинг заголовков H1-H5 `#`-`#####`
@@ -34,6 +34,8 @@ README.MD
 - Просмотр списка изменений в текущей версии
 - Обработка ~~зачёркнутого~~ текста
 - Обработка <ins>подчёркнутого</ins> текста
+- Обработка *курсива*
+- Тулбар инструментов форматирования и работы с текстом
 
 Существующие на данный момент баги:
 - :x:Ошибки и вылеты при работе с устаревшими парсерами(просто не используйте их)
@@ -66,8 +68,8 @@ README.MD
 - :white_check_mark:0.2.3 - [Импорт старых конфигов](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1829)
 - :white_check_mark:0.2.4 - [Зачеркнутый текст](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1878)
 - :white_check_mark:0.2.5 - [Подчеркнутый текст](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1908) 
-- :arrow_forward:0.2.6 - Курсив
-- :x:0.2.7 - Жирный текст
+- :white_check_mark:0.2.6 - [Курсив](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1917)
+- :arrow_forward:0.2.7 - Жирный текст
 - :x:0.2.8 - Комбинирование форматирования текста
 - :x:0.2.9 - Меню недавних файлов от [SilverWolf2020](https://github.com/anrej0705/LiteMD/pull/2)
 - :x:0.3.0 - **Списки и цитаты**
@@ -129,8 +131,8 @@ README.MD
 - :x:0.9.3 - Пользовательские плагины
 - :x:1.0.0 - **Релиз и дальнейшая разработка**
 
-*Содержимое Roadmap и невыполненные таски могут меняться/переставляться со временем
+\*Содержимое Roadmap и невыполненные таски могут меняться/переставляться со временем
 
-*(Только для альфы и беты)Каждая версия начинающаяся с 0.x.0 не будет заключать в себя обещанные фичи из всей ветки 0.x.x а только списки исправлений и доработок. Фичи будут добавляться в соотвествии с поставленными тасками
+\*(Только для альфы и беты)Каждая версия начинающаяся с 0.x.0 не будет заключать в себя обещанные фичи из всей ветки 0.x.x а только списки исправлений и доработок. Фичи будут добавляться в соотвествии с поставленными тасками
 
-*Версии 0.0.2-0.0.9 отсутствуют в списке релизов
+\*Версии 0.0.2-0.0.9 отсутствуют в списке релизов
