@@ -453,3 +453,20 @@ bool mdEditor_filter::eventFilter(QObject* podj, QEvent* p_event)
 	//ui_event_filter(p_event);
 	return 0;
 }
+
+//Слот, но как бы и не слот
+//Закрывает файл если он открыт и сбрасывает его имя и флаги
+void mdEditor::closeFile()
+{
+	if (mdObject.isOpen())
+		mdObject.close();
+	mdFileName.clear();
+	fileOpenedState = 0;
+	fileChangedState = 0;
+
+	//Чистим поле ввода
+	this->clear();
+
+	//Шлём смску что текст изменился(очистился)
+	emit textChanged();
+}
