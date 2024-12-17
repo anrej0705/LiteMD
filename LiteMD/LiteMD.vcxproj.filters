@@ -238,6 +238,9 @@
     <ClCompile Include="string_processing\italicParser.cpp">
       <Filter>String processing\Парсеры</Filter>
     </ClCompile>
+    <ClCompile Include="string_processing\boldParser.cpp">
+      <Filter>String processing\Парсеры</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">
@@ -423,6 +426,9 @@
       <Filter>String processing\Парсеры\Хаки</Filter>
     </ClInclude>
     <ClInclude Include="string_processing\italicParser.h">
+      <Filter>String processing\Парсеры</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\boldParser.h">
       <Filter>String processing\Парсеры</Filter>
     </ClInclude>
   </ItemGroup>

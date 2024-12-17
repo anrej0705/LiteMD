@@ -49,6 +49,9 @@ class LiteMD : public QMainWindow
 		logger* logWindow;					//Окно логов которое появляется нажатием на жука
 		CustomToolButton* actPlaceHeader;	//Кнопка "превратить в заголовок"
 		CustomToolButton* actSetTextFormat;	//Выбрать форматирование выделенного текста
+		QScrollArea* mdsArea;				//Хандлер полосы прокрутки
+		QPushButton* dirSwitch1;			//Кнопка переключения направления 1
+		QPushButton* dirSwitch2;			//Кнопка переключения направления 2
 
 		//Действия всякие, в меню и в док
 		QAction* actAbout;					//Пункт меню о программе
@@ -107,6 +110,8 @@ class LiteMD : public QMainWindow
 		void slotTitleReset();				//Слот для сброса заголовка к дефолтному
 		void slotCheckUpdates();			//Слот для проверки обновлений
 		void slotFileClose();				//Закрытие файла и очистка поля ввода
+		void slotMdsDown();					//Слот прокрутки вниз
+		void slotMdsUp();					//Слот прокрутки вверх
 };
 //Простой, как сатиновые трусы, метод возвращает QString каталог
 QString getAppPath();

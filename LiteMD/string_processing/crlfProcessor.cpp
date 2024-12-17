@@ -76,6 +76,13 @@ std::string crlfProcessor(std::string& rawInput)
 					buffer->replace(index - 1, 1, brTag);
 					break;
 				}
+				case '`':
+				{
+					++strokes;
+					push_log(std::string("[crlfProcessor]Обнаружен служебный символ фрагмента кода"));
+					buffer->replace(index - 1, 1, brTag);
+					break;
+				}
 				default:
 				{
 					++strokes;

@@ -140,9 +140,14 @@ void appSettings::configureBasicSettingsTab()
 	interact_lay->addWidget(devFunc);
 	interact_lay->addWidget(limitSpinBox);
 
+	//Подготовка для будущей фичи
+	//themeList->addItem("windowsvista");
+	//themeList->addItem("Windows");
+	//themeList->addItem("Fusion");
+	
 	//Отключаем элементы, механика которых не реализована
 	colorTheme->addItem(tr("Default"));
-	themeList->addItem(tr("Default"));
+	//themeList->addItem(tr("Default"));
 	saveSettings->addItem(tr("XML"));
 	saveFreq->addItem(tr("NaN"));
 	autoSave->setChecked(0);

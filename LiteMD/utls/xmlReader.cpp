@@ -55,6 +55,7 @@ boost::container::vector<QString> xml_tags{
 	QString("parseUnderlined"),
 	QString("combatilibtyUndr"),
 	QString("en_italic"),
+	QString("en_bold"),
 };
 
 bool xmlReader::readConfig()
@@ -82,6 +83,7 @@ bool xmlReader::readConfig()
 	_xml_ptr.push_back(reinterpret_cast<void*>(&parswitch.en_underlined));
 	_xml_ptr.push_back(reinterpret_cast<void*>(&parswitch.en_compat_undr));
 	_xml_ptr.push_back(reinterpret_cast<void*>(&parswitch.en_italic));
+	_xml_ptr.push_back(reinterpret_cast<void*>(&parswitch.en_bold));
 
 	int* _int_ptr;
 	bool* _bool_ptr;

@@ -19,6 +19,7 @@ void appSettings::configureRenderSettingsTab()
 	deprUrlBasParserHint = new QLabel(tr("deprUrlBasParserHint"));
 	compatilibtyUndrHint = new QLabel(tr("compatilibtyUndrHint"));
 	parseItalicHint = new QLabel(tr("parseItalicHint"));
+	parseBoldHint = new QLabel(tr("parseBoldHint"));
 
 	//Подсказка для перезагрузки документа
 	reloadHint = new QLabel(tr("reloadHint"));
@@ -30,6 +31,7 @@ void appSettings::configureRenderSettingsTab()
 	parseAdvLinksl = new QCheckBox;
 	parseHeaderLvl = new QCheckBox;
 	parseItalic = new QCheckBox;
+	parseBold = new QCheckBox;
 	deprSyntaxPrep = new QCheckBox;
 	deprSyntaxPost = new QCheckBox;
 	deprUrlSimplParser = new QCheckBox;
@@ -48,6 +50,7 @@ void appSettings::configureRenderSettingsTab()
 	deprUrlBasParserHint->setFixedHeight(SETTINGS_HEIGH);
 	compatilibtyUndrHint->setFixedHeight(SETTINGS_HEIGH);
 	parseItalicHint->setFixedHeight(SETTINGS_HEIGH);
+	parseBoldHint->setFixedHeight(SETTINGS_HEIGH);
 
 	parseSimplLinks->setFixedHeight(SETTINGS_HEIGH);
 	parseAdvLinksl->setFixedHeight(SETTINGS_HEIGH);
@@ -59,6 +62,7 @@ void appSettings::configureRenderSettingsTab()
 	deprUrlBasParser->setFixedHeight(SETTINGS_HEIGH);
 	combatilibtyUndr->setFixedHeight(SETTINGS_HEIGH);
 	parseItalic->setFixedHeight(SETTINGS_HEIGH);
+	parseBold->setFixedHeight(SETTINGS_HEIGH);
 
 	//Настройки по умолчанию
 	enableDeprFeatures == 0 ? deprSyntaxPrep->setChecked(0) : deprSyntaxPrep->setChecked(1);
@@ -71,6 +75,7 @@ void appSettings::configureRenderSettingsTab()
 	enableDeprFeatures == 0 ? parseAdvLinksl->setChecked(1) : parseAdvLinksl->setChecked(0);
 	enableDeprFeatures == 0 ? parseHeaderLvl->setChecked(1) : parseHeaderLvl->setChecked(0);
 	enableDeprFeatures == 0 ? parseItalic->setChecked(1) : parseItalic->setChecked(0);
+	enableDeprFeatures == 0 ? parseBold->setChecked(1) : parseBold->setChecked(0);
 
 	//В зависимости от прочитанного из конфига флага чекбосы либо активны либо нет
 	enableDeprFeatures == 0 ? deprSyntaxPrep->setDisabled(1) : deprSyntaxPrep->setEnabled(1);
@@ -83,6 +88,7 @@ void appSettings::configureRenderSettingsTab()
 	enableDeprFeatures == 0 ? parseAdvLinksl->setEnabled(1) : parseAdvLinksl->setDisabled(1);
 	enableDeprFeatures == 0 ? parseHeaderLvl->setEnabled(1) : parseHeaderLvl->setDisabled(1);
 	enableDeprFeatures == 0 ? parseItalic->setEnabled(1) : parseItalic->setDisabled(1);
+	enableDeprFeatures == 0 ? parseBold->setEnabled(1) : parseBold->setDisabled(1);
 
 	//В зависимости от прочитанного из конфига флага подсказки либо активны либо нет
 	enableDeprFeatures == 0 ? deprSyntaxPrepHint->setDisabled(1) : deprSyntaxPrepHint->setEnabled(1);
@@ -95,6 +101,7 @@ void appSettings::configureRenderSettingsTab()
 	enableDeprFeatures == 0 ? parseAdvLinksHint->setEnabled(1) : parseAdvLinksHint->setDisabled(1);
 	enableDeprFeatures == 0 ? parseHeaderLvlHint->setEnabled(1) : parseHeaderLvlHint->setDisabled(1);
 	enableDeprFeatures == 0 ? parseItalicHint->setEnabled(1) : parseItalicHint->setDisabled(1);
+	enableDeprFeatures == 0 ? parseBoldHint->setEnabled(1) : parseBoldHint->setDisabled(1);
 
 	//Инициализируем рамку
 	QGroupBox* render_box = new QGroupBox;
@@ -123,6 +130,7 @@ void appSettings::configureRenderSettingsTab()
 	lbl_lay->addWidget(deprUrlAdvParserHint);
 	lbl_lay->addWidget(deprUrlBasParserHint);
 	lbl_lay->addWidget(compatilibtyUndrHint);
+	lbl_lay->addWidget(parseBoldHint);
 
 	interact_lay->addWidget(parseSimplLinks);
 	interact_lay->addWidget(parseAdvLinksl);
@@ -134,6 +142,7 @@ void appSettings::configureRenderSettingsTab()
 	interact_lay->addWidget(deprUrlAdvParser);
 	interact_lay->addWidget(deprUrlBasParser);
 	interact_lay->addWidget(combatilibtyUndr);
+	interact_lay->addWidget(parseBold);
 
 	//Настраиваем порядок размещения элементов - сверху
 	lbl_lay->setAlignment(Qt::AlignTop);

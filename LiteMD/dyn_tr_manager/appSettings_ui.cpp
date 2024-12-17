@@ -1,6 +1,7 @@
 #include "appSettings.h"
 #include "ui_update_event.h"
 #include "event_id_constructor.h"
+#include "logger_backend.h"
 extern "C"
 {
 	#include "global_definitions.h"
@@ -25,6 +26,20 @@ bool appSettings::eventFilter(QObject* pobj, QEvent* p_event)
 
 void appSettings::update_ui()
 {
+	push_log("[appSettings_ui]Обновление интерфейса");
+
+	//Создаём список потомков
+	QList<QWidget*> wList = this->findChildren<QWidget*>();
+
+	//Дрюкаем новым стилем каждого по очереди
+	foreach(QWidget * sWgt, wList)
+	{
+		sWgt->setStyle(QStyleFactory::create(chosenTheme));
+	}
+
+	//Сбрасываем флаг
+	//uiChanged = 0;
+
 	setWindowTitle(tr("LiteMD Settings"));
 	btnOk->setText(tr("&Ok"));
 	btnCancel->setText(tr("&Cancel"));
@@ -38,7 +53,7 @@ void appSettings::update_ui()
 	settingsLister->setTabText(4, tr("Extended"));
 	settingsLister->setTabText(5, tr("Hacks"));
 	settingsLister->setTabText(6, tr("Cap"));
-	themeList->setItemText(0, tr("Default"));
+	//themeList->setItemText(0, tr("Default"));
 	colorTheme->setItemText(0, tr("Default"));
 	saveSettings->setItemText(0, tr("XML"));
 	saveFreq->setItemText(0, tr("NaN"));
@@ -70,11 +85,12 @@ void appSettings::update_ui()
 	parseUnderlinedHint->setText(tr("parseUnderlinedHint"));
 	compatilibtyUndrHint->setText(tr("compatilibtyUndrHint"));
 	parseItalicHint->setText(tr("parseItalicHint"));
+	parseBoldHint->setText(tr("parseBoldHint"));
 }
 
 void appSettings::update_interactive()
 {
-	//������ ������� � ����������� �� ���������� ��������
+	//Меняем галочки в зависимости от полученных настроек
 	enableIndevFeatures == 0 ? devFunc->setChecked(0) : devFunc->setChecked(1);
 	enableDeprFeatures == 0 ? depFunc->setChecked(0) : depFunc->setChecked(1);
 	parswitch.en_simple_url == 0 ? parseSimplLinks->setChecked(0) : parseSimplLinks->setChecked(1);
@@ -83,18 +99,22 @@ void appSettings::update_interactive()
 	parswitch.en_ex_strkthg == 0 ? parseStrikethrough->setChecked(0) : parseStrikethrough->setChecked(1);
 	parswitch.en_underlined == 0 ? parseUnderlined->setChecked(0) : parseUnderlined->setChecked(1);
 	parswitch.en_compat_undr == 0 ? combatilibtyUndr->setChecked(0) : combatilibtyUndr->setChecked(1);
+	parswitch.en_italic == 0 ? parseItalic->setChecked(0) : parseItalic->setChecked(1);
+	parswitch.en_bold == 0 ? parseBold->setChecked(0) : parseBold->setChecked(1);
 	dparswitch.en_t_post == 0 ? deprSyntaxPrep->setChecked(0) : deprSyntaxPrep->setChecked(1);
 	dparswitch.en_t_prep == 0 ? deprSyntaxPost->setChecked(0) : deprSyntaxPost->setChecked(1);
 	dparswitch.en_url_adv == 0 ? deprUrlSimplParser->setChecked(0) : deprUrlSimplParser->setChecked(1);
 	dparswitch.en_url_bas == 0 ? deprUrlAdvParser->setChecked(0) : deprUrlAdvParser->setChecked(1);
 	dparswitch.en_url_bas_simple == 0 ? deprUrlBasParser->setChecked(0) : deprUrlBasParser->setChecked(1);
 
-	//������ ����������� �������
+	//Меняем доступность галочек
 	enableDeprFeatures == 0 ? parseSimplLinks->setEnabled(1) : parseSimplLinks->setDisabled(1);
 	enableDeprFeatures == 0 ? parseAdvLinksl->setEnabled(1) : parseAdvLinksl->setDisabled(1);
 	enableDeprFeatures == 0 ? parseHeaderLvl->setEnabled(1) : parseHeaderLvl->setDisabled(1);
 	enableDeprFeatures == 0 ? parseStrikethrough->setEnabled(1) : parseStrikethrough->setDisabled(1);
 	enableDeprFeatures == 0 ? parseUnderlined->setEnabled(1) : parseUnderlined->setDisabled(1);
+	enableDeprFeatures == 0 ? parseItalic->setEnabled(1) : parseItalic->setDisabled(1);
+	enableDeprFeatures == 0 ? parseBold->setEnabled(1) : parseBold->setDisabled(1);
 	enableDeprFeatures == 0 ? deprSyntaxPrep->setDisabled(1) : deprSyntaxPrep->setEnabled(1);
 	enableDeprFeatures == 0 ? deprSyntaxPost->setDisabled(1) : deprSyntaxPost->setEnabled(1);
 	enableDeprFeatures == 0 ? deprUrlSimplParser->setDisabled(1) : deprUrlSimplParser->setEnabled(1);
@@ -106,6 +126,8 @@ void appSettings::update_interactive()
 	enableDeprFeatures == 0 ? parseHeaderLvlHint->setEnabled(1) : parseHeaderLvlHint->setDisabled(1);
 	enableDeprFeatures == 0 ? parseStrikethroughHint->setEnabled(1) : parseStrikethroughHint->setDisabled(1);
 	enableDeprFeatures == 0 ? parseUnderlinedHint->setEnabled(1) : parseUnderlinedHint->setDisabled(1);
+	enableDeprFeatures == 0 ? parseItalicHint->setEnabled(1) : parseItalicHint->setDisabled(1);
+	enableDeprFeatures == 0 ? parseBoldHint->setEnabled(1) : parseBoldHint->setDisabled(1);
 	enableDeprFeatures == 0 ? deprSyntaxPrepHint->setDisabled(1) : deprSyntaxPrepHint->setEnabled(1);
 	enableDeprFeatures == 0 ? deprSyntaxPostHint->setDisabled(1) : deprSyntaxPostHint->setEnabled(1);
 	enableDeprFeatures == 0 ? deprUrlSimplParserHint->setDisabled(1) : deprUrlSimplParserHint->setEnabled(1);

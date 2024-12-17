@@ -12,12 +12,16 @@ extern bool appClose;
 extern bool allowHttpWarn;
 extern bool httpDerpWarned;
 extern bool settingChanged;
+//extern bool uiChanged;
 
 //Настройки
 extern bool logReadState;
 extern bool enableDeprFeatures;
 extern bool enableIndevFeatures;
 extern int langCode;
+
+//Название выбраной темы
+extern char* chosenTheme;
 
 //Настройки юзера в плане лимита логов
 extern int log_limit;
@@ -35,6 +39,7 @@ struct parser_switchers
 	bool en_underlined;
 	bool en_compat_undr;
 	bool en_italic;
+	bool en_bold;
 };
 
 struct depr_paerser_switchers

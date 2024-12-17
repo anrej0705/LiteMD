@@ -33,17 +33,17 @@ std::string headerLvlParser(std::string& rawInput)
 
 	head_lvl_url_output->assign(buffer);
 
-	for (volatile int32_t _index = *buffer_size; _index >= 0; --_index)
+	for (volatile int32_t _index = *buffer_size - 1; _index >= 0; --_index)
 	{
 		//Если найден символ переноса то считаем за конец строки
-		if ((buffer[_index] == '\n') || (buffer[_index] == '\0'))
+		if ((buffer[_index] == '\n') || (buffer[_index] == '\0') || (buffer[_index] == '-') || (buffer[_index] == '='))
 		{
 			//Поиск окончания служебных символов
 			for (volatile int32_t _idx = _index; _idx >= 0; --_idx)
 			{
 				if ((buffer[_idx] != '\r') && (buffer[_idx] != '\n') && (buffer[_idx] != '\0'))
 				{
-					alternate_header_str_end = stroke_end;
+					alternate_header_str_end = stroke_end + 1;
 					stroke_end = _idx;
 					break;
 				}
@@ -70,35 +70,6 @@ std::string headerLvlParser(std::string& rawInput)
 					break;
 			}
 
-			//Альтернативная проверка для ===...= и ---...-
-			//Последовательная проверка на наличие только определенного символа
-			// ======коммент=====, ------коммент----- и ===-=-===---- не прокатят
-			for (volatile int32_t _idx = stroke_start; _idx < stroke_end; ++_idx)
-			{
-				switch (buffer[_idx])
-				{
-					case '=':
-					{
-						alternate = 1;	//Если здесь и ниже обнаруживается признак альтернативного заголовка
-										//то флаг подымаем
-						header_size = 1;
-						break;
-					}
-					case '-':
-					{
-						alternate = 1;
-						header_size = 2;
-						break;
-					}
-				}
-				if (((buffer[_idx] == '=') || (buffer[_idx] == '-')) == 0 && alternate || (stroke_end - stroke_start == 2))
-				{
-					header_size = 0;
-					alternate = 0;
-					break;
-				}
-			}
-
 			//Если символы не найдены то считается что строка не содержит символов заголовка
 			//индекс начала сохраняется как индекс конца и цикл идёт дальше
 			if ((header_size == 0) && (_index > 0))
@@ -111,22 +82,25 @@ std::string headerLvlParser(std::string& rawInput)
 					{	//Если обнаружен альтернативный заголовок и предыдущая строчка существует то выполняем
 						if (alternate && alternate_header_str_end != -1 && alternate_header_str_start != -1)
 						{
-							push_log("[headerLvlParser]Обнаружен альтернативный заголовок H1");
+							//Вставка тега в конце
+							push_log("[headerLvlParser]Обнаружен альтернативный заголовок H2");
 							log_out->append("[headerLvlParser]Вставка тега <H1>(");
-							log_out->append(std::to_string(alternate_header_str_start).c_str());
+							log_out->append(std::to_string(stroke_start).c_str());
 							log_out->append(")->(");
-							log_out->append(std::to_string(alternate_header_str_end).c_str());
+							log_out->append(std::to_string(stroke_end).c_str());
 							log_out->append(")");
 							push_log(log_out->c_str());
-							//Вставка тега в конце
-							head_lvl_url_output->insert(alternate_header_str_end + 1, header_lvl_icloselvl);
-							head_lvl_url_output->insert(alternate_header_str_end + 1, "1");
-							head_lvl_url_output->insert(alternate_header_str_end + 1, header_lvl_iclosetext);
+							head_lvl_url_output->erase(alternate_header_str_start, alternate_header_str_end - alternate_header_str_start);	//Стираем служебный тег
+							head_lvl_url_output->insert(stroke_end + 1, header_lvl_icloselvl);
+							head_lvl_url_output->insert(stroke_end + 1, "1");
+							head_lvl_url_output->insert(stroke_end + 1, header_lvl_iclosetext);
 							//Вставка тега в начале
-							head_lvl_url_output->replace(alternate_header_str_start, 1, header_lvl_icloselvl);
-							head_lvl_url_output->insert(alternate_header_str_start, "1");
-							head_lvl_url_output->insert(alternate_header_str_start, header_lvl_iopenlvl);
-							head_lvl_url_output->erase(stroke_end, stroke_end - stroke_start);	//Стираем служебный тег
+							head_lvl_url_output->insert(stroke_start, header_lvl_icloselvl);
+							head_lvl_url_output->insert(stroke_start, "1");
+							head_lvl_url_output->insert(stroke_start, header_lvl_iopenlvl);
+							//Сброс для работы со следующей строкой
+							header_size = 0;
+							break;
 						}
 						else
 						{
@@ -144,6 +118,8 @@ std::string headerLvlParser(std::string& rawInput)
 							head_lvl_url_output->replace(stroke_start, 1, header_lvl_icloselvl);
 							head_lvl_url_output->insert(stroke_start, "1");
 							head_lvl_url_output->insert(stroke_start, header_lvl_iopenlvl);
+							//Сброс для работы со следующей строкой
+							header_size = 0;
 							break;
 						}
 					}
@@ -154,19 +130,22 @@ std::string headerLvlParser(std::string& rawInput)
 							//Вставка тега в конце
 							push_log("[headerLvlParser]Обнаружен альтернативный заголовок H2");
 							log_out->append("[headerLvlParser]Вставка тега <H2>(");
-							log_out->append(std::to_string(alternate_header_str_start).c_str());
+							log_out->append(std::to_string(stroke_start).c_str());
 							log_out->append(")->(");
-							log_out->append(std::to_string(alternate_header_str_end).c_str());
+							log_out->append(std::to_string(stroke_end).c_str());
 							log_out->append(")");
 							push_log(log_out->c_str());
-							head_lvl_url_output->insert(alternate_header_str_end + 1, header_lvl_icloselvl);
-							head_lvl_url_output->insert(alternate_header_str_end + 1, "2");
-							head_lvl_url_output->insert(alternate_header_str_end + 1, header_lvl_iclosetext);
+							head_lvl_url_output->erase(alternate_header_str_start, alternate_header_str_end - alternate_header_str_start);	//Стираем служебный тег
+							head_lvl_url_output->insert(stroke_end + 1, header_lvl_icloselvl);
+							head_lvl_url_output->insert(stroke_end + 1, "2");
+							head_lvl_url_output->insert(stroke_end + 1, header_lvl_iclosetext);
 							//Вставка тега в начале
-							head_lvl_url_output->replace(alternate_header_str_start, 2, header_lvl_icloselvl);
-							head_lvl_url_output->insert(alternate_header_str_start, "2");
-							head_lvl_url_output->insert(alternate_header_str_start, header_lvl_iopenlvl);
-							head_lvl_url_output->erase(stroke_end, stroke_end - stroke_start);	//Стираем служебный тег
+							head_lvl_url_output->insert(stroke_start, header_lvl_icloselvl);
+							head_lvl_url_output->insert(stroke_start, "2");
+							head_lvl_url_output->insert(stroke_start, header_lvl_iopenlvl);
+							//Сброс для работы со следующей строкой
+							header_size = 0;
+							break;
 						}
 						else
 						{
@@ -186,6 +165,8 @@ std::string headerLvlParser(std::string& rawInput)
 							head_lvl_url_output->insert(stroke_start, "2");
 							//head_lvl_url_output->replace(stroke_start, 2, header_lvl_iopenlvl);
 							head_lvl_url_output->insert(stroke_start, header_lvl_iopenlvl);
+							//Сброс для работы со следующей строкой
+							header_size = 0;
 							break;
 						}
 					}
@@ -207,6 +188,8 @@ std::string headerLvlParser(std::string& rawInput)
 						head_lvl_url_output->insert(stroke_start, "3");
 						//head_lvl_url_output->replace(stroke_start, 3, header_lvl_iopenlvl);
 						head_lvl_url_output->insert(stroke_start, header_lvl_iopenlvl);
+						//Сброс для работы со следующей строкой
+						header_size = 0;
 						break;
 					}
 					case 4:
@@ -227,6 +210,8 @@ std::string headerLvlParser(std::string& rawInput)
 						head_lvl_url_output->insert(stroke_start, "4");
 						//head_lvl_url_output->replace(stroke_start, 4, header_lvl_iopenlvl);
 						head_lvl_url_output->insert(stroke_start, header_lvl_iopenlvl);
+						//Сброс для работы со следующей строкой
+						header_size = 0;
 						break;
 					}
 					case 5:
@@ -247,17 +232,49 @@ std::string headerLvlParser(std::string& rawInput)
 						head_lvl_url_output->insert(stroke_start, "5");
 						//head_lvl_url_output->replace(stroke_start, 5, header_lvl_iopenlvl);
 						head_lvl_url_output->insert(stroke_start, header_lvl_iopenlvl);
+						//Сброс для работы со следующей строкой
+						header_size = 0;
 						break;
 					}
 				}
 			}
+
+			//Альтернативная проверка для ===...= и ---...-
+			//Последовательная проверка на наличие только определенного символа
+			// ======коммент=====, ------коммент----- и ===-=-===---- не прокатят
+			for (volatile int32_t _idx = stroke_end; _idx > stroke_start; --_idx)
+			{
+				switch (buffer[_idx])
+				{
+				case '=':
+				{
+					alternate = 1;	//Если здесь и ниже обнаруживается признак альтернативного заголовка
+									//то флаг подымаем
+					header_size = 1;
+					break;
+				}
+				case '-':
+				{
+					alternate = 1;
+					header_size = 2;
+					break;
+				}
+				}
+				if (((buffer[_idx] == '=') || (buffer[_idx] == '-')) == 0 && alternate || (stroke_end - stroke_start == 2))
+				{
+					header_size = 0;
+					alternate = 0;
+					break;
+				}
+			}
+
 			//Сброс для работы со следующей строкой
-			header_size = 0;
+			//header_size = 0;
 			//Перемещение указателя на позицию строки с которой шла работа
 			_index > 1 ? _index = stroke_start : _index = 0;
 			//Сброс значений так как новая строчка и пока ничего не понятно
-			stroke_start = -1;
-			stroke_end = 1;
+			//stroke_start = -1;
+			//stroke_end = 1;
 			log_out->clear();
 		}
 	}
