@@ -15,6 +15,20 @@ bool LiteMD::eventFilter(QObject* pobj, QEvent* p_event)
 
 void LiteMD::update_ui()
 {
+	push_log("[LiteMD_ui]Обновление интерфейса");
+
+	//Создаём список потомков
+	QList<QWidget*> wList = this->findChildren<QWidget*>(); 
+		
+	//Дрюкаем новым стилем каждого по очереди
+	foreach(QWidget * sWgt, wList)
+	{
+		sWgt->setStyle(QStyleFactory::create(chosenTheme));
+	}
+
+	//Сбрасываем флаг
+	//uiChanged = 0;
+
 	editorWindow->setTitle(tr("Editor"));
 	viewerWindow->setTitle(tr("Viewer"));
 	workProgressCap->setText(tr("work in progress"));
@@ -63,7 +77,6 @@ void LiteMD::update_interactive()
 	//Тернарками обновляем менюшки
 	enableIndevFeatures == 0 ? actHelp->setDisabled(1) : actHelp->setEnabled(1);
 	enableIndevFeatures == 0 ? setBold->setDisabled(1) : setBold->setEnabled(1);
-	enableIndevFeatures == 0 ? setItalic->setDisabled(1) : setItalic->setEnabled(1);
 	enableIndevFeatures == 0 ? actHelp->setDisabled(1) : actHelp->setEnabled(1);
 	enableIndevFeatures == 0 ? btnUp->setDisabled(1) : btnUp->setEnabled(1);
 	enableIndevFeatures == 0 ? btnDown->setDisabled(1) : btnDown->setEnabled(1);
