@@ -164,8 +164,6 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	qApp->installEventFilter(this);
 
 	//Отключенные механики
-	setItalic->setDisabled(1);
-	setBold->setDisabled(1);
 	actHelp->setDisabled(1);
 	checkUpdates->setDisabled(1);
 	//--------------------
