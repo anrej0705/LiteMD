@@ -14,6 +14,10 @@ int langCode = 0;
 bool allowHttpWarn = 1;
 bool httpDerpWarned = 0;
 bool settingChanged = 0;
+//bool uiChanged = 0;
+
+//Выбранная тема
+char* chosenTheme;
 
 //Настрйоки, они же настройки по умолчанию. Значения подменяются из файла конфига при чтении, если последний существует
 bool logReadState = 0;
