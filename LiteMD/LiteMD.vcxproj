@@ -259,6 +259,7 @@
     <ClCompile Include="settings_tabs\tab_hacks.cpp" />
     <ClCompile Include="settings_tabs\tab_logs.cpp" />
     <ClCompile Include="settings_tabs\tab_render.cpp" />
+    <ClCompile Include="string_processing\boldParser.cpp" />
     <ClCompile Include="string_processing\crlfParser.cpp" />
     <ClCompile Include="string_processing\crlfProcessor.cpp" />
     <ClCompile Include="string_processing\extended\extended_strikethroughParser.cpp" />
@@ -345,6 +346,7 @@
     <ClInclude Include="modules\QMicroz\qmicroz.h" />
     <ClInclude Include="ress\resource.h" />
     <ClInclude Include="ress\resource1.h" />
+    <ClInclude Include="string_processing\boldParser.h" />
     <ClInclude Include="string_processing\crlfParser.h" />
     <ClInclude Include="string_processing\crlfProcessor.h" />
     <ClInclude Include="string_processing\extended\extended_strikethroughParser.h" />
