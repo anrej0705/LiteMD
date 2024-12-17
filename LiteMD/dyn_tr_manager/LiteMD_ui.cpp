@@ -77,7 +77,5 @@ void LiteMD::update_interactive()
 	//Тернарками обновляем менюшки
 	enableIndevFeatures == 0 ? actHelp->setDisabled(1) : actHelp->setEnabled(1);
 	enableIndevFeatures == 0 ? actHelp->setDisabled(1) : actHelp->setEnabled(1);
-	enableIndevFeatures == 0 ? btnUp->setDisabled(1) : btnUp->setEnabled(1);
-	enableIndevFeatures == 0 ? btnDown->setDisabled(1) : btnDown->setEnabled(1);
 	enableIndevFeatures == 0 ? checkUpdates->setDisabled(1) : checkUpdates->setEnabled(1);
 }
