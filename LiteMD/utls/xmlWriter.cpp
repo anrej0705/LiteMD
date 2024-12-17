@@ -52,6 +52,7 @@ void xmlWriter::writeConfig()
 	QDomElement parseUnderlined = attrib(*lmdFileSet, "parseUnderlined", parswitch.en_underlined);
 	QDomElement combatilibtyUndr = attrib(*lmdFileSet, "combatilibtyUndr", parswitch.en_compat_undr);
 	QDomElement en_italic = attrib(*lmdFileSet, "en_italic", parswitch.en_italic);
+	QDomElement en_bold = attrib(*lmdFileSet, "en_bold", parswitch.en_bold);
 	lmdSet->appendChild(build);
 	lmdSet->appendChild(patchNoteRead);
 	lmdSet->appendChild(indevFeatures);
@@ -70,6 +71,7 @@ void xmlWriter::writeConfig()
 	lmdSet->appendChild(parseUnderlined);
 	lmdSet->appendChild(combatilibtyUndr);
 	lmdSet->appendChild(en_italic);
+	lmdSet->appendChild(en_bold);
 	QFile settingsFile(fileName);
 	if (settingsFile.open(QIODevice::WriteOnly))
 	{
