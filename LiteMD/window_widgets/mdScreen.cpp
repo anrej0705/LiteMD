@@ -16,6 +16,7 @@
 #include "extended_strikethroughParser.h"
 #include "hack_compat_parser.h"
 #include "italicParser.h"
+#include "boldParser.h"
 #include <string>
 #include <regex>
 extern "C"
@@ -88,8 +89,13 @@ void mdScreen::slotSetText(const QString& str)
 			push_log("[РЕНДЕР]Обработка тегов курсивного тега");//7 -> 8|Обработка обозначений для курсива
 			mdInput = italicParser(mdInput);
 		}
+		if (parswitch.en_bold)
+		{
+			push_log("[РЕНДЕР]Обработка тегов жирного тега");	//8 -> 9|Обработка обозначений для курсива
+			mdInput = boldParser(mdInput);
+		}
 		push_log("[РЕНДЕР]Обработка переноса строки");
-		mdInput = crlfProcessor(mdInput);						//8 -> 9|Обработка переноса строки
+		mdInput = crlfProcessor(mdInput);						//9 -> 10|Обработка переноса строки
 		push_log("[РЕНДЕР]Конвертация в QString");
 		//Преобразуем в QString
 		mdFormatted = QString::fromStdString(mdInput);
