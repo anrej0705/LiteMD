@@ -10,7 +10,7 @@
 //##[STAGE]
 #define APP_STAGE " alpha"
 //##[VER]
-#define APP_VERSION " 0.2.6"
+#define APP_VERSION " 0.2.7"
 //##[BUILD]
 #define BUILD_NUMBER 1917
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
@@ -22,7 +22,7 @@
 const char appSign[] = "__Shani_basic";
 
 //Количество читаемых параметров из конфига. Прибавлять каждый раз когда добавляется новая фича
-#define PARAM_CNT	17
+#define PARAM_CNT	18
 
 /*
 * Таблица событий для обновления интерфейса
@@ -88,6 +88,9 @@ const char underlined_txt_iclose[] = "</ins>";
 const char italic_txt_iopen[] = "<I>";
 const char italic_txt_iclose[] = "</I>";
 
+const char bold_txt_iopen[] = "<B>";
+const char bold_txt_iclose[] = "</B>";
+
 const uint8_t simple_url_iopenurl_size = 9;
 const uint8_t simple_url_icloseurl_size = 2;
 const uint8_t simple_url_iclosetext_size = 4;
@@ -104,4 +107,7 @@ const uint8_t underlined_txt_iclose_size = 6;
 
 const uint8_t italic_txt_iopen_size = 3;
 const uint8_t italic_txt_iclose_size = 4;
+
+const uint8_t bold_txt_iopen_size = 3;
+const uint8_t bold_txt_iclose_size = 4;
 #endif
