@@ -16,21 +16,21 @@ bool logger::eventFilter(QObject* pobj, QEvent* p_event)
 	}
 	return QWidget::eventFilter(pobj, p_event);
 }
-//Обновление интерфейса с помощью повторного чтения выбранной локализации
+//РћР±РЅРѕРІР»РµРЅРёРµ РёРЅС‚РµСЂС„РµР№СЃР° СЃ РїРѕРјРѕС‰СЊСЋ РїРѕРІС‚РѕСЂРЅРѕРіРѕ С‡С‚РµРЅРёСЏ РІС‹Р±СЂР°РЅРЅРѕР№ Р»РѕРєР°Р»РёР·Р°С†РёРё
 void logger::update_ui()
 {
-	push_log("[logger_ui]Обновление интерфейса");
+	push_log("[logger_ui]РћР±РЅРѕРІР»РµРЅРёРµ РёРЅС‚РµСЂС„РµР№СЃР°");
 
-	//Создаём список потомков
+	//РЎРѕР·РґР°С‘Рј СЃРїРёСЃРѕРє РїРѕС‚РѕРјРєРѕРІ
 	QList<QWidget*> wList = this->findChildren<QWidget*>();
 
-	//Дрюкаем новым стилем каждого по очереди
+	//Р”СЂСЋРєР°РµРј РЅРѕРІС‹Рј СЃС‚РёР»РµРј РєР°Р¶РґРѕРіРѕ РїРѕ РѕС‡РµСЂРµРґРё
 	foreach(QWidget * sWgt, wList)
 	{
 		sWgt->setStyle(QStyleFactory::create(chosenTheme));
 	}
 
-	//Сбрасываем флаг
+	//РЎР±СЂР°СЃС‹РІР°РµРј С„Р»Р°Рі
 	//uiChanged = 0;
 
 	this->setWindowTitle(tr("logTitle"));

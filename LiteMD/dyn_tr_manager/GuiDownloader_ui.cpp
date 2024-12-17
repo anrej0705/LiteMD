@@ -18,18 +18,18 @@ bool DownloaderGui::eventFilter(QObject* pobj, QEvent* p_event)
 
 void DownloaderGui::update_ui()
 {
-	push_log("[GuiDownloader_ui]Обновление интерфейса");
+	push_log("[GuiDownloader_ui]РћР±РЅРѕРІР»РµРЅРёРµ РёРЅС‚РµСЂС„РµР№СЃР°");
 
-	//Создаём список потомков
+	//РЎРѕР·РґР°С‘Рј СЃРїРёСЃРѕРє РїРѕС‚РѕРјРєРѕРІ
 	QList<QWidget*> wList = this->findChildren<QWidget*>();
 
-	//Дрюкаем новым стилем каждого по очереди
+	//Р”СЂСЋРєР°РµРј РЅРѕРІС‹Рј СЃС‚РёР»РµРј РєР°Р¶РґРѕРіРѕ РїРѕ РѕС‡РµСЂРµРґРё
 	foreach(QWidget * sWgt, wList)
 	{
 		sWgt->setStyle(QStyleFactory::create(chosenTheme));
 	}
 
-	//Сбрасываем флаг
+	//РЎР±СЂР°СЃС‹РІР°РµРј С„Р»Р°Рі
 	//uiChanged = 0;
 
 	setWindowTitle(tr("HTTP Download module GUI(Deprecated)"));

@@ -26,18 +26,18 @@ bool appSettings::eventFilter(QObject* pobj, QEvent* p_event)
 
 void appSettings::update_ui()
 {
-	push_log("[appSettings_ui]Обновление интерфейса");
+	push_log("[appSettings_ui]РћР±РЅРѕРІР»РµРЅРёРµ РёРЅС‚РµСЂС„РµР№СЃР°");
 
-	//Создаём список потомков
+	//РЎРѕР·РґР°С‘Рј СЃРїРёСЃРѕРє РїРѕС‚РѕРјРєРѕРІ
 	QList<QWidget*> wList = this->findChildren<QWidget*>();
 
-	//Дрюкаем новым стилем каждого по очереди
+	//Р”СЂСЋРєР°РµРј РЅРѕРІС‹Рј СЃС‚РёР»РµРј РєР°Р¶РґРѕРіРѕ РїРѕ РѕС‡РµСЂРµРґРё
 	foreach(QWidget * sWgt, wList)
 	{
 		sWgt->setStyle(QStyleFactory::create(chosenTheme));
 	}
 
-	//Сбрасываем флаг
+	//РЎР±СЂР°СЃС‹РІР°РµРј С„Р»Р°Рі
 	//uiChanged = 0;
 
 	setWindowTitle(tr("LiteMD Settings"));
@@ -85,11 +85,12 @@ void appSettings::update_ui()
 	parseUnderlinedHint->setText(tr("parseUnderlinedHint"));
 	compatilibtyUndrHint->setText(tr("compatilibtyUndrHint"));
 	parseItalicHint->setText(tr("parseItalicHint"));
+	parseBoldHint->setText(tr("parseBoldHint"));
 }
 
 void appSettings::update_interactive()
 {
-	//Меняем галочки в зависимости от полученных настроек
+	//РњРµРЅСЏРµРј РіР°Р»РѕС‡РєРё РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РїРѕР»СѓС‡РµРЅРЅС‹С… РЅР°СЃС‚СЂРѕРµРє
 	enableIndevFeatures == 0 ? devFunc->setChecked(0) : devFunc->setChecked(1);
 	enableDeprFeatures == 0 ? depFunc->setChecked(0) : depFunc->setChecked(1);
 	parswitch.en_simple_url == 0 ? parseSimplLinks->setChecked(0) : parseSimplLinks->setChecked(1);
@@ -99,19 +100,21 @@ void appSettings::update_interactive()
 	parswitch.en_underlined == 0 ? parseUnderlined->setChecked(0) : parseUnderlined->setChecked(1);
 	parswitch.en_compat_undr == 0 ? combatilibtyUndr->setChecked(0) : combatilibtyUndr->setChecked(1);
 	parswitch.en_italic == 0 ? parseItalic->setChecked(0) : parseItalic->setChecked(1);
+	parswitch.en_bold == 0 ? parseBold->setChecked(0) : parseBold->setChecked(1);
 	dparswitch.en_t_post == 0 ? deprSyntaxPrep->setChecked(0) : deprSyntaxPrep->setChecked(1);
 	dparswitch.en_t_prep == 0 ? deprSyntaxPost->setChecked(0) : deprSyntaxPost->setChecked(1);
 	dparswitch.en_url_adv == 0 ? deprUrlSimplParser->setChecked(0) : deprUrlSimplParser->setChecked(1);
 	dparswitch.en_url_bas == 0 ? deprUrlAdvParser->setChecked(0) : deprUrlAdvParser->setChecked(1);
 	dparswitch.en_url_bas_simple == 0 ? deprUrlBasParser->setChecked(0) : deprUrlBasParser->setChecked(1);
 
-	//Меняем доступность галочек
+	//РњРµРЅСЏРµРј РґРѕСЃС‚СѓРїРЅРѕСЃС‚СЊ РіР°Р»РѕС‡РµРє
 	enableDeprFeatures == 0 ? parseSimplLinks->setEnabled(1) : parseSimplLinks->setDisabled(1);
 	enableDeprFeatures == 0 ? parseAdvLinksl->setEnabled(1) : parseAdvLinksl->setDisabled(1);
 	enableDeprFeatures == 0 ? parseHeaderLvl->setEnabled(1) : parseHeaderLvl->setDisabled(1);
 	enableDeprFeatures == 0 ? parseStrikethrough->setEnabled(1) : parseStrikethrough->setDisabled(1);
 	enableDeprFeatures == 0 ? parseUnderlined->setEnabled(1) : parseUnderlined->setDisabled(1);
 	enableDeprFeatures == 0 ? parseItalic->setEnabled(1) : parseItalic->setDisabled(1);
+	enableDeprFeatures == 0 ? parseBold->setEnabled(1) : parseBold->setDisabled(1);
 	enableDeprFeatures == 0 ? deprSyntaxPrep->setDisabled(1) : deprSyntaxPrep->setEnabled(1);
 	enableDeprFeatures == 0 ? deprSyntaxPost->setDisabled(1) : deprSyntaxPost->setEnabled(1);
 	enableDeprFeatures == 0 ? deprUrlSimplParser->setDisabled(1) : deprUrlSimplParser->setEnabled(1);
@@ -124,6 +127,7 @@ void appSettings::update_interactive()
 	enableDeprFeatures == 0 ? parseStrikethroughHint->setEnabled(1) : parseStrikethroughHint->setDisabled(1);
 	enableDeprFeatures == 0 ? parseUnderlinedHint->setEnabled(1) : parseUnderlinedHint->setDisabled(1);
 	enableDeprFeatures == 0 ? parseItalicHint->setEnabled(1) : parseItalicHint->setDisabled(1);
+	enableDeprFeatures == 0 ? parseBoldHint->setEnabled(1) : parseBoldHint->setDisabled(1);
 	enableDeprFeatures == 0 ? deprSyntaxPrepHint->setDisabled(1) : deprSyntaxPrepHint->setEnabled(1);
 	enableDeprFeatures == 0 ? deprSyntaxPostHint->setDisabled(1) : deprSyntaxPostHint->setEnabled(1);
 	enableDeprFeatures == 0 ? deprUrlSimplParserHint->setDisabled(1) : deprUrlSimplParserHint->setEnabled(1);
