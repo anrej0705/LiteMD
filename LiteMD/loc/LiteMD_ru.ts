@@ -547,6 +547,10 @@ Programm will close</source>
         <source>parseItalicHint</source>
         <translation>Обрабатывать курсив</translation>
     </message>
+    <message>
+        <source>parseBoldHint</source>
+        <translation>Обрабатывать жирный текст</translation>
+    </message>
 </context>
 <context>
     <name>currentChangelog</name>

@@ -531,7 +531,7 @@ Programm will close</translation>
     </message>
     <message>
         <source>setDefault</source>
-        <translation>По умолчанию</translation>
+        <translation>Set default</translation>
     </message>
     <message>
         <source>Hacks</source>
@@ -544,6 +544,10 @@ Programm will close</translation>
     <message>
         <source>parseItalicHint</source>
         <translation>Parse italit tags</translation>
+    </message>
+    <message>
+        <source>parseBoldHint</source>
+        <translation>Parse bold</translation>
     </message>
 </context>
 <context>

@@ -533,7 +533,7 @@ Programm will close</source>
     </message>
     <message>
         <source>setDefault</source>
-        <translation>Set default</translation>
+        <translation>По умолчанию</translation>
     </message>
     <message>
         <source>Hacks</source>
@@ -546,6 +546,10 @@ Programm will close</source>
     <message>
         <source>parseItalicHint</source>
         <translation>Обрабатывать курсив</translation>
+    </message>
+    <message>
+        <source>parseBoldHint</source>
+        <translation>Обрабатывать жирный текст</translation>
     </message>
 </context>
 <context>
