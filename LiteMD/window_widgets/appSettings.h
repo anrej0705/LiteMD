@@ -22,6 +22,8 @@ class appSettings : public QDialog
 
 		QTranslator lmd_lng;
 
+		std::map<uint8_t, std::string> themeNamesList;	//Список тем
+
 		QTabWidget* settingsLister;		//Менеджер вкладок
 		QLabel* workprogress;			//Заглушка
 		QPushButton* btnOk;				//Кнопка подтверждения
@@ -123,7 +125,7 @@ class appSettings : public QDialog
 		void configureLogsTab();
 		void configureExtendedTab();
 		void configureHackTab();
-		void titleChanged(const QString&);
+		//void titleChanged(const QString&);
 	protected:
 		bool eventFilter(QObject* pobj, QEvent* event);
 		void update_interactive();
@@ -153,6 +155,7 @@ class appSettings : public QDialog
 		void slot_reset_settings();
 		void slot_switch_compat(int);
 		void slot_en_italic(int);
+		void slot_ui_change(int);
 	signals:
 		void signalTitleChanged(const QString&);
 };
