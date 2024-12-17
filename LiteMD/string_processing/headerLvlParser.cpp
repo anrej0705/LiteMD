@@ -33,7 +33,7 @@ std::string headerLvlParser(std::string& rawInput)
 
 	head_lvl_url_output->assign(buffer);
 
-	for (volatile int32_t _index = *buffer_size; _index >= 0; --_index)
+	for (volatile int32_t _index = *buffer_size - 1; _index >= 0; --_index)
 	{
 		//Если найден символ переноса то считаем за конец строки
 		if ((buffer[_index] == '\n') || (buffer[_index] == '\0'))
