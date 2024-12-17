@@ -75,11 +75,13 @@ class appSettings : public QDialog
 		QLabel* parseSimplLinksHint;	//Описание галки обработки ссылок <url>
 		QLabel* parseAdvLinksHint;		//Описание галки обработки [link](url)
 		QLabel* parseHeaderLvlHint;		//Описание галки обработки заголовков #...#####
-		QLabel* parseItalicHint;		//Описание галки оработки курсива *...*
+		QLabel* parseItalicHint;		//Описание галки оюработки курсива *...*
+		QLabel* parseBoldHint;			//Описание галки обработки жирного текста **...**
 		QCheckBox* parseSimplLinks;		//Галка обработки ссылок <url>
 		QCheckBox* parseAdvLinksl;		//Галка обработки [link](url)
 		QCheckBox* parseHeaderLvl;		//Галка обработки заголовков #...#####
 		QCheckBox* parseItalic;			//Галка для обработки курсива *...*
+		QCheckBox* parseBold;			//Галка для обработки жирного текста **...**
 		QLabel* deprSyntaxPrepHint;		//Подпись к чекбоксу устаревшего препроцессора
 		QLabel* deprSyntaxPostHint;		//Подпись к чекбоксу устаревшего пост процессора
 		QLabel* deprUrlSimplParserHint;	//Подпись к чекбоксу упрощённого парсера 1
@@ -156,6 +158,7 @@ class appSettings : public QDialog
 		void slot_switch_compat(int);
 		void slot_en_italic(int);
 		void slot_ui_change(int);
+		void slot_en_bold(int);
 	signals:
 		void signalTitleChanged(const QString&);
 };
