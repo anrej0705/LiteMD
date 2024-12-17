@@ -272,7 +272,7 @@ void mdEditor::convToAltUrl()
 		procBuf.insert(procBuf.size(), "]");
 
 		//Вставляем шаблон имени ссылки
-		procBuf.insert(procBuf.size(), tr("TYPE_NAME"));
+		procBuf.insert(procBuf.size(), "(" + tr("TYPE_NAME") + ")");
 	}
 	//Хандлер курсора
 	QTextCursor tCursor = this->textCursor();
