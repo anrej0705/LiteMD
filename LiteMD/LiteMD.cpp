@@ -43,7 +43,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	//---------------------------------------------
 
 	//Блок элементов интерфейса
-	QScrollArea* mdsArea = new QScrollArea;
+	mdsArea = new QScrollArea;
 	btnDown = new OrientablePushButton("--->", this);
 	btnUp = new OrientablePushButton("--->", this);
 	editorWindow = new QGroupBox(tr("Editor"));
@@ -68,6 +68,8 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	formatStyle = new QMenu(tr("Set format style"));
 	actPlaceHeader = new CustomToolButton;
 	actSetTextFormat = new CustomToolButton;
+	dirSwitch1 = new QPushButton("<>");
+	dirSwitch2 = new QPushButton("<>");
 	//-------------------------
 
 	//Блок конфигурации элементов интерфейса
@@ -218,11 +220,17 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	btnDown->setOrientation(OrientablePushButton::VerticalTopBottom);
 	btnUp->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
 	btnDown->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
-	btnUp->setEnabled(0);	//Пока что отключаем до реализации механики кнопки
-	btnDown->setEnabled(0);	//Пока что отключаем до реализации механики кнопки
+	btnUp->setFixedWidth(32);
+	btnDown->setFixedWidth(32);
+	dirSwitch1->setFixedWidth(32);
+	dirSwitch2->setFixedWidth(32);
+	dirSwitch1->setFixedHeight(48);
+	dirSwitch2->setFixedHeight(48);
 	scrollDockLay->addSpacing(100);
+	scrollDockLay->addWidget(dirSwitch1);
 	scrollDockLay->addWidget(btnUp);
 	scrollDockLay->addWidget(btnDown);
+	scrollDockLay->addWidget(dirSwitch2);
 	scrollDockLay->addSpacing(100);
 	scrollDock->setLayout(scrollDockLay);
 	editorLay->addWidget(mde);
@@ -236,6 +244,8 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mde->setMinimumWidth(320);
 	mdsArea->setMinimumWidth(320);
 	mdsArea->resize(viewerWindow->sizeHint());
+	dirSwitch1->setEnabled(0);	//Пока отключена, попозже включу
+	dirSwitch2->setEnabled(0);	//Пока отключена, попозже включу
 	//--------------------------------------
 
 	//Блок настроек меню
@@ -336,6 +346,10 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	if (!connect(checkUpdates, SIGNAL(triggered()), this, SLOT(slotCheckUpdates())))
 		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
 	if (!connect(actClose, SIGNAL(triggered()), this, SLOT(slotFileClose())))
+		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
+	if (!connect(btnDown, SIGNAL(clicked()), this, SLOT(slotMdsDown())))
+		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
+	if (!connect(btnUp, SIGNAL(clicked()), this, SLOT(slotMdsUp())))
 		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
 	push_log(std::string("[QT->LiteMD]Образовано " + std::to_string(connected_signals) + " связей"));
 	//------------------------------
@@ -497,4 +511,40 @@ void LiteMD::slotFileClose()
 	
 	//Сбрасываем заголовок
 	setWindowTitle(defTitle);
+}
+
+//Прокрутка вниз через полосу прокрутки
+void LiteMD::slotMdsDown()
+{
+	//Определяем приоритет
+	if (mdsArea->verticalScrollBar()->size().height() > mde->verticalScrollBar()->size().height())
+	{
+		//Увеличиваем значение полосы прокрутки, там самым крутим вниз
+		mdsArea->verticalScrollBar()->setValue(mdsArea->verticalScrollBar()->value() + mdsArea->verticalScrollBar()->size().height());
+		mde->verticalScrollBar()->setValue(mdsArea->verticalScrollBar()->value() + mdsArea->verticalScrollBar()->size().height());
+	}
+	else
+	{
+		//Увеличиваем значение полосы прокрутки, там самым крутим вниз
+		mdsArea->verticalScrollBar()->setValue(mde->verticalScrollBar()->value() + mde->verticalScrollBar()->size().height());
+		mde->verticalScrollBar()->setValue(mde->verticalScrollBar()->value() + mde->verticalScrollBar()->size().height());
+	}
+}
+
+//Прокрутка вверх через полосу прокрутки
+void LiteMD::slotMdsUp()
+{
+	//Определяем приоритет
+	if (mdsArea->verticalScrollBar()->size().height() > mde->verticalScrollBar()->size().height())
+	{
+		//Увеличиваем значение полосы прокрутки, там самым крутим вниз
+		mdsArea->verticalScrollBar()->setValue(mdsArea->verticalScrollBar()->value() - mdsArea->verticalScrollBar()->size().height());
+		mde->verticalScrollBar()->setValue(mdsArea->verticalScrollBar()->value() - mdsArea->verticalScrollBar()->size().height());
+	}
+	else
+	{
+		//Увеличиваем значение полосы прокрутки, там самым крутим вниз
+		mdsArea->verticalScrollBar()->setValue(mde->verticalScrollBar()->value() - mde->verticalScrollBar()->size().height());
+		mde->verticalScrollBar()->setValue(mde->verticalScrollBar()->value() - mde->verticalScrollBar()->size().height());
+	}
 }
