@@ -19,7 +19,9 @@ logger::logger(QWidget* log) : QDialog(log)
 	qApp->installEventFilter(this);
 
 	//Иконка
-	this->setWindowIcon(QIcon(getAppPath() + "/icon.ico"));
+	QPixmap appIcon(getAppPath() + "/icon.ico");
+	appIcon.setMask(appIcon.createMaskFromColor(QColor(0, 0, 0)));
+	setWindowIcon(QIcon(appIcon));
 
 	//Менеджер размещения панели с кнопками и текстового поля
 	builder = new QVBoxLayout;

@@ -18,7 +18,9 @@ currentChangelog::currentChangelog(QWidget* qwgt) : QDialog(qwgt)
 	xmlW = new xmlWriter;
 	this->setModal(1);
 	this->setWindowTitle(tr("New version changelog"));
-	this->setWindowIcon(QIcon(getAppPath() + "/icon.ico"));
+	QPixmap appIcon(getAppPath() + "/icon.ico");
+	appIcon.setMask(appIcon.createMaskFromColor(QColor(0, 0, 0)));
+	setWindowIcon(QIcon(appIcon));
 
 	std::wstring temp;
 	QString qtemp;

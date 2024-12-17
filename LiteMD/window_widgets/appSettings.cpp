@@ -85,7 +85,9 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	dialogWindow->addLayout(btnComposer);
 
 	//Иконка
-	this->setWindowIcon(QIcon(getAppPath() + "/icon.ico"));
+	QPixmap appIcon(getAppPath() + "/icon.ico");
+	appIcon.setMask(appIcon.createMaskFromColor(QColor(0, 0, 0)));
+	setWindowIcon(QIcon(appIcon));
 
 	//Устанавливаем менеджер как основной виджет
 	setLayout(dialogWindow);
