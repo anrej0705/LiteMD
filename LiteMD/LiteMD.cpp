@@ -475,6 +475,8 @@ void LiteMD::httpModuleShow()
 }
 LiteMD::~LiteMD()
 {
+	//0.2.7 Позже поработаю здесь
+	//free(chosenTheme);
 	//deleteOnExit();
 }
 
