@@ -146,6 +146,8 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
 	if (!connect(themeList, SIGNAL(currentIndexChanged(int)), this, SLOT(slot_ui_change(int))))
 		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
+	if (!connect(parseBold, SIGNAL(stateChanged(int)), this, SLOT(slot_en_bold(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
 	push_log(std::string("[QT->appSettings]Образовано " + std::to_string(connected_signals) + " связей"));
 	
 
@@ -379,6 +381,8 @@ void appSettings::slot_reset_settings()
 	parswitch.en_ex_strkthg = 1;
 	parswitch.en_underlined = 1;
 	parswitch.en_compat_undr = 1;
+	parswitch.en_italic = 1;
+	parswitch.en_bold = 1;
 
 	enableDeprFeatures = 0;
 	enableIndevFeatures = 0;
@@ -436,4 +440,11 @@ void appSettings::slot_ui_change(int index)
 	//Шлём смску
 	if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_UI_UPDATE_EVENT)))	//Постим событие изменения интерфейса
 		QErrorMessage::qtHandler();
+}
+
+void appSettings::slot_en_bold(int bit)
+{
+	settingChanged = 1;
+	parswitch.en_bold = static_cast<bool>(bit);
+	parswitch.en_bold == 0 ? push_log("[НАСТРОЙКИ]Обработка жирного текста отключена") : push_log("[НАСТРОЙКИ]Обработка жирного текста включена");
 }
