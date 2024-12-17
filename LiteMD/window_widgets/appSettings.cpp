@@ -21,6 +21,13 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	setModal(1);
 	setWindowTitle(tr("LiteMD Settings"));
 
+	/*themeNamesList.insert(std::pair<uint8_t, std::string>(0, "windowsvista"));
+	themeNamesList.insert(std::pair<uint8_t, std::string>(1, "Windows"));
+	themeNamesList.insert(std::pair<uint8_t, std::string>(2, "Fusion"));*/
+
+	//Инициализация
+	chosenTheme = (char*)calloc(1, sizeof(char));
+
 	//Предварительная настройка вкладок
 	configureBasicSettingsTab();
 	configureRenderSettingsTab();
@@ -28,6 +35,16 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	configureLogsTab();
 	configureExtendedTab();
 	configureHackTab();
+
+	//Формирование списка тем, но только после настройки вкладок
+	//иначе упадёт
+	uint8_t keys = 0;
+	foreach(QString str, QStyleFactory::keys())
+	{
+		themeNamesList.insert(std::pair<uint8_t, std::string>(keys, str.toStdString()));
+		themeList->addItem(str);
+		++keys;
+	}
 
 	//Инициализируем указатели
 	xmlw = new xmlWriter;
@@ -126,6 +143,8 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	if (!connect(combatilibtyUndr, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_compat(int))))
 		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
 	if (!connect(parseItalic, SIGNAL(stateChanged(int)), this, SLOT(slot_en_italic(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
+	if (!connect(themeList, SIGNAL(currentIndexChanged(int)), this, SLOT(slot_ui_change(int))))
 		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
 	push_log(std::string("[QT->appSettings]Образовано " + std::to_string(connected_signals) + " связей"));
 	
@@ -392,4 +411,29 @@ void appSettings::slot_switch_compat(int bit)
 	settingChanged = 1;
 	parswitch.en_compat_undr = static_cast<bool>(bit);
 	parswitch.en_compat_undr == 0 ? push_log("[НАСТРОЙКИ]Режим совместимости отключён(обработка <ins>)") : push_log("[НАСТРОЙКИ]Режим совместимости включён(обработка <u>)");
+}
+
+void appSettings::slot_ui_change(int index)
+{
+	//Переменная для проверки
+	char* newPtr;
+
+	//Выделяем блок памяти
+	newPtr = (char*)realloc(chosenTheme, sizeof(themeNamesList[index].size()));
+
+	//Если указатель не зашкварился то перемещаем его
+	if (newPtr != NULL)
+		chosenTheme = newPtr;
+	else
+		throw(exceptionHandler(exceptionHandler::WARNING, "O KURWA!!1\nНе удалось выделить память для char chosenTheme"));
+
+	//Копируем имя темы
+	strcpy(chosenTheme, themeNamesList[index].c_str());
+
+	//Подымаем флаг так как юзер сменил тему
+	//uiChanged = 1;
+
+	//Шлём смску
+	if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_UI_UPDATE_EVENT)))	//Постим событие изменения интерфейса
+		QErrorMessage::qtHandler();
 }
