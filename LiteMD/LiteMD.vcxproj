@@ -243,6 +243,7 @@
     <ClCompile Include="dyn_tr_manager\appSettings_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\frameChangelog_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\GuiDownloader_ui.cpp" />
+    <ClCompile Include="dyn_tr_manager\helpCenter_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\LiteMD_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\logger_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\ui_update_event.cpp" />
@@ -289,6 +290,16 @@
     <ClCompile Include="utls\xmlReader.cpp" />
     <ClCompile Include="utls\xmlWriter.cpp" />
     <ClCompile Include="window_widgets\appSettings.cpp" />
+    <ClCompile Include="window_widgets\helpCenter.cpp">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).moc</QtMocFileName>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).moc</QtMocFileName>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
+    </ClCompile>
     <ClCompile Include="window_widgets\logger.cpp" />
     <ClCompile Include="window_widgets\mdEditor.cpp" />
     <ClCompile Include="window_widgets\mdScreen.cpp" />
@@ -337,6 +348,7 @@
     <ClInclude Include="deprecated\syntax_postprocessor.h" />
     <ClInclude Include="deprecated\syntax_preprocessor.h" />
     <ClInclude Include="dyn_tr_manager\ui_update_event.h" />
+    <QtMoc Include="window_widgets\helpCenter.h" />
     <QtMoc Include="window_widgets\logger.h" />
     <QtMoc Include="modules\frameChangelog.h" />
     <QtMoc Include="modules\customToolButton.h" />
