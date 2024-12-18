@@ -686,6 +686,17 @@ Programm will close</translation>
     </message>
 </context>
 <context>
+    <name>helpCenter</name>
+    <message>
+        <source>Program guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual.md отсутствует</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>logger</name>
     <message>
         <source>logTitle</source>
