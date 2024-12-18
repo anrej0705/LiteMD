@@ -71,6 +71,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	actSetTextFormat = new CustomToolButton;
 	dirSwitch1 = new QPushButton("<>");
 	dirSwitch2 = new QPushButton("<>");
+	help_manager = new helpCenter;
 	//-------------------------
 
 	//Блок конфигурации элементов интерфейса
@@ -347,11 +348,13 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	if (!connect(checkUpdates, SIGNAL(triggered()), this, SLOT(slotCheckUpdates())))
 		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
 	if (!connect(actClose, SIGNAL(triggered()), this, SLOT(slotFileClose())))
-		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
+		QErrorMessage::qtHandler();	++connected_signals;//Закрытие документа
 	if (!connect(btnDown, SIGNAL(clicked()), this, SLOT(slotMdsDown())))
-		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
+		QErrorMessage::qtHandler();	++connected_signals;//Листание вниз
 	if (!connect(btnUp, SIGNAL(clicked()), this, SLOT(slotMdsUp())))
-		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
+		QErrorMessage::qtHandler();	++connected_signals;//Листание вверх
+	if (!connect(actHelp, SIGNAL(triggered()), help_manager, SLOT(slotShowWindow())))
+		QErrorMessage::qtHandler();	++connected_signals;//Открытие справочного центра
 	push_log(std::string("[QT->LiteMD]Образовано " + std::to_string(connected_signals) + " связей"));
 	//------------------------------
 
