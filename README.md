@@ -1,6 +1,6 @@
 README.MD
 
-# LiteMD alpha 0.2.7
+# LiteMD alpha 0.2.8
 
 ![Qt](https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white)
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
@@ -40,6 +40,7 @@ README.MD
 
 Существующие на данный момент баги:
 - :x:Ошибки и вылеты при работе с устаревшими парсерами(просто не используйте их)
+- :x:При определенных действиях хоткей сохранения файла может быть воспринят как "Сохранить как"
 
 #### **Roadmap**:
 
@@ -71,8 +72,8 @@ README.MD
 - :white_check_mark:0.2.5 - [Подчеркнутый текст](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1908) 
 - :white_check_mark:0.2.6 - [Курсив](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1917)
 - :white_check_mark:0.2.7 - [Жирный текст](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1941)
-- :arrow_forward:0.2.8 - Комбинирование форматирования текста
-- :x:0.2.9 - Меню недавних файлов от [SilverWolf2020](https://github.com/anrej0705/LiteMD/pull/2)
+- :white_check_mark:0.2.8 - [Комбинирование форматирования текста](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1957)
+- :arrow_forward:0.2.9 - Меню недавних файлов от [SilverWolf2020](https://github.com/anrej0705/LiteMD/pull/2)
 - :x:0.3.0 - **Списки и цитаты**
 - :x:0.3.1 - Списки
 - :x:0.3.2 - Цитирование текста

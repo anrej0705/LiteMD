@@ -12,7 +12,7 @@ extern struct parser_switchers parswitch;
 extern struct depr_paerser_switchers dparswitch;
 xmlWriter::xmlWriter()
 {
-	fileName = getAppPath() + "/config.xml";
+	fileName = getConfigPath() + "/config.xml";
 	boost::container::string* log_out = new boost::container::string("[XML]Задано имя файла конфига для чтения ");
 	log_out->append(fileName.toLocal8Bit());
 	push_log(log_out->c_str());	//Кароч я реально нихуя не понимаю почему std string ебёт мозга в дебаге
@@ -53,6 +53,7 @@ void xmlWriter::writeConfig()
 	QDomElement combatilibtyUndr = attrib(*lmdFileSet, "combatilibtyUndr", parswitch.en_compat_undr);
 	QDomElement en_italic = attrib(*lmdFileSet, "en_italic", parswitch.en_italic);
 	QDomElement en_bold = attrib(*lmdFileSet, "en_bold", parswitch.en_bold);
+	QDomElement data_location = attrib(*lmdFileSet, "dataLocation", dataLocation);
 	lmdSet->appendChild(build);
 	lmdSet->appendChild(patchNoteRead);
 	lmdSet->appendChild(indevFeatures);
@@ -72,6 +73,7 @@ void xmlWriter::writeConfig()
 	lmdSet->appendChild(combatilibtyUndr);
 	lmdSet->appendChild(en_italic);
 	lmdSet->appendChild(en_bold);
+	lmdSet->appendChild(data_location);
 	QFile settingsFile(fileName);
 	if (settingsFile.open(QIODevice::WriteOnly))
 	{

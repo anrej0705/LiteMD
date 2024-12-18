@@ -19,7 +19,9 @@ DownloaderGui::DownloaderGui(QWidget* dwgt) : QWidget(dwgt)
 	dw = new Downloader(this);
 	//Создаем объект
 	plbl = new QLabel;
-	plbl->setWindowIcon(QIcon(getAppPath() + "/icon.ico"));
+	QPixmap appIcon(getAppPath() + "/icon.ico");
+	appIcon.setMask(appIcon.createMaskFromColor(QColor(0, 0, 0)));
+	setWindowIcon(QIcon(appIcon));
 	plbl->hide();
 	//Устанавливаем фильтр на отлов события смены языка
 	qApp->installEventFilter(this);

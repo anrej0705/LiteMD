@@ -11,15 +11,23 @@ bool ui_event_filter::eventFilter(QObject* podj, QEvent* p_event)
 	{	//Рассылка событий обновления интерфейса для каждого окна
 		push_log("[СОБЫТИЯ]Вызвано событие обновления интерфейса");
 		ui_event_filter(p_event);
+		push_log("[СОБЫТИЯ]Отправка событие APP_EVENT_appSettings_UPDATE_EVENT");
 		if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_appSettings_UPDATE_EVENT)))
 			QErrorMessage::qtHandler();
+		push_log("[СОБЫТИЯ]Отправка событие APP_EVENT_LiteMD_UPDATE_EVENT");
 		if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_LiteMD_UPDATE_EVENT)))
 			QErrorMessage::qtHandler();
+		push_log("[СОБЫТИЯ]Отправка событие APP_EVENT_GuiDownloader_UPDATE_EVENT");
 		if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_GuiDownloader_UPDATE_EVENT)))
 			QErrorMessage::qtHandler();
+		push_log("[СОБЫТИЯ]Отправка событие APP_EVENT_frame_changelog_UPDATE_EVENT");
 		if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_frame_changelog_UPDATE_EVENT)))
 			QErrorMessage::qtHandler();
+		push_log("[СОБЫТИЯ]Отправка событие APP_EVENT_logger_UPDATE_EVENT");
 		if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_logger_UPDATE_EVENT)))
+			QErrorMessage::qtHandler();
+		push_log("[СОБЫТИЯ]Отправка событие APP_EVENT_helpCenter_UPDATE_EVENT");
+		if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_helpCenter_UPDATE_EVENT)))
 			QErrorMessage::qtHandler();
 		return 1;
 	}
