@@ -20,6 +20,8 @@ void appSettings::configureBasicSettingsTab()
 	langListHint = new QLabel(tr("Language"));
 	themeHint = new QLabel(tr("UI Theme"));
 	saveSettingsHint = new QLabel(tr("Settings save type"));
+	saveLocationHint = new QLabel(tr("saveLocationHint"));
+	userPathHint = new QLabel(tr("userPathHint"));
 	autoSaveHint = new QLabel(tr("Autosave"));
 	saveFreqHint = new QLabel(tr("Autosave frequency"));
 	depFuncHint = new QLabel(tr("Enable deprecated features"));
@@ -31,11 +33,13 @@ void appSettings::configureBasicSettingsTab()
 	langList = new QComboBox;
 	themeList = new QComboBox;
 	saveSettings = new QComboBox;
+	saveLocation = new QComboBox;
 	autoSave = new QCheckBox;
 	saveFreq = new QComboBox;
 	depFunc = new QCheckBox;
 	devFunc = new QCheckBox;
 	colorTheme = new QComboBox;
+	userPath = new QLineEdit("NULL");
 
 	//Инициализация крутилки
 	limitSpinBox = new QSpinBox;
@@ -44,7 +48,7 @@ void appSettings::configureBasicSettingsTab()
 	basicSettings = new QWidget;
 
 	//Пока что отключено
-	//
+	saveLocation->setDisabled(1);
 
 	//Значения крутилки по умолчанию 8192(global_definitions.h:44)
 	limitSpinBox->setValue(LOGS_LIMIT);
@@ -123,17 +127,34 @@ void appSettings::configureBasicSettingsTab()
 	lbl_lay->addWidget(themeHint);
 	lbl_lay->addWidget(colorThemeHint);
 	lbl_lay->addWidget(saveSettingsHint);
+	lbl_lay->addWidget(saveLocationHint);
+	lbl_lay->addWidget(userPathHint);
 	lbl_lay->addWidget(autoSaveHint);
 	lbl_lay->addWidget(saveFreqHint);
 	lbl_lay->addWidget(depFuncHint);
 	lbl_lay->addWidget(inDevFuncHint);
 	lbl_lay->addWidget(msgLimitHint);
 
+	//Подключение системы "Что это?"
+	langList->setWhatsThis(tr("langListHelp"));
+	themeList->setWhatsThis(tr("themeListHelp"));
+	colorTheme->setWhatsThis(tr("colorThemeHelp"));
+	saveSettings->setWhatsThis(tr("saveSettingsHelp"));
+	saveLocation->setWhatsThis(tr("saveLocationHelp"));
+	userPath->setWhatsThis(tr("userPathHelp"));
+	autoSave->setWhatsThis(tr("autoSaveHelp"));
+	saveFreq->setWhatsThis(tr("saveFreqHelp"));
+	depFunc->setWhatsThis(tr("depFuncHelp"));
+	devFunc->setWhatsThis(tr("devFuncHelp"));
+	limitSpinBox->setWhatsThis(tr("limitSpinBoxHelp"));
+
 	//Добавляем элементы в правую половину(взаимодействие)
 	interact_lay->addWidget(langList);
 	interact_lay->addWidget(themeList);
 	interact_lay->addWidget(colorTheme);
 	interact_lay->addWidget(saveSettings);
+	interact_lay->addWidget(saveLocation);
+	interact_lay->addWidget(userPath);
 	interact_lay->addWidget(autoSave);
 	interact_lay->addWidget(saveFreq);
 	interact_lay->addWidget(depFunc);
@@ -149,11 +170,16 @@ void appSettings::configureBasicSettingsTab()
 	colorTheme->addItem(tr("Default"));
 	//themeList->addItem(tr("Default"));
 	saveSettings->addItem(tr("XML"));
+	saveLocation->addItem("%APPDATA%/Local");
+	saveLocation->addItem("%APPDATA%/Roaming");
 	saveFreq->addItem(tr("NaN"));
 	autoSave->setChecked(0);
+	userPathHint->setDisabled(1);
+	userPath->setDisabled(1);
 	themeList->setDisabled(1);
 	colorTheme->setDisabled(1);
 	saveSettings->setDisabled(1);
+	userPath->setDisabled(1);
 	saveFreq->setDisabled(1);
 	themeHint->setDisabled(1);
 	colorThemeHint->setDisabled(1);
@@ -165,6 +191,8 @@ void appSettings::configureBasicSettingsTab()
 	langListHint->setFixedHeight(SETTINGS_HEIGH);
 	themeHint->setFixedHeight(SETTINGS_HEIGH);
 	saveSettingsHint->setFixedHeight(SETTINGS_HEIGH);
+	saveLocationHint->setFixedHeight(SETTINGS_HEIGH);
+	userPathHint->setFixedHeight(SETTINGS_HEIGH);
 	autoSaveHint->setFixedHeight(SETTINGS_HEIGH);
 	saveFreqHint->setFixedHeight(SETTINGS_HEIGH);
 	depFuncHint->setFixedHeight(SETTINGS_HEIGH);
@@ -174,6 +202,8 @@ void appSettings::configureBasicSettingsTab()
 	langList->setFixedHeight(SETTINGS_HEIGH);
 	themeList->setFixedHeight(SETTINGS_HEIGH);
 	saveSettings->setFixedHeight(SETTINGS_HEIGH);
+	saveLocation->setFixedHeight(SETTINGS_HEIGH);
+	userPath->setFixedHeight(SETTINGS_HEIGH);
 	autoSave->setFixedHeight(SETTINGS_HEIGH);
 	saveFreq->setFixedHeight(SETTINGS_HEIGH);
 	depFunc->setFixedHeight(SETTINGS_HEIGH);

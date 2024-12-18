@@ -49,6 +49,10 @@ void appSettings::configureDownloaderSettingsTab()
 	lbl_lay->addWidget(allowWarningsHint);
 	lbl_lay->addWidget(allowCacheHint);
 
+	//Подключение системы "Что это?"
+	allowWarnings->setWhatsThis(tr("allowWarningsHelp"));
+	allowCache->setWhatsThis(tr("allowCacheHelp"));
+
 	interact_lay->addWidget(allowWarnings);
 	interact_lay->addWidget(allowCache);
 

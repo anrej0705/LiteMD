@@ -30,6 +30,11 @@ void appSettings::configureLogsTab()
 	//Настройка текстового поля
 	logBox->setReadOnly(1);
 
+	//Подключение системы "Что это?"
+	clearLog->setWhatsThis(tr("clearLogHelp"));
+	saveLog->setWhatsThis(tr("saveLogHelp"));
+	logBox->setWhatsThis(tr("logBoxHelp"));
+
 	//Настройка подписи
 	logHint->setAlignment(Qt::AlignLeft);
 

@@ -14,6 +14,9 @@ extern "C"
 int log_limit = LOGS_LIMIT;
 struct parser_switchers parswitch;
 struct depr_paerser_switchers dparswitch;
+
+static QString writablePath;			//Путь для записываемых файлов
+
 appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 {
 	push_log("[QT]Инициализация окна настроек");
@@ -21,9 +24,51 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	setModal(1);
 	setWindowTitle(tr("LiteMD Settings"));
 
-	/*themeNamesList.insert(std::pair<uint8_t, std::string>(0, "windowsvista"));
-	themeNamesList.insert(std::pair<uint8_t, std::string>(1, "Windows"));
-	themeNamesList.insert(std::pair<uint8_t, std::string>(2, "Fusion"));*/
+	//Значение по умолчанию
+	dataLocation = 0;
+
+	//Windows платформы - получаем путь для хранения настроек(не админ права)
+	switch (dataLocation)
+	{
+		case 0:
+		{
+			// 0 - %APPDATA%/Local
+			writablePath = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+			push_log("[НАСТРОЙКИ]Выбран путь сохранения %APPDATA%/Local");
+			break;
+		}
+		case 1:
+		{
+			// 1 - %APPDATA%/Roaming
+			writablePath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+			push_log("[НАСТРОЙКИ]Выбран путь сохранения %APPDATA%/Roaming");
+			break;
+		}
+		case 2:
+		{
+			// 2 - Реестр
+			push_log("[НАСТРОЙКИ]Реестр выбран в качестве хранилища настроек");
+			break;
+		}
+		case 127:
+		{
+			//Требует прав администратора
+			push_log(std::string("[НАСТРОЙКИ]Выбран путь сохранения" + getAppPath().toStdString()));
+			writablePath = getAppPath();
+			break;
+		}
+		case 255:
+		{
+			// 255 - Пользовательский путь
+			push_log("[НАСТРОЙКИ]Задан пользовательский путь");
+			break;
+		}
+	}
+
+	//Проверяем существование каталога, если его нет - создаём
+	if (!QDir(writablePath).exists())
+		if (!QDir().mkdir(writablePath))	//Если каталог не существует, пробуем создать - если не полулочись роняем прогу
+			throw exceptionHandler(exceptionHandler::FATAL, "Не удалось создать каталог для хранения настроек, продолжение работы невозможо");
 
 	//Инициализация
 	chosenTheme = (char*)calloc(1, sizeof(char));
@@ -85,7 +130,9 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	dialogWindow->addLayout(btnComposer);
 
 	//Иконка
-	this->setWindowIcon(QIcon(getAppPath() + "/icon.ico"));
+	QPixmap appIcon(getAppPath() + "/icon.ico");
+	appIcon.setMask(appIcon.createMaskFromColor(QColor(0, 0, 0)));
+	setWindowIcon(QIcon(appIcon));
 
 	//Устанавливаем менеджер как основной виджет
 	setLayout(dialogWindow);
@@ -447,4 +494,9 @@ void appSettings::slot_en_bold(int bit)
 	settingChanged = 1;
 	parswitch.en_bold = static_cast<bool>(bit);
 	parswitch.en_bold == 0 ? push_log("[НАСТРОЙКИ]Обработка жирного текста отключена") : push_log("[НАСТРОЙКИ]Обработка жирного текста включена");
+}
+
+QString getConfigPath()
+{
+	return writablePath;
 }

@@ -20,6 +20,13 @@ extern bool enableDeprFeatures;
 extern bool enableIndevFeatures;
 extern int langCode;
 
+//Путь приложения
+extern int dataLocation;
+// 0 - %APPDATA%/Local
+// 1 - %APPDATA%/Roaming
+// 2 - Реестр
+// 127 - Неопределено
+// 255 - Пользовательский путь
 //Название выбраной темы
 extern char* chosenTheme;
 

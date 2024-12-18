@@ -49,6 +49,9 @@ void appSettings::configureExtendedTab()
 	//Добавляем в компоновку
 	lbl_lay->addWidget(parseStrikethroughHint);
 
+	//Подключение системы "Что это?"
+	parseStrikethrough->setWhatsThis(tr("parseStrikethroughHelp"));
+
 	interact_lay->addWidget(parseStrikethrough);
 
 	//Настраиваем порядок размещения элементов - сверху

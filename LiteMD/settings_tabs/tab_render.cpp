@@ -132,6 +132,19 @@ void appSettings::configureRenderSettingsTab()
 	lbl_lay->addWidget(compatilibtyUndrHint);
 	lbl_lay->addWidget(parseBoldHint);
 
+	//Подключение системы "Что это?"
+	parseSimplLinks->setWhatsThis(tr("parseSimplLinksHelp"));
+	parseAdvLinksl->setWhatsThis(tr("parseAdvLinkslHelp"));
+	parseHeaderLvl->setWhatsThis(tr("parseHeaderLvlHelp"));
+	parseItalic->setWhatsThis(tr("parseItalicHelp"));
+	deprSyntaxPrep->setWhatsThis(tr("deprSyntaxPrepHelp"));
+	deprSyntaxPost->setWhatsThis(tr("deprSyntaxPostHelp"));
+	deprUrlSimplParser->setWhatsThis(tr("deprUrlSimplParserHelp"));
+	deprUrlAdvParser->setWhatsThis(tr("deprUrlAdvParserHelp"));
+	deprUrlBasParser->setWhatsThis(tr("deprUrlBasParserHelp"));
+	combatilibtyUndr->setWhatsThis(tr("combatilibtyUndrHelp"));
+	parseBold->setWhatsThis(tr("parseBoldHelp"));
+
 	interact_lay->addWidget(parseSimplLinks);
 	interact_lay->addWidget(parseAdvLinksl);
 	interact_lay->addWidget(parseHeaderLvl);

@@ -16,6 +16,8 @@ bool httpDerpWarned = 0;
 bool settingChanged = 0;
 //bool uiChanged = 0;
 
+//globalFlaghs.h 23:29
+int dataLocation = 127;
 //Выбранная тема
 char* chosenTheme;
 

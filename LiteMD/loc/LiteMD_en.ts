@@ -531,7 +531,7 @@ Programm will close</translation>
     </message>
     <message>
         <source>setDefault</source>
-        <translation>По умолчанию</translation>
+        <translation>Set default</translation>
     </message>
     <message>
         <source>Hacks</source>
@@ -545,6 +545,134 @@ Programm will close</translation>
         <source>parseItalicHint</source>
         <translation>Parse italit tags</translation>
     </message>
+    <message>
+        <source>parseBoldHint</source>
+        <translation>Parse bold</translation>
+    </message>
+    <message>
+        <source>saveLocationHint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>userPathHint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>parseSimplLinksHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>parseAdvLinkslHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>parseHeaderLvlHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>parseItalicHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deprSyntaxPrepHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deprSyntaxPostHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deprUrlSimplParserHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deprUrlAdvParserHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deprUrlBasParserHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>combatilibtyUndrHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>parseBoldHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>clearLogHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>saveLogHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>logBoxHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>parseUnderlinedHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>parseStrikethroughHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>allowWarningsHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>allowCacheHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>langListHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>themeListHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>colorThemeHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>saveSettingsHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>saveLocationHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>userPathHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>autoSaveHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>saveFreqHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>depFuncHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>devFuncHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>limitSpinBoxHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>currentChangelog</name>
@@ -555,6 +683,17 @@ Programm will close</translation>
     <message>
         <source>Current_ver.md отсутствует</source>
         <translation>Current_ver.md not found</translation>
+    </message>
+</context>
+<context>
+    <name>helpCenter</name>
+    <message>
+        <source>Program guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual.md отсутствует</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

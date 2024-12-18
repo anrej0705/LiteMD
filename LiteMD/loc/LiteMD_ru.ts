@@ -547,6 +547,134 @@ Programm will close</source>
         <source>parseItalicHint</source>
         <translation>Обрабатывать курсив</translation>
     </message>
+    <message>
+        <source>parseBoldHint</source>
+        <translation>Обрабатывать жирный текст</translation>
+    </message>
+    <message>
+        <source>saveLocationHint</source>
+        <translation>Подсказка к полю места сохранения настроек</translation>
+    </message>
+    <message>
+        <source>userPathHint</source>
+        <translation>Подсказка к полю ввода текстового пути пользователем</translation>
+    </message>
+    <message>
+        <source>langListHelp</source>
+        <translation>Задаёт язык интерфейса приложения(настройка применяется моментально)</translation>
+    </message>
+    <message>
+        <source>themeListHelp</source>
+        <translation>Задаёт тему интерфейса из предложенных в списке</translation>
+    </message>
+    <message>
+        <source>colorThemeHelp</source>
+        <translation>Применяет цветовую схему к выбранной теме</translation>
+    </message>
+    <message>
+        <source>saveSettingsHelp</source>
+        <translation>Задаёт формат хранения настроек - например это может быть XML, или реестр, или INI файл</translation>
+    </message>
+    <message>
+        <source>saveLocationHelp</source>
+        <translation>Выбор каталога для хранения настроек(в реестр всё равно записывается как минимум одна настройка - адрес хранения конфига)</translation>
+    </message>
+    <message>
+        <source>userPathHelp</source>
+        <translation>Ты можешь определить, по какому пути хранить настройки</translation>
+    </message>
+    <message>
+        <source>autoSaveHelp</source>
+        <translation>Определяет, будет ли программа делать бекап текущего документа на случай неожиданного завершения работы</translation>
+    </message>
+    <message>
+        <source>saveFreqHelp</source>
+        <translation>Частота автосохранения текущего документа - чем чаще тем лучше</translation>
+    </message>
+    <message>
+        <source>depFuncHelp</source>
+        <translation>Активирует устаревшие функции. Мы не рекомендуем это включать, только just fo fun</translation>
+    </message>
+    <message>
+        <source>devFuncHelp</source>
+        <translation>Активирует функции программы, находящиеся на текущий момент в разработке. Обрати внимание - поведение программы или её некоторых элементов может изменить</translation>
+    </message>
+    <message>
+        <source>limitSpinBoxHelp</source>
+        <translation>Определяет максимальное количество строчек в логах, при достижении заданного числа логи будут сохранены в файл и очищены</translation>
+    </message>
+    <message>
+        <source>allowWarningsHelp</source>
+        <translation>Активация этой функции позволяет выдатть одноразовое предупреждение при запуске устаревшего загрузчика HTTP</translation>
+    </message>
+    <message>
+        <source>allowCacheHelp</source>
+        <translation>Определяет, будет программа кешировать загруженную информацию. Рекомендуется при ограниченном интернет траффике</translation>
+    </message>
+    <message>
+        <source>parseStrikethroughHelp</source>
+        <translation>Активирует обработку зачёркнутого текста</translation>
+    </message>
+    <message>
+        <source>parseUnderlinedHelp</source>
+        <translation>Активирует обработку подчёркнутого текста</translation>
+    </message>
+    <message>
+        <source>clearLogHelp</source>
+        <translation>Очищает логи программы без сохранения в файл</translation>
+    </message>
+    <message>
+        <source>saveLogHelp</source>
+        <translation>Вызывает окно выбора пути сохранения накопленных сообщений логов</translation>
+    </message>
+    <message>
+        <source>logBoxHelp</source>
+        <translation>Окно логов, сюда отправляется информация от различных модулей программы, что позволяет облегчить отладку пользователем(позволяет сформировать предположение о причине неожиданного поведения программы)</translation>
+    </message>
+    <message>
+        <source>parseSimplLinksHelp</source>
+        <translation>Активация разрешает обработку простых ссылок формата &lt;www.url.com&gt;</translation>
+    </message>
+    <message>
+        <source>parseAdvLinkslHelp</source>
+        <translation>Разрешает обработку форматированных ссылок [имя_ссылки](ссылка)</translation>
+    </message>
+    <message>
+        <source>parseHeaderLvlHelp</source>
+        <translation>Разрешает обработку тегов заголовка #...#####</translation>
+    </message>
+    <message>
+        <source>parseItalicHelp</source>
+        <translation>Разрешает обработку фрагментов, обозначенных *курсивом*</translation>
+    </message>
+    <message>
+        <source>deprSyntaxPrepHelp</source>
+        <translation>Не рекомендуется - разрешает обработку устаревшим препроцессором</translation>
+    </message>
+    <message>
+        <source>deprSyntaxPostHelp</source>
+        <translation>Не рекомендуется - разрешает обработку устаревшим постпроцессором</translation>
+    </message>
+    <message>
+        <source>deprUrlSimplParserHelp</source>
+        <translation>Не рекомендуется - разрешает обработку простых ссылок &lt;www.url.com&gt; устаревшим парсером</translation>
+    </message>
+    <message>
+        <source>deprUrlAdvParserHelp</source>
+        <translation>Не рекомендуется - разрешает обработку форматированных ссылок [имя_ссылки](ссылка)</translation>
+    </message>
+    <message>
+        <source>deprUrlBasParserHelp</source>
+        <translation>Не рекомендуется - разрешает обработку ссылок формата &lt;http://www.url.com&gt;</translation>
+    </message>
+    <message>
+        <source>combatilibtyUndrHelp</source>
+        <translation>Этот пункт преобразует несовместимый тег &lt;ins&gt; в тег &lt;u&gt;</translation>
+    </message>
+    <message>
+        <source>parseBoldHelp</source>
+        <translation>Разрешает обработку текста, отмеченного **жирным**</translation>
+    </message>
 </context>
 <context>
     <name>currentChangelog</name>
@@ -557,6 +685,21 @@ Programm will close</source>
     <message>
         <source>Current_ver.md отсутствует</source>
         <translation>Current_ver.md отсутствует</translation>
+    </message>
+</context>
+<context>
+    <name>helpCenter</name>
+    <message>
+        <source>Program guide</source>
+        <translation>Справочный центр</translation>
+    </message>
+    <message>
+        <source>Manual.md �����������</source>
+        <translation type="vanished">Отсутствует файл Manual.md</translation>
+    </message>
+    <message>
+        <source>Manual.md отсутствует</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

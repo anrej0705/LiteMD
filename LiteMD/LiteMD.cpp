@@ -45,7 +45,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 
 	//Блок элементов интерфейса
 	mdsArea = new QScrollArea;
-	btnDown = new OrientablePushButton("--->", this);
+	btnDown = new OrientablePushButton("<---", this);
 	btnUp = new OrientablePushButton("--->", this);
 	editorWindow = new QGroupBox(tr("Editor"));
 	viewerWindow = new QGroupBox(tr("Viewer"));
@@ -71,6 +71,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	actSetTextFormat = new CustomToolButton;
 	dirSwitch1 = new QPushButton("<>");
 	dirSwitch2 = new QPushButton("<>");
+	help_manager = new helpCenter;
 	//-------------------------
 
 	//Блок конфигурации элементов интерфейса
@@ -218,7 +219,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mdsArea->setWidget(mds);
 	mds->setWordWrap(1);
 	btnUp->setOrientation(OrientablePushButton::VerticalBottomTop);
-	btnDown->setOrientation(OrientablePushButton::VerticalTopBottom);
+	btnDown->setOrientation(OrientablePushButton::VerticalBottomTop);
 	btnUp->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
 	btnDown->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
 	btnUp->setFixedWidth(32);
@@ -347,11 +348,13 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	if (!connect(checkUpdates, SIGNAL(triggered()), this, SLOT(slotCheckUpdates())))
 		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
 	if (!connect(actClose, SIGNAL(triggered()), this, SLOT(slotFileClose())))
-		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
+		QErrorMessage::qtHandler();	++connected_signals;//Закрытие документа
 	if (!connect(btnDown, SIGNAL(clicked()), this, SLOT(slotMdsDown())))
-		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
+		QErrorMessage::qtHandler();	++connected_signals;//Листание вниз
 	if (!connect(btnUp, SIGNAL(clicked()), this, SLOT(slotMdsUp())))
-		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
+		QErrorMessage::qtHandler();	++connected_signals;//Листание вверх
+	if (!connect(actHelp, SIGNAL(triggered()), help_manager, SLOT(slotShowWindow())))
+		QErrorMessage::qtHandler();	++connected_signals;//Открытие справочного центра
 	push_log(std::string("[QT->LiteMD]Образовано " + std::to_string(connected_signals) + " связей"));
 	//------------------------------
 
@@ -374,7 +377,9 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	//defTitle = windowTitle();	//patch 0.2.2 исправление версии "0.0.0" при открытии файла
 	
 	//Устанавливаем иконку приложения
-	setWindowIcon(QIcon(appPath + "/icon.ico"));
+	QPixmap appIcon(appPath + "/icon.ico");
+	appIcon.setMask(appIcon.createMaskFromColor(QColor(0, 0, 0)));
+	setWindowIcon(QIcon(appIcon));
 
 	//Если приложение запускается в первый раз или конфиг файл отсутствует то будем считать что это первый запуск
 	//И показываем юзеру текущий ченджлог используя наш рендер, перед показом даём задержку 1 сек чтобы окно успело

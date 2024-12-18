@@ -109,6 +109,8 @@ std::string italicParser(std::string& rawInput)
 		stroke_end = -1;
 	}
 
+	push_log(std::string("[italicParser]Обработано пар *...*: " + std::to_string(italics)));
+
 	free(buffer);
 	free(buffer_size);
 

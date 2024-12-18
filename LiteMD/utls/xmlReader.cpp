@@ -14,7 +14,7 @@ extern struct parser_switchers parswitch;
 extern struct depr_paerser_switchers dparswitch;
 xmlReader::xmlReader()
 {
-	fileName = getAppPath() + "/config.xml";
+	fileName = getConfigPath() + "/config.xml";
 	boost::container::string* log_out = new boost::container::string("[XML]Задано имя файла конфига для записи ");
 	log_out->append(fileName.toLocal8Bit());
 	push_log(log_out->c_str());	//xmlWriter.cpp 17:20
@@ -56,6 +56,7 @@ boost::container::vector<QString> xml_tags{
 	QString("combatilibtyUndr"),
 	QString("en_italic"),
 	QString("en_bold"),
+	QString("dataLocation"),
 };
 
 bool xmlReader::readConfig()
@@ -84,6 +85,7 @@ bool xmlReader::readConfig()
 	_xml_ptr.push_back(reinterpret_cast<void*>(&parswitch.en_compat_undr));
 	_xml_ptr.push_back(reinterpret_cast<void*>(&parswitch.en_italic));
 	_xml_ptr.push_back(reinterpret_cast<void*>(&parswitch.en_bold));
+	_xml_ptr.push_back(reinterpret_cast<void*>(&dataLocation));
 
 	int* _int_ptr;
 	bool* _bool_ptr;
@@ -154,6 +156,8 @@ bool xmlReader::readConfig()
 									{
 										_int_ptr = reinterpret_cast<int*>(_xml_ptr[_xml_index]);
 										*_int_ptr = value.toInt();
+										if (*_int_ptr != (unsigned int)value.toInt())
+											throw(exceptionHandler::WARNING, "Возможное повреждение данных при чтении");
 									}
 									++paramReadedCnt;
 									readSuccess = 1;

@@ -48,6 +48,12 @@ class appSettings : public QDialog
 		QLabel* saveSettingsHint;		//Описание выпадающего списка для выбора способа сохранения настроек
 		QComboBox* saveSettings;		//Выпадающий список для сохранения настроек
 
+		QLabel* saveLocationHint;		//Описание выпадающего списка выбора пути сохранения
+		QComboBox* saveLocation;		//Выпадающий список выбора пути сохранения
+
+		QLabel* userPathHint;			//Описание к полю ввода пользовательского пути
+		QLineEdit* userPath;			//Поле ввода пользовательского пути
+
 		QLabel* saveFreqHint;			//Описание выпадающего списка для выбора частоты автосейва
 		QComboBox* saveFreq;			//Выпадающий список выбора частоты сохранения
 
@@ -162,3 +168,4 @@ class appSettings : public QDialog
 	signals:
 		void signalTitleChanged(const QString&);
 };
+QString getConfigPath();
