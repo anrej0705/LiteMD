@@ -43,6 +43,9 @@ void appSettings::configureHackTab()
 	//Добавляем в компоновку
 	lbl_lay->addWidget(parseUnderlinedHint);
 
+	//Подключение системы "Что это?"
+	parseUnderlined->setWhatsThis(tr("parseUnderlinedHelp"));
+
 	interact_lay->addWidget(parseUnderlined);
 
 	//Настраиваем порядок размещения элементов - сверху
