@@ -95,7 +95,11 @@ void push_log(const char* log)	//По идее это должно без про
 	if (logger_backend::getInstance().get_limit() != 0)	//Предел задан то тогда проверяем достигнут ли
 	{													//если достигнут то чистим говнище вилкой
 		if (logger_backend::getInstance().get_size() == logger_backend::getInstance().get_limit())
+		{
+			//С 0.2.8 теперь дампится по пути заданному в конфиге каждый раз по достижению лимита
+			save_log();
 			logger_backend::getInstance().clear_logs();
+		}
 	}
 	logger_backend::getInstance().insert_log(log, strlen(log));
 	t_mut.unlock();
@@ -107,7 +111,11 @@ void push_log(const std::string& log)	//Лог формата std::string
 	if (logger_backend::getInstance().get_limit() != 0)	//Предел задан то тогда проверяем достигнут ли
 	{													//если достигнут то чистим говнище вилкой
 		if (logger_backend::getInstance().get_size() == logger_backend::getInstance().get_limit())
+		{
+			//С 0.2.8 теперь дампится по пути заданному в конфиге каждый раз по достижению лимита
+			save_log();
 			logger_backend::getInstance().clear_logs();
+		}
 	}
 	logger_backend::getInstance().insert_log(log.c_str(), log.size());
 	t_mut.unlock();
@@ -121,19 +129,7 @@ void push_log(const QString& log)		//Лог формата QString
 		if (logger_backend::getInstance().get_size() == logger_backend::getInstance().get_limit())
 		{
 			//С 0.2.8 теперь дампится по пути заданному в конфиге каждый раз по достижению лимита
-			::push_log("[LOG]Достигнут лимит сообщений логов, попытка сохранить лог в файл...");
-			std::string filename("stable.");
-			filename.append(&boost::posix_time::to_iso_extended_string(boost::posix_time::microsec_clock::universal_time()).c_str()[0], 19);
-			std::replace(filename.begin(), filename.end(), ':', '-');
-			std::replace(filename.begin(), filename.end(), 'T', '_');
-			filename.append(".log");
-			std::ofstream stable_log(QString(getConfigPath()).toStdString() + filename);
-			for (uint32_t _index = 0; _index < logger_backend::getInstance().get_size(); ++_index)
-			{
-				filename = QString::fromUtf8(logger_backend::getInstance().get_stroke(_index)).toStdString() + '\n';
-				stable_log.write(filename.c_str(), filename.size());
-			}
-			stable_log.close();
+			save_log();
 			logger_backend::getInstance().clear_logs();
 		}
 	}
@@ -178,7 +174,8 @@ void dump_crash_log()
 	std::replace(filename.begin(), filename.end(), ':', '-');
 	std::replace(filename.begin(), filename.end(), 'T', '_');
 	filename.append(".log");
-	std::ofstream crash_log(QString(getConfigPath()).toStdString() + filename);
+	std::string logPath = QString(getConfigPath()).toStdString() + '/' + filename;
+	std::ofstream crash_log(logPath);
 	for (uint32_t _index = 0; _index < logger_backend::getInstance().get_size(); ++_index)
 	{
 		filename = QString::fromUtf8(logger_backend::getInstance().get_stroke(_index)).toStdString() + '\n';
@@ -190,4 +187,21 @@ void dump_crash_log()
 void set_log_limit(uint32_t limit)
 {
 	logger_backend::getInstance().set_limit(limit);
+}
+
+void save_log()
+{
+	std::string filename("stable.");
+	filename.append(&boost::posix_time::to_iso_extended_string(boost::posix_time::microsec_clock::universal_time()).c_str()[0], 19);
+	std::replace(filename.begin(), filename.end(), ':', '-');
+	std::replace(filename.begin(), filename.end(), 'T', '_');
+	filename.append(".log");
+	std::string logPath = QString(getConfigPath()).toStdString() + '/' + filename;
+	std::ofstream stable_log(logPath);
+	for (uint32_t _index = 0; _index < logger_backend::getInstance().get_size(); ++_index)
+	{
+		filename = QString::fromUtf8(logger_backend::getInstance().get_stroke(_index)).toStdString() + '\n';
+		stable_log.write(filename.c_str(), filename.size());
+	}
+	stable_log.close();
 }

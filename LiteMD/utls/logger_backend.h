@@ -48,3 +48,4 @@ void push_log(const char* log);			//Лог формата char*
 void push_log(const std::string& log);	//Лог формата std::string
 void push_log(const QString& log);		//Лог формата QString
 void set_log_limit(uint32_t limit);		//Установка лимита на количество сообщений
+void save_log();						//Сохранение логов
