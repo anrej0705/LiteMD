@@ -149,10 +149,14 @@ void logger_backend::clear_logs()
 {
 	//Чистим строки
 	for (uint32_t _index = 0; _index < log_str_counter; ++_index)
+	{
 		free(log_container[_index]);
+		log_container[_index] = NULL;
+	}
 	free(log_container);	//Чистим массив и пересоздаём указатель
-	log_container = (char**)calloc(log_str_counter + 1, sizeof(char*));
+	log_container = NULL;
 	log_str_counter = 0;
+	log_container = (char**)calloc(log_str_counter + 1, sizeof(char*));
 }
 
 char* logger_backend::get_stroke(uint32_t _index)
