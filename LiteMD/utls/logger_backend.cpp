@@ -25,7 +25,8 @@ void singlet_remover::initialize(logger_backend* ptr)
 logger_backend::logger_backend()
 {
 	log_str_counter = 0;	//Выделяем память на один указатель больше, на всякий
-	log_container = (char**)calloc(log_str_counter + 1, sizeof(char*));
+	//log_container = (char**)calloc(log_str_counter + 1, sizeof(char*));
+	log_container = NULL;
 	log_str = new boost::container::string;
 	msg_limit = 0;	//По умолчанию параметр не задан
 }
@@ -51,20 +52,22 @@ logger_backend& logger_backend::getInstance()
 
 void logger_backend::insert_log(const char* log, uint32_t log_size)
 {
-	static char** new_lc_ptr;	//Указатель на новый блок, для проверки на зашкварность
-	static char* new_l_ptr;		//То же самое но для строчки
+	char** new_lc_ptr = NULL;	//Указатель на новый блок, для проверки на зашкварность
+	char* new_l_ptr = NULL;		//То же самое но для строчки
 
 	//Выделяем память для указателя на строчку логов
 	++log_str_counter;
 	new_lc_ptr = (char**)realloc(log_container, sizeof(char*)*log_str_counter);
 	if (new_lc_ptr != NULL)
 	{
-		log_container = new_lc_ptr;
+		std::swap(log_container, new_lc_ptr);
+		//log_container = new_lc_ptr;
 		//Выделяем память для занесения строчки логов
 		new_l_ptr = (char*)calloc(16 + log_size + 2, sizeof(char));
 		if (new_l_ptr != NULL)
 		{
-			log_container[log_str_counter - 1] = new_l_ptr;
+			std::swap(log_container[log_str_counter - 1], new_l_ptr);
+			//log_container[log_str_counter - 1] = new_l_ptr;
 			log_container[log_str_counter - 1][0] = '[';
 			//Достаём значение системного таймера
 			strncpy(&log_container[log_str_counter - 1][1], &boost::posix_time::to_iso_extended_string(boost::posix_time::microsec_clock::universal_time()).c_str()[11], 14);
@@ -77,6 +80,12 @@ void logger_backend::insert_log(const char* log, uint32_t log_size)
 	}
 	else
 		throw(exceptionHandler(exceptionHandler::WARNING, "Не удалось выделить память в контейнере логов(указатель зашкварился)"));
+
+	/*free(new_l_ptr);
+	for (uint32_t _index = 0; _index < log_str_counter; ++_index)
+		free(new_lc_ptr[_index]);
+	new_lc_ptr = NULL;
+	new_l_ptr = NULL;*/
 }
 
 uint32_t logger_backend::get_limit()
@@ -89,7 +98,7 @@ void logger_backend::set_limit(uint32_t limit)
 	msg_limit = limit;	//Из аргумента вхуяриваем ес чо
 }
 
-void push_log(const char* log)	//По идее это должно без проблем вызываться из сей
+void push_log(const char* log)	//По идее это должно без проблем вызываться из сишных файлов
 {
 	t_mut.lock();	//Эта тема будет вызываться из разных потоков поэтому надо выстроить очередь
 	if (logger_backend::getInstance().get_limit() != 0)	//Предел задан то тогда проверяем достигнут ли
@@ -124,6 +133,31 @@ void push_log(const std::string& log)	//Лог формата std::string
 void push_log(const QString& log)		//Лог формата QString
 {
 	t_mut.lock();	//Эта тема будет вызываться из разных потоков поэтому надо выстроить очередь
+	for (uint32_t a = 0; a < 16384; ++a)
+	{
+		logger_backend::getInstance().insert_log(log.toLocal8Bit(), log.size());
+	}
+	logger_backend::getInstance().clear_logs();
+	for (uint32_t a = 0; a < 16384; ++a)
+	{
+		logger_backend::getInstance().insert_log(log.toLocal8Bit(), log.size());
+	}
+	logger_backend::getInstance().clear_logs();
+	for (uint32_t a = 0; a < 16384; ++a)
+	{
+		logger_backend::getInstance().insert_log(log.toLocal8Bit(), log.size());
+	}
+	logger_backend::getInstance().clear_logs();
+	for (uint32_t a = 0; a < 16384; ++a)
+	{
+		logger_backend::getInstance().insert_log(log.toLocal8Bit(), log.size());
+	}
+	logger_backend::getInstance().clear_logs();
+	for (uint32_t a = 0; a < 16384; ++a)
+	{
+		logger_backend::getInstance().insert_log(log.toLocal8Bit(), log.size());
+	}
+	logger_backend::getInstance().clear_logs();
 	if (logger_backend::getInstance().get_limit() != 0)	//Предел задан то тогда проверяем достигнут ли
 	{													//если достигнут то чистим говнище вилкой
 		if (logger_backend::getInstance().get_size() == logger_backend::getInstance().get_limit())
