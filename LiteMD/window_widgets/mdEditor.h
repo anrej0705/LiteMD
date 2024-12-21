@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <QtWidgets>
 class mdEditor : public QTextEdit
 {
@@ -8,8 +8,12 @@ class mdEditor : public QTextEdit
 		QString mdFileName;
 		QString processText;	//Буфер текста для обработки
 		QFile mdObject;
+	protected:
+		void insertLattice(uint8_t);
 	public:
 		mdEditor(QWidget* mdWgt = 0);
+		bool openFileArg(char* arg);
+		void closeFile();
 	signals:
 		void textEdited(const QString&);	//Отправляется при изменении текста
 		void titleChanged(const QString&);	//Отправлятся при открытии/сохранении файла
@@ -28,6 +32,16 @@ class mdEditor : public QTextEdit
 		void slotNew();		//Очищает поле ввода
 		void convertToUrl();//Преобразует в <ссылку>
 		void convToAltUrl();//Преобразует в [альтернативную]<ссылку>
+		void slotSetH1();	//Вставляет '#' слева от курсора
+		void slotSetH2();	//Вставляет '##' слева от курсора
+		void slotSetH3();	//Вставляет '###' слева от курсора
+		void slotSetH4();	//Вставляет '####' слева от курсора
+		void slotSetH5();	//Вставляет '#####' слева от курсора
+		void slotSetEscape();//Вставляет '/' слева от курсора
+		void slotSetBold();	//Вставляет ** слева и справа от выделенной области
+		void slotSetItalic();//Вставляет * слева и справа от выделенной области
+		void slotSetUnrderline();//Вставляет подчёркивание в текст
+		void slotSetStrikethrough();//Отмечает тегом зачёркнутого текста
 };
 
 class mdEditor_filter : public QObject

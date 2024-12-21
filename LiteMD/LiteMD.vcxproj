@@ -49,25 +49,25 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>5.14.2_msvc2017_64</QtInstall>
-    <QtModules>core;network;gui;widgets</QtModules>
+    <QtInstall>Qt 5.14.2</QtInstall>
+    <QtModules>core;xml;network;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
     <QMakeCodeLines>win32:RC_ICONS += icon.ico;$(QMakeCodeLines)</QMakeCodeLines>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="QtSettings">
     <QtInstall>Qt 5.14.2_x86</QtInstall>
-    <QtModules>core;network;gui;widgets</QtModules>
+    <QtModules>core;xml;network;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>Qt 5.14.2</QtInstall>
-    <QtModules>core;network;gui;widgets</QtModules>
+    <QtModules>core;xml;network;gui;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
     <QtDeploy>true</QtDeploy>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="QtSettings">
     <QtInstall>Qt 5.14.2_x86</QtInstall>
-    <QtModules>core;network;gui;widgets</QtModules>
+    <QtModules>core;xml;network;gui;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
     <QtDeploy>true</QtDeploy>
   </PropertyGroup>
@@ -96,8 +96,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <PostBuildEvent>
@@ -108,9 +113,13 @@
       <BuildAction>false</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)dyn_tr_manager;$(ProjectDir)window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)window_widgets;$(ProjectDir)modules\QMicroz;$(ProjectDir)string_processing\extended;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_);C:\boost\boost_1_84_0</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalLibraryDirectories>C:\boost\boost_1_84_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <PostBuildEvent>
@@ -121,9 +130,23 @@
       <BuildAction>false</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\dyn_tr_manager;C:\git\LiteMD\LiteMD\settings_tabs;C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;C:\git\LiteMD\LiteMD;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)window_widgets;$(ProjectDir)modules\QMicroz;$(ProjectDir)string_processing\hacks;$(ProjectDir)string_processing\extended;$(ProjectDir)modules\cmd_wrapper;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_);C:\boost\boost_1_84_0</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <OpenMPSupport>true</OpenMPSupport>
+      <EnableModules>false</EnableModules>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <AdditionalOptions>-DBOOST_STACKTRACE_USE_BACKTRACE /D_HAS_STD_BYTE=0 %(AdditionalOptions)</AdditionalOptions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalLibraryDirectories>C:\boost\boost_1_84_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>-DBOOST_STACKTRACE_USE_ADDR2LINE %(AdditionalOptions)</AdditionalOptions>
+      <UACExecutionLevel>AsInvoker</UACExecutionLevel>
+      <ShowProgress>LinkVerbose</ShowProgress>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <PostBuildEvent>
@@ -134,9 +157,13 @@
       <BuildAction>lupdate_lrelease</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)dyn_tr_manager;$(ProjectDir)window_widgets;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)window_widgets;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_);C:\boost\boost_1_84_0</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalLibraryDirectories>C:\boost\boost_1_84_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <PostBuildEvent>
@@ -147,16 +174,25 @@
       <BuildAction>lupdate_lrelease</BuildAction>
     </QtTranslation>
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\git\LiteMD\LiteMD\dyn_tr_manager;C:\git\LiteMD\LiteMD\settings_tabs;C:\git\LiteMD\LiteMD\utls;C:\git\LiteMD\LiteMD\string_processing;C:\git\LiteMD\LiteMD\ui_primitives;C:\git\LiteMD\LiteMD\ress;C:\git\LiteMD\LiteMD\modules;C:\git\LiteMD\LiteMD\loc;C:\git\LiteMD\LiteMD\window_widgets;C:\git\LiteMD\LiteMD;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)deprecated;$(ProjectDir)dyn_tr_manager;$(ProjectDir)settings_tabs;$(ProjectDir)utls;$(ProjectDir)string_processing\hacks;$(ProjectDir)string_processing\extended;$(ProjectDir)string_processing;$(ProjectDir)ui_primitives;$(ProjectDir)ress;$(ProjectDir)modules;$(ProjectDir)loc;$(ProjectDir)modules\QMicroz;$(ProjectDir)window_widgets;$(ProjectDir)modules\cmd_wrapper;$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_);C:\boost\boost_1_84_0</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>-DBOOST_STACKTRACE_USE_BACKTRACE /D_HAS_STD_BYTE=0 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalLibraryDirectories>C:\boost\boost_1_84_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>-DBOOST_STACKTRACE_USE_ADDR2LINE %(AdditionalOptions)</AdditionalOptions>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+      <ShowProgress>LinkVerbose</ShowProgress>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <Optimization>Disabled</Optimization>
+      <Optimization>MaxSpeed</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -200,18 +236,44 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="deprecated\mdScreen__advHyperlinkParserDeprecated.cpp" />
+    <ClCompile Include="deprecated\mdScreen__hyprelinkParserDeprecated.cpp" />
+    <ClCompile Include="deprecated\mdScreen__initializeVarsDeprecated.cpp" />
+    <ClCompile Include="deprecated\syntax_postprocessor.cpp" />
+    <ClCompile Include="deprecated\syntax_preprocessor.cpp" />
     <ClCompile Include="dyn_tr_manager\appSettings_ui.cpp" />
+    <ClCompile Include="dyn_tr_manager\frameChangelog_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\GuiDownloader_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\LiteMD_ui.cpp" />
+    <ClCompile Include="dyn_tr_manager\logger_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\ui_update_event.cpp" />
+    <ClCompile Include="modules\cmd_wrapper\bridge.cpp" />
+    <ClCompile Include="modules\cmd_wrapper\gui.cpp" />
+    <ClCompile Include="modules\customToolButton.cpp" />
     <ClCompile Include="modules\Downloader.cpp" />
+    <ClCompile Include="modules\exceptionHandler.cpp" />
+    <ClCompile Include="modules\frameChangelog.cpp" />
     <ClCompile Include="modules\GuiDownloader.cpp" />
     <ClCompile Include="modules\LastFileManager.cpp" />
     <ClCompile Include="settings_tabs\tab_basic.cpp" />
     <ClCompile Include="settings_tabs\tab_downloader.cpp" />
+    <ClCompile Include="settings_tabs\tab_extended.cpp" />
+    <ClCompile Include="settings_tabs\tab_hacks.cpp" />
+    <ClCompile Include="settings_tabs\tab_logs.cpp" />
     <ClCompile Include="settings_tabs\tab_render.cpp" />
-    <ClCompile Include="string_processing\syntax_postprocessor.cpp" />
-    <ClCompile Include="string_processing\syntax_preprocessor.cpp" />
+    <ClCompile Include="string_processing\boldParser.cpp" />
+    <ClCompile Include="string_processing\crlfParser.cpp" />
+    <ClCompile Include="string_processing\crlfProcessor.cpp" />
+    <ClCompile Include="string_processing\extended\extended_strikethroughParser.cpp" />
+    <ClCompile Include="string_processing\hacks\hack_compat_parser.cpp" />
+    <ClCompile Include="string_processing\headerLvlParser.cpp" />
+    <ClCompile Include="string_processing\italicParser.cpp" />
+    <ClCompile Include="string_processing\regex.cpp" />
+    <ClCompile Include="string_processing\shieldingParser.cpp" />
+    <ClCompile Include="string_processing\symbolCleaner.cpp" />
+    <ClCompile Include="string_processing\urlAdvancedParser.cpp" />
+    <ClCompile Include="string_processing\urlBasicParser.cpp" />
+    <ClCompile Include="string_processing\mdScreen__urlBasicSimplifiedParser.cpp" />
     <ClCompile Include="ui_primitives\dialogBoxes.cpp">
       <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">input</DynamicSource>
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).moc</QtMocFileName>
@@ -224,7 +286,12 @@
     </ClCompile>
     <ClCompile Include="ui_primitives\OrientalPushButton.cpp" />
     <ClCompile Include="utls\globalFlags.c" />
+    <ClCompile Include="utls\localeDetector.cpp" />
+    <ClCompile Include="utls\logger_backend.cpp" />
+    <ClCompile Include="utls\xmlReader.cpp" />
+    <ClCompile Include="utls\xmlWriter.cpp" />
     <ClCompile Include="window_widgets\appSettings.cpp" />
+    <ClCompile Include="window_widgets\logger.cpp" />
     <ClCompile Include="window_widgets\mdEditor.cpp" />
     <ClCompile Include="window_widgets\mdScreen.cpp" />
     <ClCompile Include="LiteMD.cpp" />
@@ -239,6 +306,9 @@
     <Image Include="icon.ico" />
     <Image Include="ress\appicon.ico" />
     <Image Include="ress\icon_about.png" />
+    <Image Include="ress\icon_bug.png" />
+    <Image Include="ress\icon_exception_fatal.png" />
+    <Image Include="ress\icon_exception_warning.png" />
     <Image Include="ress\icon_help.png" />
     <Image Include="ress\icon_http_downloader.png" />
     <Image Include="ress\icon_new_document.png" />
@@ -246,9 +316,12 @@
     <Image Include="ress\icon_place_url.png" />
     <Image Include="ress\icon_place_url_alternate.png" />
     <Image Include="ress\icon_quit.png" />
+    <Image Include="ress\icon_recent_files.png" />
     <Image Include="ress\icon_save.png" />
     <Image Include="ress\icon_save_as.png" />
     <Image Include="ress\icon_settings.png" />
+    <Image Include="ress\icon_set_header.png" />
+    <Image Include="ress\icon_set_shielding.png" />
     <Image Include="ress\icon_set_text_format.png" />
     <Image Include="ress\work_progress_cap.png" />
   </ItemGroup>
@@ -262,24 +335,48 @@
     <QtTranslation Include="loc\LiteMD_ru_UA.ts" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="deprecated\syntax_postprocessor.h" />
+    <ClInclude Include="deprecated\syntax_preprocessor.h" />
     <ClInclude Include="dyn_tr_manager\ui_update_event.h" />
-    <QtMoc Include="LiteMD.h" />
-    <ClInclude Include="modules\LastFileManager.h" />
+    <QtMoc Include="window_widgets\logger.h" />
+    <QtMoc Include="modules\frameChangelog.h" />
+    <QtMoc Include="modules\customToolButton.h" />
+    <ClInclude Include="modules\cmd_wrapper\bridge.h" />
+    <ClInclude Include="modules\cmd_wrapper\gui.h" />
+    <ClInclude Include="modules\exceptionHandler.h" />
+    <ClInclude Include="modules\QMicroz\qmicroz.h" />
     <ClInclude Include="ress\resource.h" />
     <ClInclude Include="ress\resource1.h" />
-    <ClInclude Include="string_processing\syntax_postprocessor.h" />
-    <ClInclude Include="string_processing\syntax_preprocessor.h" />
+    <ClInclude Include="string_processing\boldParser.h" />
+    <ClInclude Include="string_processing\crlfParser.h" />
+    <ClInclude Include="string_processing\crlfProcessor.h" />
+    <ClInclude Include="string_processing\extended\extended_strikethroughParser.h" />
+    <ClInclude Include="string_processing\hacks\hack_compat_parser.h" />
+    <ClInclude Include="string_processing\headerLvlParser.h" />
+    <ClInclude Include="string_processing\italicParser.h" />
+    <ClInclude Include="string_processing\regex.h" />
+    <ClInclude Include="string_processing\shieldingParser.h" />
+    <ClInclude Include="string_processing\symbolCleaner.h" />
+    <ClInclude Include="string_processing\urlAdvancedParser.h" />
+    <ClInclude Include="string_processing\urlBasicParser.h" />
+    <ClInclude Include="string_processing\urlBasicSimplifiedParser.h" />
     <ClInclude Include="ui_primitives\dialogBoxes.h" />
     <ClInclude Include="utls\event_id_constructor.h" />
     <ClInclude Include="utls\globalFlags.h" />
     <ClInclude Include="utls\global_definitions.h" />
+    <ClInclude Include="utls\logger_backend.h" />
+    <ClInclude Include="utls\xmlReader.h" />
+    <ClInclude Include="utls\xmlWriter.h" />
     <QtMoc Include="window_widgets\appSettings.h" />
     <QtMoc Include="window_widgets\mdScreen.h" />
     <QtMoc Include="window_widgets\mdEditor.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="cpp.hint" />
+    <None Include="docs\Changelog.md" />
+    <None Include="docs\Current_ver.md" />
+    <None Include="docs\Manual.md" />
     <None Include="Readme.md" />
+    <None Include="testPattern.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

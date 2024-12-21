@@ -80,7 +80,7 @@
     </message>
     <message>
         <source>[MAX FILE SIZE 65K]</source>
-        <translation>[МАКС РАЗМЕР ФАЙЛА 65K]</translation>
+        <translation type="vanished">[МАКС РАЗМЕР ФАЙЛА 65K]</translation>
     </message>
     <message>
         <source>Ready</source>
@@ -130,11 +130,11 @@ github.com/anrej0705
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation>[В РАЗРАБОТКЕ]LiteMD alpha 0.1.8 сборка </translation>
+        <translation type="vanished">[В РАЗРАБОТКЕ]LiteMD alpha 0.2.1 сборка </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.1.8 сборка </translation>
+        <translation type="vanished">Ver. alpha 0.2.1 сборка </translation>
     </message>
     <message>
         <source>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</source>
@@ -142,11 +142,11 @@ github.com/anrej0705
     </message>
     <message>
         <source>This app is free for use,modify and reupload&lt;BR&gt;</source>
-        <translation>Это приложение свободно для использования, модифицикации и распространения</translation>
+        <translation type="vanished">Это приложение свободно для использования, модифицикации и распространения</translation>
     </message>
     <message>
         <source>Repo on Github: </source>
-        <translation>Репозитории на GitHub: </translation>
+        <translation type="vanished">Репозитории на GitHub: </translation>
     </message>
     <message>
         <source>Releases: </source>
@@ -220,6 +220,98 @@ github.com/anrej0705
         <source>Make alt&amp;enate URL</source>
         <translation>Преобразовать в альтернативный &amp;URL</translation>
     </message>
+    <message>
+        <source>Sh&amp;ow changelog</source>
+        <translation>По&amp;казать список изменений</translation>
+    </message>
+    <message>
+        <source>This app is free for use,modify and reupload&lt;BR&gt;&lt;BR&gt;LiteMD IS FREE SOFTWARE! IF YOU PAID FOR IT YOU HAVE BEEN SCAMMED!</source>
+        <translation>Приложение полностью бесплатно и свободно для модификации, использования и распространения&lt;BR&gt;&lt;BR&gt;LiteMD ЯВЛЯЕТСЯ БЕСПЛАТНЫМ ПРИЛОЖЕНИЕМ! ЕСЛИ ВЫ ЗАПЛАТИЛИ - ВАС ОБМАНУЛИ!</translation>
+    </message>
+    <message>
+        <source>Github repo: </source>
+        <translation>Репозиторий GitHub: </translation>
+    </message>
+    <message>
+        <source>&amp;Bug!</source>
+        <translation>&amp;Баг!</translation>
+    </message>
+    <message>
+        <source>LiteMD</source>
+        <translation>LiteMD</translation>
+    </message>
+    <message>
+        <source> build </source>
+        <translation> сборка </translation>
+    </message>
+    <message>
+        <source>Ver.</source>
+        <translation type="vanished">версия.</translation>
+    </message>
+    <message>
+        <source>Set headers</source>
+        <translation>Установить уровень заголовка</translation>
+    </message>
+    <message>
+        <source>Set format style</source>
+        <translation>Задать форматирование</translation>
+    </message>
+    <message>
+        <source>Set H1</source>
+        <translation>Установить заголовок H1</translation>
+    </message>
+    <message>
+        <source>Set H2</source>
+        <translation>Установить заголовок H2</translation>
+    </message>
+    <message>
+        <source>Set H3</source>
+        <translation>Установить заголовок H3</translation>
+    </message>
+    <message>
+        <source>Set H4</source>
+        <translation>Установить заголовок H4</translation>
+    </message>
+    <message>
+        <source>Set H5</source>
+        <translation>Установить заголовок H5</translation>
+    </message>
+    <message>
+        <source>Es&amp;cape character</source>
+        <translation>&amp;Экранировать символ</translation>
+    </message>
+    <message>
+        <source>Set bold</source>
+        <translation>Сделать жирным</translation>
+    </message>
+    <message>
+        <source>Set italic</source>
+        <translation>Сделать курсив</translation>
+    </message>
+    <message>
+        <source>Set underlined</source>
+        <translation>Сделать подчёркнутым</translation>
+    </message>
+    <message>
+        <source>Set strikethrough</source>
+        <translation>Сделать зачёркнутым</translation>
+    </message>
+    <message>
+        <source>Ver </source>
+        <translation>версия </translation>
+    </message>
+    <message>
+        <source>checkUpdates</source>
+        <translation>Проверить обновления</translation>
+    </message>
+    <message>
+        <source>Untitled</source>
+        <translation>Безымянный</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Закрыть</translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
@@ -237,6 +329,28 @@ github.com/anrej0705
     <message>
         <source>You dont save changes in file, which is opened currently. Save?</source>
         <translation>Вы не сохранили изменения в файле, который сейчасо открыт. Сохранить?</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Предупреждение</translation>
+    </message>
+    <message>
+        <source>Exception throwed!</source>
+        <translation>Сгенерировано исключение!</translation>
+    </message>
+    <message>
+        <source>FATAL</source>
+        <translation>Критическая ошибка</translation>
+    </message>
+    <message>
+        <source>Exception throwed!
+Programm will close</source>
+        <translation>Критическая ошибка! 
+Программа будет закрыта</translation>
+    </message>
+    <message>
+        <source>Cannot open config file!</source>
+        <translation>Невозможно открыть файл конфига, возможно он занят другой программой или не существует!</translation>
     </message>
 </context>
 <context>
@@ -295,7 +409,7 @@ github.com/anrej0705
     </message>
     <message>
         <source>Will be added in future</source>
-        <translation>Будет добавлено в будущем</translation>
+        <translation type="vanished">Будет добавлено в будущем</translation>
     </message>
     <message>
         <source>Parse URL links</source>
@@ -316,6 +430,160 @@ github.com/anrej0705
     <message>
         <source>Enable content caching</source>
         <translation>Кешировать загруженный контент</translation>
+    </message>
+    <message>
+        <source>Enable deprecated features</source>
+        <translation>Активировать устаревший функционал</translation>
+    </message>
+    <message>
+        <source>Enable in-dev features</source>
+        <translation>Возможности находящиеся в разработке</translation>
+    </message>
+    <message>
+        <source>parseSimplLinksHint</source>
+        <translation>Обрабатывать простые ссылки</translation>
+    </message>
+    <message>
+        <source>parseAdvLinksHint</source>
+        <translation>Обрабатывать форматированные ссылки</translation>
+    </message>
+    <message>
+        <source>parseHeaderLvlHint</source>
+        <translation>Обрабатывать заголовки</translation>
+    </message>
+    <message>
+        <source>reloadHint</source>
+        <translation>Настройки вступят в силу после перезагрузки документа</translation>
+    </message>
+    <message>
+        <source>clearLog</source>
+        <translation>Очистить лог</translation>
+    </message>
+    <message>
+        <source>saveLog</source>
+        <translation>Сохранить лог</translation>
+    </message>
+    <message>
+        <source>logHint</source>
+        <translation>Лог работы</translation>
+    </message>
+    <message>
+        <source>Logs</source>
+        <translation>Лог</translation>
+    </message>
+    <message>
+        <source>Save logs</source>
+        <translation>Сохранить логи</translation>
+    </message>
+    <message>
+        <source>*.txt</source>
+        <translation>*.txt</translation>
+    </message>
+    <message>
+        <source>colorThemeHint</source>
+        <translation>Цветовая схема</translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <translation>По умолчанию</translation>
+    </message>
+    <message>
+        <source>NaN</source>
+        <translation>NaN</translation>
+    </message>
+    <message>
+        <source>XML</source>
+        <translation>XML</translation>
+    </message>
+    <message>
+        <source>deprSyntaxPrepHint</source>
+        <translation>Включить устаревший препроцессор</translation>
+    </message>
+    <message>
+        <source>deprSyntaxPostHint</source>
+        <translation>Включить устаревший постпроцессор</translation>
+    </message>
+    <message>
+        <source>deprUrlSimplParserHint</source>
+        <translation>Включить устаревший парсер простых ссылок</translation>
+    </message>
+    <message>
+        <source>deprUrlAdvParserHint</source>
+        <translation>Включить устаревший парсер форматированных ссылок</translation>
+    </message>
+    <message>
+        <source>deprUrlBasParserHint</source>
+        <translation>Включить парсер ссылок &lt;https://url&gt;</translation>
+    </message>
+    <message>
+        <source>parseStrikethroughHint</source>
+        <translation>Обрабатывать зачёркнутый текст</translation>
+    </message>
+    <message>
+        <source>parseUnderlinedHint</source>
+        <translation>Обрабатывать подчёркнутый текст</translation>
+    </message>
+    <message>
+        <source>Extended</source>
+        <translation>Расширенные</translation>
+    </message>
+    <message>
+        <source>msgLimitHint</source>
+        <translation>Предел количества логов</translation>
+    </message>
+    <message>
+        <source>setDefault</source>
+        <translation>По умолчанию</translation>
+    </message>
+    <message>
+        <source>Hacks</source>
+        <translation>Хаки</translation>
+    </message>
+    <message>
+        <source>compatilibtyUndrHint</source>
+        <translation>Переключить на совместимый тег</translation>
+    </message>
+    <message>
+        <source>parseItalicHint</source>
+        <translation>Обрабатывать курсив</translation>
+    </message>
+</context>
+<context>
+    <name>currentChangelog</name>
+    <message>
+        <source>New version changelog</source>
+        <translation>Изменения в новой версии</translation>
+    </message>
+    <message>
+        <source>Current_ver.md отсутствует</source>
+        <translation>Current_ver.md отсутствует</translation>
+    </message>
+</context>
+<context>
+    <name>logger</name>
+    <message>
+        <source>logTitle</source>
+        <translation>Лог работы</translation>
+    </message>
+    <message>
+        <source>clearLog</source>
+        <translation>Очистить лог</translation>
+    </message>
+    <message>
+        <source>saveLog</source>
+        <translation>Сохранить лог</translation>
+    </message>
+    <message>
+        <source>logHint</source>
+        <translation>Лог работы</translation>
+    </message>
+    <message>
+        <source>Save logs</source>
+        <translation>Сохранить логи</translation>
+    </message>
+    <message>
+        <source>*.txt</source>
+        <translation>*.txt</translation>
     </message>
 </context>
 <context>
@@ -354,7 +622,15 @@ github.com/anrej0705
     </message>
     <message>
         <source>[TYPE_NAME]</source>
-        <translation>[ссылка]</translation>
+        <translation type="vanished">[ссылка]</translation>
+    </message>
+    <message>
+        <source>(TYPE_NAME)</source>
+        <translation type="vanished">(введи_название)</translation>
+    </message>
+    <message>
+        <source>TYPE_NAME</source>
+        <translation>ИМЯ_ССЫЛКИ</translation>
     </message>
 </context>
 </TS>

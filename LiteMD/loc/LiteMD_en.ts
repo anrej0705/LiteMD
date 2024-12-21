@@ -80,7 +80,7 @@
     </message>
     <message>
         <source>[MAX FILE SIZE 65K]</source>
-        <translation>[MAX FILE SIZE 65K]</translation>
+        <translation type="vanished">[MAX FILE SIZE 65K]</translation>
     </message>
     <message>
         <source>Ready</source>
@@ -128,11 +128,11 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>LiteMD alpha 0.0.0 build </source>
-        <translation>[WORK IN PROGRESS]LiteMD alpha 0.1.8 build </translation>
+        <translation type="vanished">[WORK IN PROGRESS]LiteMD alpha 0.2.1 build </translation>
     </message>
     <message>
         <source>Ver. alpha 0.0.0 build </source>
-        <translation>Ver. alpha 0.1.8 build </translation>
+        <translation type="vanished">Ver. alpha 0.2.1 build </translation>
     </message>
     <message>
         <source>&lt;BR&gt;By anrej0705&lt;BR&gt;See me at Github:</source>
@@ -140,11 +140,11 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>This app is free for use,modify and reupload&lt;BR&gt;</source>
-        <translation>This app is free for use,modify and reupload&lt;BR&gt;</translation>
+        <translation type="vanished">This app is free for use,modify and reupload&lt;BR&gt;</translation>
     </message>
     <message>
         <source>Repo on Github: </source>
-        <translation>Repo on Github: </translation>
+        <translation type="vanished">Repo on Github: </translation>
     </message>
     <message>
         <source>Releases: </source>
@@ -218,6 +218,98 @@ I hope u like my app :D</translation>
         <source>Make alt&amp;enate URL</source>
         <translation>Make alt&amp;enate URL</translation>
     </message>
+    <message>
+        <source>Sh&amp;ow changelog</source>
+        <translation>Sh&amp;ow changelog</translation>
+    </message>
+    <message>
+        <source>This app is free for use,modify and reupload&lt;BR&gt;&lt;BR&gt;LiteMD IS FREE SOFTWARE! IF YOU PAID FOR IT YOU HAVE BEEN SCAMMED!</source>
+        <translation>This app is free for use,modify and reupload&lt;BR&gt;&lt;BR&gt;LiteMD IS FREE SOFTWARE! IF YOU PAID FOR IT YOU HAVE BEEN SCAMMED!</translation>
+    </message>
+    <message>
+        <source>Github repo: </source>
+        <translation>Github repo: </translation>
+    </message>
+    <message>
+        <source>&amp;Bug!</source>
+        <translation>&amp;Bug!</translation>
+    </message>
+    <message>
+        <source>LiteMD</source>
+        <translation>LiteMD</translation>
+    </message>
+    <message>
+        <source> build </source>
+        <translation> build </translation>
+    </message>
+    <message>
+        <source>Ver.</source>
+        <translation type="vanished">Ver.</translation>
+    </message>
+    <message>
+        <source>Set headers</source>
+        <translation>Set header level</translation>
+    </message>
+    <message>
+        <source>Set format style</source>
+        <translation>Set format style</translation>
+    </message>
+    <message>
+        <source>Set H1</source>
+        <translation>Set H1</translation>
+    </message>
+    <message>
+        <source>Set H2</source>
+        <translation>Set H2</translation>
+    </message>
+    <message>
+        <source>Set H3</source>
+        <translation>Set H3</translation>
+    </message>
+    <message>
+        <source>Set H4</source>
+        <translation>Set H4</translation>
+    </message>
+    <message>
+        <source>Set H5</source>
+        <translation>Set H5</translation>
+    </message>
+    <message>
+        <source>Es&amp;cape character</source>
+        <translation>Set es&amp;cape character</translation>
+    </message>
+    <message>
+        <source>Set bold</source>
+        <translation>Set bold</translation>
+    </message>
+    <message>
+        <source>Set italic</source>
+        <translation>Set italic</translation>
+    </message>
+    <message>
+        <source>Set underlined</source>
+        <translation>Set underlined</translation>
+    </message>
+    <message>
+        <source>Set strikethrough</source>
+        <translation>Set strikethrough</translation>
+    </message>
+    <message>
+        <source>Ver </source>
+        <translation>Ver </translation>
+    </message>
+    <message>
+        <source>checkUpdates</source>
+        <translation>Check updates</translation>
+    </message>
+    <message>
+        <source>Untitled</source>
+        <translation>Untitled</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Close</translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
@@ -235,6 +327,28 @@ I hope u like my app :D</translation>
     <message>
         <source>You dont save changes in file, which is opened currently. Save?</source>
         <translation>You dont save changes in file, which is opened currently. Save?</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Warning</translation>
+    </message>
+    <message>
+        <source>Exception throwed!</source>
+        <translation>Exception throwed!</translation>
+    </message>
+    <message>
+        <source>FATAL</source>
+        <translation>FATAL</translation>
+    </message>
+    <message>
+        <source>Exception throwed!
+Programm will close</source>
+        <translation>Exception throwed!
+Programm will close</translation>
+    </message>
+    <message>
+        <source>Cannot open config file!</source>
+        <translation>Cannot open config file!</translation>
     </message>
 </context>
 <context>
@@ -293,7 +407,7 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>Will be added in future</source>
-        <translation>Will be added in future</translation>
+        <translation type="vanished">Will be added in future</translation>
     </message>
     <message>
         <source>Parse URL links</source>
@@ -314,6 +428,160 @@ I hope u like my app :D</translation>
     <message>
         <source>Enable content caching</source>
         <translation>Enable content caching</translation>
+    </message>
+    <message>
+        <source>Enable deprecated features</source>
+        <translation>Enable deprecated features</translation>
+    </message>
+    <message>
+        <source>Enable in-dev features</source>
+        <translation>Enable in-dev features</translation>
+    </message>
+    <message>
+        <source>parseSimplLinksHint</source>
+        <translation>Parse simple url</translation>
+    </message>
+    <message>
+        <source>parseAdvLinksHint</source>
+        <translation>Parse advanced url</translation>
+    </message>
+    <message>
+        <source>parseHeaderLvlHint</source>
+        <translation>Parse header tags(H1...H5)</translation>
+    </message>
+    <message>
+        <source>reloadHint</source>
+        <translation>The settings will take effect after the document is reloaded</translation>
+    </message>
+    <message>
+        <source>clearLog</source>
+        <translation>Clear logs</translation>
+    </message>
+    <message>
+        <source>saveLog</source>
+        <translation>Save logs</translation>
+    </message>
+    <message>
+        <source>logHint</source>
+        <translation>Logs</translation>
+    </message>
+    <message>
+        <source>Logs</source>
+        <translation>Logs</translation>
+    </message>
+    <message>
+        <source>Save logs</source>
+        <translation>Save logs</translation>
+    </message>
+    <message>
+        <source>*.txt</source>
+        <translation>*.txt</translation>
+    </message>
+    <message>
+        <source>colorThemeHint</source>
+        <translation>Color theme</translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <translation>Default</translation>
+    </message>
+    <message>
+        <source>NaN</source>
+        <translation>NaN</translation>
+    </message>
+    <message>
+        <source>XML</source>
+        <translation>XML</translation>
+    </message>
+    <message>
+        <source>deprSyntaxPrepHint</source>
+        <translation>Enable deprecated preprocessor</translation>
+    </message>
+    <message>
+        <source>deprSyntaxPostHint</source>
+        <translation>Enable deprecated postprocessor</translation>
+    </message>
+    <message>
+        <source>deprUrlSimplParserHint</source>
+        <translation>Enable deprecated simple url parser</translation>
+    </message>
+    <message>
+        <source>deprUrlAdvParserHint</source>
+        <translation>Enable deprecated advanced url parser</translation>
+    </message>
+    <message>
+        <source>deprUrlBasParserHint</source>
+        <translation>Enable deprecated basic url pasrser</translation>
+    </message>
+    <message>
+        <source>parseStrikethroughHint</source>
+        <translation>Enable parsing strikethrough text</translation>
+    </message>
+    <message>
+        <source>parseUnderlinedHint</source>
+        <translation>Enable parsing underlined text</translation>
+    </message>
+    <message>
+        <source>Extended</source>
+        <translation>Extended</translation>
+    </message>
+    <message>
+        <source>msgLimitHint</source>
+        <translation>Logg messages limit</translation>
+    </message>
+    <message>
+        <source>setDefault</source>
+        <translation>По умолчанию</translation>
+    </message>
+    <message>
+        <source>Hacks</source>
+        <translation>Hacks</translation>
+    </message>
+    <message>
+        <source>compatilibtyUndrHint</source>
+        <translation>Switch to compatibility tag</translation>
+    </message>
+    <message>
+        <source>parseItalicHint</source>
+        <translation>Parse italit tags</translation>
+    </message>
+</context>
+<context>
+    <name>currentChangelog</name>
+    <message>
+        <source>New version changelog</source>
+        <translation>New version changelog</translation>
+    </message>
+    <message>
+        <source>Current_ver.md отсутствует</source>
+        <translation>Current_ver.md not found</translation>
+    </message>
+</context>
+<context>
+    <name>logger</name>
+    <message>
+        <source>logTitle</source>
+        <translation>Logs</translation>
+    </message>
+    <message>
+        <source>clearLog</source>
+        <translation>Clear logs</translation>
+    </message>
+    <message>
+        <source>saveLog</source>
+        <translation>Save logs</translation>
+    </message>
+    <message>
+        <source>logHint</source>
+        <translation>Logs</translation>
+    </message>
+    <message>
+        <source>Save logs</source>
+        <translation>Save logs</translation>
+    </message>
+    <message>
+        <source>*.txt</source>
+        <translation>*.txt</translation>
     </message>
 </context>
 <context>
@@ -353,7 +621,15 @@ I hope u like my app :D</translation>
     </message>
     <message>
         <source>[TYPE_NAME]</source>
-        <translation>[my_link]</translation>
+        <translation type="vanished">[my_link]</translation>
+    </message>
+    <message>
+        <source>(TYPE_NAME)</source>
+        <translation type="vanished">(type_name)</translation>
+    </message>
+    <message>
+        <source>TYPE_NAME</source>
+        <translation>LINK_NAME</translation>
     </message>
 </context>
 </TS>
