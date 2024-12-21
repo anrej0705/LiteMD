@@ -74,6 +74,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="LiteMD.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
     <ClCompile Include="LiteMD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -257,9 +260,6 @@
     </QtMoc>
     <QtMoc Include="window_widgets\appSettings.h">
       <Filter>Интерфейс\Окна</Filter>
-    </QtMoc>
-    <QtMoc Include="LiteMD.h">
-      <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

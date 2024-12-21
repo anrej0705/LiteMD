@@ -1,4 +1,4 @@
-#include "..\LiteMD.h"
+#include "LiteMD.h"
 #include "global_definitions.h"
 #include "logger_backend.h"
 
