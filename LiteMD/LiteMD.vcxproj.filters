@@ -89,6 +89,9 @@
     <QtMoc Include="ui_primitives\OrientalPushButton.h">
       <Filter>Интерфейс\Кастомизация QT</Filter>
     </QtMoc>
+    <ClCompile Include="modules\LastFileManager.cpp">
+      <Filter>Модули</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -430,6 +433,9 @@
     </ClInclude>
     <ClInclude Include="string_processing\boldParser.h">
       <Filter>String processing\Парсеры</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\LastFileManager.h">
+      <Filter>Модули</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

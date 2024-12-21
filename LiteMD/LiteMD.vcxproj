@@ -344,6 +344,7 @@
     <ClInclude Include="modules\cmd_wrapper\bridge.h" />
     <ClInclude Include="modules\cmd_wrapper\gui.h" />
     <ClInclude Include="modules\exceptionHandler.h" />
+    <ClInclude Include="modules\LastFileManager.h" />
     <ClInclude Include="modules\QMicroz\qmicroz.h" />
     <ClInclude Include="ress\resource.h" />
     <ClInclude Include="ress\resource1.h" />

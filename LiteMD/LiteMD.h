@@ -97,6 +97,8 @@ class LiteMD : public QMainWindow
 		void closeEvent(QCloseEvent*);		//Перехватчик закрытия приложения
 		LiteMD(int, char**, QWidget* parent = nullptr);	//Конструктор для получения аргументов
 		~LiteMD();
+	private:
+		void initLastFileMenu();			//Инициализирует список последних файлов.
 	signals:
 		void saveFile();					//Сохранение файла
 		void switch_lang(int);				//Сигнал смены языка

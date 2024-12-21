@@ -4,6 +4,7 @@
 #include "dialogBoxes.h"
 #include "exceptionHandler.h"
 #include "logger_backend.h"
+#include "LastFileManager.h"
 #include <QtWidgets>
 #include <boost/container/string.hpp>
 extern "C"
