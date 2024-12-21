@@ -78,6 +78,8 @@ bool mdEditor::openFileArg(char* arg)
 		emit titleChanged(mdFileName);
 		emit statusString(tr("Opened ") + mdFileName);
 	}
+	//Сохраняем файл в списке недавних
+	saveLastFile();
 	//Сбрасываем флаги
 	fileChangedState = 0;
 	appTitleUpdated = 0;
