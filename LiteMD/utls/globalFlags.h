@@ -27,7 +27,6 @@ extern int dataLocation;
 // 2 - Реестр
 // 127 - Неопределено
 // 255 - Пользовательский путь
-
 //Название выбраной темы
 extern char* chosenTheme;
 
