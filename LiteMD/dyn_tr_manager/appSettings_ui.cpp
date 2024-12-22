@@ -86,6 +86,39 @@ void appSettings::update_ui()
 	compatilibtyUndrHint->setText(tr("compatilibtyUndrHint"));
 	parseItalicHint->setText(tr("parseItalicHint"));
 	parseBoldHint->setText(tr("parseBoldHint"));
+	saveLocationHint->setText(tr("saveLocationHint"));
+	userPathHint->setText(tr("userPathHint"));
+
+	//Задаем язык переводов на выбранный в настройках
+	parseSimplLinks->setWhatsThis(tr("parseSimplLinksHelp"));
+	parseAdvLinksl->setWhatsThis(tr("parseAdvLinkslHelp"));
+	parseHeaderLvl->setWhatsThis(tr("parseHeaderLvlHelp"));
+	parseItalic->setWhatsThis(tr("parseItalicHelp"));
+	deprSyntaxPrep->setWhatsThis(tr("deprSyntaxPrepHelp"));
+	deprSyntaxPost->setWhatsThis(tr("deprSyntaxPostHelp"));
+	deprUrlSimplParser->setWhatsThis(tr("deprUrlSimplParserHelp"));
+	deprUrlAdvParser->setWhatsThis(tr("deprUrlAdvParserHelp"));
+	deprUrlBasParser->setWhatsThis(tr("deprUrlBasParserHelp"));
+	combatilibtyUndr->setWhatsThis(tr("combatilibtyUndrHelp"));
+	parseBold->setWhatsThis(tr("parseBoldHelp"));
+	clearLog->setWhatsThis(tr("clearLogHelp"));
+	saveLog->setWhatsThis(tr("saveLogHelp"));
+	logBox->setWhatsThis(tr("logBoxHelp"));
+	parseUnderlined->setWhatsThis(tr("parseUnderlinedHelp"));
+	parseStrikethrough->setWhatsThis(tr("parseStrikethroughHelp"));
+	allowWarnings->setWhatsThis(tr("allowWarningsHelp"));
+	allowCache->setWhatsThis(tr("allowCacheHelp"));
+	langList->setWhatsThis(tr("langListHelp"));
+	themeList->setWhatsThis(tr("themeListHelp"));
+	colorTheme->setWhatsThis(tr("colorThemeHelp"));
+	saveSettings->setWhatsThis(tr("saveSettingsHelp"));
+	saveLocation->setWhatsThis(tr("saveLocationHelp"));
+	userPath->setWhatsThis(tr("userPathHelp"));
+	autoSave->setWhatsThis(tr("autoSaveHelp"));
+	saveFreq->setWhatsThis(tr("saveFreqHelp"));
+	depFunc->setWhatsThis(tr("depFuncHelp"));
+	devFunc->setWhatsThis(tr("devFuncHelp"));
+	limitSpinBox->setWhatsThis(tr("limitSpinBoxHelp"));
 }
 
 void appSettings::update_interactive()
@@ -140,6 +173,8 @@ void appSettings::update_interactive()
 	enableIndevFeatures == 1 ? saveFreqHint->setEnabled(1) : saveFreqHint->setDisabled(1);
 	enableIndevFeatures == 1 ? colorThemeHint->setEnabled(1) : colorThemeHint->setDisabled(1);
 	enableIndevFeatures == 1 ? allowCacheHint->setEnabled(1) : allowCacheHint->setDisabled(1);
+	enableIndevFeatures == 1 ? saveLocationHint->setEnabled(1) : saveLocationHint->setDisabled(1);
+	enableIndevFeatures == 1 ? userPathHint->setEnabled(1) : userPathHint->setDisabled(1);
 
 	enableIndevFeatures == 1 ? themeList->setEnabled(1) : themeList->setDisabled(1);
 	enableIndevFeatures == 1 ? saveSettings->setEnabled(1) : saveSettings->setDisabled(1);
@@ -147,4 +182,6 @@ void appSettings::update_interactive()
 	enableIndevFeatures == 1 ? saveFreq->setEnabled(1) : saveFreq->setDisabled(1);
 	enableIndevFeatures == 1 ? colorTheme->setEnabled(1) : colorTheme->setDisabled(1);
 	enableIndevFeatures == 1 ? allowCache->setEnabled(1) : allowCache->setDisabled(1);
+	enableIndevFeatures == 1 ? saveLocation->setEnabled(1) : saveLocation->setDisabled(1);
+	enableIndevFeatures == 1 ? userPath->setEnabled(1) : userPath->setDisabled(1);
 }

@@ -133,31 +133,6 @@ void push_log(const std::string& log)	//Лог формата std::string
 void push_log(const QString& log)		//Лог формата QString
 {
 	t_mut.lock();	//Эта тема будет вызываться из разных потоков поэтому надо выстроить очередь
-	for (uint32_t a = 0; a < 16384; ++a)
-	{
-		logger_backend::getInstance().insert_log(log.toLocal8Bit(), log.size());
-	}
-	logger_backend::getInstance().clear_logs();
-	for (uint32_t a = 0; a < 16384; ++a)
-	{
-		logger_backend::getInstance().insert_log(log.toLocal8Bit(), log.size());
-	}
-	logger_backend::getInstance().clear_logs();
-	for (uint32_t a = 0; a < 16384; ++a)
-	{
-		logger_backend::getInstance().insert_log(log.toLocal8Bit(), log.size());
-	}
-	logger_backend::getInstance().clear_logs();
-	for (uint32_t a = 0; a < 16384; ++a)
-	{
-		logger_backend::getInstance().insert_log(log.toLocal8Bit(), log.size());
-	}
-	logger_backend::getInstance().clear_logs();
-	for (uint32_t a = 0; a < 16384; ++a)
-	{
-		logger_backend::getInstance().insert_log(log.toLocal8Bit(), log.size());
-	}
-	logger_backend::getInstance().clear_logs();
 	if (logger_backend::getInstance().get_limit() != 0)	//Предел задан то тогда проверяем достигнут ли
 	{													//если достигнут то чистим говнище вилкой
 		if (logger_backend::getInstance().get_size() == logger_backend::getInstance().get_limit())

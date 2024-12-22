@@ -378,7 +378,9 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	//defTitle = windowTitle();	//patch 0.2.2 исправление версии "0.0.0" при открытии файла
 	
 	//Устанавливаем иконку приложения
-	setWindowIcon(QIcon(appPath + "/icon.ico"));
+	QPixmap appIcon(appPath + "/icon.ico");
+	appIcon.setMask(appIcon.createMaskFromColor(QColor(0, 0, 0)));
+	setWindowIcon(QIcon(appIcon));
 
 	//Если приложение запускается в первый раз или конфиг файл отсутствует то будем считать что это первый запуск
 	//И показываем юзеру текущий ченджлог используя наш рендер, перед показом даём задержку 1 сек чтобы окно успело

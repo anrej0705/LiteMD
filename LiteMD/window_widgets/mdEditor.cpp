@@ -77,8 +77,8 @@ bool mdEditor::openFileArg(char* arg)
 		//Отправляем сигналы
 		emit titleChanged(mdFileName);
 		emit statusString(tr("Opened ") + mdFileName);
-	}
-	//Сохраняем файл в списке недавних
+	}	
+	//Сохраняем файл в списке недавних(прим. silverWolf2K20)
 	saveLastFile();
 	//Сбрасываем флаги
 	fileChangedState = 0;
@@ -125,9 +125,9 @@ void mdEditor::slotOpen()
 		//Отправляем сигналы
 		emit titleChanged(mdFileName);
 		emit statusString(tr("Opened ") + mdFileName);
-	}
-
-	//Сохраняем файл в списке недавних
+	}	
+	
+	//Сохраняем файл в списке недавних(прим. SilverWolf2K20)
 	saveLastFile();
 
 	//Сбрасываем флаги
@@ -136,7 +136,9 @@ void mdEditor::slotOpen()
 
 	delete(log_stroke);
 }
-//Открывает файл по пути (Временное говно т.к. сильно дублирует mdEditor::slotOpen()).
+//------------------------SilverWolf2K20----------------------
+//Открывает файл по пути (Временное говно т.к. сильно дублирует mdEditor::slotOpen()). (прим. silverWolf2K20)
+//Метод перегружает slotOpen(void) (прим. anrej0705)
 void mdEditor::slotOpen(const QString& mdFileName)
 {
 	//Контейнер для строчки лога перед отправкой в ядро
@@ -180,6 +182,7 @@ void mdEditor::slotOpen(const QString& mdFileName)
 
 	delete(log_stroke);
 }
+//------------------------SilverWolf2K20----------------------
 //Сохранение файла
 void mdEditor::slotSave()
 {
@@ -214,10 +217,19 @@ void mdEditor::slotSave()
 		emit titleChanged(mdFileName);
 	}
 	//Сбрасываем флаг даже если не удалось записать
-	appTitleUpdated = 0;
-	// Добавление файла в список последних.
+	appTitleUpdated = 0;	
+	// Добавление файла в список последних. (прим. SilverWolf2K20)
 	saveLastFile();
 }
+//------------------------SilverWolf2K20----------------------
+//Сохраняем файл в списке недавних(прим. SilverWolf2K20)
+void mdEditor::saveLastFile()
+{
+	LastFileManager lastFileManager("settings\\last_files", 5);
+	lastFileManager.addFile(std::string(mdFileName.toUtf8()));
+	lastFileManager.save();
+}
+//------------------------SilverWolf2K20----------------------
 //Сохранить как
 void mdEditor::slotSaveAs()
 {
@@ -237,8 +249,6 @@ void mdEditor::slotSaveAs()
 	}
 	//Сбрасываем флаг в любом случае
 	appTitleUpdated = 0;
-	// Добавление файла в список последних.
-	saveLastFile();
 }
 //Новый документ
 void mdEditor::slotNew()
@@ -525,12 +535,4 @@ void mdEditor::closeFile()
 
 	//Шлём смску что текст изменился(очистился)
 	emit textChanged();
-}
-
-//Сохраняем файл в списке недавних
-void mdEditor::saveLastFile()
-{
-	LastFileManager lastFileManager("settings\\last_files", 5);
-	lastFileManager.addFile(std::string(mdFileName.toUtf8()));
-	lastFileManager.save();
 }
