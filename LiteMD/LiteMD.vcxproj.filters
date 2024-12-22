@@ -80,6 +80,9 @@
     <ClCompile Include="LiteMD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <QtMoc Include="modules\frameChangelog.h">
+      <Filter>Модули</Filter>
+    </QtMoc>
     <QtMoc Include="window_widgets\logger.h">
       <Filter>Интерфейс\Окна</Filter>
     </QtMoc>
@@ -89,21 +92,18 @@
     <QtMoc Include="ui_primitives\OrientalPushButton.h">
       <Filter>Интерфейс\Кастомизация QT</Filter>
     </QtMoc>
-    <QtMoc Include="modules\frameChangelog.h">
-      <Filter>Интерфейс\Окна</Filter>
-    </QtMoc>
-    <QtMoc Include="modules\GuiDownloader.h">
-      <Filter>Интерфейс\Окна</Filter>
-    </QtMoc>
-    <QtMoc Include="window_widgets\helpCenter.h">
-      <Filter>Интерфейс\Окна</Filter>
-    </QtMoc>
+    <ClCompile Include="modules\LastFileManager.cpp">
+      <Filter>Модули</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="modules\Downloader.cpp">
+      <Filter>Модули</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\GuiDownloader.cpp">
       <Filter>Модули</Filter>
     </ClCompile>
     <ClCompile Include="window_widgets\mdEditor.cpp">
@@ -144,6 +144,9 @@
     </ClCompile>
     <ClCompile Include="utls\xmlWriter.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\frameChangelog.cpp">
+      <Filter>Модули</Filter>
     </ClCompile>
     <ClCompile Include="dyn_tr_manager\frameChangelog_ui.cpp">
       <Filter>Модули\Динамический перевод</Filter>
@@ -241,21 +244,12 @@
     <ClCompile Include="string_processing\boldParser.cpp">
       <Filter>String processing\Парсеры</Filter>
     </ClCompile>
-    <ClCompile Include="modules\frameChangelog.cpp">
-      <Filter>Интерфейс\Окна</Filter>
-    </ClCompile>
-    <ClCompile Include="modules\GuiDownloader.cpp">
-      <Filter>Интерфейс\Окна</Filter>
-    </ClCompile>
-    <ClCompile Include="window_widgets\helpCenter.cpp">
-      <Filter>Интерфейс\Окна</Filter>
-    </ClCompile>
-    <ClCompile Include="dyn_tr_manager\helpCenter_ui.cpp">
-      <Filter>Модули\Динамический перевод</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">
+      <Filter>Модули</Filter>
+    </QtMoc>
+    <QtMoc Include="modules\GuiDownloader.h">
       <Filter>Модули</Filter>
     </QtMoc>
     <QtMoc Include="window_widgets\mdEditor.h">
@@ -439,6 +433,9 @@
     </ClInclude>
     <ClInclude Include="string_processing\boldParser.h">
       <Filter>String processing\Парсеры</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\LastFileManager.h">
+      <Filter>Модули</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

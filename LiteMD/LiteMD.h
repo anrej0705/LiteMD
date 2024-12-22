@@ -12,7 +12,6 @@
 #include "event_id_constructor.h"
 #include "customToolButton.h"
 #include "OrientalPushButton.h"
-#include "helpCenter.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -53,7 +52,6 @@ class LiteMD : public QMainWindow
 		QScrollArea* mdsArea;				//Хандлер полосы прокрутки
 		QPushButton* dirSwitch1;			//Кнопка переключения направления 1
 		QPushButton* dirSwitch2;			//Кнопка переключения направления 2
-		helpCenter* help_manager;			//Окно справки
 
 		//Действия всякие, в меню и в док
 		QAction* actAbout;					//Пункт меню о программе
@@ -99,6 +97,8 @@ class LiteMD : public QMainWindow
 		void closeEvent(QCloseEvent*);		//Перехватчик закрытия приложения
 		LiteMD(int, char**, QWidget* parent = nullptr);	//Конструктор для получения аргументов
 		~LiteMD();
+	private:
+		void initLastFileMenu();			//Инициализирует список последних файлов.
 	signals:
 		void saveFile();					//Сохранение файла
 		void switch_lang(int);				//Сигнал смены языка

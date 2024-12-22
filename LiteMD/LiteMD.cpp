@@ -4,6 +4,7 @@
 #include "dialogBoxes.h"
 #include "exceptionHandler.h"
 #include "logger_backend.h"
+#include "LastFileManager.h"
 #include <QtWidgets>
 #include <boost/container/string.hpp>
 extern "C"
@@ -45,7 +46,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 
 	//Блок элементов интерфейса
 	mdsArea = new QScrollArea;
-	btnDown = new OrientablePushButton("<---", this);
+	btnDown = new OrientablePushButton("--->", this);
 	btnUp = new OrientablePushButton("--->", this);
 	editorWindow = new QGroupBox(tr("Editor"));
 	viewerWindow = new QGroupBox(tr("Viewer"));
@@ -71,7 +72,6 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	actSetTextFormat = new CustomToolButton;
 	dirSwitch1 = new QPushButton("<>");
 	dirSwitch2 = new QPushButton("<>");
-	help_manager = new helpCenter;
 	//-------------------------
 
 	//Блок конфигурации элементов интерфейса
@@ -219,7 +219,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mdsArea->setWidget(mds);
 	mds->setWordWrap(1);
 	btnUp->setOrientation(OrientablePushButton::VerticalBottomTop);
-	btnDown->setOrientation(OrientablePushButton::VerticalBottomTop);
+	btnDown->setOrientation(OrientablePushButton::VerticalTopBottom);
 	btnUp->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
 	btnDown->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
 	btnUp->setFixedWidth(32);
@@ -256,6 +256,9 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mFile->addAction(actOpen);
 	mFile->addAction(actSave);
 	mFile->addAction(actSaveAs);
+
+	initLastFileMenu();
+
 	mFile->addSeparator();
 	mFile->addAction(actClose);
 	mFile->addSeparator();
@@ -348,13 +351,11 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	if (!connect(checkUpdates, SIGNAL(triggered()), this, SLOT(slotCheckUpdates())))
 		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
 	if (!connect(actClose, SIGNAL(triggered()), this, SLOT(slotFileClose())))
-		QErrorMessage::qtHandler();	++connected_signals;//Закрытие документа
+		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
 	if (!connect(btnDown, SIGNAL(clicked()), this, SLOT(slotMdsDown())))
-		QErrorMessage::qtHandler();	++connected_signals;//Листание вниз
+		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
 	if (!connect(btnUp, SIGNAL(clicked()), this, SLOT(slotMdsUp())))
-		QErrorMessage::qtHandler();	++connected_signals;//Листание вверх
-	if (!connect(actHelp, SIGNAL(triggered()), help_manager, SLOT(slotShowWindow())))
-		QErrorMessage::qtHandler();	++connected_signals;//Открытие справочного центра
+		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
 	push_log(std::string("[QT->LiteMD]Образовано " + std::to_string(connected_signals) + " связей"));
 	//------------------------------
 
@@ -377,9 +378,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	//defTitle = windowTitle();	//patch 0.2.2 исправление версии "0.0.0" при открытии файла
 	
 	//Устанавливаем иконку приложения
-	QPixmap appIcon(appPath + "/icon.ico");
-	appIcon.setMask(appIcon.createMaskFromColor(QColor(0, 0, 0)));
-	setWindowIcon(QIcon(appIcon));
+	setWindowIcon(QIcon(appPath + "/icon.ico"));
 
 	//Если приложение запускается в первый раз или конфиг файл отсутствует то будем считать что это первый запуск
 	//И показываем юзеру текущий ченджлог используя наш рендер, перед показом даём задержку 1 сек чтобы окно успело
@@ -406,6 +405,39 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	defTitle.append(tr("LiteMD") + QString(APP_STAGE) + QString(APP_VERSION) + (" build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER)) + " [" + tr("Untitled") + "]");
 
 	delete(log_stroke);
+}
+// Инициализирует список последних элементов.
+void LiteMD::initLastFileMenu()
+{
+	// Получение списка файлов.
+	LastFileManager lastFileManager;
+	const std::deque<std::string>& lastFilePaths = lastFileManager.getFiles();
+
+	// Если список пустой или первый элемент пустой - завершить работу.
+	if (lastFilePaths.empty() || lastFilePaths.front().empty())
+		return;
+
+	mFile->addSeparator();
+
+	// Добавление меню.
+	std::for_each(
+		std::begin(lastFilePaths),
+		std::end(lastFilePaths),
+		[=] (std::string lastFilePath) {
+			QFileInfo fileInfo(lastFilePath.c_str());
+			QAction* openLastfile = new QAction(fileInfo.fileName());
+
+			openLastfile->setData(fileInfo.filePath());
+			mFile->addAction(openLastfile);
+
+			if (!connect(
+				openLastfile, 
+				&QAction::triggered,
+				mde,
+				[=] { mde->slotOpen(fileInfo.filePath()); }))
+				QErrorMessage::qtHandler();	//Соединяем сигнал со слотом вызова окна о программе
+		}
+	);
 }
 //О программе
 void LiteMD::slotAbout()

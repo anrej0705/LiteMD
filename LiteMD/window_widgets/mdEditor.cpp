@@ -3,6 +3,7 @@
 #include "dialogBoxes.h"
 #include <boost/container/string.hpp>
 #include "logger_backend.h"
+#include "LastFileManager.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -77,6 +78,8 @@ bool mdEditor::openFileArg(char* arg)
 		emit titleChanged(mdFileName);
 		emit statusString(tr("Opened ") + mdFileName);
 	}
+	//Сохраняем файл в списке недавних
+	saveLastFile();
 	//Сбрасываем флаги
 	fileChangedState = 0;
 	appTitleUpdated = 0;
@@ -108,6 +111,7 @@ void mdEditor::slotOpen()
 		QMessageBox::warning(this,tr("Oversize detected"), tr("Cannot open file because size of this is over ") + QString::number(MAX_FILESIZE) + tr(" bytes"));
 		return;
 	}
+
 	//Если удалось то открыть то начинаем чтение
 	if (mdObject.open(QIODevice::ReadOnly))
 	{
@@ -122,6 +126,54 @@ void mdEditor::slotOpen()
 		emit titleChanged(mdFileName);
 		emit statusString(tr("Opened ") + mdFileName);
 	}
+
+	//Сохраняем файл в списке недавних
+	saveLastFile();
+
+	//Сбрасываем флаги
+	fileChangedState = 0;
+	appTitleUpdated = 0;
+
+	delete(log_stroke);
+}
+//Открывает файл по пути (Временное говно т.к. сильно дублирует mdEditor::slotOpen()).
+void mdEditor::slotOpen(const QString& mdFileName)
+{
+	//Контейнер для строчки лога перед отправкой в ядро
+	boost::container::string* log_stroke = new boost::container::string;
+
+	log_stroke->append("[mdEditor]Открываю файл из списка последних");
+
+	//Отправляем в лог что собираемся открыть такой-то файл
+	log_stroke->append(mdFileName.toUtf8());
+	push_log(log_stroke->c_str());
+	//Присваиваем имя файла к обработчику который будет открывать его
+	mdObject.setFileName(mdFileName);
+	//Если размер больше 4 гигабайт то файл не откроется
+	if (mdObject.size() > MAX_FILESIZE)
+	{
+		QMessageBox::warning(this, tr("Oversize detected"), tr("Cannot open file because size of this is over ") + QString::number(MAX_FILESIZE) + tr(" bytes"));
+		return;
+	}
+
+	//Если удалось то открыть то начинаем чтение
+	if (mdObject.open(QIODevice::ReadOnly))
+	{
+		//Читаем в поток
+		QTextStream mdStream(&mdObject);
+		mdStream.setCodec("UTF-8");
+		//Читаем из потока в поле редактирования(дальше сигнал отсылает содержимое в поле рендера)
+		setPlainText(mdStream.readAll());
+		//Закрываем файл и освобождаем его дескриптор
+		mdObject.close();
+		//Отправляем сигналы
+		emit titleChanged(mdFileName);
+		emit statusString(tr("Opened ") + mdFileName);
+	}
+
+	//Сохраняем файл в списке недавних
+	saveLastFile();
+
 	//Сбрасываем флаги
 	fileChangedState = 0;
 	appTitleUpdated = 0;
@@ -163,6 +215,8 @@ void mdEditor::slotSave()
 	}
 	//Сбрасываем флаг даже если не удалось записать
 	appTitleUpdated = 0;
+	// Добавление файла в список последних.
+	saveLastFile();
 }
 //Сохранить как
 void mdEditor::slotSaveAs()
@@ -183,6 +237,8 @@ void mdEditor::slotSaveAs()
 	}
 	//Сбрасываем флаг в любом случае
 	appTitleUpdated = 0;
+	// Добавление файла в список последних.
+	saveLastFile();
 }
 //Новый документ
 void mdEditor::slotNew()
@@ -469,4 +525,12 @@ void mdEditor::closeFile()
 
 	//Шлём смску что текст изменился(очистился)
 	emit textChanged();
+}
+
+//Сохраняем файл в списке недавних
+void mdEditor::saveLastFile()
+{
+	LastFileManager lastFileManager("settings\\last_files", 5);
+	lastFileManager.addFile(std::string(mdFileName.toUtf8()));
+	lastFileManager.save();
 }
