@@ -69,6 +69,7 @@ void LiteMD::update_ui()
 	setStrikethrough->setText(tr("Set strikethrough"));
 	checkUpdates->setText(tr("checkUpdates"));
 	actClose->setText(tr("Close"));
+	recentFiles->setTitle(tr("recentFiles"));
 	//------------------------
 }
 
