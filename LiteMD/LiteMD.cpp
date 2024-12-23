@@ -15,6 +15,7 @@ extern "C"
 QString appPath;
 extern struct parser_switchers parswitch;
 extern struct depr_paerser_switchers dparswitch;
+inline QIcon setAppIcon(); //601:607
 LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 {	//Контейнер для строчки лога перед отправкой в ядро
 	boost::container::string* log_stroke = new boost::container::string;
@@ -59,6 +60,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mEdit = new QMenu(tr("&Edit"));
 	mSettings = new QMenu(tr("&Service"));
 	mHelp = new QMenu(tr("&Help"));
+	recentFiles = new QMenu(tr("recentFiles"));
 	workProgressCap = new QLabel(tr("work in progress"));
 	mdlSet = new appSettings;
 	xmlW = new xmlWriter;
@@ -262,6 +264,8 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mFile->addSeparator();
 	mFile->addAction(actClose);
 	mFile->addSeparator();
+	mFile->addMenu(recentFiles);	//Меню недавних файлов от SilverWolf2K20
+	mFile->addSeparator();
 	mFile->addAction(actQuit);
 	mEdit->addAction(actPlaceUrl);
 	mEdit->addAction(actPlaceAltUrl);
@@ -415,6 +419,8 @@ void LiteMD::initLastFileMenu()
 	LastFileManager lastFileManager;
 	const std::deque<std::string>& lastFilePaths = lastFileManager.getFiles();
 
+	QIcon ico;
+
 	// Если список пустой или первый элемент пустой - завершить работу.
 	if (lastFilePaths.empty() || lastFilePaths.front().empty())
 		return;
@@ -426,11 +432,14 @@ void LiteMD::initLastFileMenu()
 		std::begin(lastFilePaths),
 		std::end(lastFilePaths),
 		[=] (std::string lastFilePath) {
-			QFileInfo fileInfo(lastFilePath.c_str());
-			QAction* openLastfile = new QAction(fileInfo.fileName());
+			QFileInfo fileInfo(lastFilePath.c_str());					//Объект, содержащий информацию о файле(прим. anrej0705)
+			QAction* openLastfile = new QAction(fileInfo.fileName());	//Создаём действие, которое будет помещено в меню(прим. anrej0705)
 
-			openLastfile->setData(fileInfo.filePath());
-			mFile->addAction(openLastfile);
+			openLastfile->setData(fileInfo.filePath());					//Сохраняем путь до файла в QVariant(прим. anrej0705)
+
+			openLastfile->setIcon(setAppIcon());						//Задаём иконку
+
+			recentFiles->addAction(openLastfile);						//Добавляем действие в меню
 
 			if (!connect(
 				openLastfile, 
@@ -587,4 +596,11 @@ void LiteMD::slotMdsUp()
 		mdsArea->verticalScrollBar()->setValue(mde->verticalScrollBar()->value() - mde->verticalScrollBar()->size().height());
 		mde->verticalScrollBar()->setValue(mde->verticalScrollBar()->value() - mde->verticalScrollBar()->size().height());
 	}
+}
+
+inline QIcon setAppIcon()
+{
+	QPixmap appIcon(getAppPath() + "/icon.ico");
+	appIcon.setMask(appIcon.createMaskFromColor(QColor(0, 0, 0)));
+	return appIcon;
 }

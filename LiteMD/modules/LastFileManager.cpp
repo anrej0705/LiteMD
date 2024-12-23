@@ -4,6 +4,8 @@
 #include <fstream>
 #include <iterator>
 
+#include "appSettings.h" //getConfigPath() (прим. anrej0705)
+
 // Конструктор по умолчанию.
 LastFileManager::LastFileManager()
 	: LastFileManager(3)
@@ -12,7 +14,7 @@ LastFileManager::LastFileManager()
 
 // Конструктор с указанием размера списка.
 LastFileManager::LastFileManager(int numberOfRecords) 
-	: LastFileManager("settings\\last_files", numberOfRecords)
+	: LastFileManager(std::string(getConfigPath().toStdString() + "/last_files"), numberOfRecords)
 {
 }
 

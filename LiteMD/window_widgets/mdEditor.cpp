@@ -4,6 +4,7 @@
 #include <boost/container/string.hpp>
 #include "logger_backend.h"
 #include "LastFileManager.h"
+#include "appSettings.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -225,7 +226,7 @@ void mdEditor::slotSave()
 //Сохраняем файл в списке недавних(прим. SilverWolf2K20)
 void mdEditor::saveLastFile()
 {
-	LastFileManager lastFileManager("settings\\last_files", 5);
+	LastFileManager lastFileManager(std::string(getConfigPath().toStdString() + "/last_files"), 5);	//Сохраняется в попку настроек юзера(прим. anrej0705)
 	lastFileManager.addFile(std::string(mdFileName.toUtf8()));
 	lastFileManager.save();
 }

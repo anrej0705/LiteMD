@@ -34,6 +34,7 @@ class LiteMD : public QMainWindow
 		QMenu* mFile;						//Меню файла
 		QMenu* mEdit;						//Меню "Правка"
 		QMenu* mSettings;					//Меню настроек
+		QMenu* recentFiles;					//Меню "Недавние файлы"
 		mdEditor* mde;						//Редактор
 		mdScreen* mds;						//Рендер текста
 		DownloaderGui* dwModule;			//Модуль загрузчика
@@ -95,6 +96,8 @@ class LiteMD : public QMainWindow
 	public:
 		std::string fileFullPath;			//Путь до файла
 		void closeEvent(QCloseEvent*);		//Перехватчик закрытия приложения
+		//bool addRecentString(std::string&);	//Добавляет пункт меню
+		//bool removeRecentString();			//Удаляет последний пункт меню
 		LiteMD(int, char**, QWidget* parent = nullptr);	//Конструктор для получения аргументов
 		~LiteMD();
 	private:
