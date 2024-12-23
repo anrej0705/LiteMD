@@ -310,6 +310,10 @@ I hope u like my app :D</translation>
         <source>Close</source>
         <translation>Close</translation>
     </message>
+    <message>
+        <source>recentFiles</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
