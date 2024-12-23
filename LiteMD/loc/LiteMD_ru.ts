@@ -312,6 +312,10 @@ github.com/anrej0705
         <source>Close</source>
         <translation>Закрыть</translation>
     </message>
+    <message>
+        <source>recentFiles</source>
+        <translation>Недавние файлы</translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
@@ -699,7 +703,7 @@ Programm will close</source>
     </message>
     <message>
         <source>Manual.md отсутствует</source>
-        <translation type="unfinished"></translation>
+        <translation>Manual.md отсутствует</translation>
     </message>
 </context>
 <context>

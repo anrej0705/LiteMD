@@ -254,6 +254,7 @@
     <ClCompile Include="modules\exceptionHandler.cpp" />
     <ClCompile Include="modules\frameChangelog.cpp" />
     <ClCompile Include="modules\GuiDownloader.cpp" />
+    <ClCompile Include="modules\LastFileManager.cpp" />
     <ClCompile Include="settings_tabs\tab_basic.cpp" />
     <ClCompile Include="settings_tabs\tab_downloader.cpp" />
     <ClCompile Include="settings_tabs\tab_extended.cpp" />
@@ -303,7 +304,7 @@
     <ClCompile Include="window_widgets\logger.cpp" />
     <ClCompile Include="window_widgets\mdEditor.cpp" />
     <ClCompile Include="window_widgets\mdScreen.cpp" />
-    <QtMoc Include="LiteMD.h" />
+	<QtMoc Include="LiteMD.h" />
     <ClCompile Include="LiteMD.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -355,6 +356,7 @@
     <ClInclude Include="modules\cmd_wrapper\bridge.h" />
     <ClInclude Include="modules\cmd_wrapper\gui.h" />
     <ClInclude Include="modules\exceptionHandler.h" />
+    <ClInclude Include="modules\LastFileManager.h" />
     <ClInclude Include="modules\QMicroz\qmicroz.h" />
     <ClInclude Include="ress\resource.h" />
     <ClInclude Include="ress\resource1.h" />

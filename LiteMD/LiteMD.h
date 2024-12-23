@@ -12,7 +12,6 @@
 #include "event_id_constructor.h"
 #include "customToolButton.h"
 #include "OrientalPushButton.h"
-#include "helpCenter.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -35,6 +34,7 @@ class LiteMD : public QMainWindow
 		QMenu* mFile;						//Меню файла
 		QMenu* mEdit;						//Меню "Правка"
 		QMenu* mSettings;					//Меню настроек
+		QMenu* recentFiles;					//Меню "Недавние файлы"
 		mdEditor* mde;						//Редактор
 		mdScreen* mds;						//Рендер текста
 		DownloaderGui* dwModule;			//Модуль загрузчика
@@ -53,7 +53,6 @@ class LiteMD : public QMainWindow
 		QScrollArea* mdsArea;				//Хандлер полосы прокрутки
 		QPushButton* dirSwitch1;			//Кнопка переключения направления 1
 		QPushButton* dirSwitch2;			//Кнопка переключения направления 2
-		helpCenter* help_manager;			//Окно справки
 
 		//Действия всякие, в меню и в док
 		QAction* actAbout;					//Пункт меню о программе
@@ -97,8 +96,12 @@ class LiteMD : public QMainWindow
 	public:
 		std::string fileFullPath;			//Путь до файла
 		void closeEvent(QCloseEvent*);		//Перехватчик закрытия приложения
+		//bool addRecentString(std::string&);	//Добавляет пункт меню
+		//bool removeRecentString();			//Удаляет последний пункт меню
 		LiteMD(int, char**, QWidget* parent = nullptr);	//Конструктор для получения аргументов
 		~LiteMD();
+	private:
+		void initLastFileMenu();			//Инициализирует список последних файлов.
 	signals:
 		void saveFile();					//Сохранение файла
 		void switch_lang(int);				//Сигнал смены языка

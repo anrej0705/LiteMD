@@ -25,7 +25,8 @@ void singlet_remover::initialize(logger_backend* ptr)
 logger_backend::logger_backend()
 {
 	log_str_counter = 0;	//Выделяем память на один указатель больше, на всякий
-	log_container = (char**)calloc(log_str_counter + 1, sizeof(char*));
+	//log_container = (char**)calloc(log_str_counter + 1, sizeof(char*));
+	log_container = NULL;
 	log_str = new boost::container::string;
 	msg_limit = 0;	//По умолчанию параметр не задан
 }
@@ -51,20 +52,22 @@ logger_backend& logger_backend::getInstance()
 
 void logger_backend::insert_log(const char* log, uint32_t log_size)
 {
-	static char** new_lc_ptr;	//Указатель на новый блок, для проверки на зашкварность
-	static char* new_l_ptr;		//То же самое но для строчки
+	char** new_lc_ptr = NULL;	//Указатель на новый блок, для проверки на зашкварность
+	char* new_l_ptr = NULL;		//То же самое но для строчки
 
 	//Выделяем память для указателя на строчку логов
 	++log_str_counter;
 	new_lc_ptr = (char**)realloc(log_container, sizeof(char*)*log_str_counter);
 	if (new_lc_ptr != NULL)
 	{
-		log_container = new_lc_ptr;
+		std::swap(log_container, new_lc_ptr);
+		//log_container = new_lc_ptr;
 		//Выделяем память для занесения строчки логов
 		new_l_ptr = (char*)calloc(16 + log_size + 2, sizeof(char));
 		if (new_l_ptr != NULL)
 		{
-			log_container[log_str_counter - 1] = new_l_ptr;
+			std::swap(log_container[log_str_counter - 1], new_l_ptr);
+			//log_container[log_str_counter - 1] = new_l_ptr;
 			log_container[log_str_counter - 1][0] = '[';
 			//Достаём значение системного таймера
 			strncpy(&log_container[log_str_counter - 1][1], &boost::posix_time::to_iso_extended_string(boost::posix_time::microsec_clock::universal_time()).c_str()[11], 14);
@@ -77,6 +80,12 @@ void logger_backend::insert_log(const char* log, uint32_t log_size)
 	}
 	else
 		throw(exceptionHandler(exceptionHandler::WARNING, "Не удалось выделить память в контейнере логов(указатель зашкварился)"));
+
+	/*free(new_l_ptr);
+	for (uint32_t _index = 0; _index < log_str_counter; ++_index)
+		free(new_lc_ptr[_index]);
+	new_lc_ptr = NULL;
+	new_l_ptr = NULL;*/
 }
 
 uint32_t logger_backend::get_limit()
@@ -89,13 +98,17 @@ void logger_backend::set_limit(uint32_t limit)
 	msg_limit = limit;	//Из аргумента вхуяриваем ес чо
 }
 
-void push_log(const char* log)	//По идее это должно без проблем вызываться из сей
+void push_log(const char* log)	//По идее это должно без проблем вызываться из сишных файлов
 {
 	t_mut.lock();	//Эта тема будет вызываться из разных потоков поэтому надо выстроить очередь
 	if (logger_backend::getInstance().get_limit() != 0)	//Предел задан то тогда проверяем достигнут ли
 	{													//если достигнут то чистим говнище вилкой
 		if (logger_backend::getInstance().get_size() == logger_backend::getInstance().get_limit())
+		{
+			//С 0.2.8 теперь дампится по пути заданному в конфиге каждый раз по достижению лимита
+			save_log();
 			logger_backend::getInstance().clear_logs();
+		}
 	}
 	logger_backend::getInstance().insert_log(log, strlen(log));
 	t_mut.unlock();
@@ -107,7 +120,11 @@ void push_log(const std::string& log)	//Лог формата std::string
 	if (logger_backend::getInstance().get_limit() != 0)	//Предел задан то тогда проверяем достигнут ли
 	{													//если достигнут то чистим говнище вилкой
 		if (logger_backend::getInstance().get_size() == logger_backend::getInstance().get_limit())
+		{
+			//С 0.2.8 теперь дампится по пути заданному в конфиге каждый раз по достижению лимита
+			save_log();
 			logger_backend::getInstance().clear_logs();
+		}
 	}
 	logger_backend::getInstance().insert_log(log.c_str(), log.size());
 	t_mut.unlock();
@@ -121,19 +138,7 @@ void push_log(const QString& log)		//Лог формата QString
 		if (logger_backend::getInstance().get_size() == logger_backend::getInstance().get_limit())
 		{
 			//С 0.2.8 теперь дампится по пути заданному в конфиге каждый раз по достижению лимита
-			::push_log("[LOG]Достигнут лимит сообщений логов, попытка сохранить лог в файл...");
-			std::string filename("stable.");
-			filename.append(&boost::posix_time::to_iso_extended_string(boost::posix_time::microsec_clock::universal_time()).c_str()[0], 19);
-			std::replace(filename.begin(), filename.end(), ':', '-');
-			std::replace(filename.begin(), filename.end(), 'T', '_');
-			filename.append(".log");
-			std::ofstream stable_log(QString(getConfigPath()).toStdString() + filename);
-			for (uint32_t _index = 0; _index < logger_backend::getInstance().get_size(); ++_index)
-			{
-				filename = QString::fromUtf8(logger_backend::getInstance().get_stroke(_index)).toStdString() + '\n';
-				stable_log.write(filename.c_str(), filename.size());
-			}
-			stable_log.close();
+			save_log();
 			logger_backend::getInstance().clear_logs();
 		}
 	}
@@ -153,10 +158,14 @@ void logger_backend::clear_logs()
 {
 	//Чистим строки
 	for (uint32_t _index = 0; _index < log_str_counter; ++_index)
+	{
 		free(log_container[_index]);
+		log_container[_index] = NULL;
+	}
 	free(log_container);	//Чистим массив и пересоздаём указатель
-	log_container = (char**)calloc(log_str_counter + 1, sizeof(char*));
+	log_container = NULL;
 	log_str_counter = 0;
+	log_container = (char**)calloc(log_str_counter + 1, sizeof(char*));
 }
 
 char* logger_backend::get_stroke(uint32_t _index)
@@ -178,7 +187,8 @@ void dump_crash_log()
 	std::replace(filename.begin(), filename.end(), ':', '-');
 	std::replace(filename.begin(), filename.end(), 'T', '_');
 	filename.append(".log");
-	std::ofstream crash_log(QString(getConfigPath()).toStdString() + filename);
+	std::string logPath = QString(getConfigPath()).toStdString() + '/' + filename;
+	std::ofstream crash_log(logPath);
 	for (uint32_t _index = 0; _index < logger_backend::getInstance().get_size(); ++_index)
 	{
 		filename = QString::fromUtf8(logger_backend::getInstance().get_stroke(_index)).toStdString() + '\n';
@@ -190,4 +200,21 @@ void dump_crash_log()
 void set_log_limit(uint32_t limit)
 {
 	logger_backend::getInstance().set_limit(limit);
+}
+
+void save_log()
+{
+	std::string filename("stable.");
+	filename.append(&boost::posix_time::to_iso_extended_string(boost::posix_time::microsec_clock::universal_time()).c_str()[0], 19);
+	std::replace(filename.begin(), filename.end(), ':', '-');
+	std::replace(filename.begin(), filename.end(), 'T', '_');
+	filename.append(".log");
+	std::string logPath = QString(getConfigPath()).toStdString() + '/' + filename;
+	std::ofstream stable_log(logPath);
+	for (uint32_t _index = 0; _index < logger_backend::getInstance().get_size(); ++_index)
+	{
+		filename = QString::fromUtf8(logger_backend::getInstance().get_stroke(_index)).toStdString() + '\n';
+		stable_log.write(filename.c_str(), filename.size());
+	}
+	stable_log.close();
 }

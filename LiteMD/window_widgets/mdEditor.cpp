@@ -3,6 +3,8 @@
 #include "dialogBoxes.h"
 #include <boost/container/string.hpp>
 #include "logger_backend.h"
+#include "LastFileManager.h"
+#include "appSettings.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -76,7 +78,9 @@ bool mdEditor::openFileArg(char* arg)
 		//Отправляем сигналы
 		emit titleChanged(mdFileName);
 		emit statusString(tr("Opened ") + mdFileName);
-	}
+	}	
+	//Сохраняем файл в списке недавних(прим. silverWolf2K20)
+	saveLastFile();
 	//Сбрасываем флаги
 	fileChangedState = 0;
 	appTitleUpdated = 0;
@@ -108,6 +112,53 @@ void mdEditor::slotOpen()
 		QMessageBox::warning(this,tr("Oversize detected"), tr("Cannot open file because size of this is over ") + QString::number(MAX_FILESIZE) + tr(" bytes"));
 		return;
 	}
+
+	//Если удалось то открыть то начинаем чтение
+	if (mdObject.open(QIODevice::ReadOnly))
+	{
+		//Читаем в поток
+		QTextStream mdStream(&mdObject);
+		mdStream.setCodec("UTF-8");
+		//Читаем из потока в поле редактирования(дальше сигнал отсылает содержимое в поле рендера)
+		setPlainText(mdStream.readAll());
+		//Закрываем файл и освобождаем его дескриптор
+		mdObject.close();
+		//Отправляем сигналы
+		emit titleChanged(mdFileName);
+		emit statusString(tr("Opened ") + mdFileName);
+	}	
+	
+	//Сохраняем файл в списке недавних(прим. SilverWolf2K20)
+	saveLastFile();
+
+	//Сбрасываем флаги
+	fileChangedState = 0;
+	appTitleUpdated = 0;
+
+	delete(log_stroke);
+}
+//------------------------SilverWolf2K20----------------------
+//Открывает файл по пути (Временное говно т.к. сильно дублирует mdEditor::slotOpen()). (прим. silverWolf2K20)
+//Метод перегружает slotOpen(void) (прим. anrej0705)
+void mdEditor::slotOpen(const QString& mdFileName)
+{
+	//Контейнер для строчки лога перед отправкой в ядро
+	boost::container::string* log_stroke = new boost::container::string;
+
+	log_stroke->append("[mdEditor]Открываю файл из списка последних");
+
+	//Отправляем в лог что собираемся открыть такой-то файл
+	log_stroke->append(mdFileName.toUtf8());
+	push_log(log_stroke->c_str());
+	//Присваиваем имя файла к обработчику который будет открывать его
+	mdObject.setFileName(mdFileName);
+	//Если размер больше 4 гигабайт то файл не откроется
+	if (mdObject.size() > MAX_FILESIZE)
+	{
+		QMessageBox::warning(this, tr("Oversize detected"), tr("Cannot open file because size of this is over ") + QString::number(MAX_FILESIZE) + tr(" bytes"));
+		return;
+	}
+
 	//Если удалось то открыть то начинаем чтение
 	if (mdObject.open(QIODevice::ReadOnly))
 	{
@@ -122,12 +173,17 @@ void mdEditor::slotOpen()
 		emit titleChanged(mdFileName);
 		emit statusString(tr("Opened ") + mdFileName);
 	}
+
+	//Сохраняем файл в списке недавних
+	saveLastFile();
+
 	//Сбрасываем флаги
 	fileChangedState = 0;
 	appTitleUpdated = 0;
 
 	delete(log_stroke);
 }
+//------------------------SilverWolf2K20----------------------
 //Сохранение файла
 void mdEditor::slotSave()
 {
@@ -162,8 +218,19 @@ void mdEditor::slotSave()
 		emit titleChanged(mdFileName);
 	}
 	//Сбрасываем флаг даже если не удалось записать
-	appTitleUpdated = 0;
+	appTitleUpdated = 0;	
+	// Добавление файла в список последних. (прим. SilverWolf2K20)
+	saveLastFile();
 }
+//------------------------SilverWolf2K20----------------------
+//Сохраняем файл в списке недавних(прим. SilverWolf2K20)
+void mdEditor::saveLastFile()
+{
+	LastFileManager lastFileManager(std::string(getConfigPath().toStdString() + "/last_files"), 5);	//Сохраняется в попку настроек юзера(прим. anrej0705)
+	lastFileManager.addFile(std::string(mdFileName.toUtf8()));
+	lastFileManager.save();
+}
+//------------------------SilverWolf2K20----------------------
 //Сохранить как
 void mdEditor::slotSaveAs()
 {
