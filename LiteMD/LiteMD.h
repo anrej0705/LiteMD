@@ -53,6 +53,7 @@ class LiteMD : public QMainWindow
 		QScrollArea* mdsArea;				//Хандлер полосы прокрутки
 		QPushButton* dirSwitch1;			//Кнопка переключения направления 1
 		QPushButton* dirSwitch2;			//Кнопка переключения направления 2
+		QPushButton* manageDir;				//Кнопка переключения управление направлением авто/ручное
 
 		//Действия всякие, в меню и в док
 		QAction* actAbout;					//Пункт меню о программе
@@ -117,6 +118,8 @@ class LiteMD : public QMainWindow
 		void slotFileClose();				//Закрытие файла и очистка поля ввода
 		void slotMdsDown();					//Слот прокрутки вниз
 		void slotMdsUp();					//Слот прокрутки вверх
+		void slotSwitchDir();				//Переключение направления
+		void slotManageDir();				//Переключение режима руч/авт
 };
 //Простой, как сатиновые трусы, метод возвращает QString каталог
 QString getAppPath();

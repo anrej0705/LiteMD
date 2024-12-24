@@ -45,35 +45,37 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mds = new mdScreen;
 	//---------------------------------------------
 
+	QWidget* scrollDock = new QWidget;
+	QWidget* mainWgt = new QWidget;
+
 	//Блок элементов интерфейса
+	mdlSet = new appSettings;
+	xmlR = new xmlReader;
+	xmlW = new xmlWriter;
+	dwModule = new DownloaderGui;
+	cLog = new currentChangelog;
+	showTim = new QTimer;
+	logWindow = new logger;
+	actPlaceHeader = new CustomToolButton;
+	actSetTextFormat = new CustomToolButton;
 	mdsArea = new QScrollArea;
+	quick_tb = new QToolBar;
+	serv_tb = new QToolBar;
 	btnDown = new OrientablePushButton("--->", this);
 	btnUp = new OrientablePushButton("--->", this);
 	editorWindow = new QGroupBox(tr("Editor"));
 	viewerWindow = new QGroupBox(tr("Viewer"));
-	QWidget* scrollDock = new QWidget;
-	QWidget* mainWgt = new QWidget;
-	quick_tb = new QToolBar;
-	serv_tb = new QToolBar;
-	dwModule = new DownloaderGui;
+	headersMenu = new QMenu(tr("Set headers"));
+	formatStyle = new QMenu(tr("Set format style"));
 	mFile = new QMenu(tr("&File"));
 	mEdit = new QMenu(tr("&Edit"));
 	mSettings = new QMenu(tr("&Service"));
 	mHelp = new QMenu(tr("&Help"));
 	recentFiles = new QMenu(tr("recentFiles"));
 	workProgressCap = new QLabel(tr("work in progress"));
-	mdlSet = new appSettings;
-	xmlW = new xmlWriter;
-	xmlR = new xmlReader;
-	cLog = new currentChangelog;
-	showTim = new QTimer;
-	logWindow = new logger;
-	headersMenu = new QMenu(tr("Set headers"));
-	formatStyle = new QMenu(tr("Set format style"));
-	actPlaceHeader = new CustomToolButton;
-	actSetTextFormat = new CustomToolButton;
 	dirSwitch1 = new QPushButton("<>");
 	dirSwitch2 = new QPushButton("<>");
+	manageDir = new QPushButton("manageDir");
 	//-------------------------
 
 	//Блок конфигурации элементов интерфейса
@@ -226,11 +228,15 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	btnDown->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
 	btnUp->setFixedWidth(32);
 	btnDown->setFixedWidth(32);
+	manageDir->setFixedWidth(32);
+	manageDir->setFixedHeight(40);
 	dirSwitch1->setFixedWidth(32);
 	dirSwitch2->setFixedWidth(32);
 	dirSwitch1->setFixedHeight(48);
 	dirSwitch2->setFixedHeight(48);
-	scrollDockLay->addSpacing(100);
+	scrollDockLay->addSpacing(50);
+	scrollDockLay->addWidget(manageDir);
+	scrollDockLay->addSpacing(50);
 	scrollDockLay->addWidget(dirSwitch1);
 	scrollDockLay->addWidget(btnUp);
 	scrollDockLay->addWidget(btnDown);
@@ -248,8 +254,6 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mde->setMinimumWidth(320);
 	mdsArea->setMinimumWidth(320);
 	mdsArea->resize(viewerWindow->sizeHint());
-	dirSwitch1->setEnabled(0);	//Пока отключена, попозже включу
-	dirSwitch2->setEnabled(0);	//Пока отключена, попозже включу
 	//--------------------------------------
 
 	//Блок настроек меню
@@ -259,7 +263,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mFile->addAction(actSave);
 	mFile->addAction(actSaveAs);
 
-	initLastFileMenu();
+	initLastFileMenu();				//Инициализация меню последних файлов(прим. anrej0705)
 
 	mFile->addSeparator();
 	mFile->addAction(actClose);
@@ -355,11 +359,17 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	if (!connect(checkUpdates, SIGNAL(triggered()), this, SLOT(slotCheckUpdates())))
 		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
 	if (!connect(actClose, SIGNAL(triggered()), this, SLOT(slotFileClose())))
-		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
+		QErrorMessage::qtHandler();	++connected_signals;//Закрыть документ
 	if (!connect(btnDown, SIGNAL(clicked()), this, SLOT(slotMdsDown())))
-		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
+		QErrorMessage::qtHandler();	++connected_signals;//Листание вниз
 	if (!connect(btnUp, SIGNAL(clicked()), this, SLOT(slotMdsUp())))
-		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
+		QErrorMessage::qtHandler();	++connected_signals;//Листание вверх
+	if (!connect(dirSwitch1, SIGNAL(clicked()), this, SLOT(slotSwitchDir())))
+		QErrorMessage::qtHandler();	++connected_signals;//Нижняя кнопка переключения
+	if (!connect(dirSwitch2, SIGNAL(clicked()), this, SLOT(slotSwitchDir())))
+		QErrorMessage::qtHandler();	++connected_signals;//Верхняя кнопка переключения
+	if (!connect(manageDir, SIGNAL(clicked()), this, SLOT(slotManageDir())))
+		QErrorMessage::qtHandler();	++connected_signals;//Управление руч/авт
 	push_log(std::string("[QT->LiteMD]Образовано " + std::to_string(connected_signals) + " связей"));
 	//------------------------------
 
@@ -403,6 +413,29 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	if (argc == 2)	//Если вторым аргументом файл то сразу открываем его
 	{
 		mde->openFileArg(argv[1]);
+	}
+
+	//Предустановка текста на кнопке
+	managePrior == 0 ? manageDir->setText(tr("manageDirAuto")) : manageDir->setText(tr("manageDirManual"));
+	if (!managePrior)
+	{
+		dirSwitch1->setText("<>");
+		dirSwitch2->setText("<>");
+		dirSwitch1->setEnabled(0);
+		dirSwitch2->setEnabled(0);
+	}
+	else
+	{
+		if (scrollPrior) //Предустанки кнопки направления
+		{
+			dirSwitch1->setText("<<");
+			dirSwitch2->setText("<<");
+		}
+		else if (!scrollPrior)
+		{
+			dirSwitch1->setText(">>");
+			dirSwitch2->setText(">>");
+		}
 	}
 
 	//Показываем сообщение готовности к работе
@@ -603,4 +636,54 @@ inline QIcon setAppIcon()
 	QPixmap appIcon(getAppPath() + "/icon.ico");
 	appIcon.setMask(appIcon.createMaskFromColor(QColor(0, 0, 0)));
 	return appIcon;
+}
+
+void LiteMD::slotSwitchDir()
+{
+	if (scrollPrior)			//Приоритет - редактор
+	{
+		scrollPrior = 0;
+		dirSwitch1->setText("<<");
+		dirSwitch2->setText("<<");
+		return;
+	}
+	else if (!scrollPrior)
+	{
+		scrollPrior = 1;		//Приоритет - монитор
+		dirSwitch1->setText(">>");
+		dirSwitch2->setText(">>");
+		return;
+	}
+}
+
+void LiteMD::slotManageDir()
+{
+	if (managePrior)			//Режим - авто
+	{
+		managePrior = 0;
+		manageDir->setText(tr("manageDirAuto"));
+		dirSwitch1->setText("<>");
+		dirSwitch2->setText("<>");
+		dirSwitch1->setEnabled(0);
+		dirSwitch2->setEnabled(0);
+		return;
+	}
+	else if (!managePrior)		//Режим - ручной
+	{
+		managePrior = 1;
+		manageDir->setText(tr("manageDirManual"));
+		dirSwitch1->setEnabled(1);
+		dirSwitch2->setEnabled(1);
+		if (scrollPrior) //Предустанки кнопки направления
+		{
+			dirSwitch1->setText(">>");
+			dirSwitch2->setText(">>");
+		}
+		else if (!scrollPrior)
+		{
+			dirSwitch1->setText("<<");
+			dirSwitch2->setText("<<");
+		}
+		return;
+	}
 }
