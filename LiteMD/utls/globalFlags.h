@@ -8,6 +8,8 @@ extern bool fileOpenedState;
 extern bool fileChangedState;
 extern bool appTitleUpdated;
 extern bool appClose;
+extern bool scrollPrior;
+extern bool managePrior;
 //Deprecated
 extern bool allowHttpWarn;
 extern bool httpDerpWarned;
