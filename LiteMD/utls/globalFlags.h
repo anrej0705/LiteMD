@@ -10,6 +10,7 @@ extern bool appTitleUpdated;
 extern bool appClose;
 extern bool scrollPrior;
 extern bool managePrior;
+extern bool syncCtl;
 //Deprecated
 extern bool allowHttpWarn;
 extern bool httpDerpWarned;
