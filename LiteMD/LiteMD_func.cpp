@@ -193,20 +193,28 @@ void LiteMD::slotMdsDown()
 //Прокрутка вверх через полосу прокрутки
 void LiteMD::slotMdsUp()
 {
+	float proport;		//Пропорции, по которым рассчитывается перемещение в окне
+	float mdeHeight = mde->verticalScrollBar()->value();	//0 - кританёт делением на 0
+	float mdsHeight = mdsArea->verticalScrollBar()->value();
+	int mdsRes = 0;
+	int mdeRes = 0;
 	if (!managePrior)
 	{
 		//Определяем приоритет
-		if (mdsArea->verticalScrollBar()->size().height() > mde->verticalScrollBar()->size().height())
+		if (mdsHeight > mdeHeight)
 		{
+			proport = mdsHeight / mdeHeight;
 			//Увеличиваем значение полосы прокрутки, там самым крутим вниз
-			mdsArea->verticalScrollBar()->setValue(mdsArea->verticalScrollBar()->value() - mdsArea->verticalScrollBar()->size().height());
-			mde->verticalScrollBar()->setValue(mdsArea->verticalScrollBar()->value() - mdsArea->verticalScrollBar()->size().height());
+			mdsRes = mdsArea->verticalScrollBar()->value() * proport;
+			mdsArea->verticalScrollBar()->setValue((mdsArea->verticalScrollBar()->value() * proport) - mdsArea->verticalScrollBar()->size().height());
+			mde->verticalScrollBar()->setValue((mdsArea->verticalScrollBar()->value() * proport) - mdsArea->verticalScrollBar()->size().height());
 		}
-		else
+		else if(mdeHeight > mdsHeight)
 		{
+			proport = mdeHeight / mdsHeight;
 			//Увеличиваем значение полосы прокрутки, там самым крутим вниз
-			mdsArea->verticalScrollBar()->setValue(mde->verticalScrollBar()->value() - mde->verticalScrollBar()->size().height());
-			mde->verticalScrollBar()->setValue(mde->verticalScrollBar()->value() - mde->verticalScrollBar()->size().height());
+			mdsArea->verticalScrollBar()->setValue((mde->verticalScrollBar()->value() * proport) - mde->verticalScrollBar()->size().height());
+			mde->verticalScrollBar()->setValue((mde->verticalScrollBar()->value() * proport) - mde->verticalScrollBar()->size().height());
 		}
 	}
 	else
