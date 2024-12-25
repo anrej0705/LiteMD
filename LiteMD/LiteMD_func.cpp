@@ -222,6 +222,8 @@ void LiteMD::slotSwitchDir()
 		scrollPrior = 0;
 		dirSwitch1->setText("<<");
 		dirSwitch2->setText("<<");
+		for (uint8_t it = 0; it < 12; ++it)
+			hintsList[it]->setText("<<");
 		return;
 	}
 	else if (!scrollPrior)
@@ -229,6 +231,8 @@ void LiteMD::slotSwitchDir()
 		scrollPrior = 1;		//Приоритет - монитор
 		dirSwitch1->setText(">>");
 		dirSwitch2->setText(">>");
+		for (uint8_t it = 0; it < 12; ++it)
+			hintsList[it]->setText(">>");
 		return;
 	}
 }
@@ -243,6 +247,10 @@ void LiteMD::slotManageDir()
 		dirSwitch2->setText("<>");
 		dirSwitch1->setEnabled(0);
 		dirSwitch2->setEnabled(0);
+		if (mdsArea->size().height() > mde->verticalScrollBar()->size().height())
+			scrollPrior = 0;	//Авто - приоритет - редактор
+		else if (mdsArea->size().height() < mde->verticalScrollBar()->size().height())
+			scrollPrior = 1;	//Авто - приоритет монитор
 		return;
 	}
 	else if (!managePrior)		//Режим - ручной
@@ -255,11 +263,15 @@ void LiteMD::slotManageDir()
 		{
 			dirSwitch1->setText(">>");
 			dirSwitch2->setText(">>");
+			for (uint8_t it = 0; it < 12; ++it)
+				hintsList[it]->setText(">>");
 		}
 		else if (!scrollPrior)
 		{
 			dirSwitch1->setText("<<");
 			dirSwitch2->setText("<<");
+			for (uint8_t it = 0; it < 12; ++it)
+				hintsList[it]->setText("<<");
 		}
 		return;
 	}
@@ -277,6 +289,20 @@ void LiteMD::slotSwitchSync()
 	{
 		syncCtl = 1;
 		syncCtlBtn->setText("=|=");
+		return;
+	}
+}
+
+void LiteMD::slotScrollEvent(int scroll)
+{
+	if (scrollPrior && !syncCtl)			//Приоритет - редактор
+	{
+		mdsArea->verticalScrollBar()->setValue(scroll);
+		return;
+	}
+	else if (!scrollPrior && !syncCtl)		//Приоритет монитор
+	{
+		mde->verticalScrollBar()->setValue(scroll);
 		return;
 	}
 }

@@ -56,6 +56,8 @@ class LiteMD : public QMainWindow
 		QPushButton* manageDir;				//Кнопка переключения управление направлением авто/ручное
 		QPushButton* syncCtlBtn;			//Управление синхронным пролистыванием
 
+		QLabel* hintsList[12];				//Визуал между окнами рендера и редактора
+
 		//Действия всякие, в меню и в док
 		QAction* actAbout;					//Пункт меню о программе
 		QAction* actOpen;					//Пункт меню открыть
@@ -122,6 +124,7 @@ class LiteMD : public QMainWindow
 		void slotSwitchDir();				//Переключение направления
 		void slotManageDir();				//Переключение режима руч/авт
 		void slotSwitchSync();				//Переключение режима сихронизации
+		void slotScrollEvent(int);			//Слот обработки событий листания
 };
 //Простой, как сатиновые трусы, метод возвращает QString каталог
 QString getAppPath();

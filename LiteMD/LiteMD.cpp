@@ -77,6 +77,10 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	dirSwitch2 = new QPushButton("<>");
 	manageDir = new QPushButton("manageDir");
 	syncCtlBtn = new QPushButton("==");
+
+	//Визуал ASCII-стрелочки
+	for (uint8_t it = 0; it < 12; ++it)
+		hintsList[it] = new QLabel("<>");
 	//-------------------------
 
 	//Блок конфигурации элементов интерфейса
@@ -227,6 +231,17 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	btnDown->setOrientation(OrientablePushButton::VerticalTopBottom);
 	btnUp->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
 	btnDown->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+	//Визуал ASCII-стрелочки - настройка
+	for (uint8_t it = 0; it < 12; ++it)
+	{
+		hintsList[it]->setFixedWidth(32);
+		hintsList[it]->setFixedHeight(10);
+		hintsList[it]->setAlignment(Qt::AlignCenter);
+	}
+
+	//Настройки центральной панели
+	uint8_t qlabelIt = 0;
 	btnUp->setFixedWidth(32);
 	btnDown->setFixedWidth(32);
 	manageDir->setFixedWidth(32);
@@ -237,17 +252,24 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	dirSwitch2->setFixedWidth(32);
 	dirSwitch1->setFixedHeight(48);
 	dirSwitch2->setFixedHeight(48);
-	scrollDockLay->addSpacing(50);
+	for (; qlabelIt < 4; ++qlabelIt)
+		scrollDockLay->addWidget(hintsList[qlabelIt]);
 	scrollDockLay->addWidget(manageDir);
-	scrollDockLay->addSpacing(50);
+	for (; qlabelIt < 6; ++qlabelIt)
+		scrollDockLay->addWidget(hintsList[qlabelIt]);
 	scrollDockLay->addWidget(dirSwitch1);
 	scrollDockLay->addWidget(btnUp);
 	scrollDockLay->addWidget(btnDown);
 	scrollDockLay->addWidget(dirSwitch2);
-	scrollDockLay->addSpacing(50);
+	for (; qlabelIt < 8; ++qlabelIt)
+		scrollDockLay->addWidget(hintsList[qlabelIt]);
 	scrollDockLay->addWidget(syncCtlBtn);
-	scrollDockLay->addSpacing(50);
+	for (; qlabelIt < 12; ++qlabelIt)
+		scrollDockLay->addWidget(hintsList[qlabelIt]);
 	scrollDock->setLayout(scrollDockLay);
+	//--------------------------------------
+
+	//Настройка отображения и компоновки
 	editorLay->addWidget(mde);
 	viewerLay->addWidget(mdsArea);
 	editorWindow->setLayout(editorLay);
@@ -377,6 +399,10 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 		QErrorMessage::qtHandler();	++connected_signals;//Управление руч/авт
 	if (!connect(syncCtlBtn, SIGNAL(clicked()), this, SLOT(slotSwitchSync())))
 		QErrorMessage::qtHandler();	++connected_signals;//Синхронизация окон руч/авт
+	if (!connect(mdsArea->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotScrollEvent(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Синхронизация от рендера
+	if (!connect(mde->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotScrollEvent(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Синхронизация от рендера
 	push_log(std::string("[QT->LiteMD]Образовано " + std::to_string(connected_signals) + " связей"));
 	//------------------------------
 
@@ -437,11 +463,15 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 		{
 			dirSwitch1->setText("<<");
 			dirSwitch2->setText("<<");
+			for (uint8_t it = 0; it < 12; ++it)
+				hintsList[it]->setText("<<");
 		}
 		else if (!scrollPrior)
 		{
 			dirSwitch1->setText(">>");
 			dirSwitch2->setText(">>");
+			for (uint8_t it = 0; it < 12; ++it)
+				hintsList[it]->setText(">>");
 		}
 	}
 
