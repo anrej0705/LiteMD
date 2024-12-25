@@ -247,6 +247,7 @@
     <ClCompile Include="dyn_tr_manager\LiteMD_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\logger_ui.cpp" />
     <ClCompile Include="dyn_tr_manager\ui_update_event.cpp" />
+    <ClCompile Include="LiteMD_func.cpp" />
     <ClCompile Include="modules\cmd_wrapper\bridge.cpp" />
     <ClCompile Include="modules\cmd_wrapper\gui.cpp" />
     <ClCompile Include="modules\customToolButton.cpp" />
@@ -304,7 +305,7 @@
     <ClCompile Include="window_widgets\logger.cpp" />
     <ClCompile Include="window_widgets\mdEditor.cpp" />
     <ClCompile Include="window_widgets\mdScreen.cpp" />
-	<QtMoc Include="LiteMD.h" />
+    <QtMoc Include="LiteMD.h" />
     <ClCompile Include="LiteMD.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
