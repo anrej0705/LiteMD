@@ -458,7 +458,7 @@ void LiteMD::slotScrollEvent(int scroll)
 	//Если синхронизация автоматическая, то синхронизироваться будет по окну из которого вызвано
 	if (!syncCtl)
 	{
-		float mdeVal, mdeHgh, mdsVal, mdsHgh, proport = 0.0f;
+		float mdeHgh, mdsHgh, proport = 0.0f;
 		//Вычисляем хулигана по ip
 		QObject* whoMeCall = sender();
 		if (whoMeCall == mdsArea->verticalScrollBar())
