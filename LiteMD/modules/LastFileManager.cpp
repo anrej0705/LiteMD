@@ -12,6 +12,8 @@ LastFileManager::LastFileManager()
 {
 }
 
+//appSettings 497:502 (прим. anrej0705)
+
 // Конструктор с указанием размера списка.
 LastFileManager::LastFileManager(int numberOfRecords) 
 	: LastFileManager(std::string(getConfigPath().toStdString() + "/last_files"), numberOfRecords)
