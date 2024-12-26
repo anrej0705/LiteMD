@@ -128,3 +128,4 @@ class LiteMD : public QMainWindow
 };
 //Простой, как сатиновые трусы, метод возвращает QString каталог
 QString getAppPath();
+QIcon setAppIcon();
