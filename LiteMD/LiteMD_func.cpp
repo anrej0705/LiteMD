@@ -262,11 +262,7 @@ void LiteMD::slotMdsDown()
 //Прокрутка вверх через полосу прокрутки
 void LiteMD::slotMdsUp()
 {
-	float mdeVal = 0;
-	float mdeHgh = 0;
-	float mdsVal = 0;
-	float mdsHgh = 0;
-	float proport = 0.0f;
+	float mdeVal, mdeHgh, mdsVal, mdsHgh, proport = 0.0f;
 	if (!managePrior)
 	{
 		//Определяем приоритет
@@ -453,14 +449,57 @@ void LiteMD::slotSwitchSync()
 
 void LiteMD::slotScrollEvent(int scroll)
 {
-	if (scrollPrior && !syncCtl)			//Приоритет - редактор
+	//Фильтр вызова рекурсии. Например юзер пролистал редактор, изменился рендер, рендер послал
+	//сигнал изменения и был принят здесь и изменится редактор, редактор снова пошлёт сигнал
+	//и так по кругу. Чтобы такого не было подымается флаг фильтра, если он поднят то фильтр
+	//сбрасывает его у себя в коде и выходит из функции убирая "звон"
+	static bool ringFilter = 0;
+
+	//Если синхронизация автоматическая, то синхронизироваться будет по окну из которого вызвано
+	if (!syncCtl)
 	{
-		mdsArea->verticalScrollBar()->setValue(scroll);
-		return;
-	}
-	else if (!scrollPrior && !syncCtl)		//Приоритет монитор
-	{
-		mde->verticalScrollBar()->setValue(scroll);
-		return;
+		float mdeVal, mdeHgh, mdsVal, mdsHgh, proport = 0.0f;
+		//Вычисляем хулигана по ip
+		QObject* whoMeCall = sender();
+		if (whoMeCall == mdsArea->verticalScrollBar())
+		{
+			if (ringFilter)
+			{
+				ringFilter = 0;
+				return;
+			}
+
+			//Подымаем флаг фильтра рекурсионного вызова
+			ringFilter = 1;
+
+			//Если вызов от редактора - синхронизируем от него
+			mdsHgh = static_cast<float>(mdsArea->verticalScrollBar()->maximum());
+			mdeHgh = static_cast<float>(mde->verticalScrollBar()->maximum());
+
+			//Рассчитываем пропорцию относительно редактора
+			proport = mdsHgh / mdeHgh;
+
+			mde->verticalScrollBar()->setValue(scroll / proport);
+		}
+		else if (whoMeCall == mde->verticalScrollBar())
+		{
+			if (ringFilter)
+			{
+				ringFilter = 0;
+				return;
+			}
+
+			//Подымаем флаг фильтра рекурсионного вызова
+			ringFilter = 1;
+
+			//Если вызов от рендера - синхронизируемся
+			mdsHgh = static_cast<float>(mdsArea->verticalScrollBar()->maximum());
+			mdeHgh = static_cast<float>(mde->verticalScrollBar()->maximum());
+
+			//Рассчитываем пропорцию относительно рендера
+			proport = mdeHgh / mdsHgh;
+
+			mdsArea->verticalScrollBar()->setValue(scroll / proport);
+		}
 	}
 }
