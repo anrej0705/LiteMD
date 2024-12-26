@@ -15,50 +15,56 @@ extern "C"
 
 inline QIcon setAppIcon()
 {
-	QPixmap appIcon(getAppPath() + "/icon.ico");
-	appIcon.setMask(appIcon.createMaskFromColor(QColor(0, 0, 0)));
+	QPixmap input(getAppPath() + "/ress/icon_about.png");
+	QPixmap appIcon(input.size());
+	appIcon.fill(Qt::transparent);
+	QPainter p(&appIcon);
+	p.setOpacity(1);
+	p.drawPixmap(0, 0, input);
+	p.end();
+	//appIcon.setMask(appIcon.createMaskFromColor(QColor(0, 0, 0)));
 	return appIcon;
 }
 
-// Инициализирует список последних элементов.
+// РРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚ СЃРїРёСЃРѕРє РїРѕСЃР»РµРґРЅРёС… СЌР»РµРјРµРЅС‚РѕРІ.
 void LiteMD::initLastFileMenu()
 {
-	// Получение списка файлов.
+	// РџРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° С„Р°Р№Р»РѕРІ.
 	LastFileManager lastFileManager;
 	const std::deque<std::string>& lastFilePaths = lastFileManager.getFiles();
 
 	QIcon ico;
 
-	// Если список пустой или первый элемент пустой - завершить работу.
+	// Р•СЃР»Рё СЃРїРёСЃРѕРє РїСѓСЃС‚РѕР№ РёР»Рё РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚ РїСѓСЃС‚РѕР№ - Р·Р°РІРµСЂС€РёС‚СЊ СЂР°Р±РѕС‚Сѓ.
 	if (lastFilePaths.empty() || lastFilePaths.front().empty())
 		return;
 
 	mFile->addSeparator();
 
-	// Добавление меню.
+	// Р”РѕР±Р°РІР»РµРЅРёРµ РјРµРЅСЋ.
 	std::for_each(
 		std::begin(lastFilePaths),
 		std::end(lastFilePaths),
 		[=](std::string lastFilePath) {
-			QFileInfo fileInfo(lastFilePath.c_str());					//Объект, содержащий информацию о файле(прим. anrej0705)
-			QAction* openLastfile = new QAction(fileInfo.fileName());	//Создаём действие, которое будет помещено в меню(прим. anrej0705)
+			QFileInfo fileInfo(lastFilePath.c_str());					//РћР±СЉРµРєС‚, СЃРѕРґРµСЂР¶Р°С‰РёР№ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ С„Р°Р№Р»Рµ(РїСЂРёРј. anrej0705)
+			QAction* openLastfile = new QAction(fileInfo.fileName());	//РЎРѕР·РґР°С‘Рј РґРµР№СЃС‚РІРёРµ, РєРѕС‚РѕСЂРѕРµ Р±СѓРґРµС‚ РїРѕРјРµС‰РµРЅРѕ РІ РјРµРЅСЋ(РїСЂРёРј. anrej0705)
 
-			openLastfile->setData(fileInfo.filePath());					//Сохраняем путь до файла в QVariant(прим. anrej0705)
+			openLastfile->setData(fileInfo.filePath());					//РЎРѕС…СЂР°РЅСЏРµРј РїСѓС‚СЊ РґРѕ С„Р°Р№Р»Р° РІ QVariant(РїСЂРёРј. anrej0705)
 
-			openLastfile->setIcon(setAppIcon());						//Задаём иконку
+			openLastfile->setIcon(setAppIcon());						//Р—Р°РґР°С‘Рј РёРєРѕРЅРєСѓ
 
-			recentFiles->addAction(openLastfile);						//Добавляем действие в меню
+			recentFiles->addAction(openLastfile);						//Р”РѕР±Р°РІР»СЏРµРј РґРµР№СЃС‚РІРёРµ РІ РјРµРЅСЋ
 
 			if (!connect(
 				openLastfile,
 				&QAction::triggered,
 				mde,
 				[=] { mde->slotOpen(fileInfo.filePath()); }))
-				QErrorMessage::qtHandler();	//Соединяем сигнал со слотом вызова окна о программе
+				QErrorMessage::qtHandler();	//РЎРѕРµРґРёРЅСЏРµРј СЃРёРіРЅР°Р» СЃРѕ СЃР»РѕС‚РѕРј РІС‹Р·РѕРІР° РѕРєРЅР° Рѕ РїСЂРѕРіСЂР°РјРјРµ
 		}
 	);
 }
-//О программе
+//Рћ РїСЂРѕРіСЂР°РјРјРµ
 void LiteMD::slotAbout()
 {
 	QMessageBox::about(this, "LiteMD", tr("Ver ") + APP_STAGE + APP_VERSION + (" build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))
@@ -68,30 +74,30 @@ void LiteMD::slotAbout()
 		+ tr("Github repo: ") + "<A HREF=\"https://github.com/anrej0705/LiteMD\">https://github.com/anrej0705/LiteMD</A><BR>"
 		+ tr("Releases: ") + "<A HREF=\"https://github.com/anrej0705/LiteMD/releases\">https://github.com/anrej0705/LiteMD/releases</A>");
 }
-//Слот редактирования заголовка(добавления файла к концу)
+//РЎР»РѕС‚ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ Р·Р°РіРѕР»РѕРІРєР°(РґРѕР±Р°РІР»РµРЅРёСЏ С„Р°Р№Р»Р° Рє РєРѕРЅС†Сѓ)
 void LiteMD::slotTitleChanged(const QString& title)
 {
-	//Контейнеры для помещения элементов заголовка
-	std::string newTitle/* = defTitle.toStdString()*/;	//Патч 0.2.2 исправление заголовка
+	//РљРѕРЅС‚РµР№РЅРµСЂС‹ РґР»СЏ РїРѕРјРµС‰РµРЅРёСЏ СЌР»РµРјРµРЅС‚РѕРІ Р·Р°РіРѕР»РѕРІРєР°
+	std::string newTitle/* = defTitle.toStdString()*/;	//РџР°С‚С‡ 0.2.2 РёСЃРїСЂР°РІР»РµРЅРёРµ Р·Р°РіРѕР»РѕРІРєР°
 	fileFullPath = title.toStdString();
 	if (title.isEmpty())
 		fileFullPath = QString(tr("Untitled")).toStdString();
-	//Формируем заголовок из контейнеров и устанавливаем в приложение
+	//Р¤РѕСЂРјРёСЂСѓРµРј Р·Р°РіРѕР»РѕРІРѕРє РёР· РєРѕРЅС‚РµР№РЅРµСЂРѕРІ Рё СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РІ РїСЂРёР»РѕР¶РµРЅРёРµ
 	newTitle.append((tr("LiteMD") + APP_STAGE + APP_VERSION + tr(" build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))).toStdString() + " [" + fileFullPath.substr(fileFullPath.rfind('/') + 1, fileFullPath.size() - fileFullPath.rfind('/')) + "]");
 	//defTitle = QString::fromStdString(newTitle);
 	setWindowTitle(QString::fromStdString(newTitle));
 }
-//Сброс заголовка
+//РЎР±СЂРѕСЃ Р·Р°РіРѕР»РѕРІРєР°
 void LiteMD::slotTitleReset()
 {
 	setWindowTitle(defTitle);
 }
-//Слот показа состояния на панели снизу
+//РЎР»РѕС‚ РїРѕРєР°Р·Р° СЃРѕСЃС‚РѕСЏРЅРёСЏ РЅР° РїР°РЅРµР»Рё СЃРЅРёР·Сѓ
 void LiteMD::slot_mbar_send_string(const QString& str)
 {
 	statusBar()->showMessage(str, 4000);
 }
-//Слот установки флага редактирования флага
+//РЎР»РѕС‚ СѓСЃС‚Р°РЅРѕРІРєРё С„Р»Р°РіР° СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ С„Р»Р°РіР°
 void LiteMD::slotFileEdited()
 {
 	if (!appTitleUpdated)
@@ -102,50 +108,50 @@ void LiteMD::slotFileEdited()
 		appTitleUpdated = 1;
 	}
 }
-//Перехватчик события закрытия
+//РџРµСЂРµС…РІР°С‚С‡РёРє СЃРѕР±С‹С‚РёСЏ Р·Р°РєСЂС‹С‚РёСЏ
 void LiteMD::closeEvent(QCloseEvent* ce)
 {
-	push_log("[QT]Вызвано событие закрытия приложения");
-	//Если файл редактировался то спрашиваем нужно ли сохранить
+	push_log("[QT]Р’С‹Р·РІР°РЅРѕ СЃРѕР±С‹С‚РёРµ Р·Р°РєСЂС‹С‚РёСЏ РїСЂРёР»РѕР¶РµРЅРёСЏ");
+	//Р•СЃР»Рё С„Р°Р№Р» СЂРµРґР°РєС‚РёСЂРѕРІР°Р»СЃСЏ С‚Рѕ СЃРїСЂР°С€РёРІР°РµРј РЅСѓР¶РЅРѕ Р»Рё СЃРѕС…СЂР°РЅРёС‚СЊ
 	if (fileChangedState)
 	{
 		if (!confirmSave())
 		{
-			//Если пользователь не захотел сохранять то просто закрываемся
+			//Р•СЃР»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ Р·Р°С…РѕС‚РµР» СЃРѕС…СЂР°РЅСЏС‚СЊ С‚Рѕ РїСЂРѕСЃС‚Рѕ Р·Р°РєСЂС‹РІР°РµРјСЃСЏ
 			appClose = 1;
 			dwModule->close();
 			ce->accept();
 		}
 		else
 		{
-			//Если пользователь захотел сохранить то закрывамся после сохранения
+			//Р•СЃР»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ Р·Р°С…РѕС‚РµР» СЃРѕС…СЂР°РЅРёС‚СЊ С‚Рѕ Р·Р°РєСЂС‹РІР°РјСЃСЏ РїРѕСЃР»Рµ СЃРѕС…СЂР°РЅРµРЅРёСЏ
 			appClose = 1;
 			emit saveFile();
 			dwModule->close();
 			ce->accept();
 		}
 	}
-	//Выставляем флаг закрытия и закрываем модуль если он открыт
+	//Р’С‹СЃС‚Р°РІР»СЏРµРј С„Р»Р°Рі Р·Р°РєСЂС‹С‚РёСЏ Рё Р·Р°РєСЂС‹РІР°РµРј РјРѕРґСѓР»СЊ РµСЃР»Рё РѕРЅ РѕС‚РєСЂС‹С‚
 	appClose = 1;
 	dwModule->close();
 }
 
-//Вызов модуля загрузки
+//Р’С‹Р·РѕРІ РјРѕРґСѓР»СЏ Р·Р°РіСЂСѓР·РєРё
 void LiteMD::httpModuleShow()
 {
-	//Если по указателю есть то что нам надо то показываем
+	//Р•СЃР»Рё РїРѕ СѓРєР°Р·Р°С‚РµР»СЋ РµСЃС‚СЊ С‚Рѕ С‡С‚Рѕ РЅР°Рј РЅР°РґРѕ С‚Рѕ РїРѕРєР°Р·С‹РІР°РµРј
 	if (dynamic_cast<DownloaderGui*>(dwModule))
 	{
 		dwModule->slotShow();
 		return;
 	}
-	//Иначе создаем объект и показываем
+	//РРЅР°С‡Рµ СЃРѕР·РґР°РµРј РѕР±СЉРµРєС‚ Рё РїРѕРєР°Р·С‹РІР°РµРј
 	dwModule = new DownloaderGui;
 	dwModule->slotShow();
 }
 LiteMD::~LiteMD()
 {
-	//0.2.7 Позже поработаю здесь
+	//0.2.7 РџРѕР·Р¶Рµ РїРѕСЂР°Р±РѕС‚Р°СЋ Р·РґРµСЃСЊ
 	//free(chosenTheme);
 	//deleteOnExit();
 }
@@ -157,31 +163,59 @@ void LiteMD::slotCheckUpdates()
 
 void LiteMD::slotFileClose()
 {
-	//Закрываем файл и чистим текст
+	//Р—Р°РєСЂС‹РІР°РµРј С„Р°Р№Р» Рё С‡РёСЃС‚РёРј С‚РµРєСЃС‚
 	mde->closeFile();
 	fileFullPath.clear();
 
-	//Сбрасываем заголовок
+	//РЎР±СЂР°СЃС‹РІР°РµРј Р·Р°РіРѕР»РѕРІРѕРє
 	setWindowTitle(defTitle);
 }
 
-//Прокрутка вниз через полосу прокрутки
+//РџСЂРѕРєСЂСѓС‚РєР° РІРЅРёР· С‡РµСЂРµР· РїРѕР»РѕСЃСѓ РїСЂРѕРєСЂСѓС‚РєРё
 void LiteMD::slotMdsDown()
 {
+	float mdeVal, mdeHgh, mdsVal, mdsHgh, proport = 0.0f;
+	int scrollVal = -1;	//Р‘Р°РіС„РёРєСЃ, РЅРµ РЅР°РґРѕ Р»СЏРјР±РґС‹ - РєРѕРґ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ Р»РµРіРєРѕ С‡РёС‚Р°РµРј РґР°Р¶Рµ РґР»СЏ РЅСѓР±Р°
 	if (!managePrior)
 	{
-		//Определяем приоритет
-		if (mdsArea->verticalScrollBar()->size().height() > mde->verticalScrollBar()->size().height())
+		//РџСЂРѕРІРµСЂСЏРµРј РґР»РёРЅСѓ РїРёСЃСЋРЅРѕРІ РІС‹СЏСЃРЅСЏСЏ С‡РµР№ РґР»РёРЅРЅРµРµ
+		if (mde->verticalScrollBar()->maximum() > mdsArea->verticalScrollBar()->maximum())
 		{
-			//Увеличиваем значение полосы прокрутки, там самым крутим вниз
-			mdsArea->verticalScrollBar()->setValue(mdsArea->verticalScrollBar()->value() + mdsArea->verticalScrollBar()->size().height());
-			mde->verticalScrollBar()->setValue(mdsArea->verticalScrollBar()->value() + mdsArea->verticalScrollBar()->size().height());
+			//Р•СЃР»Рё РѕРєРЅРѕ СЂРµРґР°РєС‚РѕСЂР° РёРјРµРµС‚ Р±РћР»СЊС€СѓСЋ Р°Р±СЃРѕР»СЋС‚РЅСѓСЋ РІС‹СЃРѕС‚Сѓ, С‚Рѕ РїРѕР»СѓС‡Р°РµС‚ РїСЂРёРѕСЂРёС‚РµС‚
+			mdsHgh = static_cast<float>(mdsArea->verticalScrollBar()->maximum());
+			mdeHgh = static_cast<float>(mde->verticalScrollBar()->maximum());
+
+			//Р Р°СЃС‡С‘С‚ РїСЂРѕРїРѕСЂС†РёРё РїРѕР»Р·СѓРЅРєР°
+			proport = mdeHgh / mdsHgh;
+
+			//Р Р°СЃС‡С‘С‚ СЃРјРµС‰РµРЅРёСЏ РїРѕР»Р·СѓРЅРєР° РѕРєРЅР° СЂРµРЅРґРµСЂР° СЃ СѓС‡С‘С‚РѕРј РїСЂРѕРїРѕСЂРёРё
+			mdsVal = static_cast<float>(mdsArea->verticalScrollBar()->size().height()) / proport;
+
+			//Р‘Р°РіС„РёРєСЃ - Р·РЅР°С‡РµРЅРёСЏ РЅСѓР¶РЅРѕ СЃРєР»Р°РґС‹РІР°С‚СЊ РІ РѕС‚РґРµР»СЊРЅРѕР№ РїРµСЂРµРјРµРЅРЅРѕР№ РёРЅР°С‡Рµ Р±Р°РіР°РЅС‘С‚СЃСЏ
+			//РќР°РїСЂРёРјРµСЂ РїРѕР»Р·СѓРЅРѕРє РЅР° 672, РЅР° РЅРµРіРѕ РїСЂРёС…РѕРґРёС‚ +672 Рё РІ РёС‚РѕРіРµ РґРѕР»Р¶РЅРѕ РїРѕР»СѓС‡РёС‚СЊСЃСЏ 1344
+			//РќРѕ РїРѕР»СѓС‡РёС‚СЃСЏ 1025. РЇ РЅРµ РёСЃСЃР»РµРґРѕРІР°Р» РїСЂРёСЂРѕРґСѓ Р±Р°РіР° РЅРѕ РЅР°С€С‘Р» СЃРїРѕСЃРѕР± РµРіРѕ РѕР±РѕР№С‚Рё
+			scrollVal = mde->verticalScrollBar()->value() + mde->verticalScrollBar()->size().height();
+
+			mdsArea->verticalScrollBar()->setValue(mdsArea->verticalScrollBar()->value() + mdsVal);
+			mde->verticalScrollBar()->setValue(scrollVal);
 		}
-		else
+		else if (mde->verticalScrollBar()->maximum() < mdsArea->verticalScrollBar()->maximum())
 		{
-			//Увеличиваем значение полосы прокрутки, там самым крутим вниз
-			mdsArea->verticalScrollBar()->setValue(mde->verticalScrollBar()->value() + mde->verticalScrollBar()->size().height());
-			mde->verticalScrollBar()->setValue(mde->verticalScrollBar()->value() + mde->verticalScrollBar()->size().height());
+			//Р•СЃР»Рё РѕРєРЅРѕ СЂРµРЅРґРµСЂР° РёРјРµРµС‚ Р±РћР»СЊС€СѓСЋ Р°Р±СЃРѕР»СЋС‚РЅСѓСЋ РІС‹СЃРѕС‚Сѓ, С‚Рѕ РїРѕР»СѓС‡Р°РµС‚ РїСЂРёРѕСЂРёС‚РµС‚
+			mdsHgh = static_cast<float>(mdsArea->verticalScrollBar()->maximum());
+			mdeHgh = static_cast<float>(mde->verticalScrollBar()->maximum());
+
+			//РЎС‡РёС‚Р°РµРј РїСЂРѕРїРѕСЂС†РёСЋ РѕС‚ СЂР°Р·РјРµСЂР° РѕРєРЅР° СЂРµРЅРґРµСЂР°
+			proport = mdsHgh / mdeHgh;
+
+			//Р Р°СЃС‡С‘С‚ СЃРјРµС‰РµРЅРёСЏ РїРѕР»Р·СѓРЅРєР° РѕРєРЅР° СЂРµРЅРґРµСЂР° СЃ СѓС‡С‘С‚РѕРј РїСЂРѕРїРѕСЂРёРё
+			mdeVal = static_cast<float>(mdsArea->verticalScrollBar()->size().height()) / proport;
+
+			scrollVal = mdsArea->verticalScrollBar()->value() + mdsArea->verticalScrollBar()->size().height();
+
+			//Р’С‹РїРѕР»РЅСЏРµРј СЃРјРµС‰РµРЅРёСЏ РґР»СЏ РѕРєРѕРЅ
+			mdsArea->verticalScrollBar()->setValue(scrollVal);
+			mde->verticalScrollBar()->setValue(mde->verticalScrollBar()->value() + mdeVal);
 		}
 	}
 	else
@@ -190,31 +224,64 @@ void LiteMD::slotMdsDown()
 	}
 }
 
-//Прокрутка вверх через полосу прокрутки
+//РџСЂРѕРєСЂСѓС‚РєР° РІРІРµСЂС… С‡РµСЂРµР· РїРѕР»РѕСЃСѓ РїСЂРѕРєСЂСѓС‚РєРё
 void LiteMD::slotMdsUp()
 {
-	float proport;		//Пропорции, по которым рассчитывается перемещение в окне
-	float mdeHeight = mde->verticalScrollBar()->value();	//0 - кританёт делением на 0
-	float mdsHeight = mdsArea->verticalScrollBar()->value();
-	int mdsRes = 0;
-	int mdeRes = 0;
+	float mdeVal = 0;
+	float mdeHgh = 0;
+	float mdsVal = 0;
+	float mdsHgh = 0;
+	float proport = 0.0f;
 	if (!managePrior)
 	{
-		//Определяем приоритет
-		if (mdsHeight > mdeHeight)
+		//РћРїСЂРµРґРµР»СЏРµРј РїСЂРёРѕСЂРёС‚РµС‚
+		if (mde->verticalScrollBar()->value() < mdsArea->verticalScrollBar()->value())
 		{
-			proport = mdsHeight / mdeHeight;
-			//Увеличиваем значение полосы прокрутки, там самым крутим вниз
-			mdsRes = mdsArea->verticalScrollBar()->value() * proport;
-			mdsArea->verticalScrollBar()->setValue((mdsArea->verticalScrollBar()->value() * proport) - mdsArea->verticalScrollBar()->size().height());
-			mde->verticalScrollBar()->setValue((mdsArea->verticalScrollBar()->value() * proport) - mdsArea->verticalScrollBar()->size().height());
+			//РЈР·РЅР°С‘Рј Р·РЅР°С‡РµРЅРёРµ Р°Р±СЃРѕР»СЋС‚РЅРѕР№ РІС‹СЃРѕС‚С‹ Рё С‚РµРєСѓС‰РµРµ Р·РЅР°С‡РµРЅРёРµ РїРѕР»СѓР·РЅРєР°
+			mdsVal = static_cast<float>(mdsArea->verticalScrollBar()->value());
+			mdsHgh = static_cast<float>(mdsArea->verticalScrollBar()->size().height());
+			try
+			{
+				//Р’С‹С‡РёСЃР»СЏРµРј РїСЂРѕС†РµРЅС‚РЅС‹Р№ СЃРґРІРёРі РІРµРґСѓС‰РµР№ СЃС‚РѕСЂРѕРЅС‹(Р°Р±СЃ.РІС‹СЃРѕС‚Р°/Р·РЅР°С‡РµРЅРёРµ РїРѕР»Р·СѓРЅРєР°)
+				proport = static_cast<float>(mdsHgh) / static_cast<float>(mdsVal);
+			}
+			catch (std::overflow_error& e)
+			{
+				mdsVal = 0.000001f;
+				proport = static_cast<float>(mdsHgh) / static_cast<float>(mdsVal);
+			}
+
+			//РЎРјРµС‰Р°РµРј РЅР° РїРѕР»СѓС‡РµРЅРЅС‹Р№ РїСЂРѕС†РµРЅС‚ РІРµРґРѕРјСѓСЋ СЃС‚РѕСЂРѕРЅСѓ
+			mdeVal = static_cast<float>(mde->verticalScrollBar()->value());
+			mdeHgh = static_cast<float>(mde->verticalScrollBar()->size().height()) * proport;
+
+			//РЈРІРµР»РёС‡РёРІР°РµРј Р·РЅР°С‡РµРЅРёРµ РїРѕР»РѕСЃС‹ РїСЂРѕРєСЂСѓС‚РєРё, С‚Р°Рј СЃР°РјС‹Рј РєСЂСѓС‚РёРј РІРЅРёР·
+			mdsArea->verticalScrollBar()->setValue(mdeVal - mdeHgh);
+			mde->verticalScrollBar()->setValue(mdsArea->verticalScrollBar()->value() - mdsArea->verticalScrollBar()->size().height());
 		}
-		else if(mdeHeight > mdsHeight)
+		else if(mde->verticalScrollBar()->value() > mdsArea->verticalScrollBar()->value())
 		{
-			proport = mdeHeight / mdsHeight;
-			//Увеличиваем значение полосы прокрутки, там самым крутим вниз
-			mdsArea->verticalScrollBar()->setValue((mde->verticalScrollBar()->value() * proport) - mde->verticalScrollBar()->size().height());
-			mde->verticalScrollBar()->setValue((mde->verticalScrollBar()->value() * proport) - mde->verticalScrollBar()->size().height());
+			//РЈР·РЅР°С‘Рј Р·РЅР°С‡РµРЅРёРµ Р°Р±СЃРѕР»СЋС‚РЅРѕР№ РІС‹СЃРѕС‚С‹ Рё С‚РµРєСѓС‰РµРµ Р·РЅР°С‡РµРЅРёРµ РїРѕР»СѓР·РЅРєР°
+			mdeVal = static_cast<float>(mde->verticalScrollBar()->value());
+			mdeHgh = static_cast<float>(mde->verticalScrollBar()->size().height());
+			try
+			{
+				//Р’С‹С‡РёСЃР»СЏРµРј РїСЂРѕС†РµРЅС‚РЅС‹Р№ СЃРґРІРёРі РІРµРґСѓС‰РµР№ СЃС‚РѕСЂРѕРЅС‹(Р°Р±СЃ.РІС‹СЃРѕС‚Р°/Р·РЅР°С‡РµРЅРёРµ РїРѕР»Р·СѓРЅРєР°)
+				proport = static_cast<float>(mdeHgh) / static_cast<float>(mdeVal);
+			}
+			catch (std::overflow_error& e)
+			{
+				mdeVal = 0.000001f;
+				proport = static_cast<float>(mdeHgh) / static_cast<float>(mdeVal);
+			}
+
+			//РЎРјРµС‰Р°РµРј РЅР° РїРѕР»СѓС‡РµРЅРЅС‹Р№ РїСЂРѕС†РµРЅС‚ РІРµРґРѕРјСѓСЋ СЃС‚РѕСЂРѕРЅСѓ
+			mdsVal = static_cast<float>(mdsArea->verticalScrollBar()->value());
+			mdsHgh = static_cast<float>(mdsArea->verticalScrollBar()->size().height()) * proport;
+
+			//РЈРІРµР»РёС‡РёРІР°РµРј Р·РЅР°С‡РµРЅРёРµ РїРѕР»РѕСЃС‹ РїСЂРѕРєСЂСѓС‚РєРё, С‚Р°Рј СЃР°РјС‹Рј РєСЂСѓС‚РёРј РІРЅРёР·
+			mdsArea->verticalScrollBar()->setValue(mdsArea->verticalScrollBar()->value() - mdsArea->verticalScrollBar()->size().height());
+			mde->verticalScrollBar()->setValue(mdsVal - mdsHgh);
 		}
 	}
 	else
@@ -225,7 +292,7 @@ void LiteMD::slotMdsUp()
 
 void LiteMD::slotSwitchDir()
 {
-	if (scrollPrior)			//Приоритет - редактор
+	if (scrollPrior)			//РџСЂРёРѕСЂРёС‚РµС‚ - СЂРµРґР°РєС‚РѕСЂ
 	{
 		scrollPrior = 0;
 		dirSwitch1->setText("<<");
@@ -236,7 +303,7 @@ void LiteMD::slotSwitchDir()
 	}
 	else if (!scrollPrior)
 	{
-		scrollPrior = 1;		//Приоритет - монитор
+		scrollPrior = 1;		//РџСЂРёРѕСЂРёС‚РµС‚ - РјРѕРЅРёС‚РѕСЂ
 		dirSwitch1->setText(">>");
 		dirSwitch2->setText(">>");
 		for (uint8_t it = 0; it < 12; ++it)
@@ -247,7 +314,7 @@ void LiteMD::slotSwitchDir()
 
 void LiteMD::slotManageDir()
 {
-	if (managePrior)			//Режим - авто
+	if (managePrior)			//Р РµР¶РёРј - Р°РІС‚Рѕ
 	{
 		managePrior = 0;
 		manageDir->setText(tr("manageDirAuto"));
@@ -256,18 +323,18 @@ void LiteMD::slotManageDir()
 		dirSwitch1->setEnabled(0);
 		dirSwitch2->setEnabled(0);
 		if (mdsArea->size().height() > mde->verticalScrollBar()->size().height())
-			scrollPrior = 0;	//Авто - приоритет - редактор
+			scrollPrior = 0;	//РђРІС‚Рѕ - РїСЂРёРѕСЂРёС‚РµС‚ - СЂРµРґР°РєС‚РѕСЂ
 		else if (mdsArea->size().height() < mde->verticalScrollBar()->size().height())
-			scrollPrior = 1;	//Авто - приоритет монитор
+			scrollPrior = 1;	//РђРІС‚Рѕ - РїСЂРёРѕСЂРёС‚РµС‚ РјРѕРЅРёС‚РѕСЂ
 		return;
 	}
-	else if (!managePrior)		//Режим - ручной
+	else if (!managePrior)		//Р РµР¶РёРј - СЂСѓС‡РЅРѕР№
 	{
 		managePrior = 1;
 		manageDir->setText(tr("manageDirManual"));
 		dirSwitch1->setEnabled(1);
 		dirSwitch2->setEnabled(1);
-		if (scrollPrior) //Предустанки кнопки направления
+		if (scrollPrior) //РџСЂРµРґСѓСЃС‚Р°РЅРєРё РєРЅРѕРїРєРё РЅР°РїСЂР°РІР»РµРЅРёСЏ
 		{
 			dirSwitch1->setText(">>");
 			dirSwitch2->setText(">>");
@@ -287,13 +354,13 @@ void LiteMD::slotManageDir()
 
 void LiteMD::slotSwitchSync()
 {
-	if (syncCtl)		//Авто
+	if (syncCtl)		//РђРІС‚Рѕ
 	{
 		syncCtl = 0;
 		syncCtlBtn->setText("==");
 		return;
 	}
-	else if (!syncCtl)	//Ручной
+	else if (!syncCtl)	//Р СѓС‡РЅРѕР№
 	{
 		syncCtl = 1;
 		syncCtlBtn->setText("=|=");
@@ -303,12 +370,12 @@ void LiteMD::slotSwitchSync()
 
 void LiteMD::slotScrollEvent(int scroll)
 {
-	if (scrollPrior && !syncCtl)			//Приоритет - редактор
+	if (scrollPrior && !syncCtl)			//РџСЂРёРѕСЂРёС‚РµС‚ - СЂРµРґР°РєС‚РѕСЂ
 	{
 		mdsArea->verticalScrollBar()->setValue(scroll);
 		return;
 	}
-	else if (!scrollPrior && !syncCtl)		//Приоритет монитор
+	else if (!scrollPrior && !syncCtl)		//РџСЂРёРѕСЂРёС‚РµС‚ РјРѕРЅРёС‚РѕСЂ
 	{
 		mde->verticalScrollBar()->setValue(scroll);
 		return;
