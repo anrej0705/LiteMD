@@ -15,14 +15,14 @@ extern "C"
 
 inline QIcon setAppIcon()
 {
+	//Подгружаем иконку
 	QPixmap input(getAppPath() + "/ress/icon_about.png");
-	QPixmap appIcon(input.size());
-	appIcon.fill(Qt::transparent);
-	QPainter p(&appIcon);
-	p.setOpacity(1);
-	p.drawPixmap(0, 0, input);
+	QPixmap appIcon(input.size());	//Создаём объект в памяти по размеру картинки
+	appIcon.fill(Qt::transparent);	//Заливаем прозрачным(делаем альфа канал)
+	QPainter p(&appIcon);			//Линкуем нашу загруженную иконку
+	p.setOpacity(1);				//Врубаем альфа-канал
+	p.drawPixmap(0, 0, input);		//Рисуем картинку с альфа-каналом
 	p.end();
-	//appIcon.setMask(appIcon.createMaskFromColor(QColor(0, 0, 0)));
 	return appIcon;
 }
 
@@ -32,8 +32,6 @@ void LiteMD::initLastFileMenu()
 	// Получение списка файлов.
 	LastFileManager lastFileManager;
 	const std::deque<std::string>& lastFilePaths = lastFileManager.getFiles();
-
-	QIcon ico;
 
 	// Если список пустой или первый элемент пустой - завершить работу.
 	if (lastFilePaths.empty() || lastFilePaths.front().empty())
