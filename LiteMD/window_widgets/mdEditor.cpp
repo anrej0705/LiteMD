@@ -226,7 +226,7 @@ void mdEditor::slotSave()
 //Сохраняем файл в списке недавних(прим. SilverWolf2K20)
 void mdEditor::saveLastFile()
 {
-	LastFileManager lastFileManager(std::string(getConfigPath().toStdString() + "/last_files"), 5);	//Сохраняется в попку настроек юзера(прим. anrej0705)
+	LastFileManager lastFileManager(std::string(getConfigPath().toStdString() + "/last_files"), recentLimit);	//Сохраняется в попку настроек юзера(прим. anrej0705)
 	lastFileManager.addFile(std::string(mdFileName.toUtf8()));
 	lastFileManager.save();
 }
