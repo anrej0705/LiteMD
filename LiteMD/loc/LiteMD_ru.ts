@@ -316,6 +316,14 @@ github.com/anrej0705
         <source>recentFiles</source>
         <translation>Недавние файлы</translation>
     </message>
+    <message>
+        <source>manageDirAuto</source>
+        <translation>Авт</translation>
+    </message>
+    <message>
+        <source>manageDirManual</source>
+        <translation>Руч</translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
@@ -557,11 +565,11 @@ Programm will close</source>
     </message>
     <message>
         <source>saveLocationHint</source>
-        <translation>Подсказка к полю места сохранения настроек</translation>
+        <translation>Место хранения настроек и кеша</translation>
     </message>
     <message>
         <source>userPathHint</source>
-        <translation>Подсказка к полю ввода текстового пути пользователем</translation>
+        <translation>Путь для записи настроек</translation>
     </message>
     <message>
         <source>langListHelp</source>
