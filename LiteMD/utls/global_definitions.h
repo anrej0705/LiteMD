@@ -10,9 +10,9 @@
 //##[STAGE]
 #define APP_STAGE " alpha"
 //##[VER]
-#define APP_VERSION " 0.2.8"
+#define APP_VERSION " 0.3.0"
 //##[BUILD]
-#define BUILD_NUMBER 1957
+#define BUILD_NUMBER 1960
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
@@ -22,7 +22,7 @@
 const char appSign[] = "__Shani_basic";
 
 //Количество читаемых параметров из конфига. Прибавлять каждый раз когда добавляется новая фича
-#define PARAM_CNT	19
+#define PARAM_CNT	20
 
 /*
 * Таблица событий для обновления интерфейса
