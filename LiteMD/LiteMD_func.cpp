@@ -220,7 +220,42 @@ void LiteMD::slotMdsDown()
 	}
 	else
 	{
+		//Если редактор
+		if (scrollPrior)
+		{
+			//Если окно редактора имеет бОльшую абсолютную высоту, то получает приоритет
+			mdsHgh = static_cast<float>(mdsArea->verticalScrollBar()->maximum());
+			mdeHgh = static_cast<float>(mde->verticalScrollBar()->maximum());
 
+			//Расчёт пропорции ползунка
+			proport = mdeHgh / mdsHgh;
+
+			//Расчёт смещения ползунка окна рендера с учётом пропории
+			mdsVal = static_cast<float>(mdsArea->verticalScrollBar()->size().height()) / proport;
+
+			scrollVal = mde->verticalScrollBar()->value() + mde->verticalScrollBar()->size().height();
+
+			mdsArea->verticalScrollBar()->setValue(mdsArea->verticalScrollBar()->value() + mdsVal);
+			mde->verticalScrollBar()->setValue(scrollVal);
+		}
+		else if (!scrollPrior)	//Иначе монитор
+		{
+			//Если окно рендера имеет бОльшую абсолютную высоту, то получает приоритет
+			mdsHgh = static_cast<float>(mdsArea->verticalScrollBar()->maximum());
+			mdeHgh = static_cast<float>(mde->verticalScrollBar()->maximum());
+
+			//Считаем пропорцию от размера окна рендера
+			proport = mdsHgh / mdeHgh;
+
+			//Расчёт смещения ползунка окна рендера с учётом пропории
+			mdeVal = static_cast<float>(mdsArea->verticalScrollBar()->size().height()) / proport;
+
+			scrollVal = mdsArea->verticalScrollBar()->value() + mdsArea->verticalScrollBar()->size().height();
+
+			//Выполняем смещения для окон
+			mdsArea->verticalScrollBar()->setValue(scrollVal);
+			mde->verticalScrollBar()->setValue(mde->verticalScrollBar()->value() + mdeVal);
+		}
 	}
 }
 
@@ -286,7 +321,55 @@ void LiteMD::slotMdsUp()
 	}
 	else
 	{
+		//Если редактор
+		if (scrollPrior)
+		{
+			//Узнаём значение абсолютной высоты и текущее значение полузнка
+			mdeVal = static_cast<float>(mde->verticalScrollBar()->value());
+			mdeHgh = static_cast<float>(mde->verticalScrollBar()->size().height());
+			try
+			{
+				//Вычисляем процентный сдвиг ведущей стороны(абс.высота/значение ползунка)
+				proport = static_cast<float>(mdeHgh) / static_cast<float>(mdeVal);
+			}
+			catch (std::overflow_error& e)
+			{
+				mdeVal = 0.000001f;
+				proport = static_cast<float>(mdeHgh) / static_cast<float>(mdeVal);
+			}
 
+			//Смещаем на полученный процент ведомую сторону
+			mdsVal = static_cast<float>(mdsArea->verticalScrollBar()->value());
+			mdsHgh = static_cast<float>(mdsArea->verticalScrollBar()->size().height()) * proport;
+
+			//Увеличиваем значение полосы прокрутки, там самым крутим вниз
+			mdsArea->verticalScrollBar()->setValue(mdsArea->verticalScrollBar()->value() - mdsArea->verticalScrollBar()->size().height());
+			mde->verticalScrollBar()->setValue(mdsVal - mdsHgh);
+		}
+		else if (!scrollPrior)	//Иначе монитор
+		{
+			//Узнаём значение абсолютной высоты и текущее значение полузнка
+			mdsVal = static_cast<float>(mdsArea->verticalScrollBar()->value());
+			mdsHgh = static_cast<float>(mdsArea->verticalScrollBar()->size().height());
+			try
+			{
+				//Вычисляем процентный сдвиг ведущей стороны(абс.высота/значение ползунка)
+				proport = static_cast<float>(mdsHgh) / static_cast<float>(mdsVal);
+			}
+			catch (std::overflow_error& e)
+			{
+				mdsVal = 0.000001f;
+				proport = static_cast<float>(mdsHgh) / static_cast<float>(mdsVal);
+			}
+
+			//Смещаем на полученный процент ведомую сторону
+			mdeVal = static_cast<float>(mde->verticalScrollBar()->value());
+			mdeHgh = static_cast<float>(mde->verticalScrollBar()->size().height()) * proport;
+
+			//Увеличиваем значение полосы прокрутки, там самым крутим вниз
+			mdsArea->verticalScrollBar()->setValue(mdeVal - mdeHgh);
+			mde->verticalScrollBar()->setValue(mdsArea->verticalScrollBar()->value() - mdsArea->verticalScrollBar()->size().height());
+		}
 	}
 }
 
