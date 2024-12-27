@@ -72,7 +72,6 @@ void LastFileManager::save() const
 
 void LastFileManager::removeList() //by anrej0705
 {	
-	int stat = std::remove(path_.c_str());
-	if (stat != 0)
+	if (std::remove(path_.c_str()) != 0)
 		throw(exceptionHandler(exceptionHandler::WARNING, std::string("Не удалось удалить файл " + path_).c_str()));
 }
