@@ -5,6 +5,7 @@
 #include <iterator>
 
 #include "appSettings.h" //getConfigPath() (прим. anrej0705)
+#include "exceptionHandler.h"
 
 // Конструктор по умолчанию.
 LastFileManager::LastFileManager()
@@ -67,4 +68,11 @@ void LastFileManager::save() const
 		std::ostream_iterator<std::string>(file, "\n"));
 
 	file.close();
+}
+
+void LastFileManager::removeList() //by anrej0705
+{	
+	int stat = std::remove(path_.c_str());
+	if (stat != 0)
+		throw(exceptionHandler(exceptionHandler::WARNING, std::string("Не удалось удалить файл " + path_).c_str()));
 }
