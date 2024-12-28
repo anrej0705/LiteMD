@@ -494,6 +494,12 @@ void appSettings::slot_en_bold(int bit)
 	parswitch.en_bold == 0 ? push_log("[НАСТРОЙКИ]Обработка жирного текста отключена") : push_log("[НАСТРОЙКИ]Обработка жирного текста включена");
 }
 
+void appSettings::slot_update_r_limit(int bit)
+{
+	//Задаёт длину списка, Егор ты когда займёшься своим модулем списка напиши какое нибудь обновление для него
+	recentLimit = 5;
+}
+
 QString getConfigPath()
 {
 	return writablePath;
