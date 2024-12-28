@@ -151,6 +151,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	setUnderlined = new QAction(QPixmap(appPath + "/ress/icon_set_under.png"), tr("Set underlined"));
 	setStrikethrough = new QAction(QPixmap(appPath + "/ress/icon_set_strike.png"), tr("Set strikethrough"));
 	checkUpdates = new QAction(QPixmap(appPath + "/ress/icon_check_updates.png"), tr("checkUpdates"));
+	actclearRecent = new QAction(tr("actclearRecent"));
 	//----------------
 	
 	//Настройка выпадающих менюшек
@@ -289,6 +290,8 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mFile->addAction(actOpen);
 	mFile->addAction(actSave);
 	mFile->addAction(actSaveAs);
+	recentFiles->addAction(actclearRecent);
+	recentFiles->addSeparator();
 
 	initLastFileMenu();				//Инициализация меню последних файлов(прим. anrej0705)
 
@@ -402,6 +405,8 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	if (!connect(mdsArea->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotScrollEvent(int))))
 		QErrorMessage::qtHandler();	++connected_signals;//Синхронизация от рендера
 	if (!connect(mde->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotScrollEvent(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Синхронизация от рендера
+	if (!connect(actclearRecent, SIGNAL(triggered()), this, SLOT(slotRemoveRf())))
 		QErrorMessage::qtHandler();	++connected_signals;//Синхронизация от рендера
 	push_log(std::string("[QT->LiteMD]Образовано " + std::to_string(connected_signals) + " связей"));
 	//------------------------------

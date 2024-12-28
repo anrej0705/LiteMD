@@ -75,6 +75,7 @@ class LiteMD : public QMainWindow
 		QAction* actBugReport;				//Кнопка открытия окна логов
 		QAction* actShieldSymbol;			//Кнопка экранирования символа на котором стоит курсор
 		QAction* checkUpdates;				//Пункт меню проверки обновлений
+		QAction* actclearRecent;			//Чистит список последних файлов
 
 		//Действия менюшки заголовков
 		QAction* actSetH1;					//H1
@@ -125,6 +126,7 @@ class LiteMD : public QMainWindow
 		void slotManageDir();				//Переключение режима руч/авт
 		void slotSwitchSync();				//Переключение режима сихронизации
 		void slotScrollEvent(int);			//Слот обработки событий листания
+		void slotRemoveRf();				//Чистит список файлов
 };
 //Простой, как сатиновые трусы, метод возвращает QString каталог
 QString getAppPath();
