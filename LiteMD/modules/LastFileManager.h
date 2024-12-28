@@ -17,9 +17,9 @@ public:
 	LastFileManager(int numberOfRecords); //  Конструктор с указанием размера списка последних открытых файлов.
 	LastFileManager(std::string path, int numberOfRecords); //  Конструктор с указанием пути и размера списка последних открытых файлов.
 
-	void save() const; // Сохраняет список последних открытых файлов.
+	void save() const noexcept; // Сохраняет список последних открытых файлов.
 	const std::deque<std::string>& getFiles() const { return lastFilePaths_; } // Возвращает список последних открытых файлов.
-	void addFile(std::string path); // Добавляет файл в список последних открытых файлов.
+	void addFile(std::string path) noexcept; // Добавляет файл в список последних открытых файлов.
 	void removeList();// Удаляет сохранённый список файлов
 };
 

@@ -39,7 +39,7 @@ LastFileManager::LastFileManager(std::string path, int numberOfRecords)
 }
 
 // Добавляет файл в список последних открытых файлов.
-void LastFileManager::addFile(std::string path)
+void LastFileManager::addFile(std::string path) noexcept
 {
 	auto iterator = std::find(
 		std::begin(lastFilePaths_),
@@ -58,7 +58,7 @@ void LastFileManager::addFile(std::string path)
 }
 
 // Сохраняет список последних открытых файлов.
-void LastFileManager::save() const
+void LastFileManager::save() const noexcept
 {
 	std::ofstream file(path_, std::ios::trunc);
 
@@ -70,7 +70,7 @@ void LastFileManager::save() const
 	file.close();
 }
 
-void LastFileManager::removeList() //by anrej0705
+void LastFileManager::removeList()//by anrej0705
 {	
 	if (std::remove(path_.c_str()) != 0)
 		throw(exceptionHandler(exceptionHandler::WARNING, std::string("Не удалось удалить файл " + path_).c_str()));
