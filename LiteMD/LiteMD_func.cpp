@@ -51,7 +51,7 @@ void LiteMD::initLastFileMenu()
 
 			openLastfile->setIcon(setAppIcon());						//Задаём иконку
 
-			recentFiles->addAction(openLastfile);						//Добавляем действие в меню
+			recentFiles->addAction(openLastfile);					//Добавляем действие в меню
 
 			if (!connect(
 				openLastfile,
@@ -500,4 +500,23 @@ void LiteMD::slotScrollEvent(int scroll)
 			mdsArea->verticalScrollBar()->setValue(scroll / proport);
 		}
 	}
+}
+
+void LiteMD::slotRemoveRf()
+{
+	//Получаем список подпунктов меню
+	QList<QAction*> actions(recentFiles->actions());
+
+	//Чистим менюшку
+	foreach(QAction * act, actions)
+	{
+		if (act != actclearRecent && act->isSeparator() == 0)
+		{
+			recentFiles->removeAction(act);
+		}
+	}
+
+	//Чистим хранилище
+	LastFileManager lfm;
+	lfm.removeList();
 }
