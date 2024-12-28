@@ -13,6 +13,7 @@ bool scrollPrior = 0;
 bool managePrior = 0;
 bool syncCtl = 0;
 int langCode = 0;
+int recentLimit = 5;	//По умолчанию - 5
 //Deprecated
 bool allowHttpWarn = 1;
 bool httpDerpWarned = 0;
