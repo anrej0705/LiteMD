@@ -22,6 +22,7 @@ extern bool logReadState;
 extern bool enableDeprFeatures;
 extern bool enableIndevFeatures;
 extern int langCode;
+extern int recentLimit;
 
 //Путь приложения
 extern int dataLocation;
