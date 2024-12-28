@@ -1,6 +1,5 @@
 #include "LiteMD.h"
 #include "logger_backend.h"
-#include "bridge.h"	//Пока что приложуха привязана к винде
 #include <QtWidgets/QApplication>
 #include <regex>
 #include <string>
@@ -22,6 +21,8 @@ int main(int argc, char *argv[])
 	if (!patches.isEmpty())
 	{
 		push_log(std::string("[ОБНОВЛЕНИЕ]Найден архив с патчем " + patches.at(0).toStdString()));
+
+		//Здесь патчер начинает свою работу
 	}
 	else
 		push_log("[ОБНОВЛЕНИЕ]Патчи не найдены, пропуск");
