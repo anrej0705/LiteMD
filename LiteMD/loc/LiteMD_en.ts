@@ -314,6 +314,14 @@ I hope u like my app :D</translation>
         <source>recentFiles</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>manageDirAuto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>manageDirManual</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
