@@ -324,6 +324,10 @@ github.com/anrej0705
         <source>manageDirManual</source>
         <translation>Руч</translation>
     </message>
+    <message>
+        <source>actclearRecent</source>
+        <translation>Очистить список</translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
@@ -686,6 +690,14 @@ Programm will close</source>
     <message>
         <source>parseBoldHelp</source>
         <translation>Разрешает обработку текста, отмеченного **жирным**</translation>
+    </message>
+    <message>
+        <source>recentLimitHelp</source>
+        <translation>Определяет, сколько недавно открытых файлов будет запоминать программа</translation>
+    </message>
+    <message>
+        <source>recentLimitHint</source>
+        <translation>Максимум недавних файлов</translation>
     </message>
 </context>
 <context>
