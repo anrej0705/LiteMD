@@ -322,6 +322,10 @@ I hope u like my app :D</translation>
         <source>manageDirManual</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>actclearRecent</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
@@ -685,6 +689,14 @@ Programm will close</translation>
         <source>limitSpinBoxHelp</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>recentLimitHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>recentLimitHint</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>currentChangelog</name>
@@ -781,6 +793,45 @@ Programm will close</translation>
     <message>
         <source>TYPE_NAME</source>
         <translation>LINK_NAME</translation>
+    </message>
+</context>
+<context>
+    <name>update_manager</name>
+    <message>
+        <source>updateWindow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>btn_confirm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>btn_decline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>question?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>fndVer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>curVer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>command</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>btn_done</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -800,4 +800,43 @@ Programm will close</source>
         <translation>ИМЯ_ССЫЛКИ</translation>
     </message>
 </context>
+<context>
+    <name>update_manager</name>
+    <message>
+        <source>updateWindow</source>
+        <translation>Обновление LiteMD</translation>
+    </message>
+    <message>
+        <source>btn_confirm</source>
+        <translation>Да</translation>
+    </message>
+    <message>
+        <source>btn_decline</source>
+        <translation>Нет</translation>
+    </message>
+    <message>
+        <source>question?</source>
+        <translation>Желаете обновить?</translation>
+    </message>
+    <message>
+        <source>fndVer</source>
+        <translation>Найден патч биНайден патч со сборкойлда</translation>
+    </message>
+    <message>
+        <source>curVer</source>
+        <translation>Текущая сборка</translation>
+    </message>
+    <message>
+        <source>command</source>
+        <translation>Команда</translation>
+    </message>
+    <message>
+        <source>status</source>
+        <translation>Статус</translation>
+    </message>
+    <message>
+        <source>btn_done</source>
+        <translation>Выход</translation>
+    </message>
+</context>
 </TS>
