@@ -218,3 +218,21 @@ void save_log()
 	}
 	stable_log.close();
 }
+
+void save_log(const std::string path, const char* log_name)
+{
+	std::string filename(log_name);
+	filename.append(".");
+	filename.append(&boost::posix_time::to_iso_extended_string(boost::posix_time::microsec_clock::universal_time()).c_str()[0], 19);
+	std::replace(filename.begin(), filename.end(), ':', '-');
+	std::replace(filename.begin(), filename.end(), 'T', '_');
+	filename.append(".log");
+	std::string logPath = path + '/' + filename;
+	std::ofstream stable_log(logPath);
+	for (uint32_t _index = 0; _index < logger_backend::getInstance().get_size(); ++_index)
+	{
+		filename = QString::fromUtf8(logger_backend::getInstance().get_stroke(_index)).toStdString() + '\n';
+		stable_log.write(filename.c_str(), filename.size());
+	}
+	stable_log.close();
+}
