@@ -810,7 +810,7 @@ Programm will close</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>question?</source>
+        <source>btn_done</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -822,15 +822,15 @@ Programm will close</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>question?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>command</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>status</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>btn_done</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
