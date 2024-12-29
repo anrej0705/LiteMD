@@ -13,7 +13,7 @@ extern "C"
 	#include "global_definitions.h"
 }
 
-inline QIcon setAppIcon()
+QIcon setAppIcon()
 {
 	//Подгружаем иконку
 	QPixmap input(getAppPath() + "/ress/icon_about.png");
