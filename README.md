@@ -1,6 +1,6 @@
 README.MD
 
-# LiteMD alpha 0.2.9
+# LiteMD alpha 0.3.0
 
 ![Qt](https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white)
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
@@ -74,8 +74,8 @@ README.MD
 - :white_check_mark:0.2.7 - [Жирный текст](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1941)
 - :white_check_mark:0.2.8 - [Комбинирование форматирования текста](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1957)
 - :white_check_mark:0.2.9 - [Меню недавних файлов](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1959) от [SilverWolf2020](https://github.com/anrej0705/LiteMD/pull/2)
-- :arrow_forward:0.3.0 - **Списки и цитаты**
-- :x:0.3.1 - Списки
+- :white_check_mark:0.3.0 - [**Списки и цитаты**](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1976)
+- :arrow_forward:0.3.1 - Списки
 - :x:0.3.2 - Цитирование текста
 - :x:0.3.3 - Последний редактируемый фаил
 - :x:0.3.4 - Раздел справки
