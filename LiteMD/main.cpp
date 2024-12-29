@@ -1,9 +1,9 @@
 #include "LiteMD.h"
 #include "logger_backend.h"
+#include "update_manager.h"
 #include <QtWidgets/QApplication>
 #include <regex>
 #include <string>
-#include "qmicroz.h"	//DLL!!!
 
 QStringList patches;
 
@@ -14,18 +14,21 @@ int main(int argc, char *argv[])
 
 	//Разговорчики в чЯтике
 	push_log("[ЛОГ]Инициализация системы логов");
-	push_log("[ОБНОВЛЕНИЕ]Проверка обновлений");
+	push_log("[ПРОВЕРКА ОБНОВЛЕНИЙ]Проверка обновлений");
 
 	//Будущая супердуперфича
 	patches = QDir(QCoreApplication::applicationDirPath() + "/").entryList(QStringList("patch_*.zip"));
 	if (!patches.isEmpty())
 	{
-		push_log(std::string("[ОБНОВЛЕНИЕ]Найден архив с патчем " + patches.at(0).toStdString()));
-
-		//Здесь патчер начинает свою работу
+		push_log(std::string("[ПРОВЕРКА ОБНОВЛЕНИЙ]Найден архив с патчем " + patches.at(0).toStdString()));
+		
+		//Здесь патчер начинает свою работу и получает в качестве аргумента найденый архив
+		update_manager mngr(patches.at(0));
+		mngr.show();
+		return mdApp.exec();
 	}
 	else
-		push_log("[ОБНОВЛЕНИЕ]Патчи не найдены, пропуск");
+		push_log("[ПРОВЕРКА ОБНОВЛЕНИЙ]Патчи не найдены, пропуск");
 
 	//Отписываеся о что получили аргументы и перечисляем их
 	init_log.append("[MAIN]Получено аргументов: ");

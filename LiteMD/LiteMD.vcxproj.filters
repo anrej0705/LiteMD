@@ -69,6 +69,9 @@
     <Filter Include="Модули\QMicroz">
       <UniqueIdentifier>{11ddb99c-0cfd-4f4d-a5dc-7761f5e20a5f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Модули\Система обновлений">
+      <UniqueIdentifier>{249ff792-52a8-4774-a7f1-65f411852449}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="LiteMD.h">
@@ -94,6 +97,9 @@
     </ClCompile>
     <QtMoc Include="window_widgets\helpCenter.h">
       <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="modules\update_manager.h">
+      <Filter>Модули\Система обновлений</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -246,6 +252,9 @@
     </ClCompile>
     <ClCompile Include="LiteMD_func.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\update_manager.cpp">
+      <Filter>Модули\Система обновлений</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

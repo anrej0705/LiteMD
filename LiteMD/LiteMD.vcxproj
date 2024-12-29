@@ -141,7 +141,7 @@
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>C:\boost\boost_1_84_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\boost\boost_1_84_0\stage\lib;$(ProjectDir)..\qmicroz\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>-DBOOST_STACKTRACE_USE_ADDR2LINE %(AdditionalOptions)</AdditionalOptions>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <ShowProgress>LinkVerbose</ShowProgress>
@@ -180,7 +180,7 @@
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>C:\boost\boost_1_84_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\boost\boost_1_84_0\stage\lib;$(ProjectDir)..\qmicroz\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>-DBOOST_STACKTRACE_USE_ADDR2LINE %(AdditionalOptions)</AdditionalOptions>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <ShowProgress>LinkVerbose</ShowProgress>
@@ -254,6 +254,7 @@
     <ClCompile Include="modules\frameChangelog.cpp" />
     <ClCompile Include="modules\GuiDownloader.cpp" />
     <ClCompile Include="modules\LastFileManager.cpp" />
+    <ClCompile Include="modules\update_manager.cpp" />
     <ClCompile Include="settings_tabs\tab_basic.cpp" />
     <ClCompile Include="settings_tabs\tab_downloader.cpp" />
     <ClCompile Include="settings_tabs\tab_extended.cpp" />
@@ -355,6 +356,7 @@
     <ClInclude Include="modules\exceptionHandler.h" />
     <ClInclude Include="modules\LastFileManager.h" />
     <ClInclude Include="modules\QMicroz\qmicroz.h" />
+    <QtMoc Include="modules\update_manager.h" />
     <ClInclude Include="ress\resource.h" />
     <ClInclude Include="ress\resource1.h" />
     <ClInclude Include="string_processing\boldParser.h" />
