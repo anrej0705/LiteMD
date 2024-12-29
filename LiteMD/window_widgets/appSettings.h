@@ -73,7 +73,10 @@ class appSettings : public QDialog
 		QCheckBox* hacksEnable;			//Чекпук для активации взлома жопы MD
 
 		QLabel* msgLimitHint;			//Описание поля максимума строк логов
-		QSpinBox* limitSpinBox;			//Крутилка для задания лимита - по умолчанию 8192
+		QSpinBox* limitSpinBox;			//Крутилка для задания лимита - по умолчанию 16384
+
+		QLabel* recentLimitHint;		//Описание поля максимальной длины списка недавних файлов
+		QSpinBox* recentLimitBox;		//Поле для задания лимита длины недавних файлов
 		//-------------------------
 
 		//Вкладка "Рендер"
@@ -165,6 +168,7 @@ class appSettings : public QDialog
 		void slot_en_italic(int);
 		void slot_ui_change(int);
 		void slot_en_bold(int);
+		void slot_update_r_limit(int);
 	signals:
 		void signalTitleChanged(const QString&);
 };

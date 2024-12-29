@@ -8,6 +8,9 @@ extern bool fileOpenedState;
 extern bool fileChangedState;
 extern bool appTitleUpdated;
 extern bool appClose;
+extern bool scrollPrior;
+extern bool managePrior;
+extern bool syncCtl;
 //Deprecated
 extern bool allowHttpWarn;
 extern bool httpDerpWarned;
@@ -19,6 +22,7 @@ extern bool logReadState;
 extern bool enableDeprFeatures;
 extern bool enableIndevFeatures;
 extern int langCode;
+extern int recentLimit;
 
 //Путь приложения
 extern int dataLocation;

@@ -81,6 +81,7 @@ void appSettings::update_ui()
 	parseStrikethroughHint->setText(tr("parseStrikethroughHint"));
 	msgLimitHint->setText(tr("msgLimitHint"));
 	limitSpinBox->setValue(log_limit);
+	recentLimitBox->setValue(recentLimit);
 	setDefault->setText(tr("setDefault"));
 	parseUnderlinedHint->setText(tr("parseUnderlinedHint"));
 	compatilibtyUndrHint->setText(tr("compatilibtyUndrHint"));
@@ -119,6 +120,7 @@ void appSettings::update_ui()
 	depFunc->setWhatsThis(tr("depFuncHelp"));
 	devFunc->setWhatsThis(tr("devFuncHelp"));
 	limitSpinBox->setWhatsThis(tr("limitSpinBoxHelp"));
+	recentLimitBox->setWhatsThis(tr("recentLimitHelp"));
 }
 
 void appSettings::update_interactive()

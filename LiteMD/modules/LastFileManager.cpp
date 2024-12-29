@@ -5,12 +5,15 @@
 #include <iterator>
 
 #include "appSettings.h" //getConfigPath() (прим. anrej0705)
+#include "exceptionHandler.h"
 
 // Конструктор по умолчанию.
 LastFileManager::LastFileManager()
 	: LastFileManager(3)
 {
 }
+
+//appSettings 497:502 (прим. anrej0705)
 
 // Конструктор с указанием размера списка.
 LastFileManager::LastFileManager(int numberOfRecords) 
@@ -36,7 +39,7 @@ LastFileManager::LastFileManager(std::string path, int numberOfRecords)
 }
 
 // Добавляет файл в список последних открытых файлов.
-void LastFileManager::addFile(std::string path)
+void LastFileManager::addFile(std::string path) noexcept
 {
 	auto iterator = std::find(
 		std::begin(lastFilePaths_),
@@ -55,7 +58,7 @@ void LastFileManager::addFile(std::string path)
 }
 
 // Сохраняет список последних открытых файлов.
-void LastFileManager::save() const
+void LastFileManager::save() const noexcept
 {
 	std::ofstream file(path_, std::ios::trunc);
 
@@ -65,4 +68,10 @@ void LastFileManager::save() const
 		std::ostream_iterator<std::string>(file, "\n"));
 
 	file.close();
+}
+
+void LastFileManager::removeList()//by anrej0705
+{	
+	if (std::remove(path_.c_str()) != 0)
+		throw(exceptionHandler(exceptionHandler::WARNING, std::string("Не удалось удалить файл " + path_).c_str()));
 }

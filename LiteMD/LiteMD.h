@@ -53,6 +53,10 @@ class LiteMD : public QMainWindow
 		QScrollArea* mdsArea;				//Хандлер полосы прокрутки
 		QPushButton* dirSwitch1;			//Кнопка переключения направления 1
 		QPushButton* dirSwitch2;			//Кнопка переключения направления 2
+		QPushButton* manageDir;				//Кнопка переключения управление направлением авто/ручное
+		QPushButton* syncCtlBtn;			//Управление синхронным пролистыванием
+
+		QLabel* hintsList[12];				//Визуал между окнами рендера и редактора
 
 		//Действия всякие, в меню и в док
 		QAction* actAbout;					//Пункт меню о программе
@@ -71,6 +75,7 @@ class LiteMD : public QMainWindow
 		QAction* actBugReport;				//Кнопка открытия окна логов
 		QAction* actShieldSymbol;			//Кнопка экранирования символа на котором стоит курсор
 		QAction* checkUpdates;				//Пункт меню проверки обновлений
+		QAction* actclearRecent;			//Чистит список последних файлов
 
 		//Действия менюшки заголовков
 		QAction* actSetH1;					//H1
@@ -117,6 +122,12 @@ class LiteMD : public QMainWindow
 		void slotFileClose();				//Закрытие файла и очистка поля ввода
 		void slotMdsDown();					//Слот прокрутки вниз
 		void slotMdsUp();					//Слот прокрутки вверх
+		void slotSwitchDir();				//Переключение направления
+		void slotManageDir();				//Переключение режима руч/авт
+		void slotSwitchSync();				//Переключение режима сихронизации
+		void slotScrollEvent(int);			//Слот обработки событий листания
+		void slotRemoveRf();				//Чистит список файлов
 };
 //Простой, как сатиновые трусы, метод возвращает QString каталог
 QString getAppPath();
+QIcon setAppIcon();

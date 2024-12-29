@@ -28,6 +28,7 @@ void appSettings::configureBasicSettingsTab()
 	inDevFuncHint = new QLabel(tr("Enable in-dev features"));
 	colorThemeHint = new QLabel(tr("colorThemeHint"));
 	msgLimitHint = new QLabel(tr("msgLimitHint"));
+	recentLimitHint = new QLabel(tr("recentLimitHint"));
 
 	//Инициализируем элементы взаимодействий
 	langList = new QComboBox;
@@ -40,6 +41,7 @@ void appSettings::configureBasicSettingsTab()
 	devFunc = new QCheckBox;
 	colorTheme = new QComboBox;
 	userPath = new QLineEdit("NULL");
+	recentLimitBox = new QSpinBox;
 
 	//Инициализация крутилки
 	limitSpinBox = new QSpinBox;
@@ -134,6 +136,7 @@ void appSettings::configureBasicSettingsTab()
 	lbl_lay->addWidget(depFuncHint);
 	lbl_lay->addWidget(inDevFuncHint);
 	lbl_lay->addWidget(msgLimitHint);
+	lbl_lay->addWidget(recentLimitHint);
 
 	//Подключение системы "Что это?"
 	langList->setWhatsThis(tr("langListHelp"));
@@ -147,6 +150,7 @@ void appSettings::configureBasicSettingsTab()
 	depFunc->setWhatsThis(tr("depFuncHelp"));
 	devFunc->setWhatsThis(tr("devFuncHelp"));
 	limitSpinBox->setWhatsThis(tr("limitSpinBoxHelp"));
+	recentLimitBox->setWhatsThis(tr("recentLimitHelp"));
 
 	//Добавляем элементы в правую половину(взаимодействие)
 	interact_lay->addWidget(langList);
@@ -160,6 +164,7 @@ void appSettings::configureBasicSettingsTab()
 	interact_lay->addWidget(depFunc);
 	interact_lay->addWidget(devFunc);
 	interact_lay->addWidget(limitSpinBox);
+	interact_lay->addWidget(recentLimitBox);
 
 	//Подготовка для будущей фичи
 	//themeList->addItem("windowsvista");
@@ -198,6 +203,7 @@ void appSettings::configureBasicSettingsTab()
 	depFuncHint->setFixedHeight(SETTINGS_HEIGH);
 	inDevFuncHint->setFixedHeight(SETTINGS_HEIGH);
 	msgLimitHint->setFixedHeight(SETTINGS_HEIGH);
+	recentLimitHint->setFixedHeight(SETTINGS_HEIGH);
 
 	langList->setFixedHeight(SETTINGS_HEIGH);
 	themeList->setFixedHeight(SETTINGS_HEIGH);
@@ -209,6 +215,7 @@ void appSettings::configureBasicSettingsTab()
 	depFunc->setFixedHeight(SETTINGS_HEIGH);
 	devFunc->setFixedHeight(SETTINGS_HEIGH);
 	limitSpinBox->setFixedHeight(SETTINGS_HEIGH);
+	recentLimitBox->setFixedHeight(SETTINGS_HEIGH);
 
 	//Привязываем менеджеры компоновки к виджетам
 	lbl_box->setLayout(lbl_lay);

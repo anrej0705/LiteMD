@@ -78,6 +78,7 @@ std::string boldParser(std::string& rawInput)
 	}
 
 	push_log(std::string("[italicParser]Обработано пар **...**: " + std::to_string(bolds)));
+
 	//После работы нужно убраться за собой
 	free(buffer);
 	free(buffer_size);

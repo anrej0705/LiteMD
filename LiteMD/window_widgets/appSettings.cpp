@@ -130,9 +130,7 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	dialogWindow->addLayout(btnComposer);
 
 	//Иконка
-	QPixmap appIcon(getAppPath() + "/icon.ico");
-	appIcon.setMask(appIcon.createMaskFromColor(QColor(0, 0, 0)));
-	setWindowIcon(QIcon(appIcon));
+	setWindowIcon(setAppIcon());
 
 	//Устанавливаем менеджер как основной виджет
 	setLayout(dialogWindow);
@@ -494,6 +492,12 @@ void appSettings::slot_en_bold(int bit)
 	settingChanged = 1;
 	parswitch.en_bold = static_cast<bool>(bit);
 	parswitch.en_bold == 0 ? push_log("[НАСТРОЙКИ]Обработка жирного текста отключена") : push_log("[НАСТРОЙКИ]Обработка жирного текста включена");
+}
+
+void appSettings::slot_update_r_limit(int bit)
+{
+	//Задаёт длину списка, Егор ты когда займёшься своим модулем списка напиши какое нибудь обновление для него
+	recentLimit = 5;
 }
 
 QString getConfigPath()

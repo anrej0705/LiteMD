@@ -316,6 +316,18 @@ github.com/anrej0705
         <source>recentFiles</source>
         <translation>Недавние файлы</translation>
     </message>
+    <message>
+        <source>manageDirAuto</source>
+        <translation>Авт</translation>
+    </message>
+    <message>
+        <source>manageDirManual</source>
+        <translation>Руч</translation>
+    </message>
+    <message>
+        <source>actclearRecent</source>
+        <translation>Очистить список</translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
@@ -557,11 +569,11 @@ Programm will close</source>
     </message>
     <message>
         <source>saveLocationHint</source>
-        <translation>Подсказка к полю места сохранения настроек</translation>
+        <translation>Место хранения настроек и кеша</translation>
     </message>
     <message>
         <source>userPathHint</source>
-        <translation>Подсказка к полю ввода текстового пути пользователем</translation>
+        <translation>Путь для записи настроек</translation>
     </message>
     <message>
         <source>langListHelp</source>
@@ -679,6 +691,14 @@ Programm will close</source>
         <source>parseBoldHelp</source>
         <translation>Разрешает обработку текста, отмеченного **жирным**</translation>
     </message>
+    <message>
+        <source>recentLimitHelp</source>
+        <translation>Определяет, сколько недавно открытых файлов будет запоминать программа</translation>
+    </message>
+    <message>
+        <source>recentLimitHint</source>
+        <translation>Максимум недавних файлов</translation>
+    </message>
 </context>
 <context>
     <name>currentChangelog</name>
@@ -778,6 +798,45 @@ Programm will close</source>
     <message>
         <source>TYPE_NAME</source>
         <translation>ИМЯ_ССЫЛКИ</translation>
+    </message>
+</context>
+<context>
+    <name>update_manager</name>
+    <message>
+        <source>updateWindow</source>
+        <translation>Обновление LiteMD</translation>
+    </message>
+    <message>
+        <source>btn_confirm</source>
+        <translation>Да</translation>
+    </message>
+    <message>
+        <source>btn_decline</source>
+        <translation>Нет</translation>
+    </message>
+    <message>
+        <source>question?</source>
+        <translation>Желаете обновить?</translation>
+    </message>
+    <message>
+        <source>fndVer</source>
+        <translation>Найден патч биНайден патч со сборкойлда</translation>
+    </message>
+    <message>
+        <source>curVer</source>
+        <translation>Текущая сборка</translation>
+    </message>
+    <message>
+        <source>command</source>
+        <translation>Команда</translation>
+    </message>
+    <message>
+        <source>status</source>
+        <translation>Статус</translation>
+    </message>
+    <message>
+        <source>btn_done</source>
+        <translation>Выход</translation>
     </message>
 </context>
 </TS>

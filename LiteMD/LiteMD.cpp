@@ -45,35 +45,42 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mds = new mdScreen;
 	//---------------------------------------------
 
+	QWidget* scrollDock = new QWidget;
+	QWidget* mainWgt = new QWidget;
+
 	//Блок элементов интерфейса
+	mdlSet = new appSettings;
+	xmlR = new xmlReader;
+	xmlW = new xmlWriter;
+	dwModule = new DownloaderGui;
+	cLog = new currentChangelog;
+	showTim = new QTimer;
+	logWindow = new logger;
+	actPlaceHeader = new CustomToolButton;
+	actSetTextFormat = new CustomToolButton;
 	mdsArea = new QScrollArea;
+	quick_tb = new QToolBar;
+	serv_tb = new QToolBar;
 	btnDown = new OrientablePushButton("--->", this);
 	btnUp = new OrientablePushButton("--->", this);
 	editorWindow = new QGroupBox(tr("Editor"));
 	viewerWindow = new QGroupBox(tr("Viewer"));
-	QWidget* scrollDock = new QWidget;
-	QWidget* mainWgt = new QWidget;
-	quick_tb = new QToolBar;
-	serv_tb = new QToolBar;
-	dwModule = new DownloaderGui;
+	headersMenu = new QMenu(tr("Set headers"));
+	formatStyle = new QMenu(tr("Set format style"));
 	mFile = new QMenu(tr("&File"));
 	mEdit = new QMenu(tr("&Edit"));
 	mSettings = new QMenu(tr("&Service"));
 	mHelp = new QMenu(tr("&Help"));
 	recentFiles = new QMenu(tr("recentFiles"));
 	workProgressCap = new QLabel(tr("work in progress"));
-	mdlSet = new appSettings;
-	xmlW = new xmlWriter;
-	xmlR = new xmlReader;
-	cLog = new currentChangelog;
-	showTim = new QTimer;
-	logWindow = new logger;
-	headersMenu = new QMenu(tr("Set headers"));
-	formatStyle = new QMenu(tr("Set format style"));
-	actPlaceHeader = new CustomToolButton;
-	actSetTextFormat = new CustomToolButton;
 	dirSwitch1 = new QPushButton("<>");
 	dirSwitch2 = new QPushButton("<>");
+	manageDir = new QPushButton("manageDir");
+	syncCtlBtn = new QPushButton("==");
+
+	//Визуал ASCII-стрелочки
+	for (uint8_t it = 0; it < 12; ++it)
+		hintsList[it] = new QLabel("<>");
 	//-------------------------
 
 	//Блок конфигурации элементов интерфейса
@@ -144,6 +151,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	setUnderlined = new QAction(QPixmap(appPath + "/ress/icon_set_under.png"), tr("Set underlined"));
 	setStrikethrough = new QAction(QPixmap(appPath + "/ress/icon_set_strike.png"), tr("Set strikethrough"));
 	checkUpdates = new QAction(QPixmap(appPath + "/ress/icon_check_updates.png"), tr("checkUpdates"));
+	actclearRecent = new QAction(tr("actclearRecent"));
 	//----------------
 	
 	//Настройка выпадающих менюшек
@@ -224,19 +232,45 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	btnDown->setOrientation(OrientablePushButton::VerticalTopBottom);
 	btnUp->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
 	btnDown->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+	//Визуал ASCII-стрелочки - настройка
+	for (uint8_t it = 0; it < 12; ++it)
+	{
+		hintsList[it]->setFixedWidth(32);
+		hintsList[it]->setFixedHeight(10);
+		hintsList[it]->setAlignment(Qt::AlignCenter);
+	}
+
+	//Настройки центральной панели
+	uint8_t qlabelIt = 0;
 	btnUp->setFixedWidth(32);
 	btnDown->setFixedWidth(32);
+	manageDir->setFixedWidth(32);
+	manageDir->setFixedHeight(40);
+	syncCtlBtn->setFixedWidth(32);
+	syncCtlBtn->setFixedHeight(40);
 	dirSwitch1->setFixedWidth(32);
 	dirSwitch2->setFixedWidth(32);
 	dirSwitch1->setFixedHeight(48);
 	dirSwitch2->setFixedHeight(48);
-	scrollDockLay->addSpacing(100);
+	for (; qlabelIt < 4; ++qlabelIt)
+		scrollDockLay->addWidget(hintsList[qlabelIt]);
+	scrollDockLay->addWidget(manageDir);
+	for (; qlabelIt < 6; ++qlabelIt)
+		scrollDockLay->addWidget(hintsList[qlabelIt]);
 	scrollDockLay->addWidget(dirSwitch1);
 	scrollDockLay->addWidget(btnUp);
 	scrollDockLay->addWidget(btnDown);
 	scrollDockLay->addWidget(dirSwitch2);
-	scrollDockLay->addSpacing(100);
+	for (; qlabelIt < 8; ++qlabelIt)
+		scrollDockLay->addWidget(hintsList[qlabelIt]);
+	scrollDockLay->addWidget(syncCtlBtn);
+	for (; qlabelIt < 12; ++qlabelIt)
+		scrollDockLay->addWidget(hintsList[qlabelIt]);
 	scrollDock->setLayout(scrollDockLay);
+	//--------------------------------------
+
+	//Настройка отображения и компоновки
 	editorLay->addWidget(mde);
 	viewerLay->addWidget(mdsArea);
 	editorWindow->setLayout(editorLay);
@@ -248,8 +282,6 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mde->setMinimumWidth(320);
 	mdsArea->setMinimumWidth(320);
 	mdsArea->resize(viewerWindow->sizeHint());
-	dirSwitch1->setEnabled(0);	//Пока отключена, попозже включу
-	dirSwitch2->setEnabled(0);	//Пока отключена, попозже включу
 	//--------------------------------------
 
 	//Блок настроек меню
@@ -258,8 +290,10 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mFile->addAction(actOpen);
 	mFile->addAction(actSave);
 	mFile->addAction(actSaveAs);
+	recentFiles->addAction(actclearRecent);
+	recentFiles->addSeparator();
 
-	initLastFileMenu();
+	initLastFileMenu();				//Инициализация меню последних файлов(прим. anrej0705)
 
 	mFile->addSeparator();
 	mFile->addAction(actClose);
@@ -355,11 +389,25 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	if (!connect(checkUpdates, SIGNAL(triggered()), this, SLOT(slotCheckUpdates())))
 		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
 	if (!connect(actClose, SIGNAL(triggered()), this, SLOT(slotFileClose())))
-		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
+		QErrorMessage::qtHandler();	++connected_signals;//Закрыть документ
 	if (!connect(btnDown, SIGNAL(clicked()), this, SLOT(slotMdsDown())))
-		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
+		QErrorMessage::qtHandler();	++connected_signals;//Листание вниз
 	if (!connect(btnUp, SIGNAL(clicked()), this, SLOT(slotMdsUp())))
-		QErrorMessage::qtHandler();	++connected_signals;//Проверка обновлений //0.3.7
+		QErrorMessage::qtHandler();	++connected_signals;//Листание вверх
+	if (!connect(dirSwitch1, SIGNAL(clicked()), this, SLOT(slotSwitchDir())))
+		QErrorMessage::qtHandler();	++connected_signals;//Нижняя кнопка переключения
+	if (!connect(dirSwitch2, SIGNAL(clicked()), this, SLOT(slotSwitchDir())))
+		QErrorMessage::qtHandler();	++connected_signals;//Верхняя кнопка переключения
+	if (!connect(manageDir, SIGNAL(clicked()), this, SLOT(slotManageDir())))
+		QErrorMessage::qtHandler();	++connected_signals;//Управление руч/авт
+	if (!connect(syncCtlBtn, SIGNAL(clicked()), this, SLOT(slotSwitchSync())))
+		QErrorMessage::qtHandler();	++connected_signals;//Синхронизация окон руч/авт
+	if (!connect(mdsArea->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotScrollEvent(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Синхронизация от рендера
+	if (!connect(mde->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotScrollEvent(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Синхронизация от рендера
+	if (!connect(actclearRecent, SIGNAL(triggered()), this, SLOT(slotRemoveRf())))
+		QErrorMessage::qtHandler();	++connected_signals;//Синхронизация от рендера
 	push_log(std::string("[QT->LiteMD]Образовано " + std::to_string(connected_signals) + " связей"));
 	//------------------------------
 
@@ -382,9 +430,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	//defTitle = windowTitle();	//patch 0.2.2 исправление версии "0.0.0" при открытии файла
 	
 	//Устанавливаем иконку приложения
-	QPixmap appIcon(appPath + "/icon.ico");
-	appIcon.setMask(appIcon.createMaskFromColor(QColor(0, 0, 0)));
-	setWindowIcon(QIcon(appIcon));
+	setWindowIcon(setAppIcon());
 
 	//Если приложение запускается в первый раз или конфиг файл отсутствует то будем считать что это первый запуск
 	//И показываем юзеру текущий ченджлог используя наш рендер, перед показом даём задержку 1 сек чтобы окно успело
@@ -405,6 +451,33 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 		mde->openFileArg(argv[1]);
 	}
 
+	//Предустановка текста на кнопке
+	managePrior == 0 ? manageDir->setText(tr("manageDirAuto")) : manageDir->setText(tr("manageDirManual"));
+	if (!managePrior)
+	{
+		dirSwitch1->setText("<>");
+		dirSwitch2->setText("<>");
+		dirSwitch1->setEnabled(0);
+		dirSwitch2->setEnabled(0);
+	}
+	else
+	{
+		if (scrollPrior) //Предустанки кнопки направления
+		{
+			dirSwitch1->setText("<<");
+			dirSwitch2->setText("<<");
+			for (uint8_t it = 0; it < 12; ++it)
+				hintsList[it]->setText("<<");
+		}
+		else if (!scrollPrior)
+		{
+			dirSwitch1->setText(">>");
+			dirSwitch2->setText(">>");
+			for (uint8_t it = 0; it < 12; ++it)
+				hintsList[it]->setText(">>");
+		}
+	}
+
 	//Показываем сообщение готовности к работе
 	statusBar()->showMessage(tr("Ready"), 3000);
 
@@ -412,195 +485,9 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 
 	delete(log_stroke);
 }
-// Инициализирует список последних элементов.
-void LiteMD::initLastFileMenu()
-{
-	// Получение списка файлов.
-	LastFileManager lastFileManager;
-	const std::deque<std::string>& lastFilePaths = lastFileManager.getFiles();
-
-	QIcon ico;
-
-	// Если список пустой или первый элемент пустой - завершить работу.
-	if (lastFilePaths.empty() || lastFilePaths.front().empty())
-		return;
-
-	mFile->addSeparator();
-
-	// Добавление меню.
-	std::for_each(
-		std::begin(lastFilePaths),
-		std::end(lastFilePaths),
-		[=] (std::string lastFilePath) {
-			QFileInfo fileInfo(lastFilePath.c_str());					//Объект, содержащий информацию о файле(прим. anrej0705)
-			QAction* openLastfile = new QAction(fileInfo.fileName());	//Создаём действие, которое будет помещено в меню(прим. anrej0705)
-
-			openLastfile->setData(fileInfo.filePath());					//Сохраняем путь до файла в QVariant(прим. anrej0705)
-
-			openLastfile->setIcon(setAppIcon());						//Задаём иконку
-
-			recentFiles->addAction(openLastfile);						//Добавляем действие в меню
-
-			if (!connect(
-				openLastfile, 
-				&QAction::triggered,
-				mde,
-				[=] { mde->slotOpen(fileInfo.filePath()); }))
-				QErrorMessage::qtHandler();	//Соединяем сигнал со слотом вызова окна о программе
-		}
-	);
-}
-//О программе
-void LiteMD::slotAbout()
-{
-	QMessageBox::about(this, "LiteMD", tr("Ver ") + APP_STAGE + APP_VERSION + (" build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))
-		+ tr("<BR>By anrej0705<BR>See me at Github:") + "<BR><A HREF=\"github.com/anrej0705\">github.com/anrej0705</A><BR><BR>" 
-		+ tr("This app is free for use,modify and reupload<BR><BR>LiteMD IS FREE SOFTWARE! IF YOU PAID FOR IT YOU HAVE BEEN SCAMMED!") 
-		+ "<BR>" + "<BR>| Qt 5.14.2 | C++17 | C11 | Boost 1.84.00 |<BR>" + "<BR>" 
-		+ tr("Github repo: " ) + "<A HREF=\"https://github.com/anrej0705/LiteMD\">https://github.com/anrej0705/LiteMD</A><BR>" 
-		+ tr("Releases: ") + "<A HREF=\"https://github.com/anrej0705/LiteMD/releases\">https://github.com/anrej0705/LiteMD/releases</A>");
-}
-//Слот редактирования заголовка(добавления файла к концу)
-void LiteMD::slotTitleChanged(const QString& title)
-{
-	//Контейнеры для помещения элементов заголовка
-	std::string newTitle/* = defTitle.toStdString()*/;	//Патч 0.2.2 исправление заголовка
-	fileFullPath = title.toStdString();
-	if (title.isEmpty())
-		fileFullPath = QString(tr("Untitled")).toStdString();
-	//Формируем заголовок из контейнеров и устанавливаем в приложение
-	newTitle.append((tr("LiteMD") + APP_STAGE + APP_VERSION + tr(" build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER))).toStdString() + " [" + fileFullPath.substr(fileFullPath.rfind('/') + 1, fileFullPath.size() - fileFullPath.rfind('/')) + "]");
-	//defTitle = QString::fromStdString(newTitle);
-	setWindowTitle(QString::fromStdString(newTitle));
-}
-//Сброс заголовка
-void LiteMD::slotTitleReset()
-{
-	setWindowTitle(defTitle);
-}
-//Слот показа состояния на панели снизу
-void LiteMD::slot_mbar_send_string(const QString& str)
-{
-	statusBar()->showMessage(str, 4000);
-}
-//Слот установки флага редактирования флага
-void LiteMD::slotFileEdited()
-{
-	if (!appTitleUpdated)
-	{
-		QString title = windowTitle();
-		title.insert(0, '*');
-		setWindowTitle(title);
-		appTitleUpdated = 1;
-	}
-}
-//Перехватчик события закрытия
-void LiteMD::closeEvent(QCloseEvent* ce)
-{
-	push_log("[QT]Вызвано событие закрытия приложения");
-	//Если файл редактировался то спрашиваем нужно ли сохранить
-	if (fileChangedState)
-	{
-		if (!confirmSave())
-		{
-			//Если пользователь не захотел сохранять то просто закрываемся
-			appClose = 1;
-			dwModule->close();
-			ce->accept();
-		}
-		else
-		{
-			//Если пользователь захотел сохранить то закрывамся после сохранения
-			appClose = 1;
-			emit saveFile();
-			dwModule->close();
-			ce->accept();
-		}
-	}
-	//Выставляем флаг закрытия и закрываем модуль если он открыт
-	appClose = 1;
-	dwModule->close();
-}
-//Вызов модуля загрузки
-void LiteMD::httpModuleShow()
-{
-	//Если по указателю есть то что нам надо то показываем
-	if(dynamic_cast<DownloaderGui*>(dwModule))
-	{
-		dwModule->slotShow();
-		return;
-	}
-	//Иначе создаем объект и показываем
-	dwModule = new DownloaderGui;
-	dwModule->slotShow();
-}
-LiteMD::~LiteMD()
-{
-	//0.2.7 Позже поработаю здесь
-	//free(chosenTheme);
-	//deleteOnExit();
-}
 
 QString getAppPath()
 {
 	//Возвращаем QString каталог в котором запущена приложуха
 	return appPath;
-}
-
-void LiteMD::slotCheckUpdates()
-{
-	throw(exceptionHandler(exceptionHandler::WARNING), "patch");	//0.3.7
-}
-
-void LiteMD::slotFileClose()
-{
-	//Закрываем файл и чистим текст
-	mde->closeFile();
-	fileFullPath.clear();
-	
-	//Сбрасываем заголовок
-	setWindowTitle(defTitle);
-}
-
-//Прокрутка вниз через полосу прокрутки
-void LiteMD::slotMdsDown()
-{
-	//Определяем приоритет
-	if (mdsArea->verticalScrollBar()->size().height() > mde->verticalScrollBar()->size().height())
-	{
-		//Увеличиваем значение полосы прокрутки, там самым крутим вниз
-		mdsArea->verticalScrollBar()->setValue(mdsArea->verticalScrollBar()->value() + mdsArea->verticalScrollBar()->size().height());
-		mde->verticalScrollBar()->setValue(mdsArea->verticalScrollBar()->value() + mdsArea->verticalScrollBar()->size().height());
-	}
-	else
-	{
-		//Увеличиваем значение полосы прокрутки, там самым крутим вниз
-		mdsArea->verticalScrollBar()->setValue(mde->verticalScrollBar()->value() + mde->verticalScrollBar()->size().height());
-		mde->verticalScrollBar()->setValue(mde->verticalScrollBar()->value() + mde->verticalScrollBar()->size().height());
-	}
-}
-
-//Прокрутка вверх через полосу прокрутки
-void LiteMD::slotMdsUp()
-{
-	//Определяем приоритет
-	if (mdsArea->verticalScrollBar()->size().height() > mde->verticalScrollBar()->size().height())
-	{
-		//Увеличиваем значение полосы прокрутки, там самым крутим вниз
-		mdsArea->verticalScrollBar()->setValue(mdsArea->verticalScrollBar()->value() - mdsArea->verticalScrollBar()->size().height());
-		mde->verticalScrollBar()->setValue(mdsArea->verticalScrollBar()->value() - mdsArea->verticalScrollBar()->size().height());
-	}
-	else
-	{
-		//Увеличиваем значение полосы прокрутки, там самым крутим вниз
-		mdsArea->verticalScrollBar()->setValue(mde->verticalScrollBar()->value() - mde->verticalScrollBar()->size().height());
-		mde->verticalScrollBar()->setValue(mde->verticalScrollBar()->value() - mde->verticalScrollBar()->size().height());
-	}
-}
-
-inline QIcon setAppIcon()
-{
-	QPixmap appIcon(getAppPath() + "/icon.ico");
-	appIcon.setMask(appIcon.createMaskFromColor(QColor(0, 0, 0)));
-	return appIcon;
 }

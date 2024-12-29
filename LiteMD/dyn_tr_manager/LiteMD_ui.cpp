@@ -55,6 +55,7 @@ void LiteMD::update_ui()
 	actPlaceUrl->setText(tr("Make &URL"));
 	actPlaceAltUrl->setText(tr("Make alt&enate URL"));
 	actSetTextFormat->setText(tr("Te&xt Format"));
+	actOpenChangelog->setText(tr("Sh&ow changelog"));
 	actHelp->setText(tr("&Help"));
 	actBugReport->setText(tr("&Bug!"));
 	actSetH1->setText(tr("Set H1"));
@@ -70,6 +71,7 @@ void LiteMD::update_ui()
 	checkUpdates->setText(tr("checkUpdates"));
 	actClose->setText(tr("Close"));
 	recentFiles->setTitle(tr("recentFiles"));
+	actclearRecent->setText(tr("actclearRecent"));
 	//------------------------
 }
 
