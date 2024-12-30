@@ -62,6 +62,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mdsArea = new QScrollArea;
 	quick_tb = new QToolBar;
 	serv_tb = new QToolBar;
+	help = new helpCenter;
 	btnDown = new OrientablePushButton("--->", this);
 	btnUp = new OrientablePushButton("--->", this);
 	editorWindow = new QGroupBox(tr("Editor"));
@@ -408,6 +409,8 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	if (!connect(mde->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotScrollEvent(int))))
 		QErrorMessage::qtHandler();	++connected_signals;//Синхронизация от рендера
 	if (!connect(actclearRecent, SIGNAL(triggered()), this, SLOT(slotRemoveRf())))
+		QErrorMessage::qtHandler();	++connected_signals;//Синхронизация от рендера
+	if (!connect(actHelp, SIGNAL(triggered()), help, SLOT(show())))
 		QErrorMessage::qtHandler();	++connected_signals;//Синхронизация от рендера
 	push_log(std::string("[QT->LiteMD]Образовано " + std::to_string(connected_signals) + " связей"));
 	//------------------------------
