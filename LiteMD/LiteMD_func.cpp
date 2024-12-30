@@ -156,7 +156,10 @@ LiteMD::~LiteMD()
 
 void LiteMD::slotCheckUpdates()
 {
-	throw(exceptionHandler(exceptionHandler::WARNING), "patch");	//0.3.7
+	//Разрешаем проверку и установку обновлений
+	enableUpdate = 1;	//0.3.6
+	//0.3.7 добавится загрузка JSON с тегами
+	//0.3.8 процесс будет полностью автоматизирован
 }
 
 void LiteMD::slotFileClose()
