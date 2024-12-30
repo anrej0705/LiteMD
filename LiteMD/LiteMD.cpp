@@ -486,6 +486,13 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	delete(log_stroke);
 }
 
+LiteMD::~LiteMD()
+{
+	//0.2.7 Позже поработаю здесь
+	//free(chosenTheme);
+	//deleteOnExit();
+}
+
 QString getAppPath()
 {
 	//Возвращаем QString каталог в котором запущена приложуха

@@ -147,12 +147,6 @@ void LiteMD::httpModuleShow()
 	dwModule = new DownloaderGui;
 	dwModule->slotShow();
 }
-LiteMD::~LiteMD()
-{
-	//0.2.7 Позже поработаю здесь
-	//free(chosenTheme);
-	//deleteOnExit();
-}
 
 void LiteMD::slotCheckUpdates()
 {
