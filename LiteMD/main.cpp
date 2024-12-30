@@ -1,6 +1,7 @@
 #include "LiteMD.h"
 #include "logger_backend.h"
 #include "update_manager.h"
+#include <fstream>
 #include <QtWidgets/QApplication>
 #include <regex>
 #include <string>
@@ -16,9 +17,12 @@ int main(int argc, char *argv[])
 	push_log("[ЛОГ]Инициализация системы логов");
 	push_log("[ПРОВЕРКА ОБНОВЛЕНИЙ]Проверка обновлений");
 
+	//Прикрепляемся в старому файлу
+	std::ifstream old_file(std::string(QCoreApplication::applicationDirPath().toStdString() + "/" + "LiteMD_old.exe"));
+
 	//Будущая супердуперфича
 	patches = QDir(QCoreApplication::applicationDirPath() + "/").entryList(QStringList("patch_*.zip"));
-	if (!patches.isEmpty())
+	if (!patches.isEmpty() && old_file.good())
 	{
 		push_log(std::string("[ПРОВЕРКА ОБНОВЛЕНИЙ]Найден архив с патчем " + patches.at(0).toStdString()));
 		
