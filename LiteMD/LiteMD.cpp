@@ -63,7 +63,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	quick_tb = new QToolBar;
 	serv_tb = new QToolBar;
 	help = new helpCenter;
-	btnDown = new OrientablePushButton("--->", this);
+	btnDown = new OrientablePushButton("<---", this);
 	btnUp = new OrientablePushButton("--->", this);
 	editorWindow = new QGroupBox(tr("Editor"));
 	viewerWindow = new QGroupBox(tr("Viewer"));
@@ -231,7 +231,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mdsArea->setWidget(mds);
 	mds->setWordWrap(1);
 	btnUp->setOrientation(OrientablePushButton::VerticalBottomTop);
-	btnDown->setOrientation(OrientablePushButton::VerticalTopBottom);
+	btnDown->setOrientation(OrientablePushButton::VerticalBottomTop);
 	btnUp->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
 	btnDown->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
 
