@@ -5,6 +5,7 @@
 #include "exceptionHandler.h"
 #include "logger_backend.h"
 #include "LastFileManager.h"
+#include <filesystem>
 #include <QtWidgets>
 #include <boost/container/string.hpp>
 extern "C"
@@ -491,6 +492,29 @@ LiteMD::~LiteMD()
 	//0.2.7 Позже поработаю здесь
 	//free(chosenTheme);
 	//deleteOnExit();
+	//0.3.1 Проверяем наличие поднятого флага разрешений обновлений
+	if (enableUpdate)
+	{
+		//Создаём названия исходного файла и файла который надо скопировать
+		std::string source = getAppPath().toStdString() + "/LiteMD.exe";
+		std::string old_src = getAppPath().toStdString() + "/LiteMD_old.exe";
+
+		try
+		{
+			//Пробуем создать копию
+			if (std::filesystem::copy_file(source, old_src))
+			{
+				//Если всё успешно то запускаем копию которая уже будет выполнять обновление
+				system(getAppPath().toLocal8Bit() + "/LiteMD_old.exe");
+			}
+		}
+		catch (std::filesystem::filesystem_error& e)
+		{
+			//Файл может существовать, поэтому просто вызовем его
+			system(getAppPath().toLocal8Bit() + "/LiteMD_old.exe");
+			exit(0);
+		}
+	}
 }
 
 QString getAppPath()
