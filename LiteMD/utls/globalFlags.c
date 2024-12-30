@@ -11,6 +11,7 @@ bool enableDeprFeatures = 0;
 bool enableIndevFeatures = 0;
 bool scrollPrior = 0;
 bool managePrior = 0;
+bool enableUpdate = 0;
 bool syncCtl = 0;
 int langCode = 0;
 int recentLimit = 5;	//По умолчанию - 5

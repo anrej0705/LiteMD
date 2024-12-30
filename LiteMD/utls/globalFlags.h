@@ -21,6 +21,7 @@ extern bool settingChanged;
 extern bool logReadState;
 extern bool enableDeprFeatures;
 extern bool enableIndevFeatures;
+extern bool enableUpdate;
 extern int langCode;
 extern int recentLimit;
 
