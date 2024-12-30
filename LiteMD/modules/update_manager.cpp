@@ -16,6 +16,18 @@ std::map<QString, int> llocaleMap{
 	{"ru_UA", 2}
 };
 
+std::map<std::string, uint8_t> comand_set{
+	{"ren", 0},
+	{"del", 1},
+	{"move", 2},
+	{"copy", 3},
+	{"md", 4},
+	{"dd", 5},
+	{"log", 6},
+	{"lmd_begin", 254},
+	{"lmd_end", 255}
+};
+
 QString llocaleNameConverter(QString lang_string_name, QString file_loc_name)
 {
 	//Создаем буфер в который прилепляем последовательно название языка в системе Qt, скобки и код языка
