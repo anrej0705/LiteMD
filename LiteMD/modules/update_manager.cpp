@@ -285,6 +285,7 @@ void update_manager::slot_confirm()
 
 			//Создаём строчку с названием команды
 			tabItm = new QTableWidgetItem(QString::fromStdString(commands_set.at(commands)));
+			tabItm->setFlags(tabItm->flags() ^ Qt::ItemIsEditable);	//Отключаем возможность редактирования(потому что это отчёт и его менять нельзя)
 
 			//Вставляем строчку в таблицу
 			table->insertRow(table->rowCount());
@@ -324,6 +325,8 @@ void update_manager::execute_command(std::string command, uint16_t no)
 	//Вставляем "ОК"
 	//Создаём строчку с названием команды
 	tabItm = new QTableWidgetItem("OK");
+	tabItm->setFlags(tabItm->flags() ^ Qt::ItemIsEditable);	//Отключаем возможность редактирования(потому что это отчёт и его менять нельзя)
+	tabItm->setBackgroundColor(Qt::green);
 
 	//Увеличиваем счётчик выполненных команд
 	++exec_commands;
