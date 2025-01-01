@@ -106,19 +106,6 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 
 	//Создаем обработчика событий
 	qApp->installEventFilter(new ui_event_filter(qApp));
-
-	//Инициализируем контейнер настроек
-	/*if (enableIndevFeatures)
-	{
-		try
-		{
-			newRecentFilesArray();
-		}
-		catch (exceptionHandler)
-		{
-			(exceptionHandler(exceptionHandler::FATAL));
-		}
-	}*/
 	
 	//Блок менеджеров размещения кнопок
 	QVBoxLayout* editorLay = new QVBoxLayout;
@@ -513,8 +500,8 @@ LiteMD::~LiteMD()
 		}
 		catch (std::filesystem::filesystem_error& e)
 		{
-			//Файл может существовать, поэтому просто вызовем его
-			system(getAppPath().toLocal8Bit() + "/LiteMD_old.exe");
+			//Возможно не получилось создать или что-то ещё, показываем юзеру
+			int n = QMessageBox::critical(0, tr("updateError"), tr("errorCreatingFile: ") + e.what());
 			exit(0);
 		}
 	}

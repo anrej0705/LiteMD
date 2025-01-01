@@ -227,8 +227,6 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 void appSettings::slot_apply_settings()
 {
 	//Устанавливаем локаль
-	if (!QCoreApplication::installTranslator(&lmd_lng))
-		QErrorMessage::qtHandler();
 	qApp->installTranslator(&lmd_lng);
 	if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_UI_UPDATE_EVENT)))	//Постим событие изменения интерфейса
 		QErrorMessage::qtHandler();
