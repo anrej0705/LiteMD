@@ -10,6 +10,10 @@ extern "C"
 
 uint16_t exec_commands = 0;
 
+//Флаги, по умолчанию
+bool start_lmd = 1;
+bool delete_patch_bit = 1;
+
 //Для автономности класса все нужные методы и функции отдельно скопированы сюда
 
 //Карта соответствия системного языка с его кодом в приложении
@@ -176,6 +180,16 @@ update_manager::update_manager(QString p_name, QWidget* uWgt) : QDialog(uWgt)
 	btn_confirm->setFixedHeight(25);
 	btn_decline->setFixedHeight(25);
 	//update_progress->hide();
+	restart_after->setChecked(1);
+	delete_patch->setChecked(1);
+	delete_patch->setEnabled(0);
+	delete_patch_hint->setEnabled(0);
+
+	//Настройка подсказок
+	restart_after_hint->setWhatsThis(tr("restart_after_help"));
+	delete_patch_hint->setWhatsThis(tr("delete_patch_help"));
+	restart_after->setWhatsThis(tr("restart_after_help"));
+	delete_patch->setWhatsThis(tr("delete_patch_help"));
 
 	//Настройки таблица
 	QStringList horizontalLbl;
@@ -557,10 +571,19 @@ void update_manager::insert_status_code(QString status, Qt::GlobalColor color, u
 
 void update_manager::slot_switch_reset(int bit)
 {
-
+	start_lmd = static_cast<bool>(bit);
+	//Если 0 - то разблокируется галка удаления архива
+	//сделано для защиты от срабатывания на свой же архив патча
+	start_lmd == 0 ? delete_patch_hint->setEnabled(1) : delete_patch_hint->setEnabled(0);
+	start_lmd == 0 ? delete_patch->setEnabled(1) : delete_patch->setEnabled(0);
+	if (start_lmd)
+	{
+		delete_patch->setChecked(1);
+		delete_patch_bit = 1;
+	}
 }
 
 void update_manager::slot_delete_patch(int bit)
 {
-
+	delete_patch_bit = static_cast<bool>(bit);
 }
