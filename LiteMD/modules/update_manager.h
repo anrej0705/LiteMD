@@ -96,7 +96,7 @@ class update_manager : public QDialog
 	public:
 		update_manager(QString p_name, QWidget* uWgt = 0);
 		update_manager::~update_manager();
-		void execute_command(QString command, uint16_t no);				//Парсер команд
+		bool execute_command(QString command, uint16_t no);				//Парсер команд
 	public slots:
 		void slot_confirm();											//Подтверждает обновление
 		void slot_decline();											//Юзер отказался от обновления
