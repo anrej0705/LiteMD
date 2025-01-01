@@ -326,13 +326,16 @@ void update_manager::slot_decline()
 void update_manager::execute_command(std::string command, uint16_t no)
 {
 	//Пока не доделано
+	QFont status_font("Monospace");	//Настройки шрифта для колонки статуса - моноширинный
+	status_font.setBold(1);			//Задаём свойства жирного текста
 
 	//Вставляем "ОК"
 	//Создаём строчку с названием команды
 	tabItm = new QTableWidgetItem("[OK]");
 	tabItm->setFlags(tabItm->flags() ^ Qt::ItemIsEditable);	//Отключаем возможность редактирования(потому что это отчёт и его менять нельзя)
-	tabItm->setBackgroundColor(Qt::green);
-	tabItm->setTextAlignment(Qt::AlignCenter);
+	tabItm->setBackgroundColor(Qt::green);					//Красим в зелёный
+	tabItm->setTextAlignment(Qt::AlignCenter);				//Размещаем по центру
+	tabItm->setFont(status_font);							//Задаём свойства шрифта
 
 	//Увеличиваем счётчик выполненных команд
 	++exec_commands;
