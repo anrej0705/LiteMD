@@ -329,9 +329,10 @@ void update_manager::execute_command(std::string command, uint16_t no)
 
 	//Вставляем "ОК"
 	//Создаём строчку с названием команды
-	tabItm = new QTableWidgetItem("OK");
+	tabItm = new QTableWidgetItem("[OK]");
 	tabItm->setFlags(tabItm->flags() ^ Qt::ItemIsEditable);	//Отключаем возможность редактирования(потому что это отчёт и его менять нельзя)
 	tabItm->setBackgroundColor(Qt::green);
+	tabItm->setTextAlignment(Qt::AlignCenter);
 
 	//Увеличиваем счётчик выполненных команд
 	++exec_commands;
