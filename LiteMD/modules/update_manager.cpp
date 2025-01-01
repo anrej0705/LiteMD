@@ -7,6 +7,8 @@ extern "C"
 }
 #pragma comment(lib,"qmicroz.lib")	//При работе с dll обязательно(!!) прописывать
 
+uint16_t exec_commands = 0;
+
 //Для автономности класса все нужные методы и функции отдельно скопированы сюда
 
 //Карта соответствия системного языка с его кодом в приложении
@@ -300,6 +302,7 @@ void update_manager::slot_confirm()
 		}
 
 		update_progress->setValue(100);
+		insert_log(std::string("Выполнено " + std::to_string(exec_commands) + " команд"));
 		insert_log("Обновление завершено");
 	}
 	
@@ -321,6 +324,9 @@ void update_manager::execute_command(std::string command, uint16_t no)
 	//Вставляем "ОК"
 	//Создаём строчку с названием команды
 	tabItm = new QTableWidgetItem("OK");
+
+	//Увеличиваем счётчик выполненных команд
+	++exec_commands;
 
 	//Вставляем строчку в таблицу
 	table->setItem(no, 1, tabItm);
