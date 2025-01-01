@@ -72,6 +72,9 @@
     <Filter Include="Модули\Система обновлений">
       <UniqueIdentifier>{249ff792-52a8-4774-a7f1-65f411852449}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Модули\Справочное бюро">
+      <UniqueIdentifier>{2b991826-b52d-4f36-99b1-79fdefb7ef2c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="LiteMD.h">
@@ -95,11 +98,11 @@
     <ClCompile Include="modules\LastFileManager.cpp">
       <Filter>Модули</Filter>
     </ClCompile>
-    <QtMoc Include="window_widgets\helpCenter.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="modules\update_manager.h">
       <Filter>Модули\Система обновлений</Filter>
+    </QtMoc>
+    <QtMoc Include="window_widgets\helpCenter.h">
+      <Filter>Модули\Справочное бюро</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -244,17 +247,17 @@
     <ClCompile Include="string_processing\boldParser.cpp">
       <Filter>String processing\Парсеры</Filter>
     </ClCompile>
-    <ClCompile Include="dyn_tr_manager\helpCenter_ui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="window_widgets\helpCenter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="LiteMD_func.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="modules\update_manager.cpp">
       <Filter>Модули\Система обновлений</Filter>
+    </ClCompile>
+    <ClCompile Include="window_widgets\helpCenter.cpp">
+      <Filter>Модули\Справочное бюро</Filter>
+    </ClCompile>
+    <ClCompile Include="dyn_tr_manager\helpCenter_ui.cpp">
+      <Filter>Модули\Динамический перевод</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
