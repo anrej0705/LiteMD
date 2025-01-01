@@ -53,6 +53,7 @@ class update_manager : public QDialog
 	private:
 		//Внутрянка
 		std::vector<std::string> commands_set;				//Список команд прочитанных из файла commands.txt
+		std::string appMainPath;							//Папка где лежит основной каталог
 		std::string working_folder;							//Имя папки в которую будут сбрасываться временные файлы
 		std::string command;								//Команда
 		std::string arg1;									//Аргумент 1
