@@ -328,6 +328,14 @@ github.com/anrej0705
         <source>actclearRecent</source>
         <translation>Очистить список</translation>
     </message>
+    <message>
+        <source>updateError</source>
+        <translation>Не удалось обновиться</translation>
+    </message>
+    <message>
+        <source>errorCreatingFile: </source>
+        <translation>Не удалось создать файл: </translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
@@ -837,6 +845,14 @@ Programm will close</source>
     <message>
         <source>btn_done</source>
         <translation>Выход</translation>
+    </message>
+    <message>
+        <source>restart_after_hint?</source>
+        <translation>Перезапустить после завершения?</translation>
+    </message>
+    <message>
+        <source>delete_patch_hint?</source>
+        <translation>Удалить архив с патчем по завершению?</translation>
     </message>
 </context>
 </TS>
