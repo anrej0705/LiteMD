@@ -168,8 +168,8 @@ update_manager::update_manager(QString p_name, QWidget* uWgt) : QDialog(uWgt)
 	table->verticalHeader()->setFixedWidth(24);
 	table->verticalHeader()->setDefaultSectionSize(20);
 	table->setHorizontalHeaderLabels(horizontalLbl);
-	table->setColumnWidth(0, 230);	//Столбец команд
-	table->setColumnWidth(1, 60);	//Столбец статуса - [ОК], [СБОЙ]
+	table->setColumnWidth(0, 240);	//Столбец команд
+	table->setColumnWidth(1, 50);	//Столбец статуса - [ОК], [СБОЙ]
 	table->setFocusPolicy(Qt::NoFocus);
 	table->setSelectionMode(QAbstractItemView::NoSelection);
 	table->hide();
