@@ -381,7 +381,8 @@ int update_manager::execute_command(QString commands, uint16_t no)
 				insert_status_code("OK", Qt::green, no);
 				return -1;
 			}
-			insert_status_code("FAIL", Qt::red | Qt::white, no);
+			insert_status_code("FAIL", static_cast<Qt::GlobalColor>((Qt::red | Qt::white)), no);
+			return 0;
 			//break;
 		}
 		case 255:
@@ -391,6 +392,7 @@ int update_manager::execute_command(QString commands, uint16_t no)
 			break;
 		}
 	}
+	return 0;
 }
 
 void update_manager::load_land(int lIndx)
@@ -417,7 +419,7 @@ void update_manager::slot_done()
 	exit(0);
 }
 
-void update_manager::insert_status_code(QString status, int color, uint16_t no) noexcept
+void update_manager::insert_status_code(QString status, Qt::GlobalColor color, uint16_t no) noexcept
 {
 	QFont status_font("Monospace");												//Настройки шрифта для колонки статуса - моноширинный
 	status_font.setBold(1);														//Задаём свойства жирного текста
