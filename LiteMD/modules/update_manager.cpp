@@ -1,4 +1,5 @@
 #include <fstream>
+#include <filesystem>
 #include "update_manager.h"
 #include "logger_backend.h"
 extern "C"
@@ -302,9 +303,23 @@ void update_manager::slot_confirm()
 		//Выполняем команды
 		for (uint16_t _cmd = 0; _cmd < commands; ++_cmd)
 		{
+			if (_cmd == 0)
+			{
+				if (execute_command(commands_set.at(_cmd).c_str(), _cmd) != -1)
+					insert_log("Не найдено начало программы!");
+			}
+			else if (_cmd == commands - 1)
+			{
+				if (execute_command(commands_set.at(_cmd).c_str(), _cmd) != 1)
+					insert_log("Не найден конец программы!");
+			}
+			else
+			{
+				execute_command(commands_set.at(_cmd).c_str(), _cmd);
+			}
+
 			//Обновляем полоску прогресса
 			update_progress->setValue(50 + static_cast<int>(percentage * (_cmd + 1)));
-			execute_command(commands_set.at(_cmd).c_str(), _cmd);
 		}
 
 		update_progress->setValue(100);
@@ -339,42 +354,94 @@ int update_manager::execute_command(QString commands, uint16_t no)
 	//Смотри код команды и обрабатываем по коду
 	switch (command_code)
 	{
-		case 0:
+		case 0:		//	ren "file1" "file2"		: Переименовать file1 в file2
 		{
+			//Выцепляем аргументы
+			arg1 = commands.split("\"")[1].toStdString();
+			arg2 = commands.split("\"")[3].toStdString();
+			//Пытаемся переименовать файл из аргумента 1 в аргумент 2
+			if(!std::rename(arg1.c_str(), arg2.c_str()))
+				insert_status_code("OK", Qt::green, no);
+			else
+				insert_status_code("FAIL", Qt::red, no);
+			break;
+		}
+		case 1:		//	del "file"				: Удалить file
+		{
+			//Выцепляем аргументы
+			arg1 = commands.split("\"")[1].toStdString();
+			if (!std::remove(arg1.c_str()))
+				insert_status_code("OK", Qt::green, no);
+			else
+				insert_status_code("FAIL", Qt::red, no);
+			break;
+		}
+		case 2:		//	move "file" "dir2"		: Переместить файл file в dir2
+		{
+			//Выцепляем аргументы
+			arg1 = commands.split("\"")[1].toStdString();
+			arg2 = commands.split("\"")[3].toStdString();
+			if (!std::rename(arg1.c_str(), arg2.c_str()))
+				insert_status_code("OK", Qt::green, no);
+			else
+				insert_status_code("FAIL", Qt::red, no);
+			break;
+		}
+		case 3:		//	copy "file" "dir2"		: Скопировать файл file в dir2
+		{
+			//Выцепляем аргументы
+			arg1 = commands.split("\"")[1].toStdString();
+			arg2 = commands.split("\"")[3].toStdString();
+			try
+			{
+				std::filesystem::copy(arg1, arg2);
+				insert_status_code("OK", Qt::green, no);
+			}
+			catch(const std::filesystem::filesystem_error& e)
+			{
+				insert_status_code("FAIL", Qt::red, no);
+			}
+			break;
+		}
+		case 4:		//	md "dir"				: Создать каталог dir
+		{
+			//Выцепляем аргументы
+			arg1 = commands.split("\"")[1].toStdString();
+			if (!std::filesystem::exists(arg1))
+			{
+				if(std::filesystem::create_directory(arg1))
+					insert_status_code("OK", Qt::green, no);
+				else
+					insert_status_code("FAIL", Qt::red, no);
+				break;
+			}
 			insert_status_code("OK", Qt::green, no);
 			break;
 		}
-		case 1:
+		case 5:		//	dd "dir"				: Удалить каталог dir
 		{
+			//Выцепляем аргументы
+			arg1 = commands.split("\"")[1].toStdString();
+			if (std::filesystem::exists(arg1))
+			{
+				if (std::filesystem::remove_all(arg1))
+					insert_status_code("OK", Qt::green, no);
+				else
+					insert_status_code("FAIL", Qt::red, no);
+				break;
+			}
 			insert_status_code("OK", Qt::green, no);
 			break;
 		}
-		case 2:
+		case 6:		//	log "string"			: Записать в лог строку "string"
 		{
+			//Выцепляем аргументы
+			arg1 = commands.split("\"")[1].toStdString();
+			insert_log(arg1);
 			insert_status_code("OK", Qt::green, no);
 			break;
 		}
-		case 3:
-		{
-			insert_status_code("OK", Qt::green, no);
-			break;
-		}
-		case 4:
-		{
-			insert_status_code("OK", Qt::green, no);
-			break;
-		}
-		case 5:
-		{
-			insert_status_code("OK", Qt::green, no);
-			break;
-		}
-		case 6:
-		{
-			insert_status_code("OK", Qt::green, no);
-			break;
-		}
-		case 254:
+		case 254:	//	lmd_begin				: Начало программы
 		{
 			if (no == 0)
 			{
@@ -385,7 +452,7 @@ int update_manager::execute_command(QString commands, uint16_t no)
 			return 0;
 			//break;
 		}
-		case 255:
+		case 255:	//	lmd_end					: Конец программы
 		{
 			insert_status_code("OK", Qt::green, no);
 			return 1;
