@@ -323,31 +323,74 @@ void update_manager::slot_decline()
 	exit(0);
 }
 
-void update_manager::execute_command(QString commands, uint16_t no)
+int update_manager::execute_command(QString commands, uint16_t no)
 {
 	//Пока не доделано
-	QFont status_font("Monospace");	//Настройки шрифта для колонки статуса - моноширинный
-	status_font.setBold(1);			//Задаём свойства жирного текста
 
-	uint8_t command_code = 127;		//По умолчанию - без кода
+	static bool started = 0;													//Признак начала программы (возврат -1)
+	static bool ended = 0;														//Признак конца программы  (возврат 1)
 
-	command = commands.split(" ")[0].toStdString();
+	uint8_t command_code = 127;													//По умолчанию - без кода
 
-	command_code = static_cast<uint8_t>(comand_set[command]);
+	command = commands.split(" ")[0].toStdString();								//Выцепляем из потока команду
 
-	//Вставляем "ОК"
-	//Создаём строчку с названием команды
-	tabItm = new QTableWidgetItem("[OK]");
-	tabItm->setFlags(tabItm->flags() ^ Qt::ItemIsEditable);	//Отключаем возможность редактирования(потому что это отчёт и его менять нельзя)
-	tabItm->setBackgroundColor(Qt::green);					//Красим в зелёный
-	tabItm->setTextAlignment(Qt::AlignCenter);				//Размещаем по центру
-	tabItm->setFont(status_font);							//Задаём свойства шрифта
+	command_code = static_cast<uint8_t>(comand_set[command]);					//Получаем uint8_t код команды
 
-	//Увеличиваем счётчик выполненных команд
-	++exec_commands;
-
-	//Вставляем строчку в таблицу
-	table->setItem(no, 1, tabItm);
+	//Смотри код команды и обрабатываем по коду
+	switch (command_code)
+	{
+		case 0:
+		{
+			insert_status_code("OK", Qt::green, no);
+			break;
+		}
+		case 1:
+		{
+			insert_status_code("OK", Qt::green, no);
+			break;
+		}
+		case 2:
+		{
+			insert_status_code("OK", Qt::green, no);
+			break;
+		}
+		case 3:
+		{
+			insert_status_code("OK", Qt::green, no);
+			break;
+		}
+		case 4:
+		{
+			insert_status_code("OK", Qt::green, no);
+			break;
+		}
+		case 5:
+		{
+			insert_status_code("OK", Qt::green, no);
+			break;
+		}
+		case 6:
+		{
+			insert_status_code("OK", Qt::green, no);
+			break;
+		}
+		case 254:
+		{
+			if (no == 0)
+			{
+				insert_status_code("OK", Qt::green, no);
+				return -1;
+			}
+			insert_status_code("FAIL", Qt::red | Qt::white, no);
+			//break;
+		}
+		case 255:
+		{
+			insert_status_code("OK", Qt::green, no);
+			return 1;
+			break;
+		}
+	}
 }
 
 void update_manager::load_land(int lIndx)
@@ -372,4 +415,23 @@ void update_manager::slot_done()
 {
 	insert_log("Работа завершена, сохраняю лог");
 	exit(0);
+}
+
+void update_manager::insert_status_code(QString status, int color, uint16_t no) noexcept
+{
+	QFont status_font("Monospace");												//Настройки шрифта для колонки статуса - моноширинный
+	status_font.setBold(1);														//Задаём свойства жирного текста
+	//Вставляем "ОК"
+	//Создаём строчку с названием команды
+	tabItm = new QTableWidgetItem("[" + status + "]");
+	tabItm->setFlags(tabItm->flags() ^ Qt::ItemIsEditable);	//Отключаем возможность редактирования(потому что это отчёт и его менять нельзя)
+	tabItm->setBackgroundColor(color);						//Красим в зелёный
+	tabItm->setTextAlignment(Qt::AlignCenter);				//Размещаем по центру
+	tabItm->setFont(status_font);							//Задаём свойства шрифта
+
+	//Увеличиваем счётчик выполненных команд
+	++exec_commands;
+
+	//Вставляем строчку в таблицу
+	table->setItem(no, 1, tabItm);
 }

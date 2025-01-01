@@ -91,6 +91,7 @@ class update_manager : public QDialog
 		QPushButton* btn_done;											//Кнопка выхода
 		QProgressBar* update_progress;									//Для юзера, чтобы было не так скучно ждать
 		QLabel* question;												//Вопрос "обновить?"
+		inline void insert_status_code(QString, int, uint16_t);			//Вставляет строчку
 	protected:
 		void insert_log(std::string input);								//Доработка логера для отправки сообщения в окно и логер
 	public:
