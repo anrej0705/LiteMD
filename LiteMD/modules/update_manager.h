@@ -83,6 +83,9 @@ class update_manager : public QDialog
 		//Настройка интерфейсов
 		QHBoxLayout* buttons;
 		QVBoxLayout* layers;											//Кнопки + прогресс бар
+		QHBoxLayout* checkbox_composer;									//Для сборки кнопок
+		QVBoxLayout* hints;												//Для подсказок
+		QVBoxLayout* cboxes;											//Для чекбоксов
 
 		//Интерфейсы
 		QGroupBox* main;												//Рамка с подписью
@@ -92,6 +95,12 @@ class update_manager : public QDialog
 		QPushButton* btn_done;											//Кнопка выхода
 		QProgressBar* update_progress;									//Для юзера, чтобы было не так скучно ждать
 		QLabel* question;												//Вопрос "обновить?"
+		QLabel* restart_after_hint;										//Вопрос "Перезапустить?"
+		QLabel* delete_patch_hint;										//Вопрос "Удалить?"
+		QCheckBox* restart_after;										//Перезапустить ли после обновления?
+		QCheckBox* delete_patch;										//Удалить ли папку с патчем?(недоступно+выкл если не отмечено restart_after)
+
+		//Сервисная тема
 		inline void insert_status_code(QString, Qt::GlobalColor, uint16_t) noexcept;//Вставляет строчку
 	protected:
 		void insert_log(std::string input);								//Доработка логера для отправки сообщения в окно и логер
@@ -103,5 +112,7 @@ class update_manager : public QDialog
 		void slot_confirm();											//Подтверждает обновление
 		void slot_decline();											//Юзер отказался от обновления
 		void slot_done();												//Завершает работу менеджера
+		void slot_switch_reset(int);									//Перезапуск после обновы
+		void slot_delete_patch(int);									//Удаляет папку с патчем
 		void load_land(int);											//Скопировано из appSettings
 };

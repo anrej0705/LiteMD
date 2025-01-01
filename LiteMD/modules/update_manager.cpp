@@ -71,8 +71,9 @@ update_manager::update_manager(QString p_name, QWidget* uWgt) : QDialog(uWgt)
 	buildNum = buildNum.split(".")[0];
 	fndBuild = QString(buildNum).toInt();
 
-	//Хардкодим папку
-	working_folder = "patch";
+	//Хардкодим папку и каталог
+	appMainPath = QApplication::applicationDirPath().toStdString();
+	working_folder = appMainPath + "/patch";
 
 	//Так надёжнее
 	log_stroke->append("[МЕНЕДЖЕР ОБНОВЛЕНИЙ]Текущая сборка ");
@@ -154,13 +155,27 @@ update_manager::update_manager(QString p_name, QWidget* uWgt) : QDialog(uWgt)
 
 	//Инициализация
 	QVBoxLayout* fix = new QVBoxLayout;
+	hints = new QVBoxLayout;
+	cboxes = new QVBoxLayout;
+	checkbox_composer = new QHBoxLayout;
 	setWindowTitle(tr("updateWindow") + "[ТЕСТИРУЕТСЯ]");
 	btn_confirm = new QPushButton(tr("btn_confirm"));
 	btn_decline = new QPushButton(tr("btn_decline"));
 	btn_done = new QPushButton(tr("btn_done"));
 	update_progress = new QProgressBar(0);
 	question = new QLabel(tr("fndVer") + " " + QString::number(fndBuild) + " ." + tr("curVer") + " " + QString::number(curBuild) + "\n" + tr("question?"));
+	restart_after_hint = new QLabel(tr("restart_after_hint?"));
+	delete_patch_hint = new QLabel(tr("delete_patch_hint?"));
+	restart_after = new QCheckBox;
+	delete_patch = new QCheckBox;
 	question->setWordWrap(1);
+
+	//Настройки визуала
+	update_progress->setFixedHeight(24);
+	btn_done->setFixedHeight(25);
+	btn_confirm->setFixedHeight(25);
+	btn_decline->setFixedHeight(25);
+	//update_progress->hide();
 
 	//Настройки таблица
 	QStringList horizontalLbl;
@@ -175,6 +190,12 @@ update_manager::update_manager(QString p_name, QWidget* uWgt) : QDialog(uWgt)
 	table->setSelectionMode(QAbstractItemView::NoSelection);
 	table->hide();
 
+	//Настройка высоты кнопок и подсказок
+	restart_after_hint->setFixedHeight(18);
+	delete_patch_hint->setFixedHeight(18);
+	restart_after->setFixedHeight(18);
+	delete_patch->setFixedHeight(18);
+
 	//Настройка логера
 	logger = new QTextEdit;
 	logger->setReadOnly(1);
@@ -187,12 +208,24 @@ update_manager::update_manager(QString p_name, QWidget* uWgt) : QDialog(uWgt)
 	update_progress->setAlignment(Qt::AlignCenter);
 	btn_done->hide();
 
+	//Настройка галок и подсказок
+	hints->addWidget(restart_after_hint);
+	hints->addWidget(delete_patch_hint);
+	cboxes->setAlignment(Qt::AlignRight);
+	cboxes->addWidget(restart_after);
+	cboxes->addWidget(delete_patch);
+	hints->setSpacing(1);
+	cboxes->setSpacing(1);
+	checkbox_composer->addLayout(hints);
+	checkbox_composer->addLayout(cboxes);
+
 	//Сборка
 	buttons->addWidget(btn_confirm);
 	buttons->addWidget(btn_decline);
 	buttons->addWidget(btn_done);
 	layers->addWidget(question);
 	layers->addWidget(update_progress);
+	layers->addLayout(checkbox_composer);
 	layers->addLayout(buttons);
 	layers->addWidget(table);
 	layers->addWidget(logger);
@@ -210,9 +243,13 @@ update_manager::update_manager(QString p_name, QWidget* uWgt) : QDialog(uWgt)
 		QErrorMessage::qtHandler(); ++connected_signals;//Соединяем сигнал от редактора к слоту изменения текста
 	if (!connect(btn_done, SIGNAL(clicked()), this, SLOT(slot_done())))
 		QErrorMessage::qtHandler(); ++connected_signals;//Соединяем сигнал от редактора к слоту изменения текста
+	if (!connect(restart_after, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_reset(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
+	if (!connect(delete_patch, SIGNAL(stateChanged(int)), this, SLOT(slot_delete_patch(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
 	push_log(std::string("[QT->LiteMD]Образовано " + std::to_string(connected_signals) + " связей"));
 
-	setFixedSize(384, 144);	//320 - с таблицей и окном логера
+	setFixedSize(384, 186);	//448 - с таблицей и окном логера
 	
 	//Вешаем красивую иконку
 	setWindowIcon(setIcon());
@@ -222,7 +259,7 @@ update_manager::update_manager(QString p_name, QWidget* uWgt) : QDialog(uWgt)
 
 update_manager::~update_manager()
 {
-	save_log(std::string(QCoreApplication::applicationDirPath().toStdString() + "/"), "update");
+	save_log(std::string(appMainPath + "/"), "update");
 }
 
 void update_manager::slot_confirm()
@@ -233,7 +270,7 @@ void update_manager::slot_confirm()
 	btn_decline->setEnabled(0);
 
 	float percentage = 0.0f;
-	setFixedSize(384, 384);
+	setFixedSize(384, 448);
 
 	//Плюсуем процентик
 	update_progress->setValue(1);
@@ -241,6 +278,7 @@ void update_manager::slot_confirm()
 	//Показываем таблицу команд и консоль
 	table->show();
 	logger->show();
+	//update_progress->show();
 
 	//Начинаем ИБД в консоли
 	insert_log("Начинаю обновление");
@@ -269,7 +307,7 @@ void update_manager::slot_confirm()
 	}
 
 	//Ищём файл commands.txt в папке с патчем
-	std::ifstream cmd(std::string(QApplication::applicationDirPath().toStdString() + "/" + working_folder + "/commands.txt"));
+	std::ifstream cmd(std::string(working_folder + "/commands.txt"));
 
 	if (cmd.is_open() == false)
 	{
@@ -357,8 +395,8 @@ int update_manager::execute_command(QString commands, uint16_t no)
 		case 0:		//	ren "file1" "file2"		: Переименовать file1 в file2
 		{
 			//Выцепляем аргументы
-			arg1 = commands.split("\"")[1].toStdString();
-			arg2 = commands.split("\"")[3].toStdString();
+			arg1 = appMainPath + commands.split("\"")[1].toStdString();
+			arg2 = appMainPath + commands.split("\"")[3].toStdString();
 			//Пытаемся переименовать файл из аргумента 1 в аргумент 2
 			if(!std::rename(arg1.c_str(), arg2.c_str()))
 				insert_status_code("OK", Qt::green, no);
@@ -369,7 +407,7 @@ int update_manager::execute_command(QString commands, uint16_t no)
 		case 1:		//	del "file"				: Удалить file
 		{
 			//Выцепляем аргументы
-			arg1 = commands.split("\"")[1].toStdString();
+			arg1 = appMainPath + commands.split("\"")[1].toStdString();
 			if (!std::remove(arg1.c_str()))
 				insert_status_code("OK", Qt::green, no);
 			else
@@ -378,10 +416,22 @@ int update_manager::execute_command(QString commands, uint16_t no)
 		}
 		case 2:		//	move "file" "dir2"		: Переместить файл file в dir2
 		{
+			bool step_status = 0;
 			//Выцепляем аргументы
-			arg1 = commands.split("\"")[1].toStdString();
-			arg2 = commands.split("\"")[3].toStdString();
-			if (!std::rename(arg1.c_str(), arg2.c_str()))
+			arg1 = working_folder + commands.split("\"")[1].toStdString();
+			arg2 = appMainPath + commands.split("\"")[3].toStdString();
+			//rename здесь работает коряво поэтому костылим
+			try
+			{
+				std::filesystem::copy(arg1, arg2);
+				step_status = 1;
+			}
+			catch (const std::filesystem::filesystem_error& e)
+			{
+				step_status = 0;
+			}
+
+			if (step_status && !std::remove(arg1.c_str()))
 				insert_status_code("OK", Qt::green, no);
 			else
 				insert_status_code("FAIL", Qt::red, no);
@@ -390,8 +440,8 @@ int update_manager::execute_command(QString commands, uint16_t no)
 		case 3:		//	copy "file" "dir2"		: Скопировать файл file в dir2
 		{
 			//Выцепляем аргументы
-			arg1 = commands.split("\"")[1].toStdString();
-			arg2 = commands.split("\"")[3].toStdString();
+			arg1 = working_folder + commands.split("\"")[1].toStdString();
+			arg2 = appMainPath + commands.split("\"")[3].toStdString();
 			try
 			{
 				std::filesystem::copy(arg1, arg2);
@@ -406,7 +456,7 @@ int update_manager::execute_command(QString commands, uint16_t no)
 		case 4:		//	md "dir"				: Создать каталог dir
 		{
 			//Выцепляем аргументы
-			arg1 = commands.split("\"")[1].toStdString();
+			arg1 = appMainPath + commands.split("\"")[1].toStdString();
 			if (!std::filesystem::exists(arg1))
 			{
 				if(std::filesystem::create_directory(arg1))
@@ -421,7 +471,7 @@ int update_manager::execute_command(QString commands, uint16_t no)
 		case 5:		//	dd "dir"				: Удалить каталог dir
 		{
 			//Выцепляем аргументы
-			arg1 = commands.split("\"")[1].toStdString();
+			arg1 = appMainPath + commands.split("\"")[1].toStdString();
 			if (std::filesystem::exists(arg1))
 			{
 				if (std::filesystem::remove_all(arg1))
@@ -503,4 +553,14 @@ void update_manager::insert_status_code(QString status, Qt::GlobalColor color, u
 
 	//Вставляем строчку в таблицу
 	table->setItem(no, 1, tabItm);
+}
+
+void update_manager::slot_switch_reset(int bit)
+{
+
+}
+
+void update_manager::slot_delete_patch(int bit)
+{
+
 }
