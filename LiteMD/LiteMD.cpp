@@ -7,6 +7,7 @@
 #include "LastFileManager.h"
 #include <filesystem>
 #include <QtWidgets>
+#include <fstream>
 #include <boost/container/string.hpp>
 extern "C"
 {
@@ -483,11 +484,28 @@ LiteMD::~LiteMD()
 	//free(chosenTheme);
 	//deleteOnExit();
 	//0.3.1 Проверяем наличие поднятого флага разрешений обновлений
+	//Также проверяем с какими именем запустилась программа, если запущена без приставки _old, то старый файл надо удалить
+
+	std::string appExecName = QFileInfo(QCoreApplication::applicationFilePath()).fileName().toStdString();	//Получаем имя файла запущенного приложения
+
+	QProcess* update_prc = new QProcess();
+
+	//Если запущенный файл не содержит суффика _old то значит с именем всё в порядке и приступаем к поиску старого файла
+	if (appExecName.find("_old") == -1)
+	{
+		appExecName.insert(appExecName.find("."), "_old");	//Вставляем суффикс
+	}
+
+	//Прикрепляемся к файлу который запущен
+	std::ifstream old_file(std::string(getAppPath().toStdString() + "/" + appExecName));
+	if (old_file.good())	//Если старый файл существует то удаляем его
+		std::remove(std::string(getAppPath().toStdString() + "/" + appExecName).c_str());
+
 	if (enableUpdate)
 	{
 		//Создаём названия исходного файла и файла который надо скопировать
-		std::string source = getAppPath().toStdString() + "/LiteMD.exe";
-		std::string old_src = getAppPath().toStdString() + "/LiteMD_old.exe";
+		std::string source = getAppPath().toStdString() + "/" + QFileInfo(QCoreApplication::applicationFilePath()).fileName().toStdString();
+		std::string old_src = getAppPath().toStdString() + "/" + appExecName;
 
 		try
 		{
@@ -495,7 +513,9 @@ LiteMD::~LiteMD()
 			if (std::filesystem::copy_file(source, old_src))
 			{
 				//Если всё успешно то запускаем копию которая уже будет выполнять обновление
-				system(getAppPath().toLocal8Bit() + "/LiteMD_old.exe");
+				// 
+				//system(getAppPath().toLocal8Bit() + "/" + appExecName.c_str());
+				update_prc->start(getAppPath().toLocal8Bit() + "/" + appExecName.c_str());
 			}
 		}
 		catch (std::filesystem::filesystem_error& e)
