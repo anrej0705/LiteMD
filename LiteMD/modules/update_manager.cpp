@@ -273,6 +273,18 @@ update_manager::update_manager(QString p_name, QWidget* uWgt) : QDialog(uWgt)
 
 update_manager::~update_manager()
 {
+	//Если пользователь выбрал автоматичекий запуск после обновления то запускаем процесс не дожидаясь его выходим
+	if (start_lmd)
+	{
+		insert_log("Запускаю LiteMD");
+		QProcess* update_prc = new QProcess();	//Создаём процесс и запускаем его не дожидаясь
+		update_prc->start(QFileInfo(QCoreApplication::applicationFilePath()).fileName());
+	}
+	//Если пользователь решил удалить архив то после завершения он удаляется
+	if (delete_patch_bit)
+	{
+		insert_log("Удаляю архив с пачтем");
+	}
 	save_log(std::string(appMainPath + "/"), "update");
 }
 
