@@ -848,11 +848,19 @@ Programm will close</source>
     </message>
     <message>
         <source>restart_after_hint?</source>
-        <translation>Перезапустить после завершения?</translation>
+        <translation>Запустить LiteMD после завершения?</translation>
     </message>
     <message>
         <source>delete_patch_hint?</source>
         <translation>Удалить архив с патчем по завершению?</translation>
+    </message>
+    <message>
+        <source>restart_after_help</source>
+        <translation>Если отмечено - после выхода запустится LiteMD</translation>
+    </message>
+    <message>
+        <source>delete_patch_help</source>
+        <translation>Если отмечено - архив с патчем удалится после выхода</translation>
     </message>
 </context>
 </TS>

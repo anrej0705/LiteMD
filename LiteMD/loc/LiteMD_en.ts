@@ -849,5 +849,13 @@ Programm will close</translation>
         <source>delete_patch_hint?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>restart_after_help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>delete_patch_help</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>
