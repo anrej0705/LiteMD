@@ -54,6 +54,7 @@ class update_manager : public QDialog
 		//Внутрянка
 		std::vector<std::string> commands_set;				//Список команд прочитанных из файла commands.txt
 		std::string working_folder;							//Имя папки в которую будут сбрасываться временные файлы
+		std::string command;								//Команда
 		std::string arg1;									//Аргумент 1
 		std::string arg2;									//Аргумент 2
 
@@ -95,7 +96,7 @@ class update_manager : public QDialog
 	public:
 		update_manager(QString p_name, QWidget* uWgt = 0);
 		update_manager::~update_manager();
-		void execute_command(std::string command, uint16_t no);			//Парсер команд
+		void execute_command(QString command, uint16_t no);				//Парсер команд
 	public slots:
 		void slot_confirm();											//Подтверждает обновление
 		void slot_decline();											//Юзер отказался от обновления

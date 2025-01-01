@@ -304,7 +304,7 @@ void update_manager::slot_confirm()
 		{
 			//Обновляем полоску прогресса
 			update_progress->setValue(50 + static_cast<int>(percentage * (_cmd + 1)));
-			execute_command(commands_set.at(_cmd), _cmd);
+			execute_command(commands_set.at(_cmd).c_str(), _cmd);
 		}
 
 		update_progress->setValue(100);
@@ -323,11 +323,17 @@ void update_manager::slot_decline()
 	exit(0);
 }
 
-void update_manager::execute_command(std::string command, uint16_t no)
+void update_manager::execute_command(QString commands, uint16_t no)
 {
 	//Пока не доделано
 	QFont status_font("Monospace");	//Настройки шрифта для колонки статуса - моноширинный
 	status_font.setBold(1);			//Задаём свойства жирного текста
+
+	uint8_t command_code = 127;		//По умолчанию - без кода
+
+	command = commands.split(" ")[0].toStdString();
+
+	command_code = static_cast<uint8_t>(comand_set[command]);
 
 	//Вставляем "ОК"
 	//Создаём строчку с названием команды
