@@ -170,6 +170,8 @@ update_manager::update_manager(QString p_name, QWidget* uWgt) : QDialog(uWgt)
 	table->setHorizontalHeaderLabels(horizontalLbl);
 	table->setColumnWidth(0, 230);	//Столбец команд
 	table->setColumnWidth(1, 60);	//Столбец статуса - [ОК], [СБОЙ]
+	table->setFocusPolicy(Qt::NoFocus);
+	table->setSelectionMode(QAbstractItemView::NoSelection);
 	table->hide();
 
 	//Настройка логера
@@ -291,6 +293,9 @@ void update_manager::slot_confirm()
 			table->insertRow(table->rowCount());
 			table->setItem(table->rowCount() - 1, 0, tabItm);
 			++commands;
+
+			//Обновляем интерфейс, чтобы табличка вовремя подгонялась
+			qApp->processEvents();
 		}
 		percentage = 49.0f / commands;
 
