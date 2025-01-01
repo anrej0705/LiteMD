@@ -140,8 +140,6 @@ update_manager::update_manager(QString p_name, QWidget* uWgt) : QDialog(uWgt)
 
 	//Устанавливаем локаль - если в системе не предусмотрена динамическая смена языка то
 	//сначала нужно применить загруженную локаль, иначе эффекта не будет
-	if (!QCoreApplication::installTranslator(&llmd_lng))
-		QErrorMessage::qtHandler();
 	if (!qApp->installTranslator(&llmd_lng))
 		push_log("[QTranslator]Не удалось установить заданный язык приложения");
 
