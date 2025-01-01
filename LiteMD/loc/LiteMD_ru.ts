@@ -856,7 +856,7 @@ Programm will close</source>
     </message>
     <message>
         <source>restart_after_help</source>
-        <translation>Если отмечено - после выхода запустится LiteMD</translation>
+        <translation>Если отмечено - после выхода запустится LiteMD\nГалка &quot;Удалить архив&quot; автоматически отметится и станет недоступна\nСделано для защиты от ложного срабатывания на свой же архив</translation>
     </message>
     <message>
         <source>delete_patch_help</source>
