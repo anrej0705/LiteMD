@@ -5,7 +5,7 @@ extern "C"
 {
 	#include "global_definitions.h"
 }
-#pragma comment(lib,"qmicroz.lib")
+#pragma comment(lib,"qmicroz.lib")	//При работе с dll обязательно(!!) прописывать
 
 //Для автономности класса все нужные методы и функции отдельно скопированы сюда
 
@@ -78,7 +78,12 @@ update_manager::update_manager(QString p_name, QWidget* uWgt) : QDialog(uWgt)
 	log_stroke->append(patch_name.toLocal8Bit());
 	log_stroke->append("\n");
 
+	//----------------------------------------------------------------------------
+	//
 	//Здесь и далее работа с локализацией взята из appSettings.cpp и tab_basic.cpp
+	//
+	//----------------------------------------------------------------------------
+
 	QString localeName = QLocale::system().name();
 
 	//Создаем контейнер пути и прописываем туда путь до файлов локализации
@@ -139,6 +144,12 @@ update_manager::update_manager(QString p_name, QWidget* uWgt) : QDialog(uWgt)
 		QErrorMessage::qtHandler();
 	if (!qApp->installTranslator(&llmd_lng))
 		push_log("[QTranslator]Не удалось установить заданный язык приложения");
+
+	//---------------------
+	//
+	//Окончание куска файла
+	//
+	//---------------------
 
 	//Инициализация
 	QVBoxLayout* fix = new QVBoxLayout;
