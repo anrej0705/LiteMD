@@ -86,6 +86,9 @@ update_manager::update_manager(QString p_name, QWidget* uWgt) : QDialog(uWgt)
 	log_stroke->append(patch_name.toLocal8Bit());
 	log_stroke->append("\n");
 
+	//Устанавливаем фильтр события для отработки события закрытия приложения
+	qApp->installEventFilter(this);
+
 	//----------------------------------------------------------------------------
 	//
 	//Здесь и далее работа с локализацией взята из appSettings.cpp и tab_basic.cpp
@@ -184,6 +187,8 @@ update_manager::update_manager(QString p_name, QWidget* uWgt) : QDialog(uWgt)
 	delete_patch->setChecked(1);
 	delete_patch->setEnabled(0);
 	delete_patch_hint->setEnabled(0);
+	restart_after->setEnabled(0);
+	restart_after_hint->setEnabled(0);
 
 	//Настройка подсказок
 	restart_after_hint->setWhatsThis(tr("restart_after_help"));
@@ -276,14 +281,41 @@ update_manager::~update_manager()
 	//Если пользователь выбрал автоматичекий запуск после обновления то запускаем процесс не дожидаясь его выходим
 	if (start_lmd)
 	{
-		insert_log("Запускаю LiteMD");
-		QProcess* update_prc = new QProcess();	//Создаём процесс и запускаем его не дожидаясь
-		update_prc->start(QFileInfo(QCoreApplication::applicationFilePath()).fileName());
+		std::string new_exe_name = QCoreApplication::applicationDirPath().toStdString() + "/" + QFileInfo(QCoreApplication::applicationFilePath()).fileName().toStdString();
+		if (new_exe_name.find("_old") != -1)	//Здесь проверка если юзер что-то нахуевертил в каталоге то запускаться не будем
+		{
+			new_exe_name.erase(new_exe_name.find("_old"), 4);
+			if (delete_patch_bit)
+			{
+				insert_log("Удаляю архив с пачтем");
+				if (std::remove(patch_name.toLocal8Bit()) != 0)
+					insert_log("Не удалось либо файла нет");
+			}
+			insert_log("Запускаю LiteMD[" + new_exe_name + "]");
+			save_log(std::string(appMainPath + "/"), "update");
+			LPCSTR lPath(new_exe_name.c_str());
+			LPSTR null = const_cast<char*>("");
+			STARTUPINFO update = { sizeof(update) };
+			PROCESS_INFORMATION proc_info;
+			if (CreateProcess(lPath, null, NULL, NULL, TRUE, 0, NULL, NULL, &update, &proc_info))
+			{
+				CloseHandle(proc_info.hProcess);
+				CloseHandle(proc_info.hThread);
+			}
+			else
+				qDebug() << GetLastError();
+			exit(0);
+			//system(new_exe_name.c_str());
+			//QProcess* update_prc = new QProcess();	//Создаём процесс и запускаем его не дожидаясь
+			//update_prc->startDetached(QString::fromStdString(new_exe_name));
+		}
 	}
 	//Если пользователь решил удалить архив то после завершения он удаляется
 	if (delete_patch_bit)
 	{
 		insert_log("Удаляю архив с пачтем");
+		if (std::remove(QCoreApplication::applicationDirPath().toLocal8Bit() + "/" + patch_name.toLocal8Bit()) != 0)
+			insert_log("Не удалось либо файла нет");
 	}
 	save_log(std::string(appMainPath + "/"), "update");
 }
@@ -394,12 +426,15 @@ void update_manager::slot_confirm()
 	btn_confirm->hide();
 	btn_decline->hide();
 	btn_done->show();
+
+	delete(_zip);
+	delete(_qmz);
 }
 
 void update_manager::slot_decline()
 {
 	insert_log("Работа завершена, сохраняю лог");
-	exit(0);
+	qApp->closeAllWindows();
 }
 
 int update_manager::execute_command(QString commands, uint16_t no)
@@ -559,6 +594,7 @@ void update_manager::insert_log(std::string input)
 void update_manager::slot_done()
 {
 	insert_log("Работа завершена, сохраняю лог");
+	update_manager::~update_manager();
 	exit(0);
 }
 

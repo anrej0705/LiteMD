@@ -5,6 +5,7 @@
 #include "exceptionHandler.h"
 #include "logger_backend.h"
 #include "LastFileManager.h"
+#include "windows.h"
 #include <filesystem>
 #include <QtWidgets>
 #include <fstream>
@@ -488,7 +489,7 @@ LiteMD::~LiteMD()
 
 	std::string appExecName = QFileInfo(QCoreApplication::applicationFilePath()).fileName().toStdString();	//Получаем имя файла запущенного приложения
 
-	QProcess* update_prc = new QProcess();
+	//QProcess* update_prc = new QProcess();
 
 	//Если запущенный файл не содержит суффика _old то значит с именем всё в порядке и приступаем к поиску старого файла
 	if (appExecName.find("_old") == -1)
@@ -497,15 +498,19 @@ LiteMD::~LiteMD()
 	}
 
 	//Прикрепляемся к файлу который запущен
-	std::ifstream old_file(std::string(getAppPath().toStdString() + "/" + appExecName));
+	/*std::ifstream old_file(std::string(getAppPath().toStdString() + "/" + appExecName));
 	if (old_file.good())	//Если старый файл существует то удаляем его
-		std::remove(std::string(getAppPath().toStdString() + "/" + appExecName).c_str());
+		std::remove(std::string(getAppPath().toStdString() + "/" + appExecName).c_str());*/
 
 	if (enableUpdate)
 	{
 		//Создаём названия исходного файла и файла который надо скопировать
 		std::string source = getAppPath().toStdString() + "/" + QFileInfo(QCoreApplication::applicationFilePath()).fileName().toStdString();
 		std::string old_src = getAppPath().toStdString() + "/" + appExecName;
+
+		push_log("[LiteMD]Пробую удалить старый исполняемый файл");
+		if (std::remove(old_src.c_str()) != 0)
+			push_log("[LiteMD]Не удалось либо файла нет");
 
 		try
 		{
@@ -515,7 +520,19 @@ LiteMD::~LiteMD()
 				//Если всё успешно то запускаем копию которая уже будет выполнять обновление
 				// 
 				//system(getAppPath().toLocal8Bit() + "/" + appExecName.c_str());
-				update_prc->start(getAppPath().toLocal8Bit() + "/" + appExecName.c_str());
+				//LPCSTR lPath("C:/Windows/notepad.exe");
+				LPCSTR lPath(std::string(getAppPath().toStdString() + "/" + appExecName.c_str()).c_str());
+				LPSTR null = const_cast<char*>("");
+				STARTUPINFO update = { sizeof(update) };
+				PROCESS_INFORMATION proc_info;
+				if (CreateProcess(lPath, null, NULL, NULL, TRUE, 0, NULL, NULL, &update, &proc_info))
+				{
+					CloseHandle(proc_info.hProcess);
+					CloseHandle(proc_info.hThread);
+				}
+				else
+					qDebug() << GetLastError();
+				//update_prc->start(getAppPath().toLocal8Bit() + "/" + appExecName.c_str());
 			}
 		}
 		catch (std::filesystem::filesystem_error& e)
