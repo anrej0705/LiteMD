@@ -291,6 +291,7 @@
     <ClCompile Include="utls\globalFlags.c" />
     <ClCompile Include="utls\localeDetector.cpp" />
     <ClCompile Include="utls\logger_backend.cpp" />
+    <ClCompile Include="utls\WinAPI_utils.cpp" />
     <ClCompile Include="utls\xmlReader.cpp" />
     <ClCompile Include="utls\xmlWriter.cpp" />
     <ClCompile Include="window_widgets\appSettings.cpp" />
@@ -380,6 +381,7 @@
     <ClInclude Include="utls\globalFlags.h" />
     <ClInclude Include="utls\global_definitions.h" />
     <ClInclude Include="utls\logger_backend.h" />
+    <ClInclude Include="utls\WinAPI_utils.h" />
     <ClInclude Include="utls\xmlReader.h" />
     <ClInclude Include="utls\xmlWriter.h" />
     <QtMoc Include="window_widgets\appSettings.h" />

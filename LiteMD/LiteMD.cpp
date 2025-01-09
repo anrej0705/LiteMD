@@ -6,6 +6,7 @@
 #include "logger_backend.h"
 #include "LastFileManager.h"
 #include "windows.h"
+#include "WinAPI_utils.h"
 #include <filesystem>
 #include <QtWidgets>
 #include <fstream>
@@ -521,7 +522,8 @@ LiteMD::~LiteMD()
 				// 
 				//system(getAppPath().toLocal8Bit() + "/" + appExecName.c_str());
 				//LPCSTR lPath("C:/Windows/notepad.exe");
-				LPCSTR lPath(std::string(getAppPath().toStdString() + "/" + appExecName.c_str()).c_str());
+				newInstance(std::string(getAppPath().toStdString() + "/" + appExecName.c_str()).c_str());
+				/*LPCSTR lPath(std::string(getAppPath().toStdString() + "/" + appExecName.c_str()).c_str());
 				LPSTR null = const_cast<char*>("");
 				STARTUPINFO update = { sizeof(update) };
 				PROCESS_INFORMATION proc_info;
@@ -531,7 +533,8 @@ LiteMD::~LiteMD()
 					CloseHandle(proc_info.hThread);
 				}
 				else
-					qDebug() << GetLastError();
+					qDebug() << GetLastError();*/
+				//exit(0);
 				//update_prc->start(getAppPath().toLocal8Bit() + "/" + appExecName.c_str());
 			}
 		}

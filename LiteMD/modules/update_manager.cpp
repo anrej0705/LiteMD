@@ -2,6 +2,7 @@
 #include <filesystem>
 #include "update_manager.h"
 #include "logger_backend.h"
+#include "WinAPI_utils.h"
 extern "C"
 {
 	#include "global_definitions.h"
@@ -279,21 +280,17 @@ update_manager::update_manager(QString p_name, QWidget* uWgt) : QDialog(uWgt)
 update_manager::~update_manager()
 {
 	//Если пользователь выбрал автоматичекий запуск после обновления то запускаем процесс не дожидаясь его выходим
+	std::string myName = QCoreApplication::applicationFilePath().toStdString();
 	if (start_lmd)
 	{
 		std::string new_exe_name = QCoreApplication::applicationDirPath().toStdString() + "/" + QFileInfo(QCoreApplication::applicationFilePath()).fileName().toStdString();
 		if (new_exe_name.find("_old") != -1)	//Здесь проверка если юзер что-то нахуевертил в каталоге то запускаться не будем
 		{
 			new_exe_name.erase(new_exe_name.find("_old"), 4);
-			if (delete_patch_bit)
-			{
-				insert_log("Удаляю архив с пачтем");
-				if (std::remove(patch_name.toLocal8Bit()) != 0)
-					insert_log("Не удалось либо файла нет");
-			}
 			insert_log("Запускаю LiteMD[" + new_exe_name + "]");
 			save_log(std::string(appMainPath + "/"), "update");
-			LPCSTR lPath(new_exe_name.c_str());
+			newInstance(new_exe_name.c_str());
+			/*LPCSTR lPath(new_exe_name.c_str());
 			LPSTR null = const_cast<char*>("");
 			STARTUPINFO update = { sizeof(update) };
 			PROCESS_INFORMATION proc_info;
@@ -303,8 +300,8 @@ update_manager::~update_manager()
 				CloseHandle(proc_info.hThread);
 			}
 			else
-				qDebug() << GetLastError();
-			exit(0);
+				qDebug() << GetLastError();*/
+			//exit(0);
 			//system(new_exe_name.c_str());
 			//QProcess* update_prc = new QProcess();	//Создаём процесс и запускаем его не дожидаясь
 			//update_prc->startDetached(QString::fromStdString(new_exe_name));
@@ -318,6 +315,7 @@ update_manager::~update_manager()
 			insert_log("Не удалось либо файла нет");
 	}
 	save_log(std::string(appMainPath + "/"), "update");
+	freeProcess(std::wstring(myName.begin(), myName.end()).c_str());
 }
 
 void update_manager::slot_confirm()
@@ -594,8 +592,9 @@ void update_manager::insert_log(std::string input)
 void update_manager::slot_done()
 {
 	insert_log("Работа завершена, сохраняю лог");
-	update_manager::~update_manager();
-	exit(0);
+	QApplication::exit();
+	//update_manager::~update_manager();
+	//exit(0);
 }
 
 void update_manager::insert_status_code(QString status, Qt::GlobalColor color, uint16_t no) noexcept

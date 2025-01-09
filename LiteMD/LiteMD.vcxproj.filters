@@ -259,6 +259,9 @@
     <ClCompile Include="dyn_tr_manager\helpCenter_ui.cpp">
       <Filter>Модули\Динамический перевод</Filter>
     </ClCompile>
+    <ClCompile Include="utls\WinAPI_utils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">
@@ -445,6 +448,9 @@
     </ClInclude>
     <ClInclude Include="modules\LastFileManager.h">
       <Filter>Модули</Filter>
+    </ClInclude>
+    <ClInclude Include="utls\WinAPI_utils.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
