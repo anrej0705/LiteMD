@@ -78,6 +78,7 @@ class LiteMD : public QMainWindow
 		QAction* actShieldSymbol;			//Кнопка экранирования символа на котором стоит курсор
 		QAction* checkUpdates;				//Пункт меню проверки обновлений
 		QAction* actclearRecent;			//Чистит список последних файлов
+		QAction* actInsertLi;				//Поднимает флаг генерации списка и вставляет его начало
 
 		//Действия менюшки заголовков
 		QAction* actSetH1;					//H1

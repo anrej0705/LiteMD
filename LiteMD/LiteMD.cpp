@@ -34,6 +34,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	parswitch.en_compat_undr = 1;
 	parswitch.en_italic = 1;
 	parswitch.en_bold = 1;
+	parswitch.en_li = 1;
 
 	dparswitch.en_t_post = 0;
 	dparswitch.en_t_prep = 0;
@@ -144,6 +145,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	setStrikethrough = new QAction(QPixmap(appPath + "/ress/icon_set_strike.png"), tr("Set strikethrough"));
 	checkUpdates = new QAction(QPixmap(appPath + "/ress/icon_check_updates.png"), tr("checkUpdates"));
 	actclearRecent = new QAction(tr("actclearRecent"));
+	actInsertLi = new QAction(QPixmap(appPath + "/ress/icon_set_li.png"), tr("actInsertLi"));
 	//----------------
 	
 	//Настройка выпадающих менюшек
@@ -191,6 +193,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	quick_tb->addAction(actPlaceAltUrl);
 	quick_tb->addWidget(actSetTextFormat);
 	quick_tb->addWidget(actPlaceHeader);
+	quick_tb->addAction(actInsertLi);
 	quick_tb->addAction(actShieldSymbol);
 	quick_tb->addSeparator();
 	serv_tb->addAction(actBugReport);
@@ -399,9 +402,11 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	if (!connect(mde->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotScrollEvent(int))))
 		QErrorMessage::qtHandler();	++connected_signals;//Синхронизация от рендера
 	if (!connect(actclearRecent, SIGNAL(triggered()), this, SLOT(slotRemoveRf())))
-		QErrorMessage::qtHandler();	++connected_signals;//Синхронизация от рендера
+		QErrorMessage::qtHandler();	++connected_signals;//Очистить список
 	if (!connect(actHelp, SIGNAL(triggered()), help, SLOT(show())))
-		QErrorMessage::qtHandler();	++connected_signals;//Синхронизация от рендера
+		QErrorMessage::qtHandler();	++connected_signals;//Вызвать окно справки
+	if (!connect(actInsertLi, SIGNAL(triggered()), mde, SLOT(slotInsertLi())))
+		QErrorMessage::qtHandler();	++connected_signals;//Вставка списка
 	push_log(std::string("[QT->LiteMD]Образовано " + std::to_string(connected_signals) + " связей"));
 	//------------------------------
 
