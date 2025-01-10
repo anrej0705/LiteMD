@@ -334,6 +334,10 @@ I hope u like my app :D</translation>
         <source>errorCreatingFile: </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>actInsertLi</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
@@ -703,6 +707,18 @@ Programm will close</translation>
     </message>
     <message>
         <source>recentLimitHint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>parseLi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>parseLiHint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>parseLiHelp</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
