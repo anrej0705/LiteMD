@@ -52,6 +52,7 @@ struct parser_switchers
 	bool en_compat_undr;
 	bool en_italic;
 	bool en_bold;
+	bool en_li;
 };
 
 struct depr_paerser_switchers
