@@ -262,6 +262,9 @@
     <ClCompile Include="utls\WinAPI_utils.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="string_processing\liParser.cpp">
+      <Filter>String processing\Парсеры</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="modules\Downloader.h">
@@ -342,6 +345,9 @@
       <Filter>Resource Files\Иконки док панели</Filter>
     </Image>
     <Image Include="ress\icon_set_shielding.png">
+      <Filter>Resource Files\Иконки док панели</Filter>
+    </Image>
+    <Image Include="ress\icon_set_li.png">
       <Filter>Resource Files\Иконки док панели</Filter>
     </Image>
   </ItemGroup>
@@ -451,6 +457,9 @@
     </ClInclude>
     <ClInclude Include="utls\WinAPI_utils.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="string_processing\liParser.h">
+      <Filter>String processing\Парсеры</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
