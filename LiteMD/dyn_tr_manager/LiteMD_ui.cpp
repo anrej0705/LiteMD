@@ -72,6 +72,7 @@ void LiteMD::update_ui()
 	actClose->setText(tr("Close"));
 	recentFiles->setTitle(tr("recentFiles"));
 	actclearRecent->setText(tr("actclearRecent"));
+	actInsertLi->setText(tr("actInsertLi"));
 	//------------------------
 }
 
