@@ -58,6 +58,7 @@ boost::container::vector<QString> xml_tags{
 	QString("en_bold"),
 	QString("dataLocation"),
 	QString("recentLimit"),
+	QString("en_li"),
 };
 
 bool xmlReader::readConfig()
@@ -88,6 +89,7 @@ bool xmlReader::readConfig()
 	_xml_ptr.push_back(reinterpret_cast<void*>(&parswitch.en_bold));
 	_xml_ptr.push_back(reinterpret_cast<void*>(&dataLocation));
 	_xml_ptr.push_back(reinterpret_cast<void*>(&recentLimit));
+	_xml_ptr.push_back(reinterpret_cast<void*>(&parswitch.en_li));
 
 	int* _int_ptr;
 	bool* _bool_ptr;

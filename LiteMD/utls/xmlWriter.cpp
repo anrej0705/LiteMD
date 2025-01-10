@@ -55,6 +55,7 @@ void xmlWriter::writeConfig()
 	QDomElement en_bold = attrib(*lmdFileSet, "en_bold", parswitch.en_bold);
 	QDomElement data_location = attrib(*lmdFileSet, "dataLocation", dataLocation);
 	QDomElement recent_limit = attrib(*lmdFileSet, "recentLimit", recentLimit);
+	QDomElement en_li = attrib(*lmdFileSet, "en_li", parswitch.en_li);
 	lmdSet->appendChild(build);
 	lmdSet->appendChild(patchNoteRead);
 	lmdSet->appendChild(indevFeatures);
@@ -76,6 +77,7 @@ void xmlWriter::writeConfig()
 	lmdSet->appendChild(en_bold);
 	lmdSet->appendChild(data_location);
 	lmdSet->appendChild(recent_limit);
+	lmdSet->appendChild(en_li);
 	QFile settingsFile(fileName);
 	if (settingsFile.open(QIODevice::WriteOnly))
 	{
