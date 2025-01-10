@@ -363,7 +363,7 @@ void mdEditor::convToAltUrl()
 	int cursorPosition = this->textCursor().position() - procBuf.size();;
 
 	//Шлём сигнал что текст изменился
-	emit textChanged();
+	//emit textChanged();
 
 	//Ставим указатель на позицию шаблона и затем на позицию конца шаблона
 	tCursor.setPosition(cursorPosition + 1);
@@ -535,5 +535,96 @@ void mdEditor::closeFile()
 	this->clear();
 
 	//Шлём смску что текст изменился(очистился)
+	emit textChanged();
+}
+
+//Генерация списка
+void mdEditor::slotInsertLi()
+{
+	QString procBuf = this->textCursor().selectedText();
+
+	//Позиция курсора
+	int pos;// = this->textCursor().position();
+
+	if (procBuf == "")
+	{
+		//Вставлять нужно в начало строки, поэтому от текущей позиции курсора ищем символ \n
+
+		//Копируем себе чтобы было удобнее
+		std::string buf = this->toPlainText().toStdString();
+
+		//Защита от крита
+		this->textCursor().position() >= buf.size() ? pos = buf.size() - 1 : pos = this->textCursor().position();
+		if (buf.at(this->textCursor().position()) == '\n')
+			--pos;
+
+		//Ищем \n идя в сторону начала
+		while (pos != 0)
+		{
+			if (buf.at(pos) == '\n')
+			{
+				//Поправка позиции - цикл остановился непосредственно на самом '\n', а его трогать не надо
+				pos += 1;
+				break;	//Когда найдём то запомним и выйдем
+			}
+			--pos;
+		}
+		//Хандлер курсора
+		QTextCursor tCursor = this->textCursor();
+
+		//Ставим курсор на позицию начала строки
+		tCursor.setPosition(pos);
+		this->setTextCursor(tCursor);
+
+		//Вставляем '- ' - символ по умолчанию
+		//позже добавлю вариации, такие как '* ', '+ '
+		this->insertPlainText("- ");
+
+		//Шлём смску что текст изменился
+		emit textChanged();
+
+		return;
+	}
+
+	//Меняем стратегию
+	procBuf = this->toPlainText();
+
+	//Позиция смещения из-за вставок
+	uint32_t shiftPos = 0;
+
+	procBuf = procBuf.mid(this->textCursor().selectionStart(), this->textCursor().selectionEnd() - this->textCursor().selectionStart());
+
+	//Позиция курсора - поиск с конца
+	int bufPtr = this->textCursor().selectionEnd() - this->textCursor().selectionStart() - 1;
+
+	//Идём в сторону начала, но не дальше начала выделнной области
+	while (bufPtr != this->textCursor().selectionStart())
+	{
+		if (procBuf.at(bufPtr) == '\n')
+		{
+			procBuf.insert(bufPtr + 1, "- ");
+			shiftPos += 2;
+		}
+		--bufPtr;
+	}
+
+	//Возможно юзер аккуратно выделил нужные строчки, тогда первая выпавшая из цикла должна быть обработана тут
+	if (this->textCursor().selectionStart() > 0)
+	{
+		if (procBuf.at(this->textCursor().selectionStart() - 1) == '\n')
+		{
+			shiftPos += 3;
+			procBuf.insert(this->textCursor().selectionStart(), "\n- ");
+		}
+	}
+
+	//Вставляем перенос строки в конец
+	if (this->textCursor().selectionEnd() <= (procBuf.size() - 1))
+		procBuf.insert(this->textCursor().selectionEnd() + shiftPos, "\n");
+
+	//Заменяем текст на модифицированный
+	this->setText(procBuf);
+
+	//Шлём смску что текст изменился
 	emit textChanged();
 }

@@ -17,6 +17,7 @@
 #include "hack_compat_parser.h"
 #include "italicParser.h"
 #include "boldParser.h"
+#include "liParser.h"
 #include <string>
 #include <regex>
 extern "C"
@@ -56,46 +57,51 @@ void mdScreen::slotSetText(const QString& str)
 		balamut.lock();
 		//Обрабатываем текст
 		push_log("[РЕНДЕР]Предварительная конвертация экранированных символов");
-		mdInput = shieldingParser(mdInput);						//0 -> 1|Предварительная конвертация экранированных символов
+		mdInput = shieldingParser(mdInput);							//0 -> 1|Предварительная конвертация экранированных символов
 		push_log("[РЕНДЕР]Фильтрация служебных символов не являющихся частью тега");
-		mdInput = symbolCleaner(mdInput);						//1 -> 2|Фильтрация служебных символов не являющихся частью тега
+		mdInput = symbolCleaner(mdInput);							//1 -> 2|Фильтрация служебных символов не являющихся частью тега
 		if (parswitch.en_simple_url)
 		{
 			push_log("[РЕНДЕР]Обработка <www.url.ru>");
-			mdInput = basicUrlParser(mdInput);					//2 -> 3|Обработка <www.url.ru>
+			mdInput = basicUrlParser(mdInput);						//2 -> 3|Обработка <www.url.ru>
 		}
 		if (parswitch.en_adv_url)
 		{
 			push_log("[РЕНДЕР]Обработка [name](url)");
-			mdInput = advancedUrlParser(mdInput);				//3 -> 4|Обработка [name](url)
+			mdInput = advancedUrlParser(mdInput);					//3 -> 4|Обработка [name](url)
 		}
 		if (parswitch.en_header_lvl)
 		{
 			push_log("[РЕНДЕР]Обработка уровня заголовков");
-			mdInput = headerLvlParser(mdInput);					//4 -> 5|Обработка уровня заголовков
+			mdInput = headerLvlParser(mdInput);						//4 -> 5|Обработка уровня заголовков
 		}
 		if (parswitch.en_ex_strkthg)
 		{
 			push_log("[РЕНДЕР]Обработка зачёркнутых строк");
-			mdInput = extended_strikethroughParser(mdInput);	//5 -> 6|Обработка зачёркнутых строк
+			mdInput = extended_strikethroughParser(mdInput);		//5 -> 6|Обработка зачёркнутых строк
 		}
 		if (parswitch.en_compat_undr)
 		{
-			push_log("[РЕНДЕР]Обработка аттрибута подчёркивания");//6 -> 7|Обработка в обратной совместимости
-			mdInput = compatParser(mdInput);
+			push_log("[РЕНДЕР]Обработка аттрибута подчёркивания");
+			mdInput = compatParser(mdInput);						//6 -> 7|Обработка в обратной совместимости
 		}
 		if (parswitch.en_italic)
 		{
-			push_log("[РЕНДЕР]Обработка тегов курсивного тега");//7 -> 8|Обработка обозначений для курсива
-			mdInput = italicParser(mdInput);
+			push_log("[РЕНДЕР]Обработка тегов курсивного тега");
+			mdInput = italicParser(mdInput);						//7 -> 8|Обработка обозначений для курсива
 		}
 		if (parswitch.en_bold)
 		{
-			push_log("[РЕНДЕР]Обработка тегов жирного тега");	//8 -> 9|Обработка обозначений для курсива
-			mdInput = boldParser(mdInput);
+			push_log("[РЕНДЕР]Обработка тегов жирного тега");
+			mdInput = boldParser(mdInput);							//8 -> 9|Обработка обозначений для курсива
+		}
+		if (parswitch.en_li)
+		{
+			push_log("[РЕНДЕР]Обработка списков");
+			mdInput = liParser(mdInput);							//9 -> 10|Обработка обозначений для курсива
 		}
 		push_log("[РЕНДЕР]Обработка переноса строки");
-		mdInput = crlfProcessor(mdInput);						//9 -> 10|Обработка переноса строки
+		mdInput = crlfProcessor(mdInput);							//10 -> 11|Обработка переноса строки
 		push_log("[РЕНДЕР]Конвертация в QString");
 		//Преобразуем в QString
 		mdFormatted = QString::fromStdString(mdInput);
