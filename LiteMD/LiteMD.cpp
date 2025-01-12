@@ -301,6 +301,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mEdit->addMenu(formatStyle);
 	mEdit->addMenu(headersMenu);
 	mEdit->addAction(actShieldSymbol);
+	mEdit->addAction(actInsertLi);
 	mSettings->addAction(actDownloader);
 	mSettings->addSeparator();
 	mSettings->addAction(actSet);
