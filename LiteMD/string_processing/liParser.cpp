@@ -79,16 +79,12 @@ std::string liParser(std::string& rawInput)
 	listStruct foundList;
 	std::deque<listStruct> lists;
 
-	char testpoint;
-
 	bool list_keeps = 0;
 
 	//Ищем признаки списка
 	for (uint16_t _index = 0; _index < strokes.size(); ++_index)
 	{
 		//Проверяем наличие признака "- " иди "* " или "+ " и запоминаем если он нашёлся
-		testpoint = buffer[strokes.at(_index)];
-		testpoint = buffer[strokes.at(_index)];
 		if (buffer[strokes.at(_index) == '-'] && buffer[strokes.at(_index) + 1] == ' ')
 		{
 			if (foundList.li_start == -1)
