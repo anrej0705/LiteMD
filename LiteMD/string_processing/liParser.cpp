@@ -46,19 +46,34 @@ std::string liParser(std::string& rawInput)
 
 	//---> и до сюда тупо копипиздинг из парсера в парсер, ничего практически менять не нужно
 
+	push_log("[liParser]Провожу подсчёт строк");
+
+	uint32_t magic_counter = 0;
+
 	std::deque<uint32_t> strokes;
 	//Собираем указатели на строчки
 	for (uint32_t _index = 0; _index < *buffer_size; ++_index)
 	{
 		if (_index == 0)
+		{
 			strokes.push_back(_index);
+			++magic_counter;
+		}
 		if (buffer[_index] == '\n')
 		{
+			++magic_counter;
 			strokes.push_back(_index + 1);
 		}
 		else if (_index == *buffer_size - 1)
+		{
 			strokes.push_back(_index);
+			++magic_counter;
+		}
 	}
+
+	push_log(std::string("[liParser]Найдено " + std::to_string(magic_counter) + " строчек"));
+	push_log("[liParser]Составляю структуру списков");
+	magic_counter = 0;
 
 	listStr li_str;
 	listStruct foundList;
@@ -88,12 +103,21 @@ std::string liParser(std::string& rawInput)
 				{
 					_fnd == *buffer_size - 1 ? li_str.li_str_end = _fnd + 1 : li_str.li_str_end = _fnd;
 					_fnd == *buffer_size - 1 ? foundList.li_end = _fnd + 1 : foundList.li_end = _fnd;
+					push_log(std::string(
+						"[liParser]Найдена строка списка под номером " + 
+						std::to_string(strokes.at(_index)) + 
+						"(" + 
+						std::to_string(li_str.li_str_start) + 
+						"-" + 
+						std::to_string(li_str.li_str_end) + 
+						")"));
 					//li_str.li_str_end = _fnd;
 					//foundList.li_end = _fnd;
 					break;
 				}
 			}
 			foundList.strokes.push_back(li_str);
+			++magic_counter;
 		}
 		else if (foundList.found)
 		{
@@ -105,9 +129,14 @@ std::string liParser(std::string& rawInput)
 		}
 	}
 
+	push_log(std::string("[liParser]Найдено " + std::to_string(magic_counter) + " структур списков"));
+	push_log("[liParser]Провожу сборку структур");
+	magic_counter = 0;
+
 	//Проводоим сборку
 	for (int16_t _lists = 0; _lists < lists.size(); ++_lists)
 	{
+		push_log(std::string("[liParser]Сборка списка № " + std::to_string(_lists + 1) + " из " + std::to_string(lists.at(_lists).strokes.size() - 1) + " строчек"));
 		li_output->insert(lists.at(_lists).li_end, li_list_iclose);
 		for (int16_t _li_str = lists.at(_lists).strokes.size() - 1; _li_str >= 0; --_li_str)
 		{
@@ -116,19 +145,8 @@ std::string liParser(std::string& rawInput)
 		}
 		li_output->insert(lists.at(_lists).li_start, li_list_iopen);
 	}
-	/*for (uint16_t _lists = 0; _lists < lists.size(); ++_lists)
-	{
-		li_output->insert(lists.at(_lists).li_end + 1, li_list_iclose);
-		//Вставка первой строчки, из-за специфики парсера она не может быть обработана в цикле
-		li_output->insert(lists.at(_lists).li_end + 1, li_str_iclose);
-		li_output->replace(lists.at(_lists).strokes.at(0), 2, li_str_iopen);
-		for (uint16_t _li_str = 1; _li_str < lists.at(_lists).strokes.size(); ++_li_str)
-		{
-			li_output->insert(lists.at(_lists).strokes.at(_li_str - 1) - 1, li_str_iclose);
-			li_output->replace(lists.at(_lists).strokes.at(_li_str), 2, li_str_iopen);
-		}
-		li_output->insert(lists.at(_lists).li_start + 1, li_list_iopen);
-	}*/
+
+	push_log("[liParser]Сборка завершена");
 
 	//Вот отсюда --->
 	free(buffer);
