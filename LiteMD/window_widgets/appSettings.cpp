@@ -193,7 +193,7 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
 	if (!connect(parseBold, SIGNAL(stateChanged(int)), this, SLOT(slot_en_bold(int))))
 		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
-	if (!connect(parseLi, SIGNAL(stateChanged(int)), this, SLOT(appSettings::(int))))
+	if (!connect(parseLi, SIGNAL(stateChanged(int)), this, SLOT(slot_en_li(int))))
 		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
 	push_log(std::string("[QT->appSettings]Образовано " + std::to_string(connected_signals) + " связей"));
 	
