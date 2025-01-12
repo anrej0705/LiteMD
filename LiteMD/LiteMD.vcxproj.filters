@@ -75,6 +75,9 @@
     <Filter Include="Модули\Справочное бюро">
       <UniqueIdentifier>{2b991826-b52d-4f36-99b1-79fdefb7ef2c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Генерация патч-скрипта">
+      <UniqueIdentifier>{556b1a7c-ddcd-4ef1-8362-95340f53c4b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="LiteMD.h">
@@ -475,6 +478,9 @@
     </None>
     <None Include="testPattern.md">
       <Filter>Тесты</Filter>
+    </None>
+    <None Include="..\patch_autogen\generate.bat">
+      <Filter>Генерация патч-скрипта</Filter>
     </None>
   </ItemGroup>
 </Project>
