@@ -117,7 +117,6 @@ std::string liParser(std::string& rawInput)
 				}
 			}
 			foundList.strokes.push_back(li_str);
-			++magic_counter;
 		}
 		else if (foundList.found)
 		{
@@ -126,6 +125,7 @@ std::string liParser(std::string& rawInput)
 			foundList.li_end = -1;
 			foundList.li_start = -1;
 			foundList.strokes.clear();
+			++magic_counter;
 		}
 	}
 
@@ -136,7 +136,7 @@ std::string liParser(std::string& rawInput)
 	//Проводоим сборку
 	for (int16_t _lists = 0; _lists < lists.size(); ++_lists)
 	{
-		push_log(std::string("[liParser]Сборка списка № " + std::to_string(_lists + 1) + " из " + std::to_string(lists.at(_lists).strokes.size() - 1) + " строчек"));
+		push_log(std::string("[liParser]Сборка списка [№ " + std::to_string(_lists + 1) + "] из " + std::to_string(lists.at(_lists).strokes.size() - 1) + " строчек"));
 		li_output->insert(lists.at(_lists).li_end, li_list_iclose);
 		for (int16_t _li_str = lists.at(_lists).strokes.size() - 1; _li_str >= 0; --_li_str)
 		{
