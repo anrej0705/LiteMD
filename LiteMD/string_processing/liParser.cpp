@@ -1,5 +1,5 @@
 #include "liParser.h"
-//Вот отсюда --->
+//Р’РѕС‚ РѕС‚СЃСЋРґР° --->
 #include <boost/container/string.hpp>
 #include "exceptionHandler.h"
 #include "logger_backend.h"
@@ -7,7 +7,7 @@ extern "C"
 {
 	#include "global_definitions.h"
 }
-//---> и до сюда тупо копипиздинг из парсера в парсер, ничего практически менять не нужно
+//---> Рё РґРѕ СЃСЋРґР° С‚СѓРїРѕ РєРѕРїРёРїРёР·РґРёРЅРі РёР· РїР°СЂСЃРµСЂР° РІ РїР°СЂСЃРµСЂ, РЅРёС‡РµРіРѕ РїСЂР°РєС‚РёС‡РµСЃРєРё РјРµРЅСЏС‚СЊ РЅРµ РЅСѓР¶РЅРѕ
 
 struct listStr
 {
@@ -28,26 +28,26 @@ std::string* li_output;
 
 std::string liParser(std::string& rawInput)
 {
-	//Вот отсюда --->
+	//Р’РѕС‚ РѕС‚СЃСЋРґР° --->
 	boost::container::string* log_out = new boost::container::string;
 
 	uint32_t* buffer_size = (uint32_t*)malloc(sizeof(uint32_t));
-	*buffer_size = rawInput.size();	//Создаём переменную с количеством символов
+	*buffer_size = rawInput.size();	//РЎРѕР·РґР°С‘Рј РїРµСЂРµРјРµРЅРЅСѓСЋ СЃ РєРѕР»РёС‡РµСЃС‚РІРѕРј СЃРёРјРІРѕР»РѕРІ
 
-	push_log(std::string("[ПАРСЕР]Размер блока " + std::to_string(*buffer_size)));
+	push_log(std::string("[РџРђР РЎР•Р ]Р Р°Р·РјРµСЂ Р±Р»РѕРєР° " + std::to_string(*buffer_size)));
 
 	li_output = new std::string;
 	//li_output = new boost::container::string;
 
 	char* buffer = (char*)calloc(*buffer_size + 1, sizeof(char));
-	strcpy(buffer, rawInput.c_str());	//Медленно, //Создаём буфер с размером входящего блока и копируем его туда
+	strcpy(buffer, rawInput.c_str());	//РњРµРґР»РµРЅРЅРѕ, //РЎРѕР·РґР°С‘Рј Р±СѓС„РµСЂ СЃ СЂР°Р·РјРµСЂРѕРј РІС…РѕРґСЏС‰РµРіРѕ Р±Р»РѕРєР° Рё РєРѕРїРёСЂСѓРµРј РµРіРѕ С‚СѓРґР°
 
 	li_output->assign(buffer);
 
-	//---> и до сюда тупо копипиздинг из парсера в парсер, ничего практически менять не нужно
+	//---> Рё РґРѕ СЃСЋРґР° С‚СѓРїРѕ РєРѕРїРёРїРёР·РґРёРЅРі РёР· РїР°СЂСЃРµСЂР° РІ РїР°СЂСЃРµСЂ, РЅРёС‡РµРіРѕ РїСЂР°РєС‚РёС‡РµСЃРєРё РјРµРЅСЏС‚СЊ РЅРµ РЅСѓР¶РЅРѕ
 
 	std::deque<uint32_t> strokes;
-	//Собираем указатели на строчки
+	//РЎРѕР±РёСЂР°РµРј СѓРєР°Р·Р°С‚РµР»Рё РЅР° СЃС‚СЂРѕС‡РєРё
 	for (uint32_t _index = 0; _index < *buffer_size; ++_index)
 	{
 		if (_index == 0)
@@ -68,10 +68,10 @@ std::string liParser(std::string& rawInput)
 
 	bool list_keeps = 0;
 
-	//Ищем признаки списка
+	//РС‰РµРј РїСЂРёР·РЅР°РєРё СЃРїРёСЃРєР°
 	for (uint16_t _index = 0; _index < strokes.size(); ++_index)
 	{
-		//Проверяем наличие признака "- " иди "* " или "+ " и запоминаем если он нашёлся
+		//РџСЂРѕРІРµСЂСЏРµРј РЅР°Р»РёС‡РёРµ РїСЂРёР·РЅР°РєР° "- " РёРґРё "* " РёР»Рё "+ " Рё Р·Р°РїРѕРјРёРЅР°РµРј РµСЃР»Рё РѕРЅ РЅР°С€С‘Р»СЃСЏ
 		testpoint = buffer[strokes.at(_index)];
 		testpoint = buffer[strokes.at(_index)];
 		if (buffer[strokes.at(_index) == '-'] && buffer[strokes.at(_index) + 1] == ' ')
@@ -81,7 +81,7 @@ std::string liParser(std::string& rawInput)
 			if(!foundList.found)
 				foundList.found = 1;
 			li_str.li_str_start = strokes.at(_index);
-			//Ищем конец
+			//РС‰РµРј РєРѕРЅРµС†
 			for (uint32_t _fnd = strokes.at(_index); _fnd < *buffer_size; ++_fnd)
 			{
 				if (buffer[_fnd] == '\n' || _fnd == *buffer_size - 1)
@@ -105,7 +105,7 @@ std::string liParser(std::string& rawInput)
 		}
 	}
 
-	//Проводоим сборку
+	//РџСЂРѕРІРѕРґРѕРёРј СЃР±РѕСЂРєСѓ
 	for (int16_t _lists = 0; _lists < lists.size(); ++_lists)
 	{
 		li_output->insert(lists.at(_lists).li_end, li_list_iclose);
@@ -119,7 +119,7 @@ std::string liParser(std::string& rawInput)
 	/*for (uint16_t _lists = 0; _lists < lists.size(); ++_lists)
 	{
 		li_output->insert(lists.at(_lists).li_end + 1, li_list_iclose);
-		//Вставка первой строчки, из-за специфики парсера она не может быть обработана в цикле
+		//Р’СЃС‚Р°РІРєР° РїРµСЂРІРѕР№ СЃС‚СЂРѕС‡РєРё, РёР·-Р·Р° СЃРїРµС†РёС„РёРєРё РїР°СЂСЃРµСЂР° РѕРЅР° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РѕР±СЂР°Р±РѕС‚Р°РЅР° РІ С†РёРєР»Рµ
 		li_output->insert(lists.at(_lists).li_end + 1, li_str_iclose);
 		li_output->replace(lists.at(_lists).strokes.at(0), 2, li_str_iopen);
 		for (uint16_t _li_str = 1; _li_str < lists.at(_lists).strokes.size(); ++_li_str)
@@ -130,12 +130,12 @@ std::string liParser(std::string& rawInput)
 		li_output->insert(lists.at(_lists).li_start + 1, li_list_iopen);
 	}*/
 
-	//Вот отсюда --->
+	//Р’РѕС‚ РѕС‚СЃСЋРґР° --->
 	free(buffer);
 	free(buffer_size);
 
 	return li_output->c_str();
-	//---> и до сюда тупо копипиздинг из парсера в парсер, ничего практически менять не нужно
+	//---> Рё РґРѕ СЃСЋРґР° С‚СѓРїРѕ РєРѕРїРёРїРёР·РґРёРЅРі РёР· РїР°СЂСЃРµСЂР° РІ РїР°СЂСЃРµСЂ, РЅРёС‡РµРіРѕ РїСЂР°РєС‚РёС‡РµСЃРєРё РјРµРЅСЏС‚СЊ РЅРµ РЅСѓР¶РЅРѕ
 
 	return rawInput;
 }
