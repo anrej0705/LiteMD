@@ -19,6 +19,19 @@
 //имя_команды2 аргумент1
 //имя_команды3 аргумент1
 //имя_команды4 аргумент1 аргумент2
+// 
+//Замечание 1: команда с 1 аргументом работает от каталога приложения
+//del "/LiteMD.exe" будет воспринято как "C:/LiteMD/LiteMD.exe"
+// 
+//Замечение 2: команда с 2 аргументами работает от каталога патча и каталога приложения
+//move "/LiteMD.exe" "/LiteMD.exe" работает как
+//переместить "C:/LiteMD/patch/LiteMD.exe" в "C:/LiteMD/LiteMD.exe"
+//
+//Замечание 3: команда ren работает как исключение из правил замечания 2
+// 
+//Замечание 4: команды lmd_being и lmd_end нужны для идентификации файла команд
+//всегда помещайте lmd_begin в начало и lmd_end в конец
+// 
 //Команды в файле commands.txt могут быть следующего вида:
 //	ren "file1" "file2"		: Переименовать file1 в file2
 //	del "file"				: Удалить file
@@ -40,7 +53,9 @@ class update_manager : public QDialog
 	private:
 		//Внутрянка
 		std::vector<std::string> commands_set;				//Список команд прочитанных из файла commands.txt
+		std::string appMainPath;							//Папка где лежит основной каталог
 		std::string working_folder;							//Имя папки в которую будут сбрасываться временные файлы
+		std::string command;								//Команда
 		std::string arg1;									//Аргумент 1
 		std::string arg2;									//Аргумент 2
 
@@ -68,6 +83,9 @@ class update_manager : public QDialog
 		//Настройка интерфейсов
 		QHBoxLayout* buttons;
 		QVBoxLayout* layers;											//Кнопки + прогресс бар
+		QHBoxLayout* checkbox_composer;									//Для сборки кнопок
+		QVBoxLayout* hints;												//Для подсказок
+		QVBoxLayout* cboxes;											//Для чекбоксов
 
 		//Интерфейсы
 		QGroupBox* main;												//Рамка с подписью
@@ -77,15 +95,24 @@ class update_manager : public QDialog
 		QPushButton* btn_done;											//Кнопка выхода
 		QProgressBar* update_progress;									//Для юзера, чтобы было не так скучно ждать
 		QLabel* question;												//Вопрос "обновить?"
+		QLabel* restart_after_hint;										//Вопрос "Перезапустить?"
+		QLabel* delete_patch_hint;										//Вопрос "Удалить?"
+		QCheckBox* restart_after;										//Перезапустить ли после обновления?
+		QCheckBox* delete_patch;										//Удалить ли папку с патчем?(недоступно+выкл если не отмечено restart_after)
+
+		//Сервисная тема
+		inline void insert_status_code(QString, Qt::GlobalColor, uint16_t) noexcept;//Вставляет строчку
 	protected:
 		void insert_log(std::string input);								//Доработка логера для отправки сообщения в окно и логер
 	public:
 		update_manager(QString p_name, QWidget* uWgt = 0);
 		update_manager::~update_manager();
-		void execute_command(std::string command, uint16_t no);			//Парсер команд
+		int execute_command(QString command, uint16_t no);				//Парсер команд
 	public slots:
 		void slot_confirm();											//Подтверждает обновление
 		void slot_decline();											//Юзер отказался от обновления
 		void slot_done();												//Завершает работу менеджера
+		void slot_switch_reset(int);									//Перезапуск после обновы
+		void slot_delete_patch(int);									//Удаляет папку с патчем
 		void load_land(int);											//Скопировано из appSettings
 };

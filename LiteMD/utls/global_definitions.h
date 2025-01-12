@@ -10,9 +10,9 @@
 //##[STAGE]
 #define APP_STAGE " alpha"
 //##[VER]
-#define APP_VERSION " 0.3.0"
+#define APP_VERSION " 0.3.1"
 //##[BUILD]
-#define BUILD_NUMBER 1976
+#define BUILD_NUMBER 1979
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
 //!!!НЕ ИЗМЕНЯЙ И НЕ ПЕРЕНОСИ ДАННУЮ СТРОЧКУ!!!
@@ -91,6 +91,12 @@ const char italic_txt_iclose[] = "</I>";
 
 const char bold_txt_iopen[] = "<B>";
 const char bold_txt_iclose[] = "</B>";
+
+const char li_list_iopen[] = "<UL>";
+const char li_list_iclose[] = "</UL>";
+
+const char li_str_iopen[] = "<LI>";
+const char li_str_iclose[] = "</LI>";
 
 const uint8_t simple_url_iopenurl_size = 9;
 const uint8_t simple_url_icloseurl_size = 2;

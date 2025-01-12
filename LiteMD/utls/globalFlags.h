@@ -21,6 +21,7 @@ extern bool settingChanged;
 extern bool logReadState;
 extern bool enableDeprFeatures;
 extern bool enableIndevFeatures;
+extern bool enableUpdate;
 extern int langCode;
 extern int recentLimit;
 
@@ -51,6 +52,7 @@ struct parser_switchers
 	bool en_compat_undr;
 	bool en_italic;
 	bool en_bold;
+	bool en_li;
 };
 
 struct depr_paerser_switchers

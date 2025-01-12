@@ -19,9 +19,7 @@ helpCenter::helpCenter(QWidget* qwgt) : QDialog(qwgt)
 	this->setWindowTitle(tr("Program guide"));
 
 	//Задаём иконку
-	QPixmap appIcon(getAppPath() + "/icon.ico");
-	appIcon.setMask(appIcon.createMaskFromColor(QColor(0, 0, 0)));
-	setWindowIcon(QIcon(appIcon));
+	setWindowIcon(setAppIcon());
 
 	std::string temp;
 	QString qtemp;

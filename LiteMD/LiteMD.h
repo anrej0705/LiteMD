@@ -12,6 +12,7 @@
 #include "event_id_constructor.h"
 #include "customToolButton.h"
 #include "OrientalPushButton.h"
+#include "helpCenter.h"
 extern "C"
 {
 	#include "globalFlags.h"
@@ -46,6 +47,7 @@ class LiteMD : public QMainWindow
 		currentChangelog* cLog;				//Список изменений
 		xmlWriter* xmlW;					//Класс для записи настроек в файл
 		xmlReader* xmlR;					//Читалка настроек
+		helpCenter* help;					//Окно справки
 		QTimer* showTim;					//Таймер на отображение окна
 		logger* logWindow;					//Окно логов которое появляется нажатием на жука
 		CustomToolButton* actPlaceHeader;	//Кнопка "превратить в заголовок"
@@ -76,6 +78,7 @@ class LiteMD : public QMainWindow
 		QAction* actShieldSymbol;			//Кнопка экранирования символа на котором стоит курсор
 		QAction* checkUpdates;				//Пункт меню проверки обновлений
 		QAction* actclearRecent;			//Чистит список последних файлов
+		QAction* actInsertLi;				//Поднимает флаг генерации списка и вставляет его начало
 
 		//Действия менюшки заголовков
 		QAction* actSetH1;					//H1

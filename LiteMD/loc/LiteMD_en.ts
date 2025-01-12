@@ -326,6 +326,18 @@ I hope u like my app :D</translation>
         <source>actclearRecent</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>updateError</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>errorCreatingFile: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>actInsertLi</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
@@ -697,6 +709,18 @@ Programm will close</translation>
         <source>recentLimitHint</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>parseLi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>parseLiHint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>parseLiHelp</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>currentChangelog</name>
@@ -831,6 +855,22 @@ Programm will close</translation>
     </message>
     <message>
         <source>status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>restart_after_hint?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>delete_patch_hint?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>restart_after_help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>delete_patch_help</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

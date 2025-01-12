@@ -193,6 +193,8 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
 	if (!connect(parseBold, SIGNAL(stateChanged(int)), this, SLOT(slot_en_bold(int))))
 		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
+	if (!connect(parseLi, SIGNAL(stateChanged(int)), this, SLOT(slot_en_li(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
 	push_log(std::string("[QT->appSettings]Образовано " + std::to_string(connected_signals) + " связей"));
 	
 
@@ -227,8 +229,6 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 void appSettings::slot_apply_settings()
 {
 	//Устанавливаем локаль
-	if (!QCoreApplication::installTranslator(&lmd_lng))
-		QErrorMessage::qtHandler();
 	qApp->installTranslator(&lmd_lng);
 	if (!QCoreApplication::sendEvent(qApp, new event_id_constructor(APP_EVENT_UI_UPDATE_EVENT)))	//Постим событие изменения интерфейса
 		QErrorMessage::qtHandler();
@@ -503,4 +503,11 @@ void appSettings::slot_update_r_limit(int bit)
 QString getConfigPath()
 {
 	return writablePath;
+}
+
+void appSettings::slot_en_li(int bit)
+{
+	settingChanged = 1;
+	parswitch.en_li = static_cast<bool>(bit);
+	parswitch.en_li == 0 ? push_log("[НАСТРОЙКИ]Обработка списков включена") : push_log("[НАСТРОЙКИ]Обработка списков включена");
 }

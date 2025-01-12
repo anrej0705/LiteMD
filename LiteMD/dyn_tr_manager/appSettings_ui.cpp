@@ -89,6 +89,8 @@ void appSettings::update_ui()
 	parseBoldHint->setText(tr("parseBoldHint"));
 	saveLocationHint->setText(tr("saveLocationHint"));
 	userPathHint->setText(tr("userPathHint"));
+	parseLiHint->setText(tr("parseLiHint"));
+	recentLimitHint->setText(tr("recentLimitHint"));
 
 	//Задаем язык переводов на выбранный в настройках
 	parseSimplLinks->setWhatsThis(tr("parseSimplLinksHelp"));
@@ -121,6 +123,7 @@ void appSettings::update_ui()
 	devFunc->setWhatsThis(tr("devFuncHelp"));
 	limitSpinBox->setWhatsThis(tr("limitSpinBoxHelp"));
 	recentLimitBox->setWhatsThis(tr("recentLimitHelp"));
+	parseLi->setWhatsThis(tr("parseLiHelp"));
 }
 
 void appSettings::update_interactive()
@@ -136,6 +139,7 @@ void appSettings::update_interactive()
 	parswitch.en_compat_undr == 0 ? combatilibtyUndr->setChecked(0) : combatilibtyUndr->setChecked(1);
 	parswitch.en_italic == 0 ? parseItalic->setChecked(0) : parseItalic->setChecked(1);
 	parswitch.en_bold == 0 ? parseBold->setChecked(0) : parseBold->setChecked(1);
+	parswitch.en_li == 0 ? parseLi->setChecked(0) : parseLi->setChecked(1);
 	dparswitch.en_t_post == 0 ? deprSyntaxPrep->setChecked(0) : deprSyntaxPrep->setChecked(1);
 	dparswitch.en_t_prep == 0 ? deprSyntaxPost->setChecked(0) : deprSyntaxPost->setChecked(1);
 	dparswitch.en_url_adv == 0 ? deprUrlSimplParser->setChecked(0) : deprUrlSimplParser->setChecked(1);
@@ -150,6 +154,7 @@ void appSettings::update_interactive()
 	enableDeprFeatures == 0 ? parseUnderlined->setEnabled(1) : parseUnderlined->setDisabled(1);
 	enableDeprFeatures == 0 ? parseItalic->setEnabled(1) : parseItalic->setDisabled(1);
 	enableDeprFeatures == 0 ? parseBold->setEnabled(1) : parseBold->setDisabled(1);
+	enableDeprFeatures == 0 ? parseLi->setEnabled(1) : parseLi->setDisabled(1);
 	enableDeprFeatures == 0 ? deprSyntaxPrep->setDisabled(1) : deprSyntaxPrep->setEnabled(1);
 	enableDeprFeatures == 0 ? deprSyntaxPost->setDisabled(1) : deprSyntaxPost->setEnabled(1);
 	enableDeprFeatures == 0 ? deprUrlSimplParser->setDisabled(1) : deprUrlSimplParser->setEnabled(1);
@@ -163,6 +168,7 @@ void appSettings::update_interactive()
 	enableDeprFeatures == 0 ? parseUnderlinedHint->setEnabled(1) : parseUnderlinedHint->setDisabled(1);
 	enableDeprFeatures == 0 ? parseItalicHint->setEnabled(1) : parseItalicHint->setDisabled(1);
 	enableDeprFeatures == 0 ? parseBoldHint->setEnabled(1) : parseBoldHint->setDisabled(1);
+	enableDeprFeatures == 0 ? parseLiHint->setEnabled(1) : parseLiHint->setDisabled(1);
 	enableDeprFeatures == 0 ? deprSyntaxPrepHint->setDisabled(1) : deprSyntaxPrepHint->setEnabled(1);
 	enableDeprFeatures == 0 ? deprSyntaxPostHint->setDisabled(1) : deprSyntaxPostHint->setEnabled(1);
 	enableDeprFeatures == 0 ? deprUrlSimplParserHint->setDisabled(1) : deprUrlSimplParserHint->setEnabled(1);

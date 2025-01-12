@@ -328,6 +328,18 @@ github.com/anrej0705
         <source>actclearRecent</source>
         <translation>Очистить список</translation>
     </message>
+    <message>
+        <source>updateError</source>
+        <translation>Не удалось обновиться</translation>
+    </message>
+    <message>
+        <source>errorCreatingFile: </source>
+        <translation>Не удалось создать файл: </translation>
+    </message>
+    <message>
+        <source>actInsertLi</source>
+        <translation>Вставить список</translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
@@ -629,11 +641,11 @@ Programm will close</source>
     </message>
     <message>
         <source>parseStrikethroughHelp</source>
-        <translation>Активирует обработку зачёркнутого текста</translation>
+        <translation>Активирует обработку зачёркнутого текста(добавлен в 0.2.4)</translation>
     </message>
     <message>
         <source>parseUnderlinedHelp</source>
-        <translation>Активирует обработку подчёркнутого текста</translation>
+        <translation>Активирует обработку подчёркнутого текста(добавлен в 0.2.5)</translation>
     </message>
     <message>
         <source>clearLogHelp</source>
@@ -649,39 +661,39 @@ Programm will close</source>
     </message>
     <message>
         <source>parseSimplLinksHelp</source>
-        <translation>Активация разрешает обработку простых ссылок формата &lt;www.url.com&gt;</translation>
+        <translation>Активация разрешает обработку простых ссылок формата &lt;www.url.com&gt;(добавлен в 0.1.1)</translation>
     </message>
     <message>
         <source>parseAdvLinkslHelp</source>
-        <translation>Разрешает обработку форматированных ссылок [имя_ссылки](ссылка)</translation>
+        <translation>Разрешает обработку форматированных ссылок [имя_ссылки](ссылка)(добавлен в 0.1.4)</translation>
     </message>
     <message>
         <source>parseHeaderLvlHelp</source>
-        <translation>Разрешает обработку тегов заголовка #...#####</translation>
+        <translation>Разрешает обработку тегов заголовка #...#####(добавлен в 0.2.1)</translation>
     </message>
     <message>
         <source>parseItalicHelp</source>
-        <translation>Разрешает обработку фрагментов, обозначенных *курсивом*</translation>
+        <translation>Разрешает обработку фрагментов, обозначенных *курсивом*(добавлен в 0.2.6)</translation>
     </message>
     <message>
         <source>deprSyntaxPrepHelp</source>
-        <translation>Не рекомендуется - разрешает обработку устаревшим препроцессором</translation>
+        <translation>Не рекомендуется - разрешает обработку устаревшим препроцессором(с 0.2.0 не рекомендуется)</translation>
     </message>
     <message>
         <source>deprSyntaxPostHelp</source>
-        <translation>Не рекомендуется - разрешает обработку устаревшим постпроцессором</translation>
+        <translation>Не рекомендуется - разрешает обработку устаревшим постпроцессором(с 0.2.0 не рекомендуется)</translation>
     </message>
     <message>
         <source>deprUrlSimplParserHelp</source>
-        <translation>Не рекомендуется - разрешает обработку простых ссылок &lt;www.url.com&gt; устаревшим парсером</translation>
+        <translation>Не рекомендуется - разрешает обработку простых ссылок &lt;www.url.com&gt; устаревшим парсером(с 0.2.0 не рекомендуется)</translation>
     </message>
     <message>
         <source>deprUrlAdvParserHelp</source>
-        <translation>Не рекомендуется - разрешает обработку форматированных ссылок [имя_ссылки](ссылка)</translation>
+        <translation>Не рекомендуется - разрешает обработку форматированных ссылок [имя_ссылки](ссылка)(с 0.2.0 не рекомендуется)</translation>
     </message>
     <message>
         <source>deprUrlBasParserHelp</source>
-        <translation>Не рекомендуется - разрешает обработку ссылок формата &lt;http://www.url.com&gt;</translation>
+        <translation>Не рекомендуется - разрешает обработку ссылок формата &lt;http://www.url.com&gt;(с 0.2.0 не рекомендуется)</translation>
     </message>
     <message>
         <source>combatilibtyUndrHelp</source>
@@ -689,7 +701,7 @@ Programm will close</source>
     </message>
     <message>
         <source>parseBoldHelp</source>
-        <translation>Разрешает обработку текста, отмеченного **жирным**</translation>
+        <translation>Разрешает обработку текста, отмеченного **жирным**(добавлен в 0.2.7)</translation>
     </message>
     <message>
         <source>recentLimitHelp</source>
@@ -698,6 +710,18 @@ Programm will close</source>
     <message>
         <source>recentLimitHint</source>
         <translation>Максимум недавних файлов</translation>
+    </message>
+    <message>
+        <source>parseLi</source>
+        <translation>Обрабатывать списки</translation>
+    </message>
+    <message>
+        <source>parseLiHint</source>
+        <translation>Обрабатывать списки</translation>
+    </message>
+    <message>
+        <source>parseLiHelp</source>
+        <translation>Включает обработчик списков(добавлен в 0.3.1)</translation>
     </message>
 </context>
 <context>
@@ -837,6 +861,22 @@ Programm will close</source>
     <message>
         <source>btn_done</source>
         <translation>Выход</translation>
+    </message>
+    <message>
+        <source>restart_after_hint?</source>
+        <translation>Запустить LiteMD после завершения?</translation>
+    </message>
+    <message>
+        <source>delete_patch_hint?</source>
+        <translation>Удалить архив с патчем по завершению?</translation>
+    </message>
+    <message>
+        <source>restart_after_help</source>
+        <translation>Если отмечено - после выхода запустится LiteMD\nГалка &quot;Удалить архив&quot; автоматически отметится и станет недоступна\nСделано для защиты от ложного срабатывания на свой же архив</translation>
+    </message>
+    <message>
+        <source>delete_patch_help</source>
+        <translation>Если отмечено - архив с патчем удалится после выхода</translation>
     </message>
 </context>
 </TS>

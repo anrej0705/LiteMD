@@ -147,16 +147,14 @@ void LiteMD::httpModuleShow()
 	dwModule = new DownloaderGui;
 	dwModule->slotShow();
 }
-LiteMD::~LiteMD()
-{
-	//0.2.7 Позже поработаю здесь
-	//free(chosenTheme);
-	//deleteOnExit();
-}
 
 void LiteMD::slotCheckUpdates()
 {
-	throw(exceptionHandler(exceptionHandler::WARNING), "patch");	//0.3.7
+	//Разрешаем проверку и установку обновлений
+	enableUpdate = 1;	//0.3.6
+	//0.3.7 добавится загрузка JSON с тегами
+	//0.3.8 процесс будет полностью автоматизирован
+	//exit(0);			//Выходим так как дальше нужно начать процесс обновления
 }
 
 void LiteMD::slotFileClose()

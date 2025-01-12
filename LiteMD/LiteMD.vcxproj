@@ -271,6 +271,7 @@
     <ClCompile Include="string_processing\hacks\hack_compat_parser.cpp" />
     <ClCompile Include="string_processing\headerLvlParser.cpp" />
     <ClCompile Include="string_processing\italicParser.cpp" />
+    <ClCompile Include="string_processing\liParser.cpp" />
     <ClCompile Include="string_processing\regex.cpp" />
     <ClCompile Include="string_processing\shieldingParser.cpp" />
     <ClCompile Include="string_processing\symbolCleaner.cpp" />
@@ -291,6 +292,7 @@
     <ClCompile Include="utls\globalFlags.c" />
     <ClCompile Include="utls\localeDetector.cpp" />
     <ClCompile Include="utls\logger_backend.cpp" />
+    <ClCompile Include="utls\WinAPI_utils.cpp" />
     <ClCompile Include="utls\xmlReader.cpp" />
     <ClCompile Include="utls\xmlWriter.cpp" />
     <ClCompile Include="window_widgets\appSettings.cpp" />
@@ -335,6 +337,7 @@
     <Image Include="ress\icon_save_as.png" />
     <Image Include="ress\icon_settings.png" />
     <Image Include="ress\icon_set_header.png" />
+    <Image Include="ress\icon_set_li.png" />
     <Image Include="ress\icon_set_shielding.png" />
     <Image Include="ress\icon_set_text_format.png" />
     <Image Include="ress\work_progress_cap.png" />
@@ -369,6 +372,7 @@
     <ClInclude Include="string_processing\hacks\hack_compat_parser.h" />
     <ClInclude Include="string_processing\headerLvlParser.h" />
     <ClInclude Include="string_processing\italicParser.h" />
+    <ClInclude Include="string_processing\liParser.h" />
     <ClInclude Include="string_processing\regex.h" />
     <ClInclude Include="string_processing\shieldingParser.h" />
     <ClInclude Include="string_processing\symbolCleaner.h" />
@@ -380,6 +384,7 @@
     <ClInclude Include="utls\globalFlags.h" />
     <ClInclude Include="utls\global_definitions.h" />
     <ClInclude Include="utls\logger_backend.h" />
+    <ClInclude Include="utls\WinAPI_utils.h" />
     <ClInclude Include="utls\xmlReader.h" />
     <ClInclude Include="utls\xmlWriter.h" />
     <QtMoc Include="window_widgets\appSettings.h" />

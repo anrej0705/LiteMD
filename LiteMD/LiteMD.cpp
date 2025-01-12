@@ -5,7 +5,11 @@
 #include "exceptionHandler.h"
 #include "logger_backend.h"
 #include "LastFileManager.h"
+#include "windows.h"
+#include "WinAPI_utils.h"
+#include <filesystem>
 #include <QtWidgets>
+#include <fstream>
 #include <boost/container/string.hpp>
 extern "C"
 {
@@ -30,6 +34,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	parswitch.en_compat_undr = 1;
 	parswitch.en_italic = 1;
 	parswitch.en_bold = 1;
+	parswitch.en_li = 1;
 
 	dparswitch.en_t_post = 0;
 	dparswitch.en_t_prep = 0;
@@ -61,7 +66,8 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mdsArea = new QScrollArea;
 	quick_tb = new QToolBar;
 	serv_tb = new QToolBar;
-	btnDown = new OrientablePushButton("--->", this);
+	help = new helpCenter;
+	btnDown = new OrientablePushButton("<---", this);
 	btnUp = new OrientablePushButton("--->", this);
 	editorWindow = new QGroupBox(tr("Editor"));
 	viewerWindow = new QGroupBox(tr("Viewer"));
@@ -104,19 +110,6 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 
 	//Создаем обработчика событий
 	qApp->installEventFilter(new ui_event_filter(qApp));
-
-	//Инициализируем контейнер настроек
-	/*if (enableIndevFeatures)
-	{
-		try
-		{
-			newRecentFilesArray();
-		}
-		catch (exceptionHandler)
-		{
-			(exceptionHandler(exceptionHandler::FATAL));
-		}
-	}*/
 	
 	//Блок менеджеров размещения кнопок
 	QVBoxLayout* editorLay = new QVBoxLayout;
@@ -152,6 +145,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	setStrikethrough = new QAction(QPixmap(appPath + "/ress/icon_set_strike.png"), tr("Set strikethrough"));
 	checkUpdates = new QAction(QPixmap(appPath + "/ress/icon_check_updates.png"), tr("checkUpdates"));
 	actclearRecent = new QAction(tr("actclearRecent"));
+	actInsertLi = new QAction(QPixmap(appPath + "/ress/icon_set_li.png"), tr("actInsertLi"));
 	//----------------
 	
 	//Настройка выпадающих менюшек
@@ -199,6 +193,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	quick_tb->addAction(actPlaceAltUrl);
 	quick_tb->addWidget(actSetTextFormat);
 	quick_tb->addWidget(actPlaceHeader);
+	quick_tb->addAction(actInsertLi);
 	quick_tb->addAction(actShieldSymbol);
 	quick_tb->addSeparator();
 	serv_tb->addAction(actBugReport);
@@ -229,7 +224,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mdsArea->setWidget(mds);
 	mds->setWordWrap(1);
 	btnUp->setOrientation(OrientablePushButton::VerticalBottomTop);
-	btnDown->setOrientation(OrientablePushButton::VerticalTopBottom);
+	btnDown->setOrientation(OrientablePushButton::VerticalBottomTop);
 	btnUp->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
 	btnDown->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
 
@@ -407,7 +402,11 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	if (!connect(mde->verticalScrollBar(), SIGNAL(valueChanged(int)), this, SLOT(slotScrollEvent(int))))
 		QErrorMessage::qtHandler();	++connected_signals;//Синхронизация от рендера
 	if (!connect(actclearRecent, SIGNAL(triggered()), this, SLOT(slotRemoveRf())))
-		QErrorMessage::qtHandler();	++connected_signals;//Синхронизация от рендера
+		QErrorMessage::qtHandler();	++connected_signals;//Очистить список
+	if (!connect(actHelp, SIGNAL(triggered()), help, SLOT(show())))
+		QErrorMessage::qtHandler();	++connected_signals;//Вызвать окно справки
+	if (!connect(actInsertLi, SIGNAL(triggered()), mde, SLOT(slotInsertLi())))
+		QErrorMessage::qtHandler();	++connected_signals;//Вставка списка
 	push_log(std::string("[QT->LiteMD]Образовано " + std::to_string(connected_signals) + " связей"));
 	//------------------------------
 
@@ -484,6 +483,73 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	defTitle.append(tr("LiteMD") + QString(APP_STAGE) + QString(APP_VERSION) + (" build ") + QString::number(static_cast<uint32_t>(BUILD_NUMBER)) + " [" + tr("Untitled") + "]");
 
 	delete(log_stroke);
+}
+
+LiteMD::~LiteMD()
+{
+	//0.2.7 Позже поработаю здесь
+	//free(chosenTheme);
+	//deleteOnExit();
+	//0.3.1 Проверяем наличие поднятого флага разрешений обновлений
+	//Также проверяем с какими именем запустилась программа, если запущена без приставки _old, то старый файл надо удалить
+
+	std::string appExecName = QFileInfo(QCoreApplication::applicationFilePath()).fileName().toStdString();	//Получаем имя файла запущенного приложения
+
+	//QProcess* update_prc = new QProcess();
+
+	//Если запущенный файл не содержит суффика _old то значит с именем всё в порядке и приступаем к поиску старого файла
+	if (appExecName.find("_old") == -1)
+	{
+		appExecName.insert(appExecName.find("."), "_old");	//Вставляем суффикс
+	}
+
+	//Прикрепляемся к файлу который запущен
+	/*std::ifstream old_file(std::string(getAppPath().toStdString() + "/" + appExecName));
+	if (old_file.good())	//Если старый файл существует то удаляем его
+		std::remove(std::string(getAppPath().toStdString() + "/" + appExecName).c_str());*/
+
+	if (enableUpdate)
+	{
+		//Создаём названия исходного файла и файла который надо скопировать
+		std::string source = getAppPath().toStdString() + "/" + QFileInfo(QCoreApplication::applicationFilePath()).fileName().toStdString();
+		std::string old_src = getAppPath().toStdString() + "/" + appExecName;
+
+		push_log("[LiteMD]Пробую удалить старый исполняемый файл");
+		if (std::remove(old_src.c_str()) != 0)
+			push_log("[LiteMD]Не удалось либо файла нет");
+
+		try
+		{
+			//Пробуем создать копию
+			if (std::filesystem::copy_file(source, old_src))
+			{
+				//Если всё успешно то запускаем копию которая уже будет выполнять обновление
+				// 
+				//system(getAppPath().toLocal8Bit() + "/" + appExecName.c_str());
+				//LPCSTR lPath("C:/Windows/notepad.exe");
+				newInstance(std::string(getAppPath().toStdString() + "/" + appExecName.c_str()).c_str());
+				/*LPCSTR lPath(std::string(getAppPath().toStdString() + "/" + appExecName.c_str()).c_str());
+				LPSTR null = const_cast<char*>("");
+				STARTUPINFO update = { sizeof(update) };
+				PROCESS_INFORMATION proc_info;
+				if (CreateProcess(lPath, null, NULL, NULL, TRUE, 0, NULL, NULL, &update, &proc_info))
+				{
+					CloseHandle(proc_info.hProcess);
+					CloseHandle(proc_info.hThread);
+				}
+				else
+					qDebug() << GetLastError();*/
+				//exit(0);
+				//update_prc->start(getAppPath().toLocal8Bit() + "/" + appExecName.c_str());
+			}
+		}
+		catch (std::filesystem::filesystem_error& e)
+		{
+			//Возможно не получилось создать или что-то ещё, показываем юзеру
+			int n = QMessageBox::critical(0, tr("updateError"), tr("errorCreatingFile: ") + e.what());
+			exit(0);
+		}
+	}
 }
 
 QString getAppPath()
