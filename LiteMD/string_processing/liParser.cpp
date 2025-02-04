@@ -81,11 +81,15 @@ std::string liParser(std::string& rawInput)
 
 	bool list_keeps = 0;
 
+	char testpoint1;
+
 	//Ищем признаки списка
 	for (uint16_t _index = 0; _index < strokes.size(); ++_index)
 	{
+		testpoint1 = buffer[strokes.at(_index)];
+		testpoint1 = buffer[strokes.at(_index) + 1];
 		//Проверяем наличие признака "- " иди "* " или "+ " и запоминаем если он нашёлся
-		if (buffer[strokes.at(_index) == '-'] && buffer[strokes.at(_index) + 1] == ' ')
+		if (buffer[strokes.at(_index)] == '-' && buffer[strokes.at(_index) + 1] == ' ')
 		{
 			if (foundList.li_start == -1)
 				foundList.li_start = strokes.at(_index);
