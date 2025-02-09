@@ -72,6 +72,7 @@ class LiteMD : public QMainWindow
 		QAction* actNew;					//Кнопка создания нового документа
 		QAction* actPlaceUrl;				//Преобразовать в (ссылку)
 		QAction* actPlaceAltUrl;			//Преобразовать в [альтернативную](ссылку)
+		QAction* actQuote;					//Преобразовать в цитату
 		QAction* actHelp;					//Открывает справку
 		QAction* actOpenChangelog;			//Открывает список изменений текущей версии
 		QAction* actBugReport;				//Кнопка открытия окна логов

@@ -147,6 +147,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	checkUpdates = new QAction(QPixmap(appPath + "/ress/icon_check_updates.png"), tr("checkUpdates"));
 	actclearRecent = new QAction(tr("actclearRecent"));
 	actInsertLi = new QAction(QPixmap(appPath + "/ress/icon_set_li.png"), tr("actInsertLi"));
+	actQuote = new QAction(QPixmap(appPath + "/ress/icon_set_quote.png"), tr("actQuote"));
 	//----------------
 	
 	//Настройка выпадающих менюшек
@@ -196,6 +197,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	quick_tb->addWidget(actPlaceHeader);
 	quick_tb->addAction(actInsertLi);
 	quick_tb->addAction(actShieldSymbol);
+	quick_tb->addAction(actQuote);
 	quick_tb->addSeparator();
 	serv_tb->addAction(actBugReport);
 	serv_tb->addSeparator();
@@ -303,6 +305,7 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	mEdit->addMenu(headersMenu);
 	mEdit->addAction(actShieldSymbol);
 	mEdit->addAction(actInsertLi);
+	mEdit->addAction(actQuote);
 	mSettings->addAction(actDownloader);
 	mSettings->addSeparator();
 	mSettings->addAction(actSet);
@@ -408,6 +411,8 @@ LiteMD::LiteMD(int argc, char** argv, QWidget* parent) : QMainWindow(parent)
 	if (!connect(actHelp, SIGNAL(triggered()), help, SLOT(show())))
 		QErrorMessage::qtHandler();	++connected_signals;//Вызвать окно справки
 	if (!connect(actInsertLi, SIGNAL(triggered()), mde, SLOT(slotInsertLi())))
+		QErrorMessage::qtHandler();	++connected_signals;//Вставка списка
+	if (!connect(actQuote, SIGNAL(triggered()), mde, SLOT(slotInsertQuote())))
 		QErrorMessage::qtHandler();	++connected_signals;//Вставка списка
 	push_log(std::string("[QT->LiteMD]Образовано " + std::to_string(connected_signals) + " связей"));
 	//------------------------------
