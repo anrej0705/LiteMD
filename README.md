@@ -1,6 +1,6 @@
 README.MD
 
-# LiteMD alpha 0.3.1
+# LiteMD alpha 0.3.2
 
 ![Qt](https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white)
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
@@ -37,7 +37,8 @@ README.MD
 - Обработка *курсива*
 - Тулбар инструментов форматирования и работы с текстом
 - Обработка **жирного**
-- **New!** Обработка списков
+- Обработка списков
+- **New!** Обработка цитат
 
 Существующие на данный момент баги:
 - :x:Ошибки и вылеты при работе с устаревшими парсерами(просто не используйте их)
@@ -77,8 +78,8 @@ README.MD
 - :white_check_mark:0.2.9 - [Меню недавних файлов](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1959) от [SilverWolf2020](https://github.com/anrej0705/LiteMD/pull/2)
 - :white_check_mark:0.3.0 - [**Списки и цитаты**](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1976)
 - :white_check_mark:0.3.1 - [Списки](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1979)
-- :arrow_forward:0.3.2 - Цитирование текста
-- :x:0.3.3 - Последний редактируемый фаил
+- :white_check_mark:0.3.2 - [Цитирование текста](https://github.com/anrej0705/LiteMD/releases/tag/LiteMD_alpha1980)
+- :arrow_forward:0.3.3 - Последний редактируемый фаил
 - :x:0.3.4 - Раздел справки
 - :x:0.3.5 - Режим читалки
 - :x:0.3.6 - Автопачтер
