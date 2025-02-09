@@ -596,41 +596,112 @@ void mdEditor::slotInsertLi()
 	//Меняем стратегию
 	procBuf = this->toPlainText();
 
-	//Позиция смещения из-за вставок
-	uint32_t shiftPos = 0;
-
 	procBuf = procBuf.mid(this->textCursor().selectionStart(), this->textCursor().selectionEnd() - this->textCursor().selectionStart());
 
 	//Позиция курсора - поиск с конца
 	int bufPtr = this->textCursor().selectionEnd() - this->textCursor().selectionStart() - 1;
 
 	//Идём в сторону начала, но не дальше начала выделнной области
-	while (bufPtr != this->textCursor().selectionStart())
+	while (bufPtr >= 0)
 	{
 		if (procBuf.at(bufPtr) == '\n')
-		{
 			procBuf.insert(bufPtr + 1, "- ");
-			shiftPos += 2;
-		}
 		--bufPtr;
 	}
 
+	QString srcBuf = this->toPlainText();
+
+	//Заменяем выделенный фрагмент на фрагмент прошедший обработку
+	srcBuf.replace(this->textCursor().position(), this->textCursor().selectionEnd() - this->textCursor().selectionStart(), procBuf);
+
 	//Возможно юзер аккуратно выделил нужные строчки, тогда первая выпавшая из цикла должна быть обработана тут
 	if (this->textCursor().selectionStart() > 0)
-	{
-		if (procBuf.at(this->textCursor().selectionStart() - 1) == '\n')
-		{
-			shiftPos += 3;
-			procBuf.insert(this->textCursor().selectionStart(), "\n- ");
-		}
-	}
-
-	//Вставляем перенос строки в конец
-	if (this->textCursor().selectionEnd() <= (procBuf.size() - 1))
-		procBuf.insert(this->textCursor().selectionEnd() + shiftPos, "\n");
+		if (srcBuf.at(this->textCursor().selectionStart() - 1) == '\n')
+			srcBuf.insert(this->textCursor().selectionStart(), "- ");
 
 	//Заменяем текст на модифицированный
-	this->setText(procBuf);
+	this->setText(srcBuf);
+
+	//Шлём смску что текст изменился
+	emit textChanged();
+}
+
+void mdEditor::slotInsertQuote(void)
+{
+	QString procBuf = this->textCursor().selectedText();
+
+	//Позиция курсора
+	int pos;// = this->textCursor().position();
+
+	if (procBuf == "")
+	{
+		//Копируем себе чтобы было удобнее
+		std::string buf = this->toPlainText().toStdString();
+
+		//Защита от крита
+		this->textCursor().position() >= buf.size() ? pos = buf.size() - 1 : pos = this->textCursor().position();
+		if (buf.at(this->textCursor().position()) == '\n')
+			--pos;
+
+		//Ищем \n идя в сторону начала
+		while (pos != 0)
+		{
+			if (buf.at(pos) == '\n')
+			{
+				//Поправка позиции - цикл остановился непосредственно на самом '\n', а его трогать не надо
+				pos += 1;
+				break;	//Когда найдём то запомним и выйдем
+			}
+			--pos;
+		}
+		//Хандлер курсора
+		QTextCursor tCursor = this->textCursor();
+
+		//Ставим курсор на позицию начала строки
+		tCursor.setPosition(pos);
+		this->setTextCursor(tCursor);
+
+		//Вставляем '- ' - символ по умолчанию
+		//позже добавлю вариации, такие как '* ', '+ '
+		this->insertPlainText("> ");
+
+		//Шлём смску что текст изменился
+		emit textChanged();
+
+		return;
+	}
+
+	//Меняем стратегию
+	procBuf = this->toPlainText();
+
+	procBuf = procBuf.mid(this->textCursor().selectionStart(), this->textCursor().selectionEnd() - this->textCursor().selectionStart());
+
+	//Позиция курсора - поиск с конца
+	int bufPtr = this->textCursor().selectionEnd() - this->textCursor().selectionStart() - 1;
+
+	//Указатель начала
+	int selStart = this->textCursor().selectionStart() - 1;
+
+	//Идём в сторону начала, но не дальше начала выделнной области
+	while (bufPtr >= 0)
+	{
+		if (procBuf.at(bufPtr) == '\n')
+			procBuf.insert(bufPtr + 1, "> ");
+		--bufPtr;
+	}
+
+	QString srcBuf = this->toPlainText();
+
+	//Заменяем выделенный фрагмент на фрагмент прошедший обработку
+	srcBuf.replace(this->textCursor().position(), this->textCursor().selectionEnd() - this->textCursor().selectionStart(), procBuf);
+
+	//Возможно юзер аккуратно выделил нужные строчки, тогда первая выпавшая из цикла должна быть обработана тут
+	if (this->textCursor().selectionStart() > 0)
+		if (srcBuf.at(this->textCursor().selectionStart() - 1) == '\n')
+			srcBuf.insert(this->textCursor().selectionStart(), "> ");
+
+	//Заменяем текст на модифицированный
+	this->setText(srcBuf);
 
 	//Шлём смску что текст изменился
 	emit textChanged();

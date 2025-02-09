@@ -44,6 +44,7 @@ class mdEditor : public QTextEdit
 		void slotSetUnrderline();			//Вставляет подчёркивание в текст
 		void slotSetStrikethrough();		//Отмечает тегом зачёркнутого текста
 		void slotInsertLi();				//Вставляет таблицу и переключает флаг
+		void slotInsertQuote();				//Вставляет вставляет цитаты
 };
 
 class mdEditor_filter : public QObject
