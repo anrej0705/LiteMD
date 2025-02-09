@@ -188,13 +188,15 @@ appSettings::appSettings(QWidget* aWgt) : QDialog(aWgt)
 	if (!connect(combatilibtyUndr, SIGNAL(stateChanged(int)), this, SLOT(slot_switch_compat(int))))
 		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
 	if (!connect(parseItalic, SIGNAL(stateChanged(int)), this, SLOT(slot_en_italic(int))))
-		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
+		QErrorMessage::qtHandler();	++connected_signals;//Обработка курсива
 	if (!connect(themeList, SIGNAL(currentIndexChanged(int)), this, SLOT(slot_ui_change(int))))
-		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
+		QErrorMessage::qtHandler();	++connected_signals;//Смена стиля интерфейса
 	if (!connect(parseBold, SIGNAL(stateChanged(int)), this, SLOT(slot_en_bold(int))))
-		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
+		QErrorMessage::qtHandler();	++connected_signals;//Обработка жирного
 	if (!connect(parseLi, SIGNAL(stateChanged(int)), this, SLOT(slot_en_li(int))))
-		QErrorMessage::qtHandler();	++connected_signals;//Переключатель совместимости рендера
+		QErrorMessage::qtHandler();	++connected_signals;//Обработка списков
+	if (!connect(parseQuote, SIGNAL(stateChanged(int)), this, SLOT(slot_en_quote(int))))
+		QErrorMessage::qtHandler();	++connected_signals;//Обработка цитат
 	push_log(std::string("[QT->appSettings]Образовано " + std::to_string(connected_signals) + " связей"));
 	
 
@@ -510,4 +512,11 @@ void appSettings::slot_en_li(int bit)
 	settingChanged = 1;
 	parswitch.en_li = static_cast<bool>(bit);
 	parswitch.en_li == 0 ? push_log("[НАСТРОЙКИ]Обработка списков включена") : push_log("[НАСТРОЙКИ]Обработка списков включена");
+}
+
+void appSettings::slot_en_quote(int bit)
+{
+	settingChanged = 1;
+	parswitch.en_quote = static_cast<bool>(bit);
+	parswitch.en_quote == 0 ? push_log("[НАСТРОЙКИ]Обработка цитат включена") : push_log("[НАСТРОЙКИ]Обработка цитат включена");
 }
