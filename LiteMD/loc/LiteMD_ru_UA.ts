@@ -340,6 +340,10 @@ github.com/anrej0705
         <source>actInsertLi</source>
         <translation>Вставить список</translation>
     </message>
+    <message>
+        <source>actQuote</source>
+        <translation>Вставить цитату</translation>
+    </message>
 </context>
 <context>
     <name>LiteMDClass</name>
