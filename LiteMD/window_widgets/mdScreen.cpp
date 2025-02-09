@@ -18,6 +18,7 @@
 #include "italicParser.h"
 #include "boldParser.h"
 #include "liParser.h"
+#include "quoteParser.h"
 #include <string>
 #include <regex>
 extern "C"
@@ -70,38 +71,43 @@ void mdScreen::slotSetText(const QString& str)
 			push_log("[РЕНДЕР]Обработка [name](url)");
 			mdInput = advancedUrlParser(mdInput);					//3 -> 4|Обработка [name](url)
 		}
+		if (parswitch.en_quote)
+		{
+			push_log("[РЕНДЕР]Поиск и обработка цитат");
+			mdInput = quoteParser(mdInput);							//4 -> 5|Обработка цитат
+		}
 		if (parswitch.en_header_lvl)
 		{
 			push_log("[РЕНДЕР]Обработка уровня заголовков");
-			mdInput = headerLvlParser(mdInput);						//4 -> 5|Обработка уровня заголовков
+			mdInput = headerLvlParser(mdInput);						//5 -> 6|Обработка уровня заголовков
 		}
 		if (parswitch.en_ex_strkthg)
 		{
 			push_log("[РЕНДЕР]Обработка зачёркнутых строк");
-			mdInput = extended_strikethroughParser(mdInput);		//5 -> 6|Обработка зачёркнутых строк
+			mdInput = extended_strikethroughParser(mdInput);		//6 -> 7|Обработка зачёркнутых строк
 		}
 		if (parswitch.en_compat_undr)
 		{
 			push_log("[РЕНДЕР]Обработка аттрибута подчёркивания");
-			mdInput = compatParser(mdInput);						//6 -> 7|Обработка в обратной совместимости
+			mdInput = compatParser(mdInput);						//7 -> 8|Обработка в обратной совместимости
 		}
 		if (parswitch.en_italic)
 		{
 			push_log("[РЕНДЕР]Обработка тегов курсивного тега");
-			mdInput = italicParser(mdInput);						//7 -> 8|Обработка обозначений для курсива
+			mdInput = italicParser(mdInput);						//8 -> 9|Обработка обозначений для курсива
 		}
 		if (parswitch.en_bold)
 		{
 			push_log("[РЕНДЕР]Обработка тегов жирного тега");
-			mdInput = boldParser(mdInput);							//8 -> 9|Обработка обозначений для курсива
+			mdInput = boldParser(mdInput);							//9 -> 10|Обработка обозначений для курсива
 		}
 		if (parswitch.en_li)
 		{
 			push_log("[РЕНДЕР]Обработка списков");
-			mdInput = liParser(mdInput);							//9 -> 10|Обработка обозначений для курсива
+			mdInput = liParser(mdInput);							//10 -> 11|Обработка обозначений для курсива
 		}
 		push_log("[РЕНДЕР]Обработка переноса строки");
-		mdInput = crlfProcessor(mdInput);							//10 -> 11|Обработка переноса строки
+		mdInput = crlfProcessor(mdInput);							//11 -> 12|Обработка переноса строки
 		push_log("[РЕНДЕР]Конвертация в QString");
 		//Преобразуем в QString
 		mdFormatted = QString::fromStdString(mdInput);
