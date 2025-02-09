@@ -98,8 +98,8 @@ const char li_list_iclose[] = "</UL>";
 const char li_str_iopen[] = "<LI>";
 const char li_str_iclose[] = "</LI>";
 
-const char blockqoute_str_iopen[] = "<BLOCKQOUTE>";
-const char blockqoute_str_iclose[] = "</BLOCKQOUTE>";
+const char blockqoute_str_iopen[] = "<BLOCKQUOTE>";
+const char blockqoute_str_iclose[] = "</BLOCKQUOTE>";
 
 const uint8_t simple_url_iopenurl_size = 9;
 const uint8_t simple_url_icloseurl_size = 2;
