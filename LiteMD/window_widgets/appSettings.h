@@ -87,7 +87,7 @@ class appSettings : public QDialog
 		QLabel* parseItalicHint;		//Описание галки оюработки курсива *...*
 		QLabel* parseBoldHint;			//Описание галки обработки жирного текста **...**
 		QLabel* parseLiHint;			//Описание галки обработки списков '- ', '+ ', '* '
-		QLabel* parseQuote;				//Описание галки обработки цитат
+		QLabel* parseQuoteHint;			//Описание галки обработки цитат
 		QCheckBox* parseSimplLinks;		//Галка обработки ссылок <url>
 		QCheckBox* parseAdvLinksl;		//Галка обработки [link](url)
 		QCheckBox* parseHeaderLvl;		//Галка обработки заголовков #...#####
