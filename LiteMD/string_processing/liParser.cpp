@@ -84,10 +84,8 @@ std::string liParser(std::string& rawInput)
 	char testpoint1;
 
 	//Ищем признаки списка
-	for (uint16_t _index = 0; _index < strokes.size(); ++_index)
+	for (volatile uint16_t _index = 0; _index < strokes.size(); ++_index)
 	{
-		testpoint1 = buffer[strokes.at(_index)];
-		testpoint1 = buffer[strokes.at(_index) + 1];
 		//Проверяем наличие признака "- " иди "* " или "+ " и запоминаем если он нашёлся
 		if (buffer[strokes.at(_index)] == '-' && buffer[strokes.at(_index) + 1] == ' ')
 		{
@@ -97,7 +95,7 @@ std::string liParser(std::string& rawInput)
 				foundList.found = 1;
 			li_str.li_str_start = strokes.at(_index);
 			//Ищем конец
-			for (uint32_t _fnd = strokes.at(_index); _fnd < *buffer_size; ++_fnd)
+			for (volatile uint32_t _fnd = strokes.at(_index); _fnd < *buffer_size; ++_fnd)
 			{
 				if (buffer[_fnd] == '\n' || _fnd == *buffer_size - 1)
 				{
@@ -111,8 +109,6 @@ std::string liParser(std::string& rawInput)
 						"-" + 
 						std::to_string(li_str.li_str_end) + 
 						")"));
-					//li_str.li_str_end = _fnd;
-					//foundList.li_end = _fnd;
 					break;
 				}
 			}
@@ -134,11 +130,11 @@ std::string liParser(std::string& rawInput)
 	magic_counter = 0;
 
 	//Проводоим сборку
-	for (int16_t _lists = 0; _lists < lists.size(); ++_lists)
+	for (volatile int16_t _lists = 0; _lists < lists.size(); ++_lists)
 	{
 		push_log(std::string("[liParser]Сборка списка [№ " + std::to_string(_lists + 1) + "] из " + std::to_string(lists.at(_lists).strokes.size() - 1) + " строчек"));
 		li_output->insert(lists.at(_lists).li_end, li_list_iclose);
-		for (int16_t _li_str = lists.at(_lists).strokes.size() - 1; _li_str >= 0; --_li_str)
+		for (volatile int16_t _li_str = lists.at(_lists).strokes.size() - 1; _li_str >= 0; --_li_str)
 		{
 			li_output->insert(lists.at(_lists).strokes.at(_li_str).li_str_end, li_str_iclose);
 			li_output->replace(lists.at(_lists).strokes.at(_li_str).li_str_start, 2, li_str_iopen);
