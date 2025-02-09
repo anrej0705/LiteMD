@@ -28,7 +28,7 @@ class mdEditor : public QTextEdit
 	public slots:
 		void slotOpen();					//Вызывает диалоговое окно открытия нового файла
 		void slotOpen(const QString&);		//Вызывает диалоговое окно открытия нового файла(прим. SilverWolf2K20)
-		void slotSave();					//Вызывает диалоговое окно выбора названия файла для сохранения
+		bool slotSave();					//Вызывает диалоговое окно выбора названия файла для сохранения
 		void slotSaveAs();					//Вызывает окно для набора названия файла для сохранения
 		void slotNew();						//Очищает поле ввода
 		void convertToUrl();				//Преобразует в <ссылку>

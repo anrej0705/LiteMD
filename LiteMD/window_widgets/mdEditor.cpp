@@ -96,7 +96,8 @@ void mdEditor::slotOpen()
 	//Если файл был изменём(проверяем по флагу "*") то предлагаем сохранить
 	if (appTitleUpdated)
 		if (confirmSave())
-			slotSave();
+			if (!slotSave())
+				return;
 	//Вызываем диалоговое окно открытия
 	mdFileName = QFileDialog::getOpenFileName(0, tr("Open Text/Markdown"), "", tr("*.md ;; *.txt"));
 	if (mdFileName.isEmpty())
@@ -185,7 +186,7 @@ void mdEditor::slotOpen(const QString& mdFileName)
 }
 //------------------------SilverWolf2K20----------------------
 //Сохранение файла
-void mdEditor::slotSave()
+bool mdEditor::slotSave()
 {
 	//Если пользователь ничего не ввёл то отменяем процесс и сбрасываем флаги
 	/*if (this->toPlainText() == "")
@@ -201,7 +202,7 @@ void mdEditor::slotSave()
 	{
 		slotSaveAs();
 		appTitleUpdated = 0;
-		return;
+		return 0;
 	}
 	//Присваиваем хандлеру имя файла
 	mdObject.setFileName(mdFileName);
@@ -216,11 +217,17 @@ void mdEditor::slotSave()
 		mdObject.close();
 		fileChangedState = 0;
 		emit titleChanged(mdFileName);
+		//Сбрасываем флаг даже если не удалось записать
+		appTitleUpdated = 0;
+		// Добавление файла в список последних. (прим. SilverWolf2K20)
+		saveLastFile();
+		return 1;
 	}
-	//Сбрасываем флаг даже если не удалось записать
-	appTitleUpdated = 0;	
-	// Добавление файла в список последних. (прим. SilverWolf2K20)
-	saveLastFile();
+	else
+	{
+		QMessageBox::warning(0, QObject::tr("Save error"), QString(tr("saveError\nReason: ")) + mdObject.errorString(), QMessageBox::Ok);
+		return 0;
+	}
 }
 //------------------------SilverWolf2K20----------------------
 //Сохраняем файл в списке недавних(прим. SilverWolf2K20)
