@@ -53,6 +53,7 @@ struct parser_switchers
 	bool en_italic;
 	bool en_bold;
 	bool en_li;
+	bool en_quote;
 };
 
 struct depr_paerser_switchers
