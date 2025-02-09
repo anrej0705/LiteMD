@@ -61,20 +61,20 @@ void mdScreen::slotSetText(const QString& str)
 		mdInput = shieldingParser(mdInput);							//0 -> 1|Предварительная конвертация экранированных символов
 		push_log("[РЕНДЕР]Фильтрация служебных символов не являющихся частью тега");
 		mdInput = symbolCleaner(mdInput);							//1 -> 2|Фильтрация служебных символов не являющихся частью тега
+		if (parswitch.en_quote)
+		{
+			push_log("[РЕНДЕР]Поиск и обработка цитат");
+			mdInput = quoteParser(mdInput);							//2 -> 3|Обработка цитат
+		}
 		if (parswitch.en_simple_url)
 		{
 			push_log("[РЕНДЕР]Обработка <www.url.ru>");
-			mdInput = basicUrlParser(mdInput);						//2 -> 3|Обработка <www.url.ru>
+			mdInput = basicUrlParser(mdInput);						//3 -> 4|Обработка <www.url.ru>
 		}
 		if (parswitch.en_adv_url)
 		{
 			push_log("[РЕНДЕР]Обработка [name](url)");
-			mdInput = advancedUrlParser(mdInput);					//3 -> 4|Обработка [name](url)
-		}
-		if (parswitch.en_quote)
-		{
-			push_log("[РЕНДЕР]Поиск и обработка цитат");
-			mdInput = quoteParser(mdInput);							//4 -> 5|Обработка цитат
+			mdInput = advancedUrlParser(mdInput);					//4 -> 5|Обработка [name](url)
 		}
 		if (parswitch.en_header_lvl)
 		{
