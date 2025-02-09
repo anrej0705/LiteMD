@@ -118,30 +118,50 @@ std::string symbolCleaner(std::string& rawInput)
 				{
 					case 2:
 					{
-						//Готовится участок памяти
-						new_list = reinterpret_cast<service_tags*>(realloc(tag_list, sizeof(service_tags) * (tag_list_size + 1)));
-						if (new_list != NULL)											//Проверка на карму
-							tag_list = new_list;
-						else
-							throw(exceptionHandler(exceptionHandler::WARNING, QString("Карма в говне! - new_list вернул NULL")));
-						tag_list[tag_list_size].type = char_type;						//Записывается тип найденого символа
-						tag_list[tag_list_size].first_entry = -1;						//Позиция начала обозначается как неизвестная
-						compare_char = forward_bump.at(char_type);				//Кешируется символ который ожидается встретить со стороны начала
-						tag_list[tag_list_size].last_entry = _index;			//Текущая позиция записывается как конец тега
-						for (volatile int32_t _idx = _index; _idx >= 0; --_idx)	//Ищется позиция начала
+						//Проверяем наличие '>'
+						if (_index > 0 && clean_buffer->at(_index) == '>' && clean_buffer->at(_index - 1) == '\n')
 						{
-							//testpoint2 = clean_buffer->at(_idx);
-							//testpoint1.insert(0, 1, testpoint2);
-							if (compare_char == clean_buffer->at(_idx))			//Если наход то ловим приход
+							push_log("[symbolCleaner]Найден признак цитаты на позиции " + std::to_string(_index) + ", пропуск");
+							//Готовится участок памяти
+							new_list = reinterpret_cast<service_tags*>(realloc(tag_list, sizeof(service_tags) * (tag_list_size + 1)));
+							if (new_list != NULL)											//Проверка на карму
+								tag_list = new_list;
+							else
+								throw(exceptionHandler(exceptionHandler::WARNING, QString("Карма в говне! - new_list вернул NULL")));
+							tag_list[tag_list_size].type = char_type;						//Записывается тип найденого символа
+							tag_list[tag_list_size].size = 1;								//Размер символа цитаты
+							tag_list[tag_list_size].first_entry = _index;					//Позиция символа
+							tag_list[tag_list_size].last_entry = _index + 1;				//Позиция следующего символа
+							if (tag_list[tag_list_size].first_entry != -1)
+								++tag_list_size;
+							break;
+						}
+						else
+						{
+							//Готовится участок памяти
+							new_list = reinterpret_cast<service_tags*>(realloc(tag_list, sizeof(service_tags) * (tag_list_size + 1)));
+							if (new_list != NULL)											//Проверка на карму
+								tag_list = new_list;
+							else
+								throw(exceptionHandler(exceptionHandler::WARNING, QString("Карма в говне! - new_list вернул NULL")));
+							tag_list[tag_list_size].type = char_type;						//Записывается тип найденого символа
+							tag_list[tag_list_size].first_entry = -1;						//Позиция начала обозначается как неизвестная
+							compare_char = forward_bump.at(char_type);				//Кешируется символ который ожидается встретить со стороны начала
+							tag_list[tag_list_size].last_entry = _index;			//Текущая позиция записывается как конец тега
+							for (volatile int32_t _idx = _index; _idx >= 0; --_idx)	//Ищется позиция начала
 							{
-								tag_list[tag_list_size].first_entry = _idx;
-								_index = _idx;									//Перемещаем указатель чтоб не было ложных срабатываний
-								tag_list[tag_list_size].size = tag_list[tag_list_size].last_entry - tag_list[tag_list_size].first_entry;
-								//testpoint1.clear();
-								break;											//Чики брики цiкл выкинь
-							}
-							switch (bracketsSrc.find(clean_buffer->at(_idx)))
-							{
+								//testpoint2 = clean_buffer->at(_idx);
+								//testpoint1.insert(0, 1, testpoint2);
+								if (compare_char == clean_buffer->at(_idx))			//Если наход то ловим приход
+								{
+									tag_list[tag_list_size].first_entry = _idx;
+									_index = _idx;									//Перемещаем указатель чтоб не было ложных срабатываний
+									tag_list[tag_list_size].size = tag_list[tag_list_size].last_entry - tag_list[tag_list_size].first_entry;
+									//testpoint1.clear();
+									break;											//Чики брики цiкл выкинь
+								}
+								switch (bracketsSrc.find(clean_buffer->at(_idx)))
+								{
 								case -1:
 								{
 									break;
@@ -156,13 +176,14 @@ std::string symbolCleaner(std::string& rawInput)
 									_idx = 0;
 									break;
 								}
+								}
 							}
+							if (tag_list[tag_list_size].first_entry != -1)
+								++tag_list_size;
+							/*else if (tag_list[tag_list_size].first_entry == -1)
+								--tag_list_size;*/
+							break;
 						}
-						if (tag_list[tag_list_size].first_entry != -1)
-							++tag_list_size;
-						/*else if (tag_list[tag_list_size].first_entry == -1)
-							--tag_list_size;*/
-						break;
 					}
 					case 3:
 					{
