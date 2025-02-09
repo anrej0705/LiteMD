@@ -15,6 +15,7 @@ void appSettings::configureRenderSettingsTab()
 	parseItalicHint = new QLabel(tr("parseItalicHint"));
 	parseBoldHint = new QLabel(tr("parseBoldHint"));
 	parseLiHint = new QLabel(tr("parseLiHint"));
+	parseQuoteHint = new QLabel(tr("parseQuoteHint"));
 	deprSyntaxPrepHint = new QLabel(tr("deprSyntaxPrepHint"));
 	deprSyntaxPostHint = new QLabel(tr("deprSyntaxPostHint"));
 	deprUrlSimplParserHint = new QLabel(tr("deprUrlSimplParserHint"));
@@ -34,6 +35,7 @@ void appSettings::configureRenderSettingsTab()
 	parseItalic = new QCheckBox;
 	parseBold = new QCheckBox;
 	parseLi = new QCheckBox;
+	parseQuote = new QCheckBox;
 	deprSyntaxPrep = new QCheckBox;
 	deprSyntaxPost = new QCheckBox;
 	deprUrlSimplParser = new QCheckBox;
@@ -48,6 +50,7 @@ void appSettings::configureRenderSettingsTab()
 	parseItalicHint->setFixedHeight(SETTINGS_HEIGH);
 	parseBoldHint->setFixedHeight(SETTINGS_HEIGH);
 	parseLiHint->setFixedHeight(SETTINGS_HEIGH);
+	parseQuoteHint->setFixedHeight(SETTINGS_HEIGH);
 	deprSyntaxPrepHint->setFixedHeight(SETTINGS_HEIGH);
 	deprSyntaxPostHint->setFixedHeight(SETTINGS_HEIGH);
 	deprUrlSimplParserHint->setFixedHeight(SETTINGS_HEIGH);
@@ -61,6 +64,7 @@ void appSettings::configureRenderSettingsTab()
 	parseItalic->setFixedHeight(SETTINGS_HEIGH);
 	parseLi->setFixedHeight(SETTINGS_HEIGH);
 	parseBold->setFixedHeight(SETTINGS_HEIGH);
+	parseQuote->setFixedHeight(SETTINGS_HEIGH);
 	deprSyntaxPrep->setFixedHeight(SETTINGS_HEIGH);
 	deprSyntaxPrep->setFixedHeight(SETTINGS_HEIGH);
 	deprUrlSimplParser->setFixedHeight(SETTINGS_HEIGH);
@@ -81,6 +85,7 @@ void appSettings::configureRenderSettingsTab()
 	enableDeprFeatures == 0 ? parseItalic->setChecked(1) : parseItalic->setChecked(0);
 	enableDeprFeatures == 0 ? parseBold->setChecked(1) : parseBold->setChecked(0);
 	enableDeprFeatures == 0 ? parseLi->setChecked(1) : parseLi->setChecked(0);
+	enableDeprFeatures == 0 ? parseQuote->setChecked(1) : parseQuote->setChecked(0);
 
 	//В зависимости от прочитанного из конфига флага чекбосы либо активны либо нет
 	enableDeprFeatures == 0 ? deprSyntaxPrep->setDisabled(1) : deprSyntaxPrep->setEnabled(1);
@@ -95,6 +100,7 @@ void appSettings::configureRenderSettingsTab()
 	enableDeprFeatures == 0 ? parseItalic->setEnabled(1) : parseItalic->setDisabled(1);
 	enableDeprFeatures == 0 ? parseBold->setEnabled(1) : parseBold->setDisabled(1);
 	enableDeprFeatures == 0 ? parseLi->setEnabled(1) : parseLi->setDisabled(1);
+	enableDeprFeatures == 0 ? parseQuote->setEnabled(1) : parseQuote->setDisabled(1);
 
 	//В зависимости от прочитанного из конфига флага подсказки либо активны либо нет
 	enableDeprFeatures == 0 ? deprSyntaxPrepHint->setDisabled(1) : deprSyntaxPrepHint->setEnabled(1);
@@ -109,6 +115,7 @@ void appSettings::configureRenderSettingsTab()
 	enableDeprFeatures == 0 ? parseItalicHint->setEnabled(1) : parseItalicHint->setDisabled(1);
 	enableDeprFeatures == 0 ? parseBoldHint->setEnabled(1) : parseBoldHint->setDisabled(1);
 	enableDeprFeatures == 0 ? parseLiHint->setEnabled(1) : parseLiHint->setDisabled(1);
+	enableDeprFeatures == 0 ? parseQuoteHint->setEnabled(1) : parseQuoteHint->setDisabled(1);
 
 	//Инициализируем рамку
 	QGroupBox* render_box = new QGroupBox;
@@ -133,6 +140,7 @@ void appSettings::configureRenderSettingsTab()
 	lbl_lay->addWidget(parseItalicHint);
 	lbl_lay->addWidget(parseBoldHint);
 	lbl_lay->addWidget(parseLiHint);
+	lbl_lay->addWidget(parseQuoteHint);
 	lbl_lay->addWidget(deprSyntaxPrepHint);
 	lbl_lay->addWidget(deprSyntaxPostHint);
 	lbl_lay->addWidget(deprUrlSimplParserHint);
@@ -147,6 +155,7 @@ void appSettings::configureRenderSettingsTab()
 	parseItalic->setWhatsThis(tr("parseItalicHelp"));
 	parseBold->setWhatsThis(tr("parseBoldHelp"));
 	parseLi->setWhatsThis(tr("parseLiHelp"));
+	parseQuote->setWhatsThis(tr("parseQuoteHelp"));
 	deprSyntaxPrep->setWhatsThis(tr("deprSyntaxPrepHelp"));
 	deprSyntaxPost->setWhatsThis(tr("deprSyntaxPostHelp"));
 	deprUrlSimplParser->setWhatsThis(tr("deprUrlSimplParserHelp"));
@@ -160,6 +169,7 @@ void appSettings::configureRenderSettingsTab()
 	interact_lay->addWidget(parseItalic);
 	interact_lay->addWidget(parseBold);
 	interact_lay->addWidget(parseLi);
+	interact_lay->addWidget(parseQuote);
 	interact_lay->addWidget(deprSyntaxPrep);
 	interact_lay->addWidget(deprSyntaxPost);
 	interact_lay->addWidget(deprUrlSimplParser);
