@@ -380,6 +380,10 @@ Programm will close</source>
         <source>Cannot open config file!</source>
         <translation>Невозможно открыть файл конфига, возможно он занят другой программой или не существует!</translation>
     </message>
+    <message>
+        <source>Save error</source>
+        <translation>Ошибка сохранения</translation>
+    </message>
 </context>
 <context>
     <name>appSettings</name>
@@ -413,7 +417,7 @@ Programm will close</source>
     </message>
     <message>
         <source>Cap</source>
-        <translation>Недоступно</translation>
+        <translation>(скоро)</translation>
     </message>
     <message>
         <source>Language</source>
@@ -713,7 +717,7 @@ Programm will close</source>
     </message>
     <message>
         <source>parseLi</source>
-        <translation>Обрабатывать списки</translation>
+        <translation type="vanished">Обрабатывать списки</translation>
     </message>
     <message>
         <source>parseLiHint</source>
@@ -722,6 +726,14 @@ Programm will close</source>
     <message>
         <source>parseLiHelp</source>
         <translation>Включает обработчик списков(добавлен в 0.3.1)</translation>
+    </message>
+    <message>
+        <source>parseQuoteHint</source>
+        <translation>Обрабатывать цитаты</translation>
+    </message>
+    <message>
+        <source>parseQuoteHelp</source>
+        <translation>Включает обработчик цитат(добавлен в 0.3.2)</translation>
     </message>
 </context>
 <context>
@@ -822,6 +834,12 @@ Programm will close</source>
     <message>
         <source>TYPE_NAME</source>
         <translation>ИМЯ_ССЫЛКИ</translation>
+    </message>
+    <message>
+        <source>saveError
+Reason: </source>
+        <translation>Не удалось сохранить файл
+Причина: </translation>
     </message>
 </context>
 <context>
